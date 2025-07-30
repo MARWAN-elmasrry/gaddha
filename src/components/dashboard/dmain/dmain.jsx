@@ -30,7 +30,7 @@ const Dmain = () => {
         </div>
       <div className="container">
         <div className="d-main-cont">
-          <h1>لوحة الإحصائيات</h1>
+          <h1>لوحة الإحصا</h1>
           <div className="cards">
             <div className="f-card">
               <h3 className="card-title"><img src="./dashr.png" alt="" /> الملفات <img src="./dashr.png" alt="" /></h3>
