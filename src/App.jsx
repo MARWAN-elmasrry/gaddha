@@ -14,6 +14,7 @@ import Pack from './components/home/pack/pack';
 import Comq from './components/home/comq/comq';
 import Dhead from './components/dashboard/dhead/dhead';
 import Dmain from './components/dashboard/dmain/dmain';
+import Dmess from './components/dashboard/dmess/dmess';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => {
   const backgroundStyle = {
@@ -59,8 +60,6 @@ const SandBackground = ({ intensity = 0.75, blur = 1 }) => {
 
 function App() {
   return (
-    <>
-
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<>
@@ -78,10 +77,13 @@ function App() {
         <Route path='/dash' element={<>
             <Dhead />
             <Dmain />
-        </>} /> 
+          </>} />
+        <Route path='/dmess' element={<>
+            <Dhead />
+            <Dmess />
+          </>} />
       </Routes>
     </BrowserRouter>
-    </>
   )
 }
 

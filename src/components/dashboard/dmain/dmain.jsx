@@ -40,7 +40,7 @@ const [hoveredCard, setHoveredCard] = useState(null);
         </div>
       <div className="container">
         <div className="d-main-cont">
-          <h1>لوحة الإحصا</h1>
+          <h1>لوحة الإحصائيات</h1>
           <div className="cards">
             <div className="f-card" 
             onMouseEnter={() => setHoveredCard('file')}
@@ -174,6 +174,7 @@ const [hoveredCard, setHoveredCard] = useState(null);
           <div className="r-card"
             onMouseEnter={() => setHoveredCard('mess')}
             onMouseLeave={() => setHoveredCard(null)}>
+              <h3  onClick={(e) => {e.preventDefault();window.location.href='/dmess';}} style={{cursor:'pointer'}} className="card-title"><img src={getImageSrc('mess')} alt="hover" /> الرسائل  <img src={getImageSrc('mess')} alt="hover" /></h3>=======
               <h3 className="card-title"><img src={getImageSrc('mess')} alt="hover" /> الرسائل  <img src={getImageSrc('mess')} alt="hover" /></h3>
               <div className="card-info">
                 <div className="info">
