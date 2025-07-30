@@ -1,0 +1,14 @@
+.d-head{
+    background-color: rgba(136, 56, 19, 1) ;
+    color: rgba(249, 231, 197, 1);
+    height: 5rem;
+}
+.d-head .d-head-cont .side-menu .icon span{
+    background-color: rgba(249, 231, 197, 1);
+}
+.d-head .d-head-cont{
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

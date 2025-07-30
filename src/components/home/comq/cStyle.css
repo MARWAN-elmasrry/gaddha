@@ -1,0 +1,48 @@
+.com{
+    background-color: rgba(249, 231, 197, 1);
+    background-image: url(../../../../public/cq.png);
+    background-repeat: no-repeat;
+    background-size:  contain;
+    background-position:  top;
+}
+.com .com-cont{
+    height: max-content;
+    padding-bottom:30px;
+}
+.com .com-cont h1{
+text-align: center;
+padding-top: 100px;
+padding-bottom: 100px;
+color: rgba(136, 56, 19, 1);
+}
+.com .com-cont .cards{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.3rem;
+}
+.com .com-cont .card{
+width: 50%;    
+border: none;
+border-radius: 40px;
+background-image:linear-gradient( to right ,  rgba(136, 56, 19, 0.5) ,rgba(136, 56, 19, 1));
+color: rgba(249, 231, 197, 1);
+}
+.com .com-cont .card p{
+    text-align: end;
+    font-size: 1.4rem;
+    padding-right: 23px;
+}
+.com .com-cont .card .q-card{
+    display: flex;
+    justify-content: space-between;
+    margin:20px;
+}
+.com .com-cont .card .q-card img {
+    width: 40px;
+}
+.com .com-cont .active img {
+  filter: sepia(1) saturate(3) hue-rotate(30deg) brightness(3);
+}
+

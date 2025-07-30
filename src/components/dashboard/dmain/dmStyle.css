@@ -1,0 +1,244 @@
+.d-main{
+  margin-bottom: 4rem;
+}
+.d-main .d-main-cont h1{
+    text-align: center;
+    color: rgba(249, 231, 197, 1);
+    width: 95%;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+.d-main .cards{
+  display: flex;
+  gap: 1rem;
+}
+.f-card {
+  background-color: rgba(136, 56, 19, 1);
+  border-radius: 20px;
+  padding: 1rem;
+  width:50%;
+  height: 17.6rem;
+  color: rgba(249, 231, 197, 1);
+  text-align: center;
+}
+.card-title {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+.storage-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  color: rgba(249, 231, 197, 1);
+}
+.storage-info .info .label{
+  display: block;
+  font-size: 25px;
+  opacity: 0.8;
+}
+.storage-info .info .value {
+  font-weight: bold;
+  font-size: 16px;
+}
+.progress-bar{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+}
+.progress-bar .bar{
+  background-color: rgb(192 143 108);
+  height: 12px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-top: 79px;
+  width: 100%;
+}
+.progress-bar .used {
+  background-color: rgba(249, 231, 197, 1);
+  height: 100%;
+  border-radius:  10px 10px 10px 10px;
+}
+.progress-bar .indicator {
+  position: absolute;
+  top: -25px;
+  font-size: 10px;
+  color: white;
+}
+.progress-bar .indicator.left {
+    right: 37%;
+    top: 94px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.progress-bar .indicator.right {
+    opacity: 0.7;
+    left: 80%;
+    top: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.progress-bar .max-space{
+      position: relative;
+    right: 0px;
+    bottom: -24px;
+    font-size: 13px;
+    color: white;
+    margin-left: 5px;
+    font-weight: 600;
+}
+.back-tress{
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.back-tress .tress{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.back-tress .tress .left{
+    position: absolute;
+    top: 30rem;
+    left: 3rem;
+    width: 8rem;
+}
+.back-tress .tress .right{
+    position: absolute;
+    top: 30rem;
+    right: 3rem;
+    width: 8rem;
+}
+
+/* ================= */
+.s-card{
+  width: 50%;
+}
+.sales .sale-cont{
+    color: rgba(249, 231, 197, 1);
+    padding: 15px;
+    width: 100%;
+  background-color: rgba(136, 56, 19, 1);
+    border-radius:20px;
+    background-image: url(../../../public/dash/sale2.png);
+    background-repeat: no-repeat;
+    background-position: bottom right; 
+}
+.sales .sale-cont .info{
+   display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+ .sales .sale-cont button{
+    border-radius: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 700;
+    font-style: Bold;
+    height: 40px;
+    color: rgba(60, 60, 60, 1);
+    border: 1px solid rgba(60, 60, 60, 1);
+}
+.sale-cont .chart{
+    display: flex;
+}
+.chart .chart-graf{
+    width: 593px;
+}
+.chart .chart-info h6{
+opacity: .6;
+font-weight: 700;
+font-style: Bold;
+font-size: 17.97px;
+line-height: 22.46px;
+letter-spacing: 0%;
+text-align: center;
+vertical-align: middle;
+}
+.chart .chart-info p{
+font-weight: 700;
+font-style: Bold;
+font-size: 26.95px;
+line-height: 22.46px;
+letter-spacing: 0%;
+text-align: center;
+vertical-align: middle;
+}
+/* ======= */
+.d-main .d-main-cont .r-card{
+  position: relative;
+  background-color: rgba(136, 56, 19, 1);
+  border-radius: 55px;
+  padding: 1rem;
+  margin-top: 35px;
+  height: max-content;
+  color: rgba(249, 231, 197, 1);
+  text-align: center;
+}
+.d-main .d-main-cont .r-card .card-info{
+  position: absolute;
+  top: 10px;
+  right: 56px;
+  display: flex;
+  gap: 50px;
+  flex-direction: row-reverse;
+}
+.d-main .d-main-cont .r-card .card-info .info{
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 1.6rem;
+    font-weight: 700;
+    gap: 18px;
+}
+.d-main .d-main-cont .r-card .card-info .info h3{
+  opacity: .6;
+}
+.d-main .d-main-cont .r-card .r-cards{
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.d-main .d-main-cont .r-card .r-cards .rcard{
+  width: 25rem;
+  height: 14rem;
+  background-color: rgba(207, 138, 65, 0.2);
+  border-radius: 10px;
+}
+.d-main .d-main-cont .r-card .r-cards .rcard .info{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+.d-main .d-main-cont .r-card .r-cards .rcard .info p{
+  font-size: 1.4rem;
+  opacity: .6;
+  margin-top: .7rem;
+}
+.d-main .d-main-cont .r-card .r-cards .rcard .mess{
+  margin: 1rem;
+  height: 60%;
+  background-color: rgba(249, 231, 197, 0.1);
+  border-radius: 10px
+}
+.d-main .d-main-cont .r-card .r-cards .r-info{
+    width: 17rem;
+}
+.d-main .d-main-cont .r-card .r-cards .r-info .mess h4{
+  text-align: center;
+  font-size: 2rem; 
+  padding-top: 3rem;
+}
+.d-main .d-main-cont .r-card .r-cards .rcard .mess p{
+  text-align: right;
+  font-weight: 600;
+  opacity: .6;
+  font-size: 1.3rem;
+  padding-right: 10px;
+  padding-left: 10px;
+}

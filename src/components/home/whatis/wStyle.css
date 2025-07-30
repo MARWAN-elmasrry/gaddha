@@ -1,0 +1,18 @@
+.what{
+    background-color:rgba(136, 56, 19, 1) ;
+    color: rgba(249, 231, 197, 1);
+}
+.what .what-cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 30px;
+}
+    .what-cont p{
+    width: 536px;
+    font-size: 30px;
+    text-align:end;
+}
+.what .what-cont h3{
+    font-size: 40px;
+}

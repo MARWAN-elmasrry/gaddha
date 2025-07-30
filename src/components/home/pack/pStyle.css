@@ -1,0 +1,111 @@
+.pack{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.pack .pack-cont{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.pack .pack-cont .cards{
+    display: flex;
+    flex-direction: row;
+    width: 50rem;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;}
+.pack .pack-cont .card{
+    background-color: transparent;
+    border: none;
+    position: relative;
+    width: 300px;
+    height: 280px;
+}
+.pack .pack-cont .card .main{
+    background-color: rgba(244, 190, 50, 1);
+    -webkit-transform: rotate(45deg);
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    bottom: 33px;
+    left: 33px;
+}
+.pack .pack-cont .card .top{
+    background-color: rgba(244, 190, 50, 1);
+    -webkit-transform: rotate(45deg);
+    position: absolute;
+    right: 34px;
+    top: 17px;
+    width: 80px;
+    height: 80px;
+}
+.pack .pack-cont .card .center{
+    background-color: rgba(244, 190, 50, 1);
+    -webkit-transform: rotate(45deg);
+    position: absolute;
+    right: 6px;
+    top: 130px;
+    width: 30px;
+    height: 30px;
+}
+.pack .pack-cont .card .main h5{
+    -webkit-transform: rotate(315deg);
+    left: 58px;
+    right: -40px;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 0;
+    font-size: 1.6rem;
+}
+.pack .pack-cont .card2 .main h5{
+    -webkit-transform: rotate(315deg);
+    left: 58px;
+    right: -43px;
+    top: 5px;
+    bottom: -57px;
+    position: absolute;
+    margin: 0;
+    font-size: 1.6rem;
+}
+.pack .pack-cont .card3 .main h5{
+    -webkit-transform: rotate(315deg);
+    left: 58px;
+    right: -43px;
+    top: 5px;
+    bottom: -32px;
+    position: absolute;
+    margin: 0;
+    font-size: 1.6rem;
+}
+.pack .pack-cont .card4 .main h5{
+    bottom: -20px;
+}
+.pack .pack-cont .card4 .top{
+    background-color: rgba(136, 56, 19, 1);
+    color: rgba(255, 255, 255, 1);
+}
+.pack .pack-cont .card4 .top h3{
+    -webkit-transform: rotate(315deg);
+    font-size: 1.4rem;
+    position: absolute;
+    left: 5px;
+}
+.pack .pack-cont .card .price{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 75px;
+    background-color: rgba(136, 56, 19, 1);
+}
+.pack .pack-cont .card .price .price-info{
+    -webkit-transform: rotate(315deg);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.pack .pack-cont .card .price .price-info p{
+    font-size: 1.7rem;
+    color: rgba(249, 231, 197, 1);
+    margin: 0;
+}

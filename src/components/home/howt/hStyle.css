@@ -1,0 +1,27 @@
+.how{
+    background-color: rgba(249, 231, 197, 1);
+    background-image: url(../../../public/howttop.png) , url(../../../public/howtbottom.png);
+    background-repeat: no-repeat , no-repeat;
+    background-size: contain , contain;
+    background-position: top , bottom;
+}
+.how .how-t-cont{
+    height: 130vh;
+    color: rgba(136, 56, 19, 1);
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    text-align: end;
+    font-size: 30px;
+}
+.how .how-t-cont .info{
+    text-align: end;
+    font-size: 30px;
+}
+.how .how-w-cont h4{
+text-align: center;
+margin: 0;
+padding-bottom: 40px;
+color: rgba(249, 231, 197, 1);
+}

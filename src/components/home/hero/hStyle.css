@@ -1,0 +1,40 @@
+.hero-cont{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.hero-cont .back-img{
+    margin-top: 70px;
+}
+.hero-cont .back-img img:nth-child(3){
+   top: 4px;
+    z-index: 2;
+    width: 92%;
+    left: 32px;
+}
+.hero-cont .back-img img:last-child{
+    display: none;
+}
+.hero-cont .back-img h2{
+    width: 110%;
+}
+.hero .tress{
+    margin-top: 350px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+.hero .tress img:first-child{
+    width: 300px;
+}
+.hero .tress img:nth-child(2){
+    width: 200px;
+}
+.hero .tress img:nth-child(3){
+    width: 230px;
+}
+.hero .tress img:last-child{
+    width: 400px;
+}
