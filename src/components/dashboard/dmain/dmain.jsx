@@ -1,4 +1,6 @@
 import './dmStyle.css';
+import { useState } from "react";
+
 
 import {
   LineChart,
@@ -20,6 +22,14 @@ const data = [
 ];
 
 const Dmain = () => {
+const [hoveredCard, setHoveredCard] = useState(null);
+
+  const getImageSrc = (cardType, position) => {
+    if (hoveredCard === cardType) {
+      return "./dashrm.png";
+    }
+    return "./dashr.png";
+  };
   return (
     <div className="d-main">
         <div className="back-tress">
@@ -32,8 +42,10 @@ const Dmain = () => {
         <div className="d-main-cont">
           <h1>لوحة الإحصا</h1>
           <div className="cards">
-            <div className="f-card">
-              <h3 className="card-title"><img src="./dashr.png" alt="" /> الملفات <img src="./dashr.png" alt="" /></h3>
+            <div className="f-card" 
+            onMouseEnter={() => setHoveredCard('file')}
+            onMouseLeave={() => setHoveredCard(null)}>
+              <h3 className="card-title"><img src={getImageSrc('file')} alt="" /> الملفات <img src={getImageSrc('file')} alt="" /></h3>
               <div className="storage-info">
                 <div className="info">
                   <span className="label">المساحة</span>
@@ -58,10 +70,13 @@ const Dmain = () => {
               </div>
             </div>
             <div className="s-card">
-                <div className="sales">
+                <div className="sales" 
+                onMouseEnter={() => setHoveredCard('sale')}
+            onMouseLeave={() => setHoveredCard(null)}
+                >
                     <div className="sale-cont">
                                 <div className="info">
-                                    <h3 className="card-title"><img src="./dashr.png" alt="" />  الملفات <img src="./dashr.png" alt="" /></h3>
+                                    <h3 className="card-title"><img src={getImageSrc('sale')} alt="" />  الملفات <img src={getImageSrc('sale')} alt="" /></h3>
                                 </div>
                                 <div className="chart">
                                     <div className="chart-graf">
@@ -109,8 +124,10 @@ const Dmain = () => {
                 </div>
             </div>
           </div>
-          <div className="r-card">
-              <h3 className="card-title"><img src="./dashr.png" alt="" /> البلاغات <img src="./dashr.png" alt="" /></h3>
+          <div className="r-card"
+          onMouseEnter={() => setHoveredCard('report')}
+            onMouseLeave={() => setHoveredCard(null)}>
+              <h3 className="card-title"><img src={getImageSrc('report')} alt="" /> البلاغات <img src={getImageSrc('report')} alt="" /></h3>
               <div className="card-info">
                 <div className="info">
                   <h3>جديد</h3>
@@ -154,8 +171,10 @@ const Dmain = () => {
                 </div>
               </div>
           </div>
-          <div className="r-card">
-              <h3 className="card-title"><img src="./dashrm.png" alt="" /> الرسائل  <img src="./dashrm.png" alt="" /></h3>
+          <div className="r-card"
+            onMouseEnter={() => setHoveredCard('mess')}
+            onMouseLeave={() => setHoveredCard(null)}>
+              <h3 className="card-title"><img src={getImageSrc('mess')} alt="hover" /> الرسائل  <img src={getImageSrc('mess')} alt="hover" /></h3>
               <div className="card-info">
                 <div className="info">
                   <h3>جديد</h3>
@@ -199,8 +218,10 @@ const Dmain = () => {
                 </div>
               </div>
           </div>
-          <div className="r-card">
-              <h3 className="card-title"><img src="./dashr.png" alt="" /> معلومات <img src="./dashr.png" alt="" /></h3>
+          <div className="r-card"
+              onMouseEnter={() => setHoveredCard('info')}
+              onMouseLeave={() => setHoveredCard(null)}>
+              <h3 className="card-title"><img src={getImageSrc('info')} alt="hover" /> معلومات  <img src={getImageSrc('info')} alt="hover" /></h3>
               <div className="r-cards">
                 <div className="rcard r-info">
                   <div className="info">
