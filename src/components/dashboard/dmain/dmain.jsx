@@ -174,7 +174,8 @@ const [hoveredCard, setHoveredCard] = useState(null);
           <div className="r-card"
             onMouseEnter={() => setHoveredCard('mess')}
             onMouseLeave={() => setHoveredCard(null)}>
-              <h3  onClick={(e) => {e.preventDefault();window.location.href='/dmess';}} style={{cursor:'pointer'}} className="card-title"><img src={getImageSrc('mess')} alt="hover" /> الرسائل  <img src={getImageSrc('mess')} alt="hover" /></h3>
+              <h3  onClick={(e) => {e.preventDefault();window.location.href='/dmess';}} style={{cursor:'pointer'}} className="card-title"><img src={getImageSrc('mess')} alt="hover" /> الرسائل  <img src={getImageSrc('mess')} alt="hover" /></h3>=======
+              <h3 className="card-title"><img src={getImageSrc('mess')} alt="hover" /> الرسائل  <img src={getImageSrc('mess')} alt="hover" /></h3>
               <div className="card-info">
                 <div className="info">
                   <h3>جديد</h3>
