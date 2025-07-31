@@ -69,14 +69,14 @@ const [hoveredCard, setHoveredCard] = useState(null);
                 <span className="max-space">50 GB</span>
               </div>
             </div>
-            <div className="s-card">
+            <div className="s-card" onClick={(e) => {e.preventDefault();window.location.href='/dsale';}} style={{cursor:'pointer'}}>
                 <div className="sales" 
                 onMouseEnter={() => setHoveredCard('sale')}
             onMouseLeave={() => setHoveredCard(null)}
                 >
-                    <div className="sale-cont">
+                    <div className="sale-cont" style={{zIndex:3}}>
                                 <div className="info">
-                                    <h3 className="card-title"><img src={getImageSrc('sale')} alt="" />  الملفات <img src={getImageSrc('sale')} alt="" /></h3>
+                                    <h3  className="card-title"><img src={getImageSrc('sale')} alt="hover" /> المبيعات  <img src={getImageSrc('sale')} alt="hover" /></h3>
                                 </div>
                                 <div className="chart">
                                     <div className="chart-graf">

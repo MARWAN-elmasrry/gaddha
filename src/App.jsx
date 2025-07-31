@@ -16,6 +16,7 @@ import Dhead from './components/dashboard/dhead/dhead';
 import Dmain from './components/dashboard/dmain/dmain';
 import Dmess from './components/dashboard/dmess/dmess';
 import Dreport from './components/dashboard/dreport/dreport';
+import Dsale from './components/dashboard/dsale/dsale';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => {
   const backgroundStyle = {
@@ -86,6 +87,10 @@ function App() {
         <Route path='/dreport' element={<>
             <Dhead />
             <Dreport />
+          </>} />
+          <Route path='/dsale' element={<>
+            <Dhead />
+            <Dsale />
           </>} />
       </Routes>
     </BrowserRouter>
