@@ -127,7 +127,7 @@ const [hoveredCard, setHoveredCard] = useState(null);
           <div className="r-card"
           onMouseEnter={() => setHoveredCard('report')}
             onMouseLeave={() => setHoveredCard(null)}>
-              <h3 className="card-title"><img src={getImageSrc('report')} alt="" /> البلاغات <img src={getImageSrc('report')} alt="" /></h3>
+              <h3 onClick={(e) => {e.preventDefault();window.location.href='/dreport';}} style={{cursor:'pointer'}} className="card-title"><img src={getImageSrc('report')} alt="" /> البلاغات <img src={getImageSrc('report')} alt="" /></h3>
               <div className="card-info">
                 <div className="info">
                   <h3>جديد</h3>
