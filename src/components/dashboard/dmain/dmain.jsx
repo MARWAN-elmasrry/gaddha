@@ -71,14 +71,13 @@ const [hoveredCard, setHoveredCard] = useState(null);
             </div>
             <div className="s-card" onClick={(e) => {e.preventDefault();window.location.href='/dsale';}} style={{cursor:'pointer'}}>
                 <div className="sales" 
-                onMouseEnter={() => setHoveredCard('sale')}
-            onMouseLeave={() => setHoveredCard(null)}
-                >
+                  onMouseEnter={() => setHoveredCard('sale')}
+                  onMouseLeave={() => setHoveredCard(null)}>
                     <div className="sale-cont" style={{zIndex:3}}>
-                                <div className="info">
-                                    <h3  className="card-title"><img src={getImageSrc('sale')} alt="hover" /> المبيعات  <img src={getImageSrc('sale')} alt="hover" /></h3>
-                                </div>
-                                <div className="chart">
+                      <div className="info">
+                        <h3  className="card-title"><img src={getImageSrc('sale')} alt="hover" /> المبيعات  <img src={getImageSrc('sale')} alt="hover" /></h3>
+                      </div>
+                      <div className="chart">
                                     <div className="chart-graf">
                                         <ResponsiveContainer width="100%" height={200}>
                                         <LineChart data={data} margin={{ top: 10, right: 60 , left: -35, bottom: 0 }}>
@@ -119,7 +118,7 @@ const [hoveredCard, setHoveredCard] = useState(null);
                                         <h6>القيمة</h6>
                                         <p>1,300</p>
                                     </div>
-                                </div>
+                      </div>
                     </div>
                 </div>
             </div>

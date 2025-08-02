@@ -1,0 +1,51 @@
+.sales .sale-cont{
+    color: rgba(249, 231, 197, 1);
+    padding: 40px;
+    width: 100%;
+    background-color: rgba(136, 56, 19, 1);
+    border-radius:20px;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}   
+.sales .sale-cont .info{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+.sale-cont .chart{
+    display: flex;
+}
+.chart .chart-graf{
+    width: 100%;
+}
+.m-games .m-games-cont{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: rgba(249, 231, 197, 1);
+    padding: 50px;
+    width: 100%;
+    background-color: rgba(136, 56, 19, 1);
+    border-radius:20px;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    position: relative;
+}
+.m-games .item{
+    display: flex;
+    font-size: 59px;
+    font-weight: 700;
+    width: 578px;
+    flex-direction: row;
+    gap: 1.9rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+}
+.m-games .m-games-cont .h1-games{
+    position: absolute;
+    font-size: 4rem;
+    right: 5rem;
+    top: 2rem;
+    font-weight: 700;
+}
