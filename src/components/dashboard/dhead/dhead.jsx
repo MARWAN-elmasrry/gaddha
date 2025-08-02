@@ -11,12 +11,13 @@ const Dhead = () =>{
                             <span></span>
                             <span></span>
                             </span>
-                            {/* <ul>
-                                <li><a href="#">Service</a></li>
+                            <ul>
+                                <li className='active'><a href="#"><img src="./dashr.png" alt="" /> Service</a></li>
                                 <li><a href="#">Portfolio</a></li>
                                 <li><a href="#">About</a></li>
                                 <li><a href="#">Contact</a></li>
-                            </ul> */}
+                                <li className='exit'><a href="#"><img src="./exit.png" alt="" style={{width: 20}} /> exit </a></li>
+                            </ul>
                     </div>
                     <h1>مرحباً مستر عباس</h1>
                     <img src="./logo.png" alt="logo" style={{width:100}}/>
