@@ -20,6 +20,7 @@ import Dsale from './components/dashboard/dsale/dsale';
 import Discount from './components/dashboard/discount/discount';
 import Categories from './components/dashboard/categories/cate';
 import Files from './components/dashboard/files/files';
+import Controls from './components/dashboard/controls/controls';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => {
   const backgroundStyle = {
@@ -107,6 +108,11 @@ function App() {
             <Dhead />
             <Files />
           </>} />
+          <Route path='/controls' element={<>
+            <Dhead />
+            <Controls />
+          </>} />
+          
       </Routes>
     </BrowserRouter>
   )
