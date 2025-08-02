@@ -137,6 +137,11 @@ function App() {
             <Users />
             <Dfooter />
           </>} />
+          <Route path='/controls' element={<>
+            <Dhead />
+            <Controls />
+          </>} />
+          
       </Routes>
     </BrowserRouter>
   )
