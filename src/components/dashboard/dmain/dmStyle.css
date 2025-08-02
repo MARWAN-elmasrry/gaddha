@@ -17,7 +17,7 @@
   border-radius: 20px;
   padding: 1rem;
   width:50%;
-  height: 17.6rem;
+  height: 20.6rem;
   color: rgba(249, 231, 197, 1);
   text-align: center;
 }
@@ -28,8 +28,9 @@
 .storage-info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
-  color: rgba(249, 231, 197, 1);
+  margin-bottom: 19px;
+    margin-top: 68px;  
+    color: rgba(249, 231, 197, 1);
 }
 .storage-info .info .label{
   display: block;

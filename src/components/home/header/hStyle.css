@@ -27,10 +27,15 @@ header .head-cont .links{
     margin-left: 17px   ;
     margin-bottom: 2px;
 }
+.side-menu{
+    position: relative;
+}
 .side-menu .icon{
+    z-index: 2;
     width: 40px;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
 .side-menu .icon span{
     background-color: rgba(136, 56, 19, 1);
@@ -51,35 +56,47 @@ header .head-cont .links{
     margin-left: auto;
     transition: 0.3s;
 }
-/* .side-menu ul{
+/* ======================== */
+.side-menu ul{
     list-style: none;
-    border-radius: 20px 5px 20px 20px;
+    border-radius: 20px;
     padding: 0px;
-    padding-top: 33px;
-    background-color: #994d51ad;
+    padding-top: 93px;
+    background-color: rgba(136, 56, 19, 1);
     position: absolute;
-    min-width: 200px;
-    left: calc(45px + 10%);
-    top: calc(45px + -10%);
+    min-width: 324px;
+    left: -12px;
+    top: -42px;
     display: none;
     z-index: 1;
 }
-.side-menu:hover ul{
+.side-menu:hover {
+  ul {
     display: block;
+  }
+
+  .icon span {
+    background-color: rgba(249, 231, 197, 1);
+    transition: 0.2s;
+  }
+}
+
+.side-menu ul .active{
+    background-color: rgba(249, 231, 197, 0.1);
 }
 .side-menu ul li a{
     display: block;
     padding: 15px;
     text-decoration: none;
-    color: #333;
+    color: rgba(249, 231, 197, 1);
     transition: 0.3s;
 }
 .side-menu ul li a:hover{
     padding-left: 25px;
 }
-.side-menu ul li:not(:last-child) a{
-    border-bottom: 1px solid #ffffff ;
-} */
+.side-menu .exit{
+    background-color: rgba(207, 138, 65, 1);
+}
 header .links button{
     width: 91.08820343017578;
     height: 51.096580505371094;
