@@ -18,6 +18,7 @@ import Dmess from './components/dashboard/dmess/dmess';
 import Dreport from './components/dashboard/dreport/dreport';
 import Dsale from './components/dashboard/dsale/dsale';
 import Discount from './components/dashboard/discount/discount';
+import Categories from './components/dashboard/categories/cate';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => {
   const backgroundStyle = {
@@ -96,6 +97,10 @@ function App() {
           <Route path='/discount' element={<>
             <Dhead />
             <Discount />
+          </>} />
+          <Route path='/categories' element={<>
+            <Dhead />
+            <Categories />
           </>} />
       </Routes>
     </BrowserRouter>
