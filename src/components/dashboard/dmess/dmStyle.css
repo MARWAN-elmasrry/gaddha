@@ -15,8 +15,13 @@
 }
 .h-cont .cont-info{
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    width: 317px;
+    gap: 6px;
+}
+.h-cont h1{
+    margin-left: 170px;
 }
 .h-cont .cont-info .info{
     display: flex;
@@ -29,6 +34,7 @@
 .h-cont .cont-info .info p{
   font-size: 1.6rem;
   font-weight: 700;
+  margin: 0;
 }
 .d-mess .d-mess-cont .cards{
     margin-top: 80px;
