@@ -17,6 +17,7 @@ import Dmain from './components/dashboard/dmain/dmain';
 import Dmess from './components/dashboard/dmess/dmess';
 import Dreport from './components/dashboard/dreport/dreport';
 import Dsale from './components/dashboard/dsale/dsale';
+import Discount from './components/dashboard/discount/discount';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => {
   const backgroundStyle = {
@@ -91,6 +92,10 @@ function App() {
           <Route path='/dsale' element={<>
             <Dhead />
             <Dsale />
+          </>} />
+          <Route path='/discount' element={<>
+            <Dhead />
+            <Discount />
           </>} />
       </Routes>
     </BrowserRouter>
