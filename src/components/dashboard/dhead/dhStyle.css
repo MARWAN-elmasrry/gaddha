@@ -25,3 +25,8 @@
     display: none;
     z-index: 1;
 }
+.side-menu ul li{
+    text-align: end;
+    font-size: 1.4rem;
+    
+}
