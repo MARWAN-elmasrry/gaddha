@@ -21,6 +21,8 @@ import Discount from './components/dashboard/discount/discount';
 import Categories from './components/dashboard/categories/cate';
 import Files from './components/dashboard/files/files';
 import Controls from './components/dashboard/controls/controls';
+import Dgames from './components/dashboard/dgames/dgames';
+import Users from './components/dashboard/users/users';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => {
   const backgroundStyle = {
@@ -64,6 +66,12 @@ const SandBackground = ({ intensity = 0.75, blur = 1 }) => {
   );
 };
 
+const Dfooter =()=>{
+  return(<>
+    <div className="dfooter"></div>
+  </>)
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -83,30 +91,51 @@ function App() {
         <Route path='/dash' element={<>
             <Dhead />
             <Dmain />
+            <Dfooter />
           </>} />
         <Route path='/dmess' element={<>
             <Dhead />
             <Dmess />
+            <Dfooter />
           </>} />
         <Route path='/dreport' element={<>
             <Dhead />
             <Dreport />
+            <Dfooter />
           </>} />
           <Route path='/dsale' element={<>
             <Dhead />
             <Dsale />
+            <Dfooter />
           </>} />
           <Route path='/discount' element={<>
             <Dhead />
             <Discount />
+            <Dfooter />
           </>} />
           <Route path='/categories' element={<>
             <Dhead />
             <Categories />
+            <Dfooter />
           </>} />
           <Route path='/files' element={<>
             <Dhead />
             <Files />
+            <Dfooter />
+          </>} />
+          <Route path='/controls' element={<>
+            <Dhead />
+            <Controls />
+          </>} />
+          <Route path='/games' element={<>
+            <Dhead />
+            <Dgames />
+            <Dfooter />
+          </>} />
+          <Route path='/users' element={<>
+            <Dhead />
+            <Users />
+            <Dfooter />
           </>} />
           <Route path='/controls' element={<>
             <Dhead />
