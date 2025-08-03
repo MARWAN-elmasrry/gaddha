@@ -71,7 +71,7 @@ const Dfooter =()=>{
     <div className="dfooter"></div>
   </>)
 }
-
+// deploy fix
 function App() {
   return (
     <BrowserRouter>
