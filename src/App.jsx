@@ -76,7 +76,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<>
+        <Route path="/gaddha" element={<>
             <SandBackground intensity={0.75} blur={1} />
             <Header />
             <Hero />
@@ -88,56 +88,56 @@ function App() {
             <Comq />
             <Footer />
           </>} />
-        <Route path='/dash' element={<>
+        <Route path='/gaddha/dash' element={<>
             <Dhead />
             <Dmain />
             <Dfooter />
           </>} />
-        <Route path='/dmess' element={<>
+        <Route path='/gaddha/dmess' element={<>
             <Dhead />
             <Dmess />
             <Dfooter />
           </>} />
-        <Route path='/dreport' element={<>
+        <Route path='/gaddha/dreport' element={<>
             <Dhead />
             <Dreport />
             <Dfooter />
           </>} />
-          <Route path='/dsale' element={<>
+          <Route path='/gaddha/dsale' element={<>
             <Dhead />
             <Dsale />
             <Dfooter />
           </>} />
-          <Route path='/discount' element={<>
+          <Route path='/gaddha/discount' element={<>
             <Dhead />
             <Discount />
             <Dfooter />
           </>} />
-          <Route path='/categories' element={<>
+          <Route path='/gaddha/categories' element={<>
             <Dhead />
             <Categories />
             <Dfooter />
           </>} />
-          <Route path='/files' element={<>
+          <Route path='/gaddha/files' element={<>
             <Dhead />
             <Files />
             <Dfooter />
           </>} />
-          <Route path='/controls' element={<>
+          <Route path='/gaddha/controls' element={<>
             <Dhead />
             <Controls />
           </>} />
-          <Route path='/games' element={<>
+          <Route path='/gaddha/games' element={<>
             <Dhead />
             <Dgames />
             <Dfooter />
           </>} />
-          <Route path='/users' element={<>
+          <Route path='/gaddha/users' element={<>
             <Dhead />
             <Users />
             <Dfooter />
           </>} />
-          <Route path='/controls' element={<>
+          <Route path='/gaddha/controls' element={<>
             <Dhead />
             <Controls />
           </>} />
