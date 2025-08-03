@@ -76,7 +76,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/gaddha/" element={<>
+        <Route path="/" element={<>
             <SandBackground intensity={0.75} blur={1} />
             <Header />
             <Hero />
