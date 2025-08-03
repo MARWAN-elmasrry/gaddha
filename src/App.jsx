@@ -71,7 +71,7 @@ const Dfooter =()=>{
     <div className="dfooter"></div>
   </>)
 }
-
+// this is the main deploy
 function App() {
   return (
     <BrowserRouter>
@@ -137,6 +137,11 @@ function App() {
             <Users />
             <Dfooter />
           </>} />
+          <Route path='/controls' element={<>
+            <Dhead />
+            <Controls />
+          </>} />
+          
       </Routes>
     </BrowserRouter>
   )
