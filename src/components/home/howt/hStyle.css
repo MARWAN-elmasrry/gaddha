@@ -1,6 +1,6 @@
 .how{
     background-color: rgba(249, 231, 197, 1);
-    background-image: url(../../../public/howttop.png) , url(../../../public/howtbottom.png);
+    background-image: url(../howttop.png) , url(../howtbottom.png);
     background-repeat: no-repeat , no-repeat;
     background-size: contain , contain;
     background-position: top , bottom;
