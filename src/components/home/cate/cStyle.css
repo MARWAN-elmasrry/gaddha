@@ -1,5 +1,5 @@
 .cat{
-    background-image: url(../../../public/catt.png) , url(../../../public/catb.png);
+    background-image: url(../catt.png) , url(../catb.png);
     background-repeat: no-repeat , no-repeat;
     background-size: contain , contain;
     background-position: top , bottom;
