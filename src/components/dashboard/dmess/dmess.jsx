@@ -7,7 +7,7 @@ const Dmess =()=>{
                 <div className="d-mess-cont">
                     <div className="h-cont">
                         <div className="back-btn">
-                            <button  onClick={(e) => {e.preventDefault();window.location.href='/dash';}} ><img src="./back.png" alt="" /></button>
+                            <button  onClick={(e) => {e.preventDefault();window.location.href='/gaddah/dash';}} ><img src="./back.png" alt="" /></button>
                         </div>
                         <h1>الرسائل</h1>
                         <div className="cont-info">

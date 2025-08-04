@@ -74,7 +74,7 @@ const Dfooter =()=>{
 // this is the main deploy
 function App() {
   return (
-    <BrowserRouter>
+  <BrowserRouter basename="/gaddah">
       <Routes>
         <Route path="/" element={<>
             <SandBackground intensity={0.75} blur={1} />
