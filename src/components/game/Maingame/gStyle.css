@@ -1,0 +1,119 @@
+.m-game{    background-image: url(../dashtree.png), url(../dashtree.png);
+    background-repeat: no-repeat, no-repeat;
+    background-position: left 100px top 500px, right 100px top 500px;
+    background-size: 120px, 120px;
+    height: 100vh;
+}
+.m-game .game-foot-cont{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.m-game .game-foot-cont .helps img{
+    width: 10rem;
+}
+.m-game .cards{
+    margin-top: 61px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+.m-game .cards .card-cate {
+    width: 340px;
+    height: 260px;
+    position: relative;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: top;
+    border-radius: 22.8px;
+    border: 2px solid;
+}
+.m-game .card-cate .card-info{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.m-game .card-cate .card-info .select{
+    background-color: rgba(249, 231, 197, 1);
+    width: 100%;
+    height: max-content;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    display: flex;
+    justify-content: center;
+}
+.m-game .card-cate .card-info .select img{
+    margin: 0;
+    width: 80px;
+}
+.m-game .card-cate .card-info img{
+    width: 120px;
+    margin-top: 5px;
+}
+.m-game .card-cate .card-info h5{
+    width: 100%;
+    height: 20%;
+    margin: 0;
+    padding-top: 10px;
+    border-bottom-right-radius: 23px;
+    border-bottom-left-radius: 23px;
+    background-color: rgba(136, 56, 19, 1);
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+}
+.game-footer{
+    margin-top: 27px;
+    height: 29.2%;
+    background-color: rgba(136, 56, 19, 1);
+}
+.game-footer .t1{
+    color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+}
+.game-footer .t1 h2{
+    border-radius: 4rem;
+    padding: 1rem;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    background-color: rgba(249, 231, 197, 0.1);
+}
+.game-footer .t1 .score{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.game-footer .t1 .score p{
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+.game-footer .t1 .score .t-btn{
+    width: 36px;
+    height: 36px;
+    transform: rotate(-45deg);
+    background-color: rgba(207, 138, 65, 1);
+    position: relative;
+}
+.game-footer .t1 .score .t-btn .min{
+    transform: rotate(45deg);
+    font-size: 3rem;
+    font-weight: 700;
+    padding: 0;
+    position: absolute;
+    top: -24px;
+    right: 4px;
+}
+.game-footer .t1 .score .t-btn .plus{
+    transform: rotate(45deg);
+    font-size: 3rem;
+    font-weight: 700;
+    padding: 0;
+    position: absolute;
+    top: -24px;
+    right: -5px;
+}
