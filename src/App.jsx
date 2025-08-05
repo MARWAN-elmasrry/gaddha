@@ -25,6 +25,7 @@ import Controls   from './components/dashboard/controls/controls';
 import Dgames     from './components/dashboard/dgames/dgames';
 import Users      from './components/dashboard/users/users';
 import Mgame from './components/game/game';
+import Start from './components/game/start/start';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -96,6 +97,10 @@ export default function App() {
       <Route path="/" element={<HomePage />} />
 
       <Route path="/game" element={<Game />} />
+      <Route path="/start" element={<>
+        <Header />
+        <Start />
+      </>} />
       
       <Route path="/dash"      element={<DashboardLayout><Dmain /></DashboardLayout>} />
       <Route path="/dmess"     element={<DashboardLayout><Dmess /></DashboardLayout>} />
