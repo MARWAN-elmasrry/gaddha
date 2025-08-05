@@ -26,9 +26,9 @@ const GameCate = () =>{
                         <img src="./offerv.png" alt="" className="opc-img6" />
                         <img src="./offerv.png" alt="" className="opc-img6" />
                         <img src="./offerv.png" alt="" className="opc-img6" />
-                        <img src="./offerv.png" alt="" className="opc-img1" />
-                        <img src="./offerv.png" alt="" className="opc-img1" />
-                        <img src="./offerv.png" alt="" className="opc-img1" />
+                        <img src="./offerv2.png" alt="" className="opc-img1" />
+                        <img src="./offerv2.png" alt="" className="opc-img1" />
+                        <img src="./offerv2.png" alt="" className="opc-img1" />
                     </div>
                     <h3> اختر 6 فئات ثلالثة لكل فريق</h3>
                     <div className="cards">
