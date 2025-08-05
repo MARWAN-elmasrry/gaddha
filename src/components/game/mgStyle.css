@@ -1,7 +1,7 @@
 .game{
     background-image: url(../dashtree.png) , url(../dashtree.png);
     background-repeat: no-repeat , no-repeat ;
-    background-position: left 100px top 400px , right 100px top 400px;
+    background-position: left 100px top 600px , right 100px top 600px;
     background-size: 120px, 120px;
     height: 100vh;
 }
