@@ -26,6 +26,7 @@ import Dgames     from './components/dashboard/dgames/dgames';
 import Users      from './components/dashboard/users/users';
 import Mgame from './components/game/game';
 import Start from './components/game/start/start';
+import MainGame from './components/game/Maingame/game';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -84,19 +85,19 @@ function HomePage() {
   );
 } 
 
-function Game(){
+function Games(){
   return(<>
       <Header />
       <Mgame />
   </>)
 }
-
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
 
-      <Route path="/game" element={<Game />} />
+      <Route path="/games" element={<Games />} />
+      <Route path="/game" element={<MainGame />} />
       <Route path="/start" element={<>
         <Header />
         <Start />
