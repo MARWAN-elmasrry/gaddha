@@ -24,6 +24,7 @@ import Files      from './components/dashboard/files/files';
 import Controls   from './components/dashboard/controls/controls';
 import Dgames     from './components/dashboard/dgames/dgames';
 import Users      from './components/dashboard/users/users';
+import Mgame from './components/game/game';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -80,6 +81,13 @@ function HomePage() {
       <Footer />
     </>
   );
+} 
+
+function Game(){
+  return(<>
+      <Header />
+      <Mgame />
+  </>)
 }
 
 export default function App() {
@@ -87,6 +95,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
 
+      <Route path="/game" element={<Game />} />
+      
       <Route path="/dash"      element={<DashboardLayout><Dmain /></DashboardLayout>} />
       <Route path="/dmess"     element={<DashboardLayout><Dmess /></DashboardLayout>} />
       <Route path="/dreport"   element={<DashboardLayout><Dreport /></DashboardLayout>} />
@@ -102,7 +112,7 @@ export default function App() {
       {/* <Route path="/control" element={<Navigate to="/controls" replace />} /> */}
 
       {/* Catch-all: redirect back to homepage (or show a 404 component instead) */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
     </Routes>
   );
 }
