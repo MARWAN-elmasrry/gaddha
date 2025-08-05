@@ -6,6 +6,7 @@
 }
 .game-cate-cont{
     position: relative;
+    padding-bottom: 40px;
 }
 .game-cate-cont .game-cate-imgs{
     border-radius: 40px;
