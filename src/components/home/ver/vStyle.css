@@ -1,0 +1,33 @@
+.ver{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+.ver .ver-cont{    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.ver h1{
+    font-size: 4rem;
+    margin-bottom: 3rem;
+    color: rgba(249, 231, 197, 1);
+}
+.ver h3{
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: rgba(249, 231, 197, 1);
+}
+.ver h2{
+    color: rgba(249, 231, 197, 1);
+    width: 100%;
+    opacity: .6;
+}
+.ver  .start-input-row{
+    display: flex;
+    justify-content: center;
+}
+.ver .start-icon{
+    display: flex;
+    gap: 1rem;
+}

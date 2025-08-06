@@ -1,0 +1,31 @@
+.login{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+.login .login-cont{    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.login h1{
+    font-size: 4rem;
+    margin-bottom: 3rem;
+    color: rgba(249, 231, 197, 1);
+}
+.login h3{
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: rgba(249, 231, 197, 1);
+}
+.login .form .links{
+    display: flex;
+    justify-content: space-between;
+}
+.login .form .links a{
+    text-decoration: none;
+    font-size: 2rem;
+    padding: 2rem;
+    color: rgba(249, 231, 197, 1);
+    opacity: .6;
+}
