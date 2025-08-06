@@ -1,11 +1,15 @@
 import './fStyle.css'
+import { useLocation } from 'react-router-dom'
 
 const Footer = () => {
+    const location = useLocation();
+    const isUserPage = location.pathname === '/user';
+
     return(<>
         <div className="foot">
             <div className="container">
                 <div className="foot-cont">
-                    <div className="back-img">
+                    <div className="back-img" style={!isUserPage ? {display: ''} : {display: 'none'}}>
                         <div className="info-f">
                             <h1>قدها ولابس سوالف؟</h1>
                             <h3> !ورنا الحين</h3>
@@ -14,6 +18,10 @@ const Footer = () => {
                         <img src="./hero.png" alt="" />
                         <img src="./herof.png" alt="" />
                         <img src="./logo.png" alt="" style={{width:120}}/>
+                    </div>
+                    <div className="camel" style={isUserPage ? {display: 'flex', justifyContent: 'space-between', width: '100%' , alignItems:'center'} : {display: 'none'}}>
+                        <img src="./camel.png" alt="" />
+                        <img src="./cam.png" alt="" />
                     </div>
                 </div>
             </div>
@@ -45,7 +53,7 @@ const Footer = () => {
                         <p>2025 قدّها, كل الحقوق محفوظة</p>
                         </div>
                     </div>
-                </div>
+            </div>
             </div>
     </>)
 }
