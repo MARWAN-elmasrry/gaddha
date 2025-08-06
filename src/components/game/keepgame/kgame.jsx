@@ -3,21 +3,21 @@ import "./kgStyle.css";
 const Card =()=>{
     return(<>
     <div className="card">
-                                <div className="card-num">
-                                    <span class="number"><img src="./cate.png" alt="" /></span>
-                                </div>
-                                <div className="card-info">
-                                    <div className="imgs">
-                                        <img src="./catimg.png" alt="" />
-                                        <img src="./catimg.png" alt="" />
-                                        <img src="./catimg.png" alt="" />
-                                        <img src="./catimg.png" alt="" />
-                                        <img src="./catimg.png" alt="" />
-                                        <img src="./catimg.png" alt="" />
-                                    </div>
-                                    <h5>فئة معينة</h5>
-                                </div>
-                    </div>
+    <div className="card-num">
+        <span class="number"><img src="./cate.png" alt="" /></span>
+    </div>
+    <div className="card-info">
+        <div className="imgs">
+            <img src="./catimg.png" alt="" />
+            <img src="./catimg.png" alt="" />
+            <img src="./catimg.png" alt="" />
+            <img src="./catimg.png" alt="" />
+            <img src="./catimg.png" alt="" />
+            <img src="./catimg.png" alt="" />
+        </div>
+        <h5>فئة معينة</h5>
+    </div>
+    </div>
     </>)
 }
 
