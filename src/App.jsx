@@ -13,20 +13,20 @@ import Help      from './components/home/help/help';
 import Pack      from './components/home/pack/pack';
 import Comq      from './components/home/comq/comq';
 
-import Dhead     from './components/dashboard/dhead/dhead';
-import Dmain     from './components/dashboard/dmain/dmain';
-import Dmess     from './components/dashboard/dmess/dmess';
-import Dreport   from './components/dashboard/dreport/dreport';
-import Dsale     from './components/dashboard/dsale/dsale';
-import Discount  from './components/dashboard/discount/discount';
+import Dhead      from './components/dashboard/dhead/dhead';
+import Dmain      from './components/dashboard/dmain/dmain';
+import Dmess      from './components/dashboard/dmess/dmess';
+import Dreport    from './components/dashboard/dreport/dreport';
+import Dsale      from './components/dashboard/dsale/dsale';
+import Discount   from './components/dashboard/discount/discount';
 import Categories from './components/dashboard/categories/cate';
 import Files      from './components/dashboard/files/files';
 import Controls   from './components/dashboard/controls/controls';
 import Dgames     from './components/dashboard/dgames/dgames';
 import Users      from './components/dashboard/users/users';
-import Mgame from './components/game/game';
-import Start from './components/game/start/start';
-import MainGame from './components/game/Maingame/game';
+import Mgame      from './components/game/game';
+import Start      from './components/game/start/start';
+import MainGame   from './components/game/Maingame/game';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -111,7 +111,7 @@ export default function App() {
       <Route path="/categories" element={<DashboardLayout><Categories /></DashboardLayout>} />
       <Route path="/files"     element={<DashboardLayout><Files /></DashboardLayout>} />
       <Route path="/controls"  element={<DashboardLayout><Controls /></DashboardLayout>} />
-      <Route path="/games"     element={<DashboardLayout><Dgames /></DashboardLayout>} />
+      <Route path="/dgames"     element={<DashboardLayout><Dgames /></DashboardLayout>} />
       <Route path="/users"     element={<DashboardLayout><Users /></DashboardLayout>} />
 
       {/* Optional legacy redirection */}
