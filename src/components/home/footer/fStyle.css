@@ -1,10 +1,13 @@
 .foot{
     background-color: rgba(136, 56, 19, 1);
 }
+.camel{
+    padding-top: 3rem;
+}
 .foot-cont {
     text-align: center;
 }
-.back-img {
+.back-img{
     position: relative;
     width: 730px;
     height: 500px;
@@ -114,4 +117,13 @@
 }
 .foot .links .link-cont .f-links .f-logo img{
     width: 12rem;
+}
+.camel-img {
+position: static;
+width: 0;
+}
+
+.cam-img {
+position: static;
+width: 0;
 }

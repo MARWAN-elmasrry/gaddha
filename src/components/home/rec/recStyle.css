@@ -1,0 +1,20 @@
+.rec{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+.rec .rec-cont{    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.rec h1{
+    font-size: 4rem;
+    margin-bottom: 3rem;
+    color: rgba(249, 231, 197, 1);
+}
+.rec h3{
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: rgba(249, 231, 197, 1);
+}

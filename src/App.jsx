@@ -27,6 +27,12 @@ import Users      from './components/dashboard/users/users';
 import Mgame      from './components/game/game';
 import Start      from './components/game/start/start';
 import MainGame   from './components/game/Maingame/game';
+import Contact from './components/home/contact/contact';
+import Login from './components/home/login/login';
+import Sign from './components/home/signin/sign';
+import Rec from './components/home/rec/rec';
+import User from './components/home/user/user';
+import Ver from './components/home/ver/ver';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -95,6 +101,42 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+
+      <Route path="/contact" element={<>
+        <Header />
+        <Contact />
+        <Footer />
+      </>} />
+
+      <Route path="/login" element={<>
+        <Header />
+        <Login />
+        <Footer />
+      </>} />
+
+      <Route path="/sign" element={<>
+        <Header />
+        <Sign />
+        <Footer />
+      </>} />
+
+      <Route path="/rec" element={<>
+        <Header />
+        <Rec />
+        <Footer />
+      </>} />
+
+      <Route path="/user" element={<>
+        <Header />
+        <User />
+        <Footer />
+      </>} />
+
+      <Route path="/ver" element={<>
+        <Header />
+        <Ver />
+        <Footer />
+      </>} />
 
       <Route path="/games" element={<Games />} />
       <Route path="/game" element={<MainGame />} />
