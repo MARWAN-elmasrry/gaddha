@@ -84,6 +84,9 @@ header .head-cont .links{
 .side-menu ul .active{
     background-color: rgba(249, 231, 197, 0.1);
 }
+.side-menu ul li img{
+    margin-left: 10px;
+}
 .side-menu ul li a{
     display: block;
     padding: 15px;

@@ -13,7 +13,7 @@ const Dhead = () => {
         { path: '/categories', label: 'الفئات' },
         { path: '/files', label: 'الملفات' },
         { path: '/controls', label: 'ادوات التحكم' },
-        { path: '/games', label: 'الألعاب' },
+        { path: '/dgames', label: 'الألعاب' },
         { path: '/users', label: 'المستخدمين' },
     ];
 
@@ -48,7 +48,9 @@ const Dhead = () => {
                             </ul>
                         </div>
                         <h1>مرحباً مستر عباس</h1>
-                        <img src="./logo.png" alt="logo" style={{width:100}}/>
+                        <a href="/">
+                            <img src="./logo.png" alt="logo" style={{width:100}}/>
+                        </a>
                     </div>
                 </div>
             </div>

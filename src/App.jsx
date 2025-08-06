@@ -13,17 +13,20 @@ import Help      from './components/home/help/help';
 import Pack      from './components/home/pack/pack';
 import Comq      from './components/home/comq/comq';
 
-import Dhead     from './components/dashboard/dhead/dhead';
-import Dmain     from './components/dashboard/dmain/dmain';
-import Dmess     from './components/dashboard/dmess/dmess';
-import Dreport   from './components/dashboard/dreport/dreport';
-import Dsale     from './components/dashboard/dsale/dsale';
-import Discount  from './components/dashboard/discount/discount';
+import Dhead      from './components/dashboard/dhead/dhead';
+import Dmain      from './components/dashboard/dmain/dmain';
+import Dmess      from './components/dashboard/dmess/dmess';
+import Dreport    from './components/dashboard/dreport/dreport';
+import Dsale      from './components/dashboard/dsale/dsale';
+import Discount   from './components/dashboard/discount/discount';
 import Categories from './components/dashboard/categories/cate';
 import Files      from './components/dashboard/files/files';
 import Controls   from './components/dashboard/controls/controls';
 import Dgames     from './components/dashboard/dgames/dgames';
 import Users      from './components/dashboard/users/users';
+import Mgame      from './components/game/game';
+import Start      from './components/game/start/start';
+import MainGame   from './components/game/Maingame/game';
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -80,13 +83,26 @@ function HomePage() {
       <Footer />
     </>
   );
-}
+} 
 
+function Games(){
+  return(<>
+      <Header />
+      <Mgame />
+  </>)
+}
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
 
+      <Route path="/games" element={<Games />} />
+      <Route path="/game" element={<MainGame />} />
+      <Route path="/start" element={<>
+        <Header />
+        <Start />
+      </>} />
+      
       <Route path="/dash"      element={<DashboardLayout><Dmain /></DashboardLayout>} />
       <Route path="/dmess"     element={<DashboardLayout><Dmess /></DashboardLayout>} />
       <Route path="/dreport"   element={<DashboardLayout><Dreport /></DashboardLayout>} />
@@ -95,14 +111,14 @@ export default function App() {
       <Route path="/categories" element={<DashboardLayout><Categories /></DashboardLayout>} />
       <Route path="/files"     element={<DashboardLayout><Files /></DashboardLayout>} />
       <Route path="/controls"  element={<DashboardLayout><Controls /></DashboardLayout>} />
-      <Route path="/games"     element={<DashboardLayout><Dgames /></DashboardLayout>} />
+      <Route path="/dgames"     element={<DashboardLayout><Dgames /></DashboardLayout>} />
       <Route path="/users"     element={<DashboardLayout><Users /></DashboardLayout>} />
 
       {/* Optional legacy redirection */}
       {/* <Route path="/control" element={<Navigate to="/controls" replace />} /> */}
 
       {/* Catch-all: redirect back to homepage (or show a 404 component instead) */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
     </Routes>
   );
 }
