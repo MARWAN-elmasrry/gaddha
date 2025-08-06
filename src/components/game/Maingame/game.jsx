@@ -75,7 +75,21 @@ const GameFooter = () =>{
     </div>
     </>)
 }
- 
+
+const QandA = () =>{
+    return(<>
+        <div className="qa">
+            <div className="qa-cont">
+                
+                <h1>سؤال فئة معينة مع الميديا</h1>
+                <div className="qora">
+                    <img src="./catimg.png" alt="" />
+                </div>
+            </div>
+        </div>
+    </>)
+}
+
 const MainGame =() =>{
     return(<>
         <div className="m-game">
@@ -90,6 +104,7 @@ const MainGame =() =>{
                         <SelecteCate />
                         <SelecteCate />
                     </div>
+                    <QandA />
                 </div>
             </div>
         <GameFooter />
