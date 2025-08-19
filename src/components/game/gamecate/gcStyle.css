@@ -7,7 +7,6 @@
 .game-cate-cont{
     position: relative;
     padding-bottom: 40px;
-
 }
 .game-cate-cont .game-cate-imgs{
     border-radius: 40px;
@@ -68,9 +67,13 @@
     display: flex;
     justify-content: center;
 }
+.game-cate .card-cate .card-info .select .select-btn , .remove-favorite-btn{
+    margin: 1px;
+    display: flex;
+}
 .game-cate .card-cate .card-info .select img{
     margin: 0;
-    width: 80px;
+    width: 30px;
 }
 .game-cate .card-cate .card-info img{
     width: 120px;
