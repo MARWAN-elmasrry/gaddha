@@ -99,6 +99,10 @@ header .head-cont .links{
 }
 .side-menu .exit{
     background-color: rgba(207, 138, 65, 1);
+    border-radius: 0 0 20px 20px;
+}
+.side-menu .exit .logout-btn{
+    background: none;
 }
 header .links button{
     width: 91.08820343017578;

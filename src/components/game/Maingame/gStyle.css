@@ -91,6 +91,8 @@
     font-size: 2rem;
     font-weight: 700;
     margin: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 .game-footer .t1 .score .t-btn{
     width: 36px;
@@ -105,8 +107,8 @@
     font-weight: 700;
     padding: 0;
     position: absolute;
-    top: -24px;
-    right: 4px;
+    top: -22px;
+    right: 9px;
 }
 .game-footer .t1 .score .t-btn .plus{
     transform: rotate(45deg);
@@ -114,8 +116,8 @@
     font-weight: 700;
     padding: 0;
     position: absolute;
-    top: -24px;
-    right: -5px;
+    top: -17px;
+    right: 5px;
 }
 .m-game .qa{display: flex;justify-content: center;margin: 3rem;margin-bottom: 8rem;}
 .m-game .qa .qa-cont{

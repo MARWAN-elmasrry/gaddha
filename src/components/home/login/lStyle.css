@@ -28,4 +28,8 @@
     padding: 2rem;
     color: rgba(249, 231, 197, 1);
     opacity: .6;
+    transition: .4s;
+}
+.login .form .links a:hover{
+    opacity: 1;
 }

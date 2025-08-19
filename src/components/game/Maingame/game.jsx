@@ -1,10 +1,11 @@
 import "./gStyle.css";
 import { NavLink, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { useSelector } from "react-redux";
 
+/* ---------------- HEADER ---------------- */
 const Header = () => {
     const location = useLocation();
-    
     const menuItems = [
         { path: '/', label: 'الرئيسية' },
         { path: '/contact', label: 'تواصل' },
@@ -13,170 +14,172 @@ const Header = () => {
     ];
 
     return (
-        <>
-            <header>
-                <div className="container">
-                    <div className="head-cont">
-                        <div className="links">
-                            <div className="side-menu">
-                                <span className="icon">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </span>
-                                <ul>
-                                    {menuItems.map((item) => (
-                                        <li 
-                                            key={item.path} 
-                                            className={location.pathname === item.path ? 'active' : ''}
-                                        >
-                                            <NavLink to={item.path}>
-                                                {item.label}
-                                                {location.pathname === item.path && <img src="./dashr.png" alt="" />}
-                                            </NavLink>
-                                        </li>
-                                    ))}
-                                    <li className='exit'>
-                                        <a href="/logout">
-                                            تسجيل الخروج <img src="./exit.png" alt="" style={{width: 20}} />
-                                        </a>
+        <header>
+            <div className="container">
+                <div className="head-cont">
+                    <div className="links">
+                        <div className="side-menu">
+                            <span className="icon">
+                                <span></span><span></span><span></span>
+                            </span>
+                            <ul>
+                                {menuItems.map((item) => (
+                                    <li key={item.path} className={location.pathname === item.path ? 'active' : ''}>
+                                        <NavLink to={item.path}>
+                                            {item.label}
+                                            {location.pathname === item.path && <img src="./dashr.png" alt="" />}
+                                        </NavLink>
                                     </li>
-                                </ul>
-                            </div>
+                                ))}
+                                <li className='exit'>
+                                    <a href="/logout">
+                                        تسجيل الخروج <img src="./exit.png" alt="" style={{width: 20}} />
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <a href="/">
-                            <img src="./logo.png" alt="logo" style={{width:100}}/>
-                        </a>
                     </div>
+                    <a href="/"><img src="./logo.png" alt="logo" style={{width:100}}/></a>
                 </div>
-            </header>
-        </>
+            </div>
+        </header>
     );
 };
 
-const SelecteCate = ({ onClick }) => {
+/* ---------------- CATEGORY CARD ---------------- */
+const SelecteCate = ({ category, onClick }) => {
     return(
-        <>
-            <div className="card-cate" onClick={onClick} style={{ cursor: 'pointer' }}>
-                <div className="card-info">
-                    <div className="select">
-                        <img src="./remg2.png" alt="" />
-                    </div>
-                    <img src="./catimg.png" alt="" />
-                    <h5>فئة معينة</h5>
+        <div className="card-cate" onClick={() => onClick(category)} style={{ cursor: 'pointer' }}>
+            <div className="card-info">
+                <div className="select">
+                    <img src="./remg2.png" alt="" />
                 </div>
+                <img src="./catimg.png" alt="" />
+                <h5>{category}</h5>
             </div>
-        </>
+        </div>
     )
 }
 
+/* ---------------- FOOTER ---------------- */
 const GameFooter = () => {
+    const { teamOne, teamTwo } = useSelector((state) => state.game);
     return(
-        <>
-            <div className="game-footer">
-                <div className="container">
-                    <div className="game-foot-cont">
-                        <div className="t1">
-                            <h2>عبد الرحمن</h2>
-                            <div className="score">
-                                <div className="t-btn"><span className="min" >-</span></div>
-                                <p>2500</p>
-                                <div className="t-btn"><span className="plus" >+</span></div>
-                            </div>
+        <div className="game-footer">
+            <div className="container">
+                <div className="game-foot-cont">
+                    <div className="t1">
+                        <h2>{teamOne || "الفريق الأول"}</h2>
+                        <div className="score">
+                            <div className="t-btn"><span className="min">-</span></div>
+                            <p>2500</p>
+                            <div className="t-btn"><span className="plus">+</span></div>
                         </div>
-                        <div className="helps">
-                            <img src="./hphone.png" alt="" />
-                            <img src="./hdp.png" alt="" />
-                            <img src="./hr.png" alt="" />
-                        </div>
-                        <div className="t1">
-                            <h2>عبد الرحمن</h2>
-                            <div className="score">
-                                <div className="t-btn"><span className="min" >-</span></div>
-                                <p>2500</p>
-                                <div className="t-btn"><span className="plus" >+</span></div>
-                            </div>
+                    </div>
+                    <div className="helps">
+                        <img src="./hphone.png" alt="" />
+                        <img src="./hdp.png" alt="" />
+                        <img src="./hr.png" alt="" />
+                    </div>
+                    <div className="t1">
+                        <h2>{teamTwo || "الفريق الثاني"}</h2>
+                        <div className="score">
+                            <div className="t-btn"><span className="min">-</span></div>
+                            <p>2500</p>
+                            <div className="t-btn"><span className="plus">+</span></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
-const QandA = ({ onBack, onToggleText, currentView }) => {
+/* ---------------- Q & A ---------------- */
+const QandA = ({ onBack, onToggleText, currentView, currentQA, category }) => {
     return(
-        <>
-            <div className="qa">
-                <div className="qa-cont">
-                    <div className="game-btn ca" onClick={onToggleText} style={{ cursor: 'pointer' }}>
-                        <span className="number"><img src="./cate.png" alt="" /></span>
-                    </div>
-                    <div className="game-btn del">
-                        <span className="number"><img src="./delete.png" alt="" /></span>
-                    </div>
-                    <div className="game-btn back" onClick={onBack} style={{ cursor: 'pointer' }}>
-                        <span className="number"><img src="./back.png" alt="" /></span>
-                    </div>
-                    <div className="game-btn excl">
-                        <span className="number"><img src="./Excl.png" alt="" /></span>
-                    </div>
-                    
-                    {currentView === 'question' && (
-                        <>
-                            <h1>سؤال فئة معينة مع الميديا</h1>
-                            <div className="qora">
-                                <img src="./catimg.png" alt="" />
-                            </div>
-                        </>
-                    )}
-                    
-                    {currentView === 'answer' && (
-                        <>
-                            <h1>جواب في فئة معينة مع الميديا</h1>
-                            <div className="qora">
-                                <img src="./catimg.png" alt="" />
-                            </div>
-                        </>
-                    )}
-                    
-                    {currentView === 'result' && (
-                        <GameResult />
-                    )}
+        <div className="qa">
+            <div className="qa-cont">
+                <div className="game-btn ca" onClick={onToggleText} style={{ cursor: 'pointer' }}>
+                    <span className="number"><img src="./cate.png" alt="" /></span>
                 </div>
+                <div className="game-btn del">
+                    <span className="number"><img src="./delete.png" alt="" /></span>
+                </div>
+                <div className="game-btn back" onClick={onBack} style={{ cursor: 'pointer' }}>
+                    <span className="number"><img src="./back.png" alt="" /></span>
+                </div>
+                <div className="game-btn excl">
+                    <span className="number"><img src="./Excl.png" alt="" /></span>
+                </div>
+                
+                {currentView === 'question' && (
+                    <>
+                        <h1>{category} - سؤال</h1>
+                        <div className="qora">
+                            <p>{currentQA?.q}</p>
+                        </div>
+                    </>
+                )}
+                
+                {currentView === 'answer' && (
+                    <>
+                        <h1>{category} - الجواب</h1>
+                        <div className="qora">
+                            <p>{currentQA?.a}</p>
+                        </div>
+                    </>
+                )}
+                
+                {currentView === 'result' && (
+                    <GameResult />
+                )}
             </div>
-        </>
+        </div>
     )
 }
 
+/* ---------------- RESULT ---------------- */
 const GameResult = () =>{
-    return(<>
-        <h1>مين جاوب ؟</h1>
-        <div className="g-t1">
-            <span className="g-t1-span"><p>عبدالرحمن</p></span>
-        </div>
-        <div className="g-t2">
-            <span className="g-t2-span"><p>عبدالرحمن</p></span>
-        </div>
-        <div className="g-no-one">
-            <span className="g-no-span" ><p>ولا احد</p></span>
-        </div>
-    </>)
+    const { teamOne, teamTwo } = useSelector((state) => state.game);
+    return(
+        <>
+            <h1>مين جاوب ؟</h1>
+            <div className="g-t1">
+                <span className="g-t1-span"><p>{teamOne || "الفريق الأول"}</p></span>
+            </div>
+            <div className="g-t2">
+                <span className="g-t2-span"><p>{teamTwo || "الفريق الثاني"}</p></span>
+            </div>
+            <div className="g-no-one">
+                <span className="g-no-span" ><p>ولا احد</p></span>
+            </div>
+        </>
+    )
 }
 
-
+/* ---------------- MAIN GAME ---------------- */
 const MainGame = () => {
-    const [showQandA, setShowQandA] = useState(false);
-    const [currentView, setCurrentView] = useState('question'); // 'question', 'answer', 'result'
+    const { questionBank } = useSelector((state) => state.game);
 
-    const handleCategoryClick = () => {
+    const [showQandA, setShowQandA] = useState(false);
+    const [currentView, setCurrentView] = useState('question'); 
+    const [currentQA, setCurrentQA] = useState(null);
+    const [currentCategory, setCurrentCategory] = useState("");
+
+    // when selecting a category
+    const handleCategoryClick = (category) => {
+        const questions = questionBank[category] || [];
+        const randomQ = questions[Math.floor(Math.random() * questions.length)];
+        setCurrentQA(randomQ);
+        setCurrentCategory(category);
         setShowQandA(true);
-        setCurrentView('question'); // Start with question
+        setCurrentView('question'); 
     };
 
     const handleBackClick = () => {
-        setShowQandA(false); // Go back to category selection
-        setCurrentView('question'); // Reset to question for next time
+        setShowQandA(false); 
+        setCurrentView('question');
     };
 
     const handleToggleText = () => {
@@ -185,38 +188,39 @@ const MainGame = () => {
         } else if (currentView === 'answer') {
             setCurrentView('result');
         } else if (currentView === 'result') {
-            setShowQandA(false); // Go back to category selection
-            setCurrentView('question'); // Reset for next time
+            setShowQandA(false); 
+            setCurrentView('question'); 
         }
     };
 
     return(
-        <>
-            <div className="m-game">
-                <div className="container">
-                    <div className="m-game-cont">
-                        <Header />
-                        {!showQandA ? (
-                            <div className="cards">
-                                <SelecteCate onClick={handleCategoryClick} />
-                                <SelecteCate onClick={handleCategoryClick} />
-                                <SelecteCate onClick={handleCategoryClick} />
-                                <SelecteCate onClick={handleCategoryClick} />
-                                <SelecteCate onClick={handleCategoryClick} />
-                                <SelecteCate onClick={handleCategoryClick} />
-                            </div>
-                        ) : (
-                            <QandA 
-                                onBack={handleBackClick}
-                                onToggleText={handleToggleText}
-                                currentView={currentView}
-                            />
-                        )}
-                    </div>
+        <div className="m-game">
+            <div className="container">
+                <div className="m-game-cont">
+                    <Header />
+                    {!showQandA ? (
+                        <div className="cards">
+                            {Object.keys(questionBank).map((cat) => (
+                                <SelecteCate 
+                                    key={cat}
+                                    category={cat}
+                                    onClick={handleCategoryClick} 
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <QandA 
+                            onBack={handleBackClick}
+                            onToggleText={handleToggleText}
+                            currentView={currentView}
+                            currentQA={currentQA}
+                            category={currentCategory}
+                        />
+                    )}
                 </div>
-                <GameFooter />
             </div>
-        </>
+            <GameFooter />
+        </div>
     );
 }
 

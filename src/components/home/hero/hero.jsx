@@ -1,3 +1,4 @@
+import { StartBtn } from '../../startBtn';
 import './hStyle.css';
 
 const Hero =()=>{
@@ -9,7 +10,7 @@ const Hero =()=>{
                         <div className="info-f">
                             <h2>لعبة تفاعلية من قلب السعودية</h2>
                             <h3>قدها ولابس سوالف؟</h3>
-                            <button className='play'>العب</button>
+                            <StartBtn />
                         </div>
                         <img src="./hero.png" alt="" />
                         <img src="./herof.png" alt="" />
