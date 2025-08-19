@@ -1,65 +1,48 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { QUESTION_BANK } from '../questionBank';
 import { setGame } from "../../../gameSlice";
 import "./gcStyle.css";
 
-const QUESTION_BANK = {
-  "كرة القدم": [
-    { q: "من فاز بكأس العالم 2018؟", a: "فرنسا" },
-    { q: "أي لاعب يحمل الرقم القياسي لعدد مرات الفوز بالكرة الذهبية؟", a: "ليونيل ميسي" },
-    { q: "كم عدد اللاعبين في الملعب لكل فريق في كرة القدم؟", a: "11" },
-  ],
-  "العلوم": [
-    { q: "ما هو الرمز الكيميائي للماء؟", a: "H2O" },
-    { q: "أي كوكب يُعرف بالكوكب الأحمر؟", a: "المريخ" },
-    { q: "ما الغاز الذي تمتصه النباتات من الجو؟", a: "ثاني أكسيد الكربون" },
-  ],
-  "التاريخ": [
-    { q: "في أي عام انتهت الحرب العالمية الثانية؟", a: "1945" },
-    { q: "من كان أول رئيس للولايات المتحدة الأمريكية؟", a: "جورج واشنطن" },
-    { q: "أي حضارة قديمة بنت أهرامات الجيزة؟", a: "المصريون القدماء" },
-  ],
-  "الجغرافيا": [
-    { q: "ما هو أكبر محيط على وجه الأرض؟", a: "المحيط الهادئ" },
-    { q: "ما هي عاصمة اليابان؟", a: "طوكيو" },
-    { q: "أي نهر يمر عبر مصر؟", a: "نهر النيل" },
-  ],
-  "الأفلام": [
-    { q: "أي فيلم فاز بجائزة أفضل فيلم في أوسكار 2020؟", a: "Parasite" },
-    { q: "من هو مخرج فيلم Inception؟", a: "كريستوفر نولان" },
-    { q: "أي سلسلة أفلام يظهر فيها شخصية دارث فيدر؟", a: "حرب النجوم" },
-  ],
-  "التكنولوجيا": [
-    { q: "ماذا تعني اختصار HTTP؟", a: "بروتوكول نقل النص الفائق" },
-    { q: "أي شركة أنشأت نظام تشغيل أندرويد؟", a: "جوجل" },
-    { q: "ما هي الوحدة الأساسية للمعلومات في الحوسبة؟", a: "البت" },
-  ],
-};
-
-
 const CATEGORIES = [
-  { id: "Football", name: "كرة القدم", img: "./catimg.png" },
-  { id: "Science", name: "العلوم", img: "./catimg.png" },
-  { id: "History", name: "التاريخ", img: "./catimg.png" },
-  { id: "Geography", name: "الجغرافيا", img: "./catimg.png" },
-  { id: "Movies", name: "الأفلام", img: "./catimg.png" },
-  { id: "Technology", name: "التقنية", img: "./catimg.png" },
+  { id: "كرة القدم", name: "كرة القدم", img: "./catimg.png" },
+  { id: "العلوم", name: "العلوم", img: "./catimg.png" },
+  { id: "التاريخ", name: "التاريخ", img: "./catimg.png" },
+  { id: "الجغرافيا", name: "الجغرافيا", img: "./catimg.png" },
+  { id: "الأفلام", name: "الأفلام", img: "./catimg.png" },
+  { id: "التكنولوجيا", name: "التكنولوجيا", img: "./catimg.png" },
 ];
 
-function Card({ category, index, selected, order, onClick }) {
+function Card({ category, index, selected, order, isFavorite, onCardClick, onFavoriteClick }) {
+  const handleCardClick = (e) => {
+    if (e.target.closest('.select-btn')) {
+      return;
+    }
+    onCardClick();
+  };
+
+  const handleFavoriteClick = (e) => {
+    e.stopPropagation(); // Prevent card selection
+    onFavoriteClick();
+  };
+
   return (
-    <div className="card-cate" onClick={onClick} role="button" tabIndex={0}>
+    <div 
+      className="card-cate" 
+      onClick={handleCardClick} 
+      role="button" 
+      tabIndex={0}
+      style={{ opacity: selected ? 0.5 : 1 }}
+    >
       <div className="card-num">
         {selected ? <span className="number">{order}</span> : null}
       </div>
       <div className="card-info">
         <div className="select">
-          {selected ? (
-            <img src="./remg.png" alt="selected" />
-          ) : (
-            <img src="./remg2.png" alt="not-selected" />
-          )}
+          <button className="select-btn" onClick={handleFavoriteClick}>
+            <img src={isFavorite ? "./exit.png" : "./min.png"} alt={isFavorite ? "remove favorite" : "add favorite"} />
+          </button>
         </div>
         <img src={category.img} alt="" />
         <h5>{category.name}</h5>
@@ -72,6 +55,13 @@ export default function GameCate() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [selected, setSelected] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+
+  // Load favorites from localStorage on component mount
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem('categoryFavorites') || '[]');
+    setFavorites(savedFavorites);
+  }, []);
 
   const canStart = selected.length === 6;
 
@@ -87,6 +77,18 @@ export default function GameCate() {
       }
       if (prev.length >= 6) return prev;
       return [...prev, id];
+    });
+  };
+
+  const handleFavoriteClick = (id) => {
+    setFavorites((prev) => {
+      const updatedFavorites = prev.includes(id) 
+        ? prev.filter((x) => x !== id)
+        : [...prev, id];
+      
+      // Save to localStorage
+      localStorage.setItem('categoryFavorites', JSON.stringify(updatedFavorites));
+      return updatedFavorites;
     });
   };
 
@@ -139,7 +141,9 @@ export default function GameCate() {
                 category={cat}
                 selected={selected.includes(cat.id)}
                 order={selectedWithOrder.get(cat.id)}
-                onClick={() => handleCardClick(cat.id)}
+                isFavorite={favorites.includes(cat.id)}
+                onCardClick={() => handleCardClick(cat.id)}
+                onFavoriteClick={() => handleFavoriteClick(cat.id)}
               />
             ))}
           </div>
