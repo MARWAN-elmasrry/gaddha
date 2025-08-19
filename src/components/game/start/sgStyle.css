@@ -45,6 +45,14 @@
     background-color: transparent;
     border: none;
     width: 100%;
+    font-size: 1.4rem;
+    color: rgba(249, 231, 197, 1);
+}
+.start .start-cont .start-input-row input:focus{
+    border: none;
+    outline: none;
+    font-size: 1.4rem;
+    color: rgba(249, 231, 197, 1);
 }
 .start .start-cont .start-input-row input::placeholder{
     color: rgba(249, 231, 197, 1);

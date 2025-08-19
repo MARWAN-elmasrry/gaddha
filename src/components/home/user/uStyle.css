@@ -81,3 +81,16 @@
     display: flex;
     justify-content: center;
 }
+.user .card input{
+    background-color: transparent;
+    border: none;
+    width: 95%;
+    font-size: 1.4rem;
+    padding: 1rem;
+    color: rgba(249, 231, 197, 1);
+}   
+.user .card .passnone:focus {
+  border: none !important;  
+  outline: none !important; 
+  box-shadow: none !important;
+}

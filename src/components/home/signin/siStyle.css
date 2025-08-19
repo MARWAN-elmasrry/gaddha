@@ -29,7 +29,6 @@
 }
 .sign .links .date p{
     font-size: 2rem;
-    font-weight: 700;
     color: rgba(249, 231, 197, 1);
     opacity: .7;
 }
@@ -37,12 +36,14 @@
     margin-top: 1rem;
     text-decoration: none;
     font-size: 2rem;
-    font-weight: 700;
     color: rgba(249, 231, 197, 1);
-    opacity: .7;
+    opacity: .6;
+    transition: .4s;
 }
-
-input[type="date"] {
+.sign .links a:hover{
+    opacity: 1;
+}
+.sign .links input[type="text"]{
   width: 210px;
   padding: 10px;
   border: 1px solid transparent;
@@ -51,6 +52,6 @@ input[type="date"] {
   color: rgba(249, 231, 197, 1);
   background-color: rgba(136, 56, 19, 1);
 }
-input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
+.sign .links input[type="text"]::placeholder{
+    font-size: 2rem;
 }

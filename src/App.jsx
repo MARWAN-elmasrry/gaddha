@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { createContext, useState } from "react";
 
 import Header    from './components/home/header/head';
 import Footer    from './components/home/footer/foot';
@@ -27,12 +28,14 @@ import Users      from './components/dashboard/users/users';
 import Mgame      from './components/game/game';
 import Start      from './components/game/start/start';
 import MainGame   from './components/game/Maingame/game';
-import Contact from './components/home/contact/contact';
-import Login from './components/home/login/login';
-import Sign from './components/home/signin/sign';
-import Rec from './components/home/rec/rec';
-import User from './components/home/user/user';
-import Ver from './components/home/ver/ver';
+import Contact    from './components/home/contact/contact';
+import Login      from './components/home/login/login';
+import Sign       from './components/home/signin/sign';
+import Rec        from './components/home/rec/rec';
+import User       from './components/home/user/user';
+import Ver        from './components/home/ver/ver';
+
+export const ForceUpdateContext = createContext();
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -91,76 +94,49 @@ function HomePage() {
   );
 } 
 
-function Games(){
-  return(<>
+function Games() {
+  return (
+    <>
       <Header />
       <Mgame />
-  </>)
+    </>
+  );
 }
+
 export default function App() {
+  const [tick, setTick] = useState(0);
+
+  const forceUpdate = () => setTick(prev => prev + 1);
+
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
+    <ForceUpdateContext.Provider value={forceUpdate}>
+      <div key={tick}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
 
-      <Route path="/contact" element={<>
-        <Header />
-        <Contact />
-        <Footer />
-      </>} />
+          <Route path="/contact" element={<><Header /><Contact /><Footer /></>} />
+          <Route path="/login"   element={<><Header /><Login /><Footer /></>} />
+          <Route path="/sign"    element={<><Header /><Sign /><Footer /></>} />
+          <Route path="/rec"     element={<><Header /><Rec /><Footer /></>} />
+          <Route path="/user"    element={<><Header /><User /><Footer /></>} />
+          <Route path="/ver"     element={<><Header /><Ver /><Footer /></>} />
 
-      <Route path="/login" element={<>
-        <Header />
-        <Login />
-        <Footer />
-      </>} />
+          <Route path="/games" element={<Games />} />
+          <Route path="/game"  element={<MainGame />} />
+          <Route path="/start" element={<><Header /><Start /></>} />
 
-      <Route path="/sign" element={<>
-        <Header />
-        <Sign />
-        <Footer />
-      </>} />
-
-      <Route path="/rec" element={<>
-        <Header />
-        <Rec />
-        <Footer />
-      </>} />
-
-      <Route path="/user" element={<>
-        <Header />
-        <User />
-        <Footer />
-      </>} />
-
-      <Route path="/ver" element={<>
-        <Header />
-        <Ver />
-        <Footer />
-      </>} />
-
-      <Route path="/games" element={<Games />} />
-      <Route path="/game" element={<MainGame />} />
-      <Route path="/start" element={<>
-        <Header />
-        <Start />
-      </>} />
-      
-      <Route path="/dash"      element={<DashboardLayout><Dmain /></DashboardLayout>} />
-      <Route path="/dmess"     element={<DashboardLayout><Dmess /></DashboardLayout>} />
-      <Route path="/dreport"   element={<DashboardLayout><Dreport /></DashboardLayout>} />
-      <Route path="/dsale"     element={<DashboardLayout><Dsale /></DashboardLayout>} />
-      <Route path="/discount"  element={<DashboardLayout><Discount /></DashboardLayout>} />
-      <Route path="/categories" element={<DashboardLayout><Categories /></DashboardLayout>} />
-      <Route path="/files"     element={<DashboardLayout><Files /></DashboardLayout>} />
-      <Route path="/controls"  element={<DashboardLayout><Controls /></DashboardLayout>} />
-      <Route path="/dgames"     element={<DashboardLayout><Dgames /></DashboardLayout>} />
-      <Route path="/users"     element={<DashboardLayout><Users /></DashboardLayout>} />
-
-      {/* Optional legacy redirection */}
-      {/* <Route path="/control" element={<Navigate to="/controls" replace />} /> */}
-
-      {/* Catch-all: redirect back to homepage (or show a 404 component instead) */}
-      {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
-    </Routes>
+          <Route path="/dash"       element={<DashboardLayout><Dmain /></DashboardLayout>} />
+          <Route path="/dmess"      element={<DashboardLayout><Dmess /></DashboardLayout>} />
+          <Route path="/dreport"    element={<DashboardLayout><Dreport /></DashboardLayout>} />
+          <Route path="/dsale"      element={<DashboardLayout><Dsale /></DashboardLayout>} />
+          <Route path="/discount"   element={<DashboardLayout><Discount /></DashboardLayout>} />
+          <Route path="/categories" element={<DashboardLayout><Categories /></DashboardLayout>} />
+          <Route path="/files"      element={<DashboardLayout><Files /></DashboardLayout>} />
+          <Route path="/controls"   element={<DashboardLayout><Controls /></DashboardLayout>} />
+          <Route path="/dgames"     element={<DashboardLayout><Dgames /></DashboardLayout>} />
+          <Route path="/users"      element={<DashboardLayout><Users /></DashboardLayout>} />
+        </Routes>
+      </div>
+    </ForceUpdateContext.Provider>
   );
 }

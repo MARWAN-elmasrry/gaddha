@@ -1,3 +1,4 @@
+import { StartBtn } from '../../startBtn';
 import './fStyle.css'
 import { useLocation } from 'react-router-dom'
 
@@ -13,7 +14,7 @@ const Footer = () => {
                         <div className="info-f">
                             <h1>قدها ولابس سوالف؟</h1>
                             <h3> !ورنا الحين</h3>
-                            <button className='play'>العب</button>
+                            <StartBtn />
                         </div>
                         <img src="./hero.png" alt="" />
                         <img src="./herof.png" alt="" />

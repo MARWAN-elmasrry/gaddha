@@ -18,7 +18,8 @@ const Card =()=>{
         <h5>فئة معينة</h5>
     </div>
     </div>
-    </>)
+    </>
+    )
 }
 
 const Kgame=()=>{
@@ -28,14 +29,6 @@ const Kgame=()=>{
             <div className="kgame-cont">
                 <h3> تابع العابك القديمة وين ما وقفت</h3>
                 <div className="cards">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
                     <Card />
                 </div>
             </div>

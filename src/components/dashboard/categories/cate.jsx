@@ -8,7 +8,7 @@ const Categories =() =>{
                         <div className="back-btn">
                             <button  onClick={(e) => {e.preventDefault();window.location.href='/dash';}} ><img src="./back.png" alt="" /></button>
                         </div>
-                        <h1>اكواد الخصم</h1>
+                        <h1>الفئات</h1>
                         <div className="cont-info">
                             <div className="info">
                               <h3>عدد</h3>

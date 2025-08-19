@@ -1,37 +1,94 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"; 
+import { loginUser } from "../../../api/services/authService";
+import { setUser } from "../../../userSlice";
 import "./lStyle.css";
 
-const Login = () =>{
-    return(<>
-        <div className="login">
-            <div className="container">
-                <div className="login-cont">
-                    <h1>تسجيل الدخول</h1>
-                    <h3>سجل دخولك زبطو القهوة وخلو اللمة تولع</h3>
-                    <div className="form">
-                        <div className="start-input-row">
-                            <span className="start-icon">
-                            <img src="./offerv.png" alt="" />
-                            </span>
-                            <input className="start-input" type="text" placeholder="البريد الإلكتروني " dir="rtl" />
-                        </div>
-                        <div className="start-input-row">
-                            <span className="start-icon">
-                            <img src="./offerv.png" alt="" />
-                            </span>
-                            <input className="start-input" type="text" placeholder="كلمة المرور" dir="rtl" />
-                        </div>
-                        <div className="links">
-                            <a href="/sign">انشائ حساب جديد</a>
-                            <a href="/rec">نسيت كلمة المرور؟</a>
-                        </div>
-                        <div className="start-btn">
-                            <button>إرسال</button>
-                        </div>
-                    </div>                
-                </div>
+const Login = () => {
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate();
+
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const userData = await loginUser(identifier, password);
+
+      localStorage.setItem("authData", JSON.stringify(userData));
+      localStorage.setItem("token", JSON.stringify(userData.token));
+
+      dispatch(setUser(userData.user));
+
+      navigate("/user", { state: { user: userData.user } });
+    } catch (err) {
+      setError(err.message || "خطأ في تسجيل الدخول");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="login">
+      <div className="container">
+        <div className="login-cont">
+          <h1>تسجيل الدخول</h1>
+          <h3>سجل دخولك زبطو القهوة وخلو اللمة تولع</h3>
+          <form className="form" onSubmit={handleSubmit}>
+            <div className="start-input-row">
+              <span className="start-icon">
+                <img src="./offerv.png" alt="" />
+              </span>
+              <input
+                className="start-input"
+                type="text"
+                placeholder="البريد الإلكتروني أو اسم المستخدم"
+                dir="rtl"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                required
+              />
             </div>
+
+            <div className="start-input-row">
+              <span className="start-icon">
+                <img src="./offerv.png" alt="" />
+              </span>
+              <input
+                className="start-input"
+                type="password"
+                placeholder="كلمة المرور"
+                dir="rtl"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            {error && <p style={{ color: "red" }}>{error}</p>}
+
+            <div className="links">
+              <a href="/sign">إنشاء حساب جديد</a>
+              <a href="/rec">نسيت كلمة المرور؟</a>
+            </div>
+
+            <div className="start-btn">
+              <button type="submit" disabled={loading}>
+                {loading ? "جاري الإرسال..." : "إرسال"}
+              </button>
+            </div>
+          </form>
         </div>
-    </>)
-}
+      </div>
+    </div>
+  );
+};
 
 export default Login;

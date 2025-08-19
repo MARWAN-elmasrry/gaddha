@@ -8,6 +8,7 @@ position: relative;
     height: max-content;
     color: rgba(249, 231, 197, 1);
     font-weight: 700;
+    margin-bottom: 100px;
 }
 .cate .cards .card .card-num{
     width: 50px;
