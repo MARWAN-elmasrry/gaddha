@@ -3,7 +3,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from "react-redux";
 
-/* ---------------- HEADER ---------------- */
 const Header = () => {
     const location = useLocation();
     const menuItems = [
@@ -12,7 +11,6 @@ const Header = () => {
         { path: '/games', label: 'إلعب' },
         { path: '/packages', label: 'الباقات' },
     ];
-
     return (
         <header>
             <div className="container">
@@ -46,7 +44,6 @@ const Header = () => {
     );
 };
 
-/* ---------------- CATEGORY CARD ---------------- */
 const SelecteCate = ({ category, onClick }) => {
     return(
         <div className="card-cate" onClick={() => onClick(category)} style={{ cursor: 'pointer' }}>
@@ -61,7 +58,6 @@ const SelecteCate = ({ category, onClick }) => {
     )
 }
 
-/* ---------------- FOOTER ---------------- */
 const GameFooter = () => {
     const { teamOne, teamTwo } = useSelector((state) => state.game);
     return(
@@ -95,7 +91,6 @@ const GameFooter = () => {
     )
 }
 
-/* ---------------- Q & A ---------------- */
 const QandA = ({ onBack, onToggleText, currentView, currentQA, category }) => {
     return(
         <div className="qa">
@@ -115,21 +110,21 @@ const QandA = ({ onBack, onToggleText, currentView, currentQA, category }) => {
                 
                 {currentView === 'question' && (
                     <>
-                        <h1>{category} - سؤال</h1>
+                        <h1> سؤال: {currentQA?.q}</h1>
                         <div className="qora">
-                            <p>{currentQA?.q}</p>
+                            <img src="./catimg.png" alt="" />
                         </div>
                     </>
                 )}
-                
+
                 {currentView === 'answer' && (
                     <>
-                        <h1>{category} - الجواب</h1>
+                        <h1> الجواب: {currentQA?.a}</h1>
                         <div className="qora">
-                            <p>{currentQA?.a}</p>
+                            <img src="./catimg.png" alt="" />
                         </div>
                     </>
-                )}
+)}
                 
                 {currentView === 'result' && (
                     <GameResult />
@@ -139,7 +134,6 @@ const QandA = ({ onBack, onToggleText, currentView, currentQA, category }) => {
     )
 }
 
-/* ---------------- RESULT ---------------- */
 const GameResult = () =>{
     const { teamOne, teamTwo } = useSelector((state) => state.game);
     return(
@@ -158,7 +152,6 @@ const GameResult = () =>{
     )
 }
 
-/* ---------------- MAIN GAME ---------------- */
 const MainGame = () => {
     const { questionBank } = useSelector((state) => state.game);
 
