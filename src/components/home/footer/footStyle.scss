@@ -1,0 +1,261 @@
+.foot {
+  background-color: rgba(
+    136,
+    56,
+    19,
+    1
+  );
+}
+.camel {
+  padding-top: 3rem;
+}
+.foot-cont {
+  text-align: center;
+}
+.back-img {
+  position: relative;
+  width: 730px;
+  height: 500px;
+  display: inline-block;
+  margin: 20px 0;
+}
+.back-img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.back-img img:first-child {
+  z-index: 1;
+}
+.back-img img:nth-child(3) {
+  z-index: 2;
+  width: 95%;
+  left: 24px;
+}
+.back-img img:last-child {
+  z-index: 3;
+  position: absolute;
+  top: 110px;
+  left: 90px;
+}
+.back-img .info-f {
+  color: rgba(249, 231, 197, 1);
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.back-img .info-f button {
+  margin-top: 30px;
+  width: 91.08820343017578;
+  height: 51.096580505371094;
+  border-radius: 45px;
+  padding: 5px 23px;
+  color: rgba(249, 231, 197, 1);
+  font-size: 1.7rem;
+  border: none;
+  border-radius: 45px;
+  background: linear-gradient(
+    90deg,
+    rgba(136, 56, 19, 0.1) 37.5%,
+    #883813 100%
+  );
+}
+.foot .links .link-cont {
+  height: max-content;
+  background-color: rgba(
+    207,
+    138,
+    65,
+    1
+  );
+  background-image: url(../footer.png);
+  background-position: right center;
+  background-repeat: no-repeat;
+  border-top-left-radius: 35px;
+  //   margin-right: 100px;
+  padding: 0 5% 0 20%;
+  color: rgba(249, 231, 197, 1);
+}
+.foot .links .link-cont .p-police p {
+  text-align: center;
+  font-size: 1.4rem;
+  margin: 0;
+}
+.foot .links .link-cont .f-links {
+  display: flex;
+  justify-content: space-between;
+  height: 90%;
+  //   padding-left: 25rem;
+}
+.foot .link-cont .f-logo .line {
+  width: 196px;
+  height: 33px;
+  background-image: url(../ydot.png);
+  background-size: 33px;
+}
+.foot
+  .links
+  .link-cont
+  .f-links
+  .all-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 65%;
+  margin-left: 2rem;
+  font-size: 2rem;
+  color: rgba(136, 56, 19, 1);
+}
+.foot
+  .links
+  .link-cont
+  .f-links
+  .all-links
+  a {
+  text-decoration: none;
+  color: rgba(249, 231, 197, 1);
+}
+.foot
+  .links
+  .link-cont
+  .f-links
+  .all-links
+  .game-links,
+.police-links {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.foot
+  .links
+  .link-cont
+  .f-links
+  .f-logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  color: rgba(249, 231, 197, 1);
+}
+.link-cont .f-links .f-logo h2 {
+  margin-bottom: 20px;
+  margin-top: 40px;
+  text-align: end;
+  width: auto;
+}
+.foot
+  .links
+  .link-cont
+  .f-links
+  .f-logo
+  img {
+  width: 12rem;
+}
+.camel-img {
+  position: static;
+  width: 0;
+}
+
+.cam-img {
+  position: static;
+  width: 0;
+}
+
+@media (max-width: 1439px) {
+  .foot {
+    .link-cont {
+      padding: 0 5% 0 0 !important;
+    }
+    .police-links {
+      justify-content: center;
+      gap: 24px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .foot {
+    .back-img {
+      width: 600px !important;
+    }
+    .info-f {
+      top: 50% !important;
+      width: 100%;
+      h1,
+      h2 {
+        font-size: 20px;
+      }
+    }
+    .play {
+      margin-top: 0 !important;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .foot {
+    .back-img {
+      width: 400px !important;
+      img:last-child {
+        width: 80px !important;
+        top: 63px !important;
+        left: 68px !important;
+      }
+    }
+    .link-cont {
+      background-image: none !important;
+    }
+    .f-logo {
+      img {
+        margin-top: 20px;
+        width: 90px !important;
+      }
+      h2 {
+        margin-top: 12px !important;
+      }
+      .line {
+        display: none;
+      }
+    }
+    .game-links,
+    .police-links {
+      font-size: 20px;
+    }
+  }
+}
+@media (max-width: 425px) {
+  .foot {
+    .back-img {
+      width: 320px !important;
+      img:last-child {
+        width: 60px !important;
+        top: 51px !important;
+        left: 56px !important;
+      }
+    }
+    .info-f {
+      top: 52% !important;
+      width: 100%;
+      h1,
+      h2 {
+        font-size: 20px;
+      }
+    }
+    .play {
+      margin-top: 0 !important;
+      font-size: 16px !important;
+    }
+  }
+
+  .game-links,
+  .police-links {
+    font-size: 14px;
+    padding: 2px 14px;
+    gap: 8px;
+  }
+}
