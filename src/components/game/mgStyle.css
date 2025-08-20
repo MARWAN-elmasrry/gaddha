@@ -11,6 +11,8 @@
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 12px;
 }
 
 .g-link {
