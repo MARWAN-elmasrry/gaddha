@@ -4,11 +4,15 @@
     background-size: 120px, 120px;
     height: 100vh;
 }
-.m-game h1 {
-        font-size: 2.5rem;
-        text-align: center;
-        margin-top: 23px;
-    }
+.m-game h1{
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 23px;
+}
+.m-game .head-cont h1{
+ color: rgba(249, 231, 197, 1);
+ font-size: 3rem;
+}
 .m-game .game-foot-cont{
     display: flex;
     align-items: flex-end;

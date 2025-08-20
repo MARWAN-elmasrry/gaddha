@@ -7,6 +7,8 @@ import { markQuestionAsShown, updateTeamScore, adjustScore } from "../../../game
 const Header = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
+    const { gameName } = useSelector((state) => state.game);
+
 
   const handleExitClick = () => {
     setShowConfirm(true);
@@ -63,6 +65,7 @@ const Header = () => {
               )}
             </div>
           </div>
+            <h1>{gameName}</h1>
           <a href="/">
             <img src="./logo.png" alt="logo" style={{ width: 100 }} />
           </a>
