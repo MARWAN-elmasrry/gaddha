@@ -50,6 +50,8 @@
   .how .how-w-cont {
     background: #883813 !important;
     padding: 24px;
-    border-radius: 12px;
+    border-radius: 34px;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
 }
