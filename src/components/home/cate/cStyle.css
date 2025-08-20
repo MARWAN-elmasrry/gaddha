@@ -123,3 +123,8 @@ h2 {
     left: -7px;
   }
 }
+@media (max-width: 390px) {
+  .cat .card-info img {
+    width: 95px !important;
+  }
+}

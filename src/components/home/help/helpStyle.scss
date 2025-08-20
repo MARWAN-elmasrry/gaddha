@@ -78,14 +78,29 @@
   justify-content: space-between;
 }
 @media (max-width: 500px) {
-  .help-cont {
-    .up {
-      border-width: 0 175px 173.2px
-        175px !important;
+  .help {
+    .help-cont {
+      .up {
+        border-width: 0 175px 173.2px
+          175px !important;
+      }
+      .img-h {
+        img {
+          width: 100px !important;
+        }
+      }
     }
-    .img-h {
-      img {
-        width: 100px !important;
+  }
+}
+@media (max-width: 390px) {
+  .help {
+    .help-cont {
+      .up {
+        border-width: 0 130px 173.2px
+          130px !important;
+        p {
+          font-size: 12px;
+        }
       }
     }
   }

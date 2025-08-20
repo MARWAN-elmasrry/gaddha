@@ -159,7 +159,9 @@ header .links .points {
 @media (max-width: 390px) {
   header {
     .head-cont {
-      a {
+      flex-direction: column-reverse;
+      align-items: center;
+      > a {
         img {
           width: 90px !important;
         }

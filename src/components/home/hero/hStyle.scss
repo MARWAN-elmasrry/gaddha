@@ -67,6 +67,7 @@
     .tress > img:nth-child(even) {
       width: 100px !important;
     }
+
     .back-img {
       width: 320px !important;
       margin-top: -100px;
@@ -75,6 +76,7 @@
         width: 100%;
         h2 {
           margin-bottom: 12px;
+          width: auto !important;
         }
         h1,
         h2 {
@@ -85,6 +87,24 @@
     .play {
       margin-top: 0 !important;
       font-size: 16px !important;
+    }
+  }
+  .help-info {
+    img {
+      width: 100% !important;
+    }
+  }
+}
+@media (max-width: 390px) {
+  .hero {
+    .tress > img:nth-child(odd) {
+      width: 50px !important;
+    }
+    .tress > img:nth-child(even) {
+      width: 80px !important;
+    }
+    .back-img {
+      width: 290px !important;
     }
   }
 }

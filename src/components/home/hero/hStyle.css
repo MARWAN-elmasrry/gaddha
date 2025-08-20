@@ -82,6 +82,7 @@
   }
   .hero .back-img .info-f h2 {
     margin-bottom: 12px;
+    width: auto !important;
   }
   .hero .back-img .info-f h1,
 .hero .back-img .info-f h2 {
@@ -90,5 +91,20 @@
   .hero .play {
     margin-top: 0 !important;
     font-size: 16px !important;
+  }
+
+  .help-info img {
+    width: 100% !important;
+  }
+}
+@media (max-width: 390px) {
+  .hero .tress > img:nth-child(odd) {
+    width: 50px !important;
+  }
+  .hero .tress > img:nth-child(even) {
+    width: 80px !important;
+  }
+  .hero .back-img {
+    width: 290px !important;
   }
 }
