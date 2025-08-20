@@ -3,23 +3,47 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import GameCate from "./gamecate/gamecate";
 import Kgame from "./keepgame/kgame";
-import { QUESTION_BANK } from './questionBank';
+import { QUESTION_BANK } from "./questionBank";
 import { setGame } from "../../gameSlice";
 import "./mgStyle.css";
 
 const CATEGORIES = [
-  { id: "كرة القدم", name: "كرة القدم", img: "./catimg.png" },
-  { id: "العلوم", name: "العلوم", img: "./catimg.png" },
-  { id: "التاريخ", name: "التاريخ", img: "./catimg.png" },
-  { id: "الجغرافيا", name: "الجغرافيا", img: "./catimg.png" },
-  { id: "الأفلام", name: "الأفلام", img: "./catimg.png" },
-  { id: "التكنولوجيا", name: "التكنولوجيا", img: "./catimg.png" },
+  {
+    id: "كرة القدم",
+    name: "كرة القدم",
+    img: "./catimg.png",
+  },
+  {
+    id: "العلوم",
+    name: "العلوم",
+    img: "./catimg.png",
+  },
+  {
+    id: "التاريخ",
+    name: "التاريخ",
+    img: "./catimg.png",
+  },
+  {
+    id: "الجغرافيا",
+    name: "الجغرافيا",
+    img: "./catimg.png",
+  },
+  {
+    id: "الأفلام",
+    name: "الأفلام",
+    img: "./catimg.png",
+  },
+  {
+    id: "التكنولوجيا",
+    name: "التكنولوجيا",
+    img: "./catimg.png",
+  },
 ];
 
 // FavoriteCard Component
 function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveFavorite }) {
   const handleCardClick = (e) => {
-    if (e.target.closest('.remove-favorite-btn')) {
+    if (e.target.closest(".remove-favorite-btn")) {
       return;
     }
     onCardClick();
@@ -31,16 +55,16 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
   };
 
   return (
-    <div 
-      className="card-cate favorite-card" 
-      onClick={handleCardClick} 
-      role="button" 
+    <div
+      className="card-cate favorite-card"
+      onClick={handleCardClick}
+      role="button"
       tabIndex={0}
-      style={{ opacity: selected ? 0.5 : 1 }}
+      style={{
+        opacity: selected ? 0.5 : 1,
+      }}
     >
-      <div className="card-num">
-        {selected ? <span className="number">{order}</span> : null}
-      </div>
+      <div className="card-num">{selected ? <span className="number">{order}</span> : null}</div>
       <div className="card-info">
         <div className="select">
           <button className="remove-favorite-btn" onClick={handleRemoveFavorite}>
@@ -61,7 +85,7 @@ function FavoriteCate() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('categoryFavorites') || '[]');
+    const savedFavorites = JSON.parse(localStorage.getItem("categoryFavorites") || "[]");
     setFavorites(savedFavorites);
   }, []);
 
@@ -72,7 +96,7 @@ function FavoriteCate() {
     return orderMap;
   }, [selected]);
 
-  const favoriteCategories = CATEGORIES.filter(cat => favorites.includes(cat.id));
+  const favoriteCategories = CATEGORIES.filter((cat) => favorites.includes(cat.id));
 
   const handleCardClick = (id) => {
     setSelected((prev) => {
@@ -85,10 +109,10 @@ function FavoriteCate() {
   };
 
   const handleRemoveFavorite = (id) => {
-    const updatedFavorites = favorites.filter(favId => favId !== id);
+    const updatedFavorites = favorites.filter((favId) => favId !== id);
     setFavorites(updatedFavorites);
-    localStorage.setItem('categoryFavorites', JSON.stringify(updatedFavorites));
-    setSelected(prev => prev.filter(selectedId => selectedId !== id));
+    localStorage.setItem("categoryFavorites", JSON.stringify(updatedFavorites));
+    setSelected((prev) => prev.filter((selectedId) => selectedId !== id));
   };
 
   const startGame = () => {
@@ -102,7 +126,9 @@ function FavoriteCate() {
     };
 
     dispatch(setGame(payload));
-    navigate("/start", { replace: true });
+    navigate("/start", {
+      replace: true,
+    });
   };
 
   if (favoriteCategories.length === 0) {
@@ -139,7 +165,9 @@ function FavoriteCate() {
                 src={i < 3 ? "./offerv.png" : "./offerv2.png"}
                 alt=""
                 className={i < 3 ? "opc-img6" : "opc-img1"}
-                style={{ opacity: i < selected.length ? 1 : 0.3 }}
+                style={{
+                  opacity: i < selected.length ? 1 : 0.3,
+                }}
               />
             ))}
           </div>
@@ -167,56 +195,90 @@ function FavoriteCate() {
 
 // Main Game Component
 const Game = () => {
-    const [activeTab, setActiveTab] = useState('games');
-    const [isFlipping, setIsFlipping] = useState(false);
+  const [activeTab, setActiveTab] = useState("games");
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [selected, setSelected] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const handleTabClick = (tab, event) => {
-        event.preventDefault();
-        if (tab !== activeTab) {
-            setIsFlipping(true);
-            setTimeout(() => {
-                setActiveTab(tab);
-                setTimeout(() => setIsFlipping(false), 50);
-            }, 150);
-        }
+  const startGame = () => {
+    console.log("reach that");
+    const payload = {
+      selectedCategories: selected.map((id) => ({
+        id,
+        name: id,
+        qa: QUESTION_BANK[id] || [],
+      })),
+      questionBank: QUESTION_BANK,
     };
 
-    return (
-        <>
-            <div className="game">
-                <div className="container">
-                    <div className="game-cont">
-                        <div className="g-links">
-                            <div className="g-link">
-                                <a 
-                                    className={activeTab === 'games' ? 'g-active' : ''} 
-                                    href="#"
-                                    onClick={(e) => handleTabClick('games', e)}>
-                                    ألعابي</a>
-                                <a 
-                                    className={activeTab === 'categories' ? 'g-active' : ''} 
-                                    href="#"
-                                    onClick={(e) => handleTabClick('categories', e)}>الفئات
-                                </a>
-                                <a 
-                                    className={activeTab === 'favorites' ? 'g-active' : ''} 
-                                    href="#"
-                                    onClick={(e) => handleTabClick('favorites', e)}>المفضلة
-                                </a>
-                            </div>
-                        </div>
-                        <div className={`card-flip-container ${isFlipping ? 'flipping' : ''}`}>
-                            <div className="card-content">
-                                {activeTab === 'games' && <Kgame />}
-                                {activeTab === 'categories' && <GameCate />}
-                                {activeTab === 'favorites' && <FavoriteCate />}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    dispatch(setGame(payload));
+
+    navigate("/start", {
+      replace: true,
+    });
+  };
+
+  const handleTabClick = (tab, event) => {
+    event.preventDefault();
+    if (tab !== activeTab) {
+      setIsFlipping(true);
+      setTimeout(() => {
+        setActiveTab(tab);
+        setTimeout(() => setIsFlipping(false), 50);
+      }, 150);
+    }
+  };
+
+  return (
+    <>
+      <div className="game">
+        <div className="container">
+          <div className="game-cont">
+            <div className="g-links">
+              <div className="g-link">
+                <a
+                  className={activeTab === "games" ? "g-active" : ""}
+                  href="#"
+                  onClick={(e) => handleTabClick("games", e)}
+                >
+                  ألعابي
+                </a>
+                <a
+                  className={activeTab === "categories" ? "g-active" : ""}
+                  href="#"
+                  onClick={(e) => handleTabClick("categories", e)}
+                >
+                  الفئات
+                </a>
+                <a
+                  className={activeTab === "favorites" ? "g-active" : ""}
+                  href="#"
+                  onClick={(e) => handleTabClick("favorites", e)}
+                >
+                  المفضلة
+                </a>
+              </div>
+              {selected.length === 6 && (
+                <button className="remg" onClick={startGame}>
+                  ابدأ اللعب
+                </button>
+              )}
             </div>
-        </>
-    );
+            <div className={`card-flip-container ${isFlipping ? "flipping" : ""}`}>
+              <div className="card-content">
+                {activeTab === "games" && <Kgame />}
+                {activeTab === "categories" && (
+                  <GameCate selected={selected} setSelected={setSelected} />
+                )}
+                {activeTab === "favorites" && <FavoriteCate />}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Game;
