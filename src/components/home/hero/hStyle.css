@@ -1,40 +1,110 @@
-.hero-cont{
+.hero-cont {
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
-.hero-cont .back-img{
-    margin-top: 70px;
+
+.hero-cont .back-img {
+  margin-top: 70px;
 }
-.hero-cont .back-img img:nth-child(3){
-   top: 4px;
-    z-index: 2;
-    width: 92%;
-    left: 32px;
+
+.hero-cont .back-img img:nth-child(3) {
+  top: 4px;
+  z-index: 2;
+  width: 92%;
+  left: 32px;
 }
-.hero-cont .back-img img:last-child{
-    display: none;
+
+.hero-cont .back-img img:last-child {
+  display: none;
 }
-.hero-cont .back-img h2{
-    width: 110%;
+
+.hero-cont .back-img h2 {
+  width: 110%;
 }
-.hero .tress{
-    margin-top: 350px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
+
+.hero .tress {
+  margin-top: 350px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
 }
-.hero .tress img:first-child{
-    width: 300px;
+
+.hero .tress img:first-child {
+  width: 300px;
 }
-.hero .tress img:nth-child(2){
-    width: 200px;
+
+.hero .tress img:nth-child(2) {
+  width: 200px;
 }
-.hero .tress img:nth-child(3){
-    width: 230px;
+
+.hero .tress img:nth-child(3) {
+  width: 230px;
 }
-.hero .tress img:last-child{
-    width: 400px;
+
+.hero .tress img:last-child {
+  width: 400px;
+}
+
+@media (max-width: 1439px) {
+  .hero .tress > img:nth-child(odd) {
+    width: 120px !important;
+  }
+  .hero .tress > img:nth-child(even) {
+    width: 140px !important;
+  }
+}
+@media (max-width: 768px) {
+  .hero .back-img {
+    width: 600px !important;
+    margin-top: -100px;
+  }
+  .hero .back-img .info-f {
+    top: 55%;
+  }
+}
+@media (max-width: 700px) {
+  .hero .tress > img:nth-child(odd) {
+    width: 70px !important;
+  }
+  .hero .tress > img:nth-child(even) {
+    width: 100px !important;
+  }
+  .hero .back-img {
+    width: 320px !important;
+    margin-top: -100px;
+  }
+  .hero .back-img .info-f {
+    top: 52% !important;
+    width: 100%;
+  }
+  .hero .back-img .info-f h2 {
+    margin-bottom: 12px;
+    width: auto !important;
+  }
+  .hero .back-img .info-f h1,
+.hero .back-img .info-f h2 {
+    font-size: 20px;
+  }
+  .hero .play {
+    margin-top: 0 !important;
+    font-size: 16px !important;
+  }
+
+  .help-info img {
+    width: 100% !important;
+  }
+}
+@media (max-width: 390px) {
+  .hero .tress > img:nth-child(odd) {
+    width: 50px !important;
+  }
+  .hero .tress > img:nth-child(even) {
+    width: 80px !important;
+  }
+  .hero .back-img {
+    width: 290px !important;
+  }
 }
