@@ -1,0 +1,62 @@
+.how {
+  background-color: rgba(
+    249,
+    231,
+    197,
+    1
+  );
+  background-image: url(../howttop.png),
+    url(../howtbottom.png);
+  background-repeat: no-repeat,
+    no-repeat;
+  background-size: contain, contain;
+  background-position: top, bottom;
+}
+.how .how-t-cont {
+  height: 130vh;
+  color: rgba(136, 56, 19, 1);
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  text-align: end;
+  font-size: 30px;
+}
+.how .how-t-cont .info {
+  text-align: end;
+  font-size: 30px;
+}
+.how .how-w-cont h4 {
+  text-align: center;
+  margin: 0;
+  padding-bottom: 40px;
+  color: rgba(249, 231, 197, 1);
+}
+@media (max-width: 1440px) {
+  .how-w-cont {
+    h4 {
+      padding: 0 !important;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .how {
+    .how-t-cont {
+      flex-direction: column-reverse;
+      img {
+        width: 300px !important;
+        height: 300px !important;
+      }
+    }
+  }
+}
+@media (max-width: 650px) {
+  .how {
+    background-image: url(../howttop.png) !important;
+    .how-w-cont {
+      background: #883813 !important;
+      padding: 24px;
+      border-radius: 12px;
+    }
+  }
+}
