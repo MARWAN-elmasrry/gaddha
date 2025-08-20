@@ -35,6 +35,7 @@ header .head-cont .links {
 
 .side-menu {
   position: relative;
+  cursor: pointer;
 }
 
 .side-menu .icon {
@@ -70,6 +71,7 @@ header .head-cont .links {
 
 /* ======================== */
 .side-menu ul {
+  position: absolute;
   list-style: none;
   border-radius: 20px;
   padding: 0px;
@@ -78,9 +80,13 @@ header .head-cont .links {
   position: absolute;
   min-width: 324px;
   left: -12px;
-  top: -42px;
+  top: 20px;
   display: none;
   z-index: 1;
+}
+
+.side-menu.open ul {
+  display: block;
 }
 
 .side-menu:hover ul {
