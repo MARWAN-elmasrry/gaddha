@@ -11,6 +11,7 @@ export const loginUser = async (identifier, password) => {
 
 export const RegisterUser = async ({
       name,
+      username,
       email,
       password,
       countryCode,
@@ -19,7 +20,8 @@ export const RegisterUser = async ({
     }) => {
     try {
       const response = await api.post("/user/register", {
-        username: name, 
+        name,
+        username, 
         email,
         password,
         countryCode,
