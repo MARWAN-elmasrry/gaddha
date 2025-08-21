@@ -22,15 +22,16 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem(
-        "authData",
-        JSON.stringify({ user: action.payload })
-      );
+      // localStorage.setItem(
+      //   "authData",
+      //   JSON.stringify({ user: action.payload })
+      // );
     },
     logoutUser: (state) => {
       state.user = null;
       localStorage.removeItem("authData");
       localStorage.removeItem("token");
+      localStorage.clear()
     },
   },
 });

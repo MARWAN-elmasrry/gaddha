@@ -5,6 +5,7 @@ import { RegisterUser } from "../../../api/services/authService";
 
 const Sign = () => {
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
@@ -45,6 +46,7 @@ const Sign = () => {
     try {
         await RegisterUser({
             name,
+            username,
             email,
             password: pass,
             countryCode,
@@ -81,7 +83,20 @@ const Sign = () => {
                   required
                 />
               </div>
-
+              <div className="start-input-row">
+                <span className="start-icon">
+                  <img src="./offerv.png" alt="" />
+                </span>
+                <input
+                  className="start-input"
+                  type="text"
+                  placeholder="اسم اليوزر"
+                  dir="rtl"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
               <div className="start-input-row">
                 <span className="start-icon">
                   <img src="./offerv.png" alt="" />
