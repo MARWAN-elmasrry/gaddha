@@ -97,6 +97,12 @@ header .head-cont .links {
   transition: 0.2s;
 }
 
+.side-menu ul li:first-child.active,
+li:first-child.active a {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
 .side-menu ul .active {
   background-color: rgba(249, 231, 197, 0.1);
 }
