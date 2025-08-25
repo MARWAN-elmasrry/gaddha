@@ -11,7 +11,8 @@ const OTPStep = () => {
       setFormError("ادخل الكود كاملا 6 ارقام");
       return;
     }
-    console.log("OTP Submitted:", data.otp);
+    setFormError("");
+    console.log("OTP Submitted:", data);
   };
   return (
     <div className="otp-step">
