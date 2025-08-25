@@ -4,6 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 4rem;
+    justify-content: center;
 }
 .d-games .d-games-cont .cards .card{
     width: 265px;

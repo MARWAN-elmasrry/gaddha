@@ -1,5 +1,20 @@
 import './dgStyle.css';
 
+const Card  = () =>{
+    return(<>
+    <div className="card">
+        <div className="card-num">
+            <span class="number">22</span>
+        </div>
+        <div className="card-info">
+            <h4>22,444</h4>
+            <img src="./catimg.png" alt="" />
+            <h5>فئة معينة</h5>
+        </div>
+</div>
+    </>)
+}
+
 const Dgames =() =>{
     return(<>
         <div className="d-games">
@@ -18,97 +33,16 @@ const Dgames =() =>{
                         </div>
                     </div>
                     <div className="cards">
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        <div className="card">
-                                <div className="card-num">
-                                    <span class="number">22</span>
-                                </div>
-                                <div className="card-info">
-                                    <h4>22,444</h4>
-                                    <img src="./catimg.png" alt="" />
-                                    <h5>فئة معينة</h5>
-                                </div>
-                        </div>
-                        
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
                     </div>           
                 </div>
             </div>

@@ -91,14 +91,14 @@ const [hoveredCard, setHoveredCard] = useState(null);
                                                 dataKey="day" 
                                                 axisLine={false}
                                                 tickLine={false}
-                                                tick={{ fontSize: 12, fill: '#666' }}
+                                                tick={{ fontSize: 12, fill: 'rgba(249, 231, 197, 1)' }}
                                             />
                                             <YAxis 
                                                 domain={[0, 50]}
                                                 axisLine={false}
                                                 tickLine={false}
-                                                tick={{ fontSize: 12, fill: '#666' }}
-                                                ticks={[0, 10, 20, 30, 40, 50]}
+                                                tick={{ fontSize: 12, fill: 'rgba(249, 231, 197, 1)' }}
+                                                ticks={[0 , 10, 20, 30, 40, 50]}
                                             />
                                             <Tooltip />
                                             <Line 

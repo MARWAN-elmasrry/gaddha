@@ -157,13 +157,7 @@ const Dsale = () => {
                   <h1 className='h1-games'>أكثر الألعاب مبيعا</h1>
                 <div className="pie-chart">
                   <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'space-between',
-                      flex: 1,
-                      gap: '20px'
-                    }}>
+                    <div className='pie-info'>
                       <div style={{ width: '400px', height: '400px', flexShrink: 0 }}>
                         <ResponsiveContainer width="100%" height="100%">
                           <PieChart>
@@ -210,13 +204,7 @@ const Dsale = () => {
                   <h1 className='h1-games'>أكثر طرق الدفع استخداما</h1>
                 <div className="pie-chart">
                   <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'space-between',
-                      flex: 1,
-                      gap: '20px'
-                    }}>
+                    <div className='pie-info'>
                       <div style={{ width: '400px', height: '400px', flexShrink: 0 }}>
                         <ResponsiveContainer width="100%" height="100%">
                           <PieChart>
