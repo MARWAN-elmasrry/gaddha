@@ -1,33 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux"; 
+import { useDispatch } from "react-redux";
 import { loginUser } from "../../../api/services/authService";
+import { loginAdmin } from "../../../api/services/admingService";
 import { setUser } from "../../../userSlice";
 import "./lStyle.css";
-
+import CustomSwitch from "../../ui/SwitchInput";
 const Login = () => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [isAdmin, setIsAdmin] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      const userData = await loginUser(identifier, password);
+      let response;
+      if (isAdmin) {
+        response = await loginAdmin(identifier, password);
+      } else {
+        response = await loginUser(identifier, password);
+      }
+      localStorage.setItem("authData", JSON.stringify(response));
+      localStorage.setItem("token", JSON.stringify(response.token));
+      console.log("response:", response);
+      dispatch(setUser(response.user));
 
-      localStorage.setItem("authData", JSON.stringify(userData));
-      localStorage.setItem("token", JSON.stringify(userData.token));
-
-      dispatch(setUser(userData.user));
-
-      navigate("/user", { state: { user: userData.user } });
+      navigate("/user", { state: { user: response.user } });
     } catch (err) {
       setError(err.message || "خطأ في تسجيل الدخول");
     } finally {
@@ -72,8 +77,12 @@ const Login = () => {
               />
             </div>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
+            {error && <p style={{ color: "red", direction: "rtl" }}>{error}</p>}
+            <div className="login-type">
+              <span>مشرف</span>
+              <CustomSwitch checked={isAdmin} onChange={() => setIsAdmin(!isAdmin)} />
+              <span>مستخدم</span>
+            </div>
             <div className="links">
               <a href="/sign">إنشاء حساب جديد</a>
               <a href="/rec">نسيت كلمة المرور؟</a>

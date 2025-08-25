@@ -1,35 +1,42 @@
-.login{
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+.login {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
-.login .login-cont{    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.login .login-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.login h1{
-    font-size: 4rem;
-    margin-bottom: 3rem;
-    color: rgba(249, 231, 197, 1);
+.login h1 {
+  font-size: 4rem;
+  margin-bottom: 3rem;
+  color: rgba(249, 231, 197, 1);
 }
-.login h3{
-    font-size: 2rem;
-    margin-bottom: 3rem;
-    color: rgba(249, 231, 197, 1);
+.login h3 {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: rgba(249, 231, 197, 1);
 }
-.login .form .links{
-    display: flex;
-    justify-content: space-between;
+.login .form .links {
+  display: flex;
+  justify-content: space-between;
 }
-.login .form .links a{
-    text-decoration: none;
-    font-size: 2rem;
-    padding: 2rem;
-    color: rgba(249, 231, 197, 1);
-    opacity: .6;
-    transition: .4s;
+.login .form .links a {
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 2rem;
+  color: rgba(249, 231, 197, 1);
+  opacity: 0.6;
+  transition: 0.4s;
 }
-.login .form .links a:hover{
-    opacity: 1;
+.login .form .links a:hover {
+  opacity: 1;
+}
+.login-type {
+  direction: rtl;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
 }
