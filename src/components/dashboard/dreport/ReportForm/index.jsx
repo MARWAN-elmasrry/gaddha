@@ -1,19 +1,38 @@
 import React from "react";
 import CustomFileUpload from "../../../ui/FileUpload";
-import CustomSwitch from "../../../ui/SwitchInput";
 import { useState } from "react";
 import Modal from "../../../ui/Modal";
+import { useForm } from "react-hook-form";
+
 const ReportForm = ({ open, setOpen }) => {
-  const [checkSwitch, setCheckSwitch] = useState(false);
+  const [questionFile, setQuestionFile] = useState([]);
+  const [answerFile, setAnswerFile] = useState([]);
+
+  const questionValue = "ما اسم هذه المستشفى؟";
+  const questionAnswer = "مستشفى الحياة الوطنى";
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      question: questionValue,
+      answer: questionAnswer,
+      level: "",
+    },
+  });
   const handleClose = () => {
     setOpen(false);
   };
+  const onSubmit = (data) => {
+    console.log(data);
+    console.log("files", questionFile, answerFile);
+  };
   const title = `تعديل السؤال 60`;
-  const questionValue = "ما اسم هذه المستشفى؟";
-  const questionAnswer = "مستشفى الحياة الوطنى";
   return (
     <Modal title={title} isOpen={open} onClose={handleClose}>
       <form
+        onSubmit={handleSubmit(onSubmit)}
         style={{
           display: "flex",
           alignItems: "center",
@@ -24,19 +43,29 @@ const ReportForm = ({ open, setOpen }) => {
       >
         <div className="input-content" style={{ width: "49%" }}>
           <label htmlFor="">السؤال</label>
-          <input type="text" defaultValue={questionValue} />
+          <input type="text" {...register("question", { required: "السؤال مطلوب" })} />
+          {errors.question && <p style={{ color: "red" }}>{errors.question.message}</p>}
         </div>
         <div className="input-content" style={{ width: "49%" }}>
           <label htmlFor="">الاجابة</label>
-          <input type="text" defaultValue={questionAnswer} />
+          <input
+            type="text"
+            {...register("answer", {
+              required: "الإجابة مطلوبة",
+              minLength: { value: 3, message: "الإجابة قصيرة جدًا" },
+            })}
+          />
+          {errors.answer && <p style={{ color: "red" }}>{errors.answer.message}</p>}
         </div>
         <div className="input-content" style={{ width: "100%" }}>
-          <label htmlFor="">مستوى السؤال</label>
-          <select name="" id="">
-            <option value="">سهل</option>
-            <option value="">متوسط</option>
-            <option value="">صعب</option>
+          <label htmlFor="level-select">مستوى السؤال</label>
+          <select id="level-select" {...register("level", { required: "اختار مستوى للسؤال" })}>
+            <option value="">اختر المستوى</option>
+            <option value="easy">سهل</option>
+            <option value="medium">متوسط</option>
+            <option value="hard">صعب</option>
           </select>
+          {errors.level && <p style={{ color: "red" }}>{errors.level.message}</p>}
         </div>
 
         {/* <div>
@@ -44,14 +73,16 @@ const ReportForm = ({ open, setOpen }) => {
         </div> */}
         <div className="input-content" style={{ width: "49%" }}>
           <label htmlFor="">ملف السؤال</label>
-          <CustomFileUpload />
+          <CustomFileUpload selectedFiles={questionFile} setSelectedFiles={setQuestionFile} />
         </div>
         <div className="input-content" style={{ width: "49%" }}>
           <label htmlFor="">ملف الاجابة</label>
-          <CustomFileUpload />
+          <CustomFileUpload selectedFiles={answerFile} setSelectedFiles={setAnswerFile} />
         </div>
         <div style={{ width: "100%", textAlign: "center" }}>
-          <button class="submit-button">تعديل</button>
+          <button type="submit" class="submit-button">
+            تعديل
+          </button>
         </div>
       </form>
     </Modal>

@@ -8,9 +8,10 @@ const CustomFileUpload = ({
   style = {},
   className = "",
   onFileSelect,
+  selectedFiles,
+  setSelectedFiles,
 }) => {
   const fileInputRef = useRef(null);
-  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleClick = () => {
     if (fileInputRef.current) {
