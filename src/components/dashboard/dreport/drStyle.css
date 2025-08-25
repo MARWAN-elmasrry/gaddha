@@ -1,89 +1,89 @@
-.d-report .cards{
-    margin-top: 80px;
-    padding: 3rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2.3rem;
+.d-report .cards {
+  margin-top: 80px;
+  padding: 3rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2.3rem;
 }
-.d-report .cards .card{
-    position: relative;
-    background-color: rgba(136, 56, 19, 1);
-    border-radius: 10 px;
-    padding: 1.4rem;
-    margin-top: 35px;
-    width: 48%;
-    height: max-content;
-    max-width: 50%;
-    color: rgba(249, 231, 197, 1);
-    font-weight: 700;
+.d-report .cards .card {
+  position: relative;
+  background-color: rgba(136, 56, 19, 1);
+  border-radius: 10 px;
+  padding: 1.4rem;
+  margin-top: 35px;
+  width: 48%;
+  height: max-content;
+  max-width: 50%;
+  color: rgba(249, 231, 197, 1);
+  font-weight: 700;
 }
-.d-report .cards .card .card-num{
-    width: 50px;
-    height: 50px;
-    background-color: rgba(136, 56, 19, 1);
-    transform: rotate(45deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: -25px;
-    left: -26px;
+.d-report .cards .card .card-num {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(136, 56, 19, 1);
+  transform: rotate(45deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -25px;
+  left: -26px;
 }
-.d-report .cards .card .card-num .number{
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    transform: rotate(-45deg);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+.d-report .cards .card .card-num .number {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  transform: rotate(-45deg);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
-.d-report .cards .card .card-info .main-info{
-    display: flex;
-    justify-content: space-between;
-    font-weight: 700;
+.d-report .cards .card .card-info .main-info {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
 }
-.d-report .cards .card .card-info .report-info{
-    display: flex;
-    justify-content: space-between;
-    opacity: .6;
-    margin-top: 1em;
-    margin-bottom: 1em;
+.d-report .cards .card .card-info .report-info {
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.6;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
-.d-report .cards .card .card-info .contact-info p{
-    margin: 0;
-    font-size: 1.6rem;
-    opacity: .6;
-}
-
-.d-report .cards .card .card-info .mess{
-    margin: 1rem;
-    height: 150px;
-    background-color: rgba(249, 231, 197, 0.1);
-    border-radius: 10px;
+.d-report .cards .card .card-info .contact-info p {
+  margin: 0;
+  font-size: 1.6rem;
+  opacity: 0.6;
 }
 
-.d-report .cards .card .card-info .mess p{
-      text-align: right;
-    font-weight: 600;
-    opacity: .6;
-    font-size: 1.6rem;
-    padding-right: 20px;
-    padding-top: 9px;
-    padding-left: 10px;
+.d-report .cards .card .card-info .mess {
+  margin: 1rem;
+  height: 150px;
+  background-color: rgba(249, 231, 197, 0.1);
+  border-radius: 10px;
 }
-.d-report .cards .card .card-info .edit-btn{
-    margin-top: 5rem;
-    display: flex;
-    justify-content: center;
+
+.d-report .cards .card .card-info .mess p {
+  text-align: right;
+  font-weight: 600;
+  opacity: 0.6;
+  font-size: 1.6rem;
+  padding-right: 20px;
+  padding-top: 9px;
+  padding-left: 10px;
 }
-.d-report .cards .card .card-info .edit-btn button{
-    width: 91.08820343017578;
-    height: 51.096580505371094;
-    border-radius: 45px;
-    padding: 5px 23px;
-    color: rgba(249, 231, 197, 1);
-    font-size: 1.7rem;
-    border: none;
-    border-radius: 45px;
-    background: linear-gradient(90deg, rgba(207, 138, 65, 0.1) 37.5%, #CF8A41 100%);
+.d-report .cards .card .card-info .edit-btn {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+}
+.d-report .cards .card .card-info .edit-btn button {
+  width: 91.08820343017578;
+  height: 51.096580505371094;
+  border-radius: 45px;
+  padding: 5px 23px;
+  color: rgba(249, 231, 197, 1);
+  font-size: 1.7rem;
+  border: none;
+  border-radius: 45px;
+  background: linear-gradient(90deg, rgba(207, 138, 65, 0.1) 37.5%, #cf8a41 100%);
 }
