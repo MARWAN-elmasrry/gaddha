@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "./FileUpload.css";
 
 const CustomFileUpload = ({
-  divText = "Upload File",
+  divText = " رفع الملف",
   accept = "*",
   multiple = false,
   style = {},
