@@ -1,0 +1,56 @@
+.otp-step {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  align-items: center;
+}
+.otp-step .otp-header {
+  color: #f9e7c5;
+  text-align: center;
+}
+.otp-step .otp-form {
+  padding: 40px 35px;
+  background: #88381380;
+  border-radius: 40px;
+  margin-bottom: 220px;
+}
+.otp-step .otp-form .otp-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+.otp-step .otp-form .otp-container > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.otp-step .otp-form .otp-container > div:first-child p {
+  text-align: right;
+  font-size: 20px;
+}
+.otp-step .otp-form .otp-container > div:first-child .otp-inputs {
+  padding: 15px 230px;
+  background: #883813;
+  border-radius: 40px;
+}
+.otp-step .otp-form .otp-container > div:first-child .otp-inputs .OTP {
+  gap: 25px !important;
+}
+.otp-step .otp-form .otp-container > div:first-child .otp-inputs .OTP .input-container {
+  width: 25px;
+  height: 25px;
+}
+.otp-step .otp-form .otp-container > div:first-child .otp-inputs .OTP .input-container input {
+  color: #000;
+}
+.otp-step .otp-form .otp-container .resend-code {
+  background: transparent;
+  color: #f9e7c5;
+  font-size: 38px;
+  opacity: 0.7;
+}
+.otp-step .otp-form .send-otp {
+  width: 100%;
+  text-align: center;
+}
