@@ -159,6 +159,8 @@ const Dsale = () => {
                   <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <div className='pie-info'>
                       <div style={{ width: '400px', height: '400px', flexShrink: 0 }}>
+                      {/* <div style={{ width: '400px', height: '400px', flexShrink: 0 }}>  and this also too  */}
+                      
                         <ResponsiveContainer width="100%" height="100%">
                           <PieChart>
                             <Pie
@@ -168,6 +170,7 @@ const Dsale = () => {
                               labelLine={false}
                               label={renderCustomizedLabel}
                               outerRadius={200}
+                              //  outerRadius={200}  can i make this reponcive to the widht of the screen
                               fill="#8884d8"
                               dataKey="value"
                               stroke="#fff"

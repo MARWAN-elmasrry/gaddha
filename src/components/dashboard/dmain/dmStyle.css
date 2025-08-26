@@ -17,7 +17,7 @@
   border-radius: 20px;
   padding: 1rem;
   width:50%;
-  height: 20.6rem;
+  height: max-content;
   color: rgba(249, 231, 197, 1);
   text-align: center;
 }
@@ -264,11 +264,26 @@ vertical-align: middle;
     flex-wrap: wrap;
     gap: 2rem;
 }
-
 }
 @media screen and (max-width: 768px) {
 .d-main .d-main-cont .r-card .card-info {
     position: relative;
 }
-
+}
+@media screen and (max-width: 480px) {
+.storage-info{
+  flex-direction: column;
+}.sale-cont .chart{
+flex-direction: column-reverse;
+}
+.d-main .d-main-cont .r-card .r-cards .rcard{
+  height: max-content;
+}
+.d-main .d-main-cont .r-card .r-cards .rcard .info{
+  flex-direction: column;
+}
+.d-main .d-main-cont .r-card .r-cards .r-info .mess h4{
+      padding-bottom: 1rem;
+      padding-top: 1rem;
+}
 }

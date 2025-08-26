@@ -118,3 +118,28 @@
     max-width: 100%;
 }
 }
+@media screen and (max-width: 480px) {
+.h-cont h1{
+    margin: 0;
+}
+
+.h-cont .cont-info{
+        display: block;
+    width: max-content;
+}
+.d-mess .d-mess-cont .cards .card .card-info .main-info ,
+.d-report .cards .card .card-info .main-info,
+.dis .cards .card .card-info,
+.cate .cards .card .card-info ,
+.control .cards .card .info{
+    flex-direction: column-reverse;
+    align-items: center;
+}
+.dis .cards .card .card-info,
+.cate .cards .card .card-info{
+    gap: 1rem;
+}
+.control .cards .card .info h2{
+    width: max-content;
+}
+}
