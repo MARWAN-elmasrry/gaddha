@@ -59,35 +59,35 @@ const Controls = () => {
                 </div>
                 <div className="tools">
                   <div className="tool">
-                    <img src="./dashr.png" alt="" />
+                    <img src="/dashr.png" alt="" />
                     <h3>عرض الملفات</h3>
                   </div>
                   <div className="tool">
-                    <img src="./dashr.png" alt="" />
+                    <img src="/dashr.png" alt="" />
                     <h3>عرض المبيعات</h3>
                   </div>
                   <div className="tool">
-                    <img src="./dashr.png" alt="" />
+                    <img src="/dashr.png" alt="" />
                     <h3>عرض البلاغات</h3>
                   </div>
                   <div className="tool">
-                    <img src="./dashr.png" alt="" />
+                    <img src="/dashr.png" alt="" />
                     <h3>تعديل البلاغات</h3>
                   </div>
                   <div className="tool">
-                    <img src="./dashr.png" alt="" />
+                    <img src="/dashr.png" alt="" />
                     <h3>عرض البلاغات</h3>
                   </div>
                   <div className="tool">
-                    <img src="./dashr.png" alt="" />
+                    <img src="/dashr.png" alt="" />
                     <h3>تعديل البلاغات</h3>
                   </div>
                   <div className="tool">
-                    <img src="./dashr.png" alt="" />
+                    <img src="/dashr.png" alt="" />
                     <h3>تحكم كامل</h3>
                   </div>
                   <div className="tool">
-                    <img src="./dashr.png" alt="" />
+                    <img src="/dashr.png" alt="" />
                     <h3>عرض كامل</h3>
                   </div>
                 </div>

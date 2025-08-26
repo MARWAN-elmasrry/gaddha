@@ -34,7 +34,7 @@ const Dhead = () => {
                     <NavLink to={item.path}>
                       {item.label}
                       {location.pathname === item.path && (
-                        <img src="./dashr.png" alt="" style={{ marginLeft: 20 }} />
+                        <img src="/dashr.png" alt="" style={{ marginLeft: 20 }} />
                       )}
                     </NavLink>
                   </li>

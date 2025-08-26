@@ -54,7 +54,7 @@ const Discount = () => {
               <div className="cont-info">
                 <div className="info">
                   <h3>عدد</h3>
-                  <p>7</p>
+                  <p>{coupons.length}</p>
                 </div>
               </div>
             </div>

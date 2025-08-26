@@ -1,6 +1,5 @@
-import './dmStyle.css';
+import "./dmStyle.css";
 import { useState } from "react";
-
 
 import {
   LineChart,
@@ -9,7 +8,7 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
 
 const data = [
@@ -18,34 +17,39 @@ const data = [
   { day: "T", value: 30 },
   { day: "W", value: 20 },
   { day: "T", value: 50 },
-  { day: "F", value: 30 }
+  { day: "F", value: 30 },
 ];
 
 const Dmain = () => {
-const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const getImageSrc = (cardType, position) => {
     if (hoveredCard === cardType) {
       return "./dashrm.png";
     }
-    return "./dashr.png";
+    return "/dashr.png";
   };
   return (
     <div className="d-main">
-        <div className="back-tress">
-            <div className="tress">
-                <img className='left' src="./dashtree.png" alt="" />
-                <img className='right' src="./dashtree.png" alt="" />
-            </div>
+      <div className="back-tress">
+        <div className="tress">
+          <img className="left" src="./dashtree.png" alt="" />
+          <img className="right" src="./dashtree.png" alt="" />
         </div>
+      </div>
       <div className="container">
         <div className="d-main-cont">
           <h1>لوحة الإحصائيات</h1>
           <div className="cards">
-            <div className="f-card" 
-            onMouseEnter={() => setHoveredCard('file')}
-            onMouseLeave={() => setHoveredCard(null)}>
-              <h3 className="card-title"><img src={getImageSrc('file')} alt="" /> الملفات <img src={getImageSrc('file')} alt="" /></h3>
+            <div
+              className="f-card"
+              onMouseEnter={() => setHoveredCard("file")}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <h3 className="card-title">
+                <img src={getImageSrc("file")} alt="" /> الملفات{" "}
+                <img src={getImageSrc("file")} alt="" />
+              </h3>
               <div className="storage-info">
                 <div className="info">
                   <span className="label">المساحة</span>
@@ -62,199 +66,249 @@ const [hoveredCard, setHoveredCard] = useState(null);
               </div>
               <div className="progress-bar">
                 <div className="bar">
-                    <div className="used" style={{ width: '67%' }}></div>
-                    <div className="indicator left"><img src="./persw.png" alt="" />67%</div>
-                    <div className="indicator right">33%<img src="./persw.png" alt="" /></div>
+                  <div className="used" style={{ width: "67%" }}></div>
+                  <div className="indicator left">
+                    <img src="./persw.png" alt="" />
+                    67%
+                  </div>
+                  <div className="indicator right">
+                    33%
+                    <img src="./persw.png" alt="" />
+                  </div>
                 </div>
                 <span className="max-space">50 GB</span>
               </div>
             </div>
-            <div className="s-card" onClick={(e) => {e.preventDefault();window.location.href='/dsale';}} style={{cursor:'pointer'}}>
-                <div className="sales" 
-                  onMouseEnter={() => setHoveredCard('sale')}
-                  onMouseLeave={() => setHoveredCard(null)}>
-                    <div className="sale-cont" style={{zIndex:3}}>
-                      <div className="info">
-                        <h3  className="card-title"><img src={getImageSrc('sale')} alt="hover" /> المبيعات  <img src={getImageSrc('sale')} alt="hover" /></h3>
-                      </div>
-                      <div className="chart">
-                                    <div className="chart-graf">
-                                        <ResponsiveContainer width="100%" height={200}>
-                                        <LineChart data={data} margin={{ top: 10, right: 60 , left: -35, bottom: 0 }}>
-                                            <CartesianGrid 
-                                                  stroke="#e0e0e0" 
-                                                  strokeWidth={1}
-                                                  horizontal={true}
-                                                  vertical={false}
-                                                />
-                                            <XAxis 
-                                                dataKey="day" 
-                                                axisLine={false}
-                                                tickLine={false}
-                                                tick={{ fontSize: 12, fill: 'rgba(249, 231, 197, 1)' }}
-                                            />
-                                            <YAxis 
-                                                domain={[0, 50]}
-                                                axisLine={false}
-                                                tickLine={false}
-                                                tick={{ fontSize: 12, fill: 'rgba(249, 231, 197, 1)' }}
-                                                ticks={[0 , 10, 20, 30, 40, 50]}
-                                            />
-                                            <Tooltip />
-                                            <Line 
-                                                type="monotone" 
-                                                dataKey="value" 
-                                                stroke="rgba(249, 231, 197, 1)" 
-                                                strokeWidth={2}
-                                                dot={{ fill: 'rgba(249, 231, 197, 1)', strokeWidth: 2, r: 4 }}
-                                                activeDot={{ r: 6, fill: 'rgba(249, 231, 197, 1)' }}
-                                            />
-                                        </LineChart>
-                                    </ResponsiveContainer>
-                                    </div>
-                                    <div className="chart-info">
-                                        <h6>العدد</h6>
-                                        <p>189</p>
-                                        <h6>القيمة</h6>
-                                        <p>1,300</p>
-                                    </div>
-                      </div>
+            <div
+              className="s-card"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/dsale";
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              <div
+                className="sales"
+                onMouseEnter={() => setHoveredCard("sale")}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <div className="sale-cont" style={{ zIndex: 3 }}>
+                  <div className="info">
+                    <h3 className="card-title">
+                      <img src={getImageSrc("sale")} alt="hover" /> المبيعات{" "}
+                      <img src={getImageSrc("sale")} alt="hover" />
+                    </h3>
+                  </div>
+                  <div className="chart">
+                    <div className="chart-graf">
+                      <ResponsiveContainer width="100%" height={200}>
+                        <LineChart
+                          data={data}
+                          margin={{ top: 10, right: 60, left: -35, bottom: 0 }}
+                        >
+                          <CartesianGrid
+                            stroke="#e0e0e0"
+                            strokeWidth={1}
+                            horizontal={true}
+                            vertical={false}
+                          />
+                          <XAxis
+                            dataKey="day"
+                            axisLine={false}
+                            tickLine={false}
+                            tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
+                          />
+                          <YAxis
+                            domain={[0, 50]}
+                            axisLine={false}
+                            tickLine={false}
+                            tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
+                            ticks={[0, 10, 20, 30, 40, 50]}
+                          />
+                          <Tooltip />
+                          <Line
+                            type="monotone"
+                            dataKey="value"
+                            stroke="rgba(249, 231, 197, 1)"
+                            strokeWidth={2}
+                            dot={{ fill: "rgba(249, 231, 197, 1)", strokeWidth: 2, r: 4 }}
+                            activeDot={{ r: 6, fill: "rgba(249, 231, 197, 1)" }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
                     </div>
+                    <div className="chart-info">
+                      <h6>العدد</h6>
+                      <p>189</p>
+                      <h6>القيمة</h6>
+                      <p>1,300</p>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
-          <div className="r-card"
-          onMouseEnter={() => setHoveredCard('report')}
-            onMouseLeave={() => setHoveredCard(null)}>
-              <h3 onClick={(e) => {e.preventDefault();window.location.href='/dreport';}} style={{cursor:'pointer'}} className="card-title"><img src={getImageSrc('report')} alt="" /> البلاغات <img src={getImageSrc('report')} alt="" /></h3>
-              <div className="card-info">
+          <div
+            className="r-card"
+            onMouseEnter={() => setHoveredCard("report")}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <h3
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/dreport";
+              }}
+              style={{ cursor: "pointer" }}
+              className="card-title"
+            >
+              <img src={getImageSrc("report")} alt="" /> البلاغات{" "}
+              <img src={getImageSrc("report")} alt="" />
+            </h3>
+            <div className="card-info">
+              <div className="info">
+                <h3>جديد</h3>
+                <p>0</p>
+              </div>
+              <div className="info">
+                <h3>كلى</h3>
+                <p>15</p>
+              </div>
+            </div>
+            <div className="r-cards">
+              <div className="rcard">
                 <div className="info">
-                  <h3>جديد</h3>
-                  <p>0</p>
+                  <p>jj345@gmail.com</p>
+                  <p>أنمي</p>
+                  <p>11:20</p>
                 </div>
-                <div className="info">
-                  <h3>كلى</h3>
-                  <p>15</p>
+                <div className="mess">
+                  <p>الصوره غير صحيحه</p>
                 </div>
               </div>
-              <div className="r-cards">
-                <div className="rcard">
-                  <div className="info">
-                      <p>jj345@gmail.com</p>
-                      <p>أنمي</p>
-                      <p>11:20</p>
-                  </div>
-                  <div className="mess">
-                    <p>الصوره غير صحيحه</p>
-                  </div>
+              <div className="rcard">
+                <div className="info">
+                  <p>jj345@gmail.com</p>
+                  <p>أنمي</p>
+                  <p>11:20</p>
                 </div>
-                <div className="rcard">
-                  <div className="info">
-                      <p>jj345@gmail.com</p>
-                      <p>أنمي</p>
-                      <p>11:20</p>
-                  </div>
-                  <div className="mess">
-                    <p>الصوره غير صحيحه</p>
-                  </div>
-                </div>
-                <div className="rcard">
-                  <div className="info">
-                      <p>jj345@gmail.com</p>
-                      <p>أنمي</p>
-                      <p>11:20</p>
-                  </div>
-                  <div className="mess">
-                    <p>الصوره غير صحيحه</p>
-                  </div>
+                <div className="mess">
+                  <p>الصوره غير صحيحه</p>
                 </div>
               </div>
+              <div className="rcard">
+                <div className="info">
+                  <p>jj345@gmail.com</p>
+                  <p>أنمي</p>
+                  <p>11:20</p>
+                </div>
+                <div className="mess">
+                  <p>الصوره غير صحيحه</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="r-card"
-            onMouseEnter={() => setHoveredCard('mess')}
-            onMouseLeave={() => setHoveredCard(null)}>
-              <h3  onClick={(e) => {e.preventDefault();window.location.href='/dmess';}} style={{cursor:'pointer'}} className="card-title"><img src={getImageSrc('mess')} alt="hover" /> الرسائل  <img src={getImageSrc('mess')} alt="hover" /></h3>
-              <div className="card-info">
+          <div
+            className="r-card"
+            onMouseEnter={() => setHoveredCard("mess")}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <h3
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/dmess";
+              }}
+              style={{ cursor: "pointer" }}
+              className="card-title"
+            >
+              <img src={getImageSrc("mess")} alt="hover" /> الرسائل{" "}
+              <img src={getImageSrc("mess")} alt="hover" />
+            </h3>
+            <div className="card-info">
+              <div className="info">
+                <h3>جديد</h3>
+                <p>0</p>
+              </div>
+              <div className="info">
+                <h3>كلى</h3>
+                <p>15</p>
+              </div>
+            </div>
+            <div className="r-cards">
+              <div className="rcard">
                 <div className="info">
-                  <h3>جديد</h3>
-                  <p>0</p>
+                  <p>jj345@gmail.com</p>
+                  <p>أنمي</p>
+                  <p>11:20</p>
                 </div>
-                <div className="info">
-                  <h3>كلى</h3>
-                  <p>15</p>
+                <div className="mess">
+                  <p>الصوره غير صحيحه</p>
                 </div>
               </div>
-              <div className="r-cards">
-                <div className="rcard">
-                  <div className="info">
-                      <p>jj345@gmail.com</p>
-                      <p>أنمي</p>
-                      <p>11:20</p>
-                  </div>
-                  <div className="mess">
-                    <p>الصوره غير صحيحه</p>
-                  </div>
+              <div className="rcard">
+                <div className="info">
+                  <p>jj345@gmail.com</p>
+                  <p>أنمي</p>
+                  <p>11:20</p>
                 </div>
-                <div className="rcard">
-                  <div className="info">
-                      <p>jj345@gmail.com</p>
-                      <p>أنمي</p>
-                      <p>11:20</p>
-                  </div>
-                  <div className="mess">
-                    <p>الصوره غير صحيحه</p>
-                  </div>
-                </div>
-                <div className="rcard">
-                  <div className="info">
-                      <p>jj345@gmail.com</p>
-                      <p>أنمي</p>
-                      <p>11:20</p>
-                  </div>
-                  <div className="mess">
-                    <p>الصوره غير صحيحه</p>
-                  </div>
+                <div className="mess">
+                  <p>الصوره غير صحيحه</p>
                 </div>
               </div>
+              <div className="rcard">
+                <div className="info">
+                  <p>jj345@gmail.com</p>
+                  <p>أنمي</p>
+                  <p>11:20</p>
+                </div>
+                <div className="mess">
+                  <p>الصوره غير صحيحه</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="r-card"
-              onMouseEnter={() => setHoveredCard('info')}
-              onMouseLeave={() => setHoveredCard(null)}>
-              <h3 className="card-title"><img src={getImageSrc('info')} alt="hover" /> معلومات  <img src={getImageSrc('info')} alt="hover" /></h3>
-              <div className="r-cards">
-                <div className="rcard r-info">
-                  <div className="info">
-                      <p>المستخدمين</p>
-                  </div>
-                  <div className="mess">
-                    <h4 classname='r-h'>55,567</h4>
-                  </div>
+          <div
+            className="r-card"
+            onMouseEnter={() => setHoveredCard("info")}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <h3 className="card-title">
+              <img src={getImageSrc("info")} alt="hover" /> معلومات{" "}
+              <img src={getImageSrc("info")} alt="hover" />
+            </h3>
+            <div className="r-cards">
+              <div className="rcard r-info">
+                <div className="info">
+                  <p>المستخدمين</p>
                 </div>
-                <div className="rcard r-info">
-                  <div className="info">
-                      <p>الفئات</p>
-                  </div>
-                  <div className="mess">
-                    <h4 classname='r-h'>22,666</h4>
-                  </div>
+                <div className="mess">
+                  <h4 classname="r-h">55,567</h4>
                 </div>
-                <div className="rcard r-info">
-                  <div className="info">
-                      <p>الكوبونات</p>
-                  </div>
-                  <div className="mess">
-                    <h4 classname='r-h'>10</h4>
-                  </div>
-                </div>
-                <div className="rcard r-info">
-                  <div className="info">
-                      <p>الأللعاب</p>
-                  </div>
-                  <div className="mess">
-                    <h4 classname='r-h'>33,555</h4>
-                  </div>
-                </div>                
               </div>
+              <div className="rcard r-info">
+                <div className="info">
+                  <p>الفئات</p>
+                </div>
+                <div className="mess">
+                  <h4 classname="r-h">22,666</h4>
+                </div>
+              </div>
+              <div className="rcard r-info">
+                <div className="info">
+                  <p>الكوبونات</p>
+                </div>
+                <div className="mess">
+                  <h4 classname="r-h">10</h4>
+                </div>
+              </div>
+              <div className="rcard r-info">
+                <div className="info">
+                  <p>الأللعاب</p>
+                </div>
+                <div className="mess">
+                  <h4 classname="r-h">33,555</h4>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
