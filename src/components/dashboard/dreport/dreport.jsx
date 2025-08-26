@@ -64,7 +64,7 @@ const Dreport = () => {
                     <h4>أنمي</h4>
                   </div>
                   <div className="contact-info">
-                    <p>something@gmail.com</p>
+                    <p>{report.userId.email}</p>
                     <p>+90 552-593-90-69</p>
                     <p>333-222-245</p>
                   </div>
