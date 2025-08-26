@@ -49,7 +49,7 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen }) => {
   const onSubmit = (data) => {
     console.log("files", data);
   };
-  const title = "اضافة كوبون جديد";
+  const title = mode === "create" ? "اضافة كوبون جديد" : "تعديل كوبون";
   return (
     <Modal title={title} isOpen={open} onClose={handleClose}>
       <form
