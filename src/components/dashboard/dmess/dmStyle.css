@@ -108,3 +108,13 @@
     padding-top: 9px;
     padding-left: 10px;
 }
+@media screen and (max-width: 1199px) {
+.d-mess .d-mess-cont .cards{
+        justify-content: center;
+
+}
+.d-mess .d-mess-cont .cards .card{
+    width: 100%;
+    max-width: 100%;
+}
+}

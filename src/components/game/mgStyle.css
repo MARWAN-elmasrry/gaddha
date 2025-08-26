@@ -23,6 +23,20 @@
   background-color: #883813;
   border-radius: 3rem;
 }
+.g-link a:nth-child(2) {
+  padding: 8px 24px;
+  background: #cf8a41;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.g-link a:nth-child(2) span {
+  width: 26px;
+  height: 26px;
+  transform: rotate(45deg);
+  background-color: #b40000;
+}
 
 .g-link a {
   text-decoration: none;

@@ -89,8 +89,6 @@ function FavoriteCate() {
     setFavorites(savedFavorites);
   }, []);
 
-  const canStart = selected.length === 6;
-
   const selectedWithOrder = useMemo(() => {
     const orderMap = new Map(selected.map((id, i) => [id, i + 1]));
     return orderMap;
@@ -150,13 +148,13 @@ function FavoriteCate() {
     <div className="game-cate">
       <div className="container">
         <div className="game-cate-cont">
-          {canStart ? (
+          {/* {canStart ? (
             <button className="remg" onClick={startGame}>
               ابدأ اللعب
             </button>
           ) : (
             <img className="remg" src="./remg.png" alt="" />
-          )}
+          )} */}
 
           <div className="game-cate-imgs">
             {[0, 1, 2, 3, 4, 5].map((i) => (
@@ -245,18 +243,18 @@ const Game = () => {
                   ألعابي
                 </a>
                 <a
+                  className={activeTab === "favorites" ? "g-active" : ""}
+                  href="#"
+                  onClick={(e) => handleTabClick("favorites", e)}
+                >
+                  <span></span>
+                </a>
+                <a
                   className={activeTab === "categories" ? "g-active" : ""}
                   href="#"
                   onClick={(e) => handleTabClick("categories", e)}
                 >
                   الفئات
-                </a>
-                <a
-                  className={activeTab === "favorites" ? "g-active" : ""}
-                  href="#"
-                  onClick={(e) => handleTabClick("favorites", e)}
-                >
-                  المفضلة
                 </a>
               </div>
               {selected.length === 6 && (

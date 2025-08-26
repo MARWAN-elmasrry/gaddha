@@ -97,11 +97,14 @@
     width: 100%;
     display: flex;
     align-items: center;
+        z-index: -33;
 }
 .back-tress .tress{
     position: relative;
     width: 100%;
     height: 100%;
+        z-index: -33;
+
 }
 .back-tress .tress .left{
     position: absolute;
@@ -204,6 +207,7 @@ vertical-align: middle;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .d-main .d-main-cont .r-card .r-cards .rcard{
   width: 25rem;
@@ -242,4 +246,29 @@ vertical-align: middle;
   font-size: 1.3rem;
   padding-right: 10px;
   padding-left: 10px;
+}
+/* RESPONCIVE */
+@media screen and (max-width: 1399px) {
+  .d-main .cards {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.f-card , .s-card{
+  width: 100%;
+}
+.d-main .d-main-cont .r-card .r-cards {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+}
+@media screen and (max-width: 768px) {
+.d-main .d-main-cont .r-card .card-info {
+    position: relative;
+}
+
 }

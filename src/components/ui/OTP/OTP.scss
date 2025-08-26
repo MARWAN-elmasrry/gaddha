@@ -1,0 +1,27 @@
+.OTP {
+  display: flex;
+  gap: 20px !important;
+  .input-container {
+    width: 35px;
+    height: 35px;
+    background: #f4be32;
+    transform: rotate(45deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    input {
+      width: 25px;
+      height: 25px;
+      background: transparent;
+      border: none !important;
+      outline: none;
+      transform: rotate(-45deg);
+      font-size: 18px;
+      color: #fff;
+    }
+    input:focus {
+      border: none;
+      outline: none;
+    }
+  }
+}

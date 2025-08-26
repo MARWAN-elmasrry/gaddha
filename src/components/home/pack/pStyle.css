@@ -34,6 +34,7 @@
   position: absolute;
   bottom: 33px;
   left: 33px;
+  cursor: pointer;
 }
 
 .pack .pack-cont .card .top {
