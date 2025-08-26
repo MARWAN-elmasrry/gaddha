@@ -27,7 +27,7 @@ const Login = () => {
       } else {
         response = await loginUser(identifier, password);
       }
-      localStorage.setItem("authData", JSON.stringify(response));
+      localStorage.setItem("authData", JSON.stringify(isAdmin ? response.admin : response.user));
       localStorage.setItem("token", JSON.stringify(response.token));
       localStorage.setItem("loginType", isAdmin ? "admin" : "user");
       console.log("response:", response);
