@@ -1,5 +1,10 @@
 import api from "../axios";
+let token = null;
+const rawToken = localStorage.getItem("token");
 
+if (rawToken) {
+  token = rawToken.startsWith('"') && rawToken.endsWith('"') ? rawToken.slice(1, -1) : rawToken;
+}
 export const passUser = async (oldPassword, newPassword) => {
   try {
     const authData = localStorage.getItem("authData");
@@ -69,5 +74,19 @@ export const verifyOtp = async (data) => {
     return response.data?.user || response.data;
   } catch (error) {
     throw error.response?.data?.message || error.message || "خطأ فى التحقق من OTP";
+  }
+};
+
+//categories
+export const getCategories = async () => {
+  try {
+    const response = await api.get("user/categories", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.groupedCategories;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب الفئات";
   }
 };

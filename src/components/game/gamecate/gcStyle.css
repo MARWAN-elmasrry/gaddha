@@ -1,111 +1,112 @@
-.game-cate  h3 {
-    margin-bottom: 4rem;
-    margin-top: 2rem;
-    text-align: center;
-    color: rgba(249, 231, 197, 1);
+.game-cate h3 {
+  margin-bottom: 4rem;
+  margin-top: 2rem;
+  text-align: center;
+  color: rgba(249, 231, 197, 1);
 }
-.game-cate-cont{
-    position: relative;
-    padding-bottom: 40px;
+.game-cate-cont {
+  position: relative;
+  padding-bottom: 40px;
 }
-.game-cate-cont .game-cate-imgs{
-    border-radius: 40px;
-    background-color: rgba(136, 56, 19, 1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: max-content;
-    gap: .3rem;
-    position: absolute;
-    left: -197px;
-    top: -22px;;
+.game-cate-cont .game-cate-imgs {
+  border-radius: 40px;
+  background-color: rgba(136, 56, 19, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  gap: 0.3rem;
+  position: absolute;
+  left: -197px;
+  top: -22px;
 }
-.game-cate-cont .game-cate-imgs img{
-    width: 3rem;
-    margin: 10px;
+.game-cate-cont .game-cate-imgs img {
+  width: 3rem;
+  margin: 10px;
 }
-.game-cate-cont .game-cate-imgs .opc-img6{
-    opacity: .6;
+.game-cate-cont .game-cate-imgs .opc-img6 {
+  opacity: 0.6;
 }
-.game-cate-cont .game-cate-imgs .opc-img1{
-    opacity: .2;
+.game-cate-cont .game-cate-imgs .opc-img1 {
+  opacity: 0.2;
 }
-.game-cate-cont .remg{
-    position: absolute;
-    right: 227px;
-    top: -109px;
+.game-cate-cont .remg {
+  position: absolute;
+  right: 227px;
+  top: -109px;
 }
-.game-cate .cards{
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: center;
-    gap: 5rem;
-    flex-wrap: wrap;
+.game-cate .cards {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  flex-wrap: wrap;
 }
-.game-cate .cards .card-cate{
-    width: 265px;
-    height: 260px;
-    position: relative;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: top ;
-    border-radius: 22.8px;
-    border: 2px solid;
+.game-cate .cards .card-cate {
+  width: 265px;
+  height: 260px;
+  position: relative;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: top;
+  border-radius: 22.8px;
+  border: 2px solid;
 }
-.game-cate .card-cate .card-info{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+.game-cate .card-cate .card-info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
-.game-cate .card-cate .card-info .select{
-    background-color: rgba(249, 231, 197, 1);
-    width: 100%;
-    height: max-content;
-    border-top-right-radius: 20px;
-    display: flex;
-    justify-content: center;
+.game-cate .card-cate .card-info .select {
+  background-color: rgba(249, 231, 197, 1);
+  width: 100%;
+  height: max-content;
+  border-top-right-radius: 20px;
+  display: flex;
+  justify-content: center;
 }
-.game-cate .card-cate .card-info .select .select-btn , .remove-favorite-btn{
-    margin: 1px;
-    display: flex;
+.game-cate .card-cate .card-info .select .select-btn,
+.remove-favorite-btn {
+  margin: 1px;
+  display: flex;
 }
-.game-cate .card-cate .card-info .select img{
-    margin: 0;
-    width: 30px;
+.game-cate .card-cate .card-info .select img {
+  margin: 0;
+  width: 30px;
 }
-.game-cate .card-cate .card-info img{
-    width: 120px;
-    margin-top: 5px;
+.game-cate .card-cate .card-info img {
+  width: 100%;
+  height: 100%;
 }
-.game-cate .card-cate .card-info h5{
-    width: 100%;
-    height: 20%;
-    margin: 0;
-    padding-top: 10px;
-    border-bottom-right-radius: 23px;
-    border-bottom-left-radius: 23px;
-    background-color: rgba(136, 56, 19, 1);
-    text-align: center;
-    color: rgba(255, 255, 255, 1);
+.game-cate .card-cate .card-info h5 {
+  width: 100%;
+  height: 20%;
+  margin: 0;
+  padding-top: 10px;
+  border-bottom-right-radius: 23px;
+  border-bottom-left-radius: 23px;
+  background-color: rgba(136, 56, 19, 1);
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
 }
-.game-cate .card-cate .card-num{
-    width: 50px;
-    height: 50px;
-    background-color: #8B4513;
-    transform: rotate(45deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: -25px;
-    left: -26px;
+.game-cate .card-cate .card-num {
+  width: 50px;
+  height: 50px;
+  background-color: #8b4513;
+  transform: rotate(45deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -25px;
+  left: -26px;
 }
-.game-cate .card-cate .card-num .number{
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    transform: rotate(-45deg);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+.game-cate .card-cate .card-num .number {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  transform: rotate(-45deg);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { QUESTION_BANK } from "../questionBank";
 import { setGame } from "../../../gameSlice";
 import "./gcStyle.css";
+import { getCategories } from "../../../api/services/userService";
 
 const CATEGORIES = [
   {
@@ -71,7 +72,7 @@ function Card({ category, index, selected, order, isFavorite, onCardClick, onFav
             />
           </button>
         </div>
-        <img src={category.img} alt="" />
+        <img src={category.image} alt="" />
         <h5>{category.name}</h5>
       </div>
     </div>
@@ -84,11 +85,25 @@ export default function GameCate({ selected, setSelected }) {
   // const [selected, setSelected] =
   //   useState([])
   const [favorites, setFavorites] = useState([]);
-
+  const [categories, setCategories] = useState([]);
+  console.log("categoriessss", categories);
   // Load favorites from localStorage on component mount
   useEffect(() => {
     const savedFavorites = JSON.parse(localStorage.getItem("categoryFavorites") || "[]");
     setFavorites(savedFavorites);
+  }, []);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await getCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   const canStart = selected.length === 6;
@@ -139,21 +154,6 @@ export default function GameCate({ selected, setSelected }) {
     <div className="game-cate">
       <div className="container">
         <div className="game-cate-cont">
-          {/* {canStart ? (
-            <button
-              className="remg"
-              onClick={startGame}
-            >
-              ابدأ اللعب
-            </button>
-          ) : (
-            <img
-              className="remg"
-              src="./remg.png"
-              alt=""
-            />
-          )} */}
-
           <div className="game-cate-imgs">
             {[0, 1, 2, 3, 4, 5].map((i) => (
               <img
@@ -171,16 +171,16 @@ export default function GameCate({ selected, setSelected }) {
           <h3> اختر 6 فئات، ثلاثة لكل فريق</h3>
 
           <div className="cards">
-            {CATEGORIES.map((cat, idx) => (
+            {categories.map(({ categories: cat }, idx) => (
               <Card
-                key={cat.id}
+                key={cat[0]._id}
                 index={idx}
-                category={cat}
-                selected={selected.includes(cat.id)}
-                order={selectedWithOrder.get(cat.id)}
-                isFavorite={favorites.includes(cat.id)}
-                onCardClick={() => handleCardClick(cat.id)}
-                onFavoriteClick={() => handleFavoriteClick(cat.id)}
+                category={cat[0]}
+                selected={selected.includes(cat[0]._id)}
+                order={selectedWithOrder.get(cat[0]._id)}
+                isFavorite={favorites.includes(cat[0]._id)}
+                onCardClick={() => handleCardClick(cat[0]._id)}
+                onFavoriteClick={() => handleFavoriteClick(cat[0]._id)}
               />
             ))}
           </div>

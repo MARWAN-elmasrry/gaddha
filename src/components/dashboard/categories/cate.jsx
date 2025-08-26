@@ -8,9 +8,15 @@ const Categories = () => {
   //   const [openCategoryFormEdit, setOpenCategoryFormEdit] = useState(false);
   const [initialData, setInitialData] = useState(null);
   const [mode, setMode] = useState("create");
+  const [triggerRefetch, setTriggerRefetch] = useState(false);
+
   return (
     <>
-      <CategoryForm open={openCategoryFormCreate} setOpen={setOpenCategoryFormCreate} />
+      <CategoryForm
+        open={openCategoryFormCreate}
+        setOpen={setOpenCategoryFormCreate}
+        setTriggerRefetch={setTriggerRefetch}
+      />
 
       <div className="cate">
         <div className="container">

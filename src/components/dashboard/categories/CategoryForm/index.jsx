@@ -3,13 +3,14 @@ import CustomFileUpload from "../../../ui/FileUpload";
 import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
+import { uploadCategoryWithQuestions } from "../../../../api/services/admingService";
 
-const CategoryForm = ({ mode = "create", initialData, open, setOpen }) => {
+const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerRefetch }) => {
   const [questionsAnswersFile, setQuestionsAnswersFile] = useState([]);
   const [questionImages, setQuestionImages] = useState([]);
   const [answersImages, setAnswersImages] = useState([]);
-  const [categoryImages, setCategoryImages] = useState([]);
-
+  const [categoryImage, setCategoryImage] = useState([]);
+  console.log("categoryImage", categoryImage[0]);
   const {
     register,
     handleSubmit,
@@ -24,9 +25,37 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     console.log("files", questionsAnswersFile, questionImages);
+    if (mode === "create") {
+      const formData = new FormData();
+      formData.append("categoryName", data.categoryName);
+      formData.append("description", data.description);
+      formData.append("group", data.group);
+      if (questionsAnswersFile[0]) {
+        formData.append("excelFile", questionsAnswersFile[0]);
+      }
+      questionImages.forEach((file) => {
+        formData.append("questionsImages[]", file);
+      });
+      answersImages.forEach((file) => {
+        formData.append("answersImages[]", file);
+      });
+      if (categoryImage[0]) {
+        formData.append("categoryImage", categoryImage[0]);
+      }
+      for (let [key, value] of formData.entries()) {
+        console.log("from form data", key, value);
+      }
+      try {
+        await uploadCategoryWithQuestions(formData);
+        setTriggerRefetch((prev) => !prev);
+      } catch (error) {
+        console.error("Error creating category:", error);
+      }
+      handleClose();
+    }
   };
   const title = mode === "create" ? "اضافة فئة جديدة" : "تعديل فئة";
   return (
@@ -60,7 +89,7 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen }) => {
           <label htmlFor="level-select"> المجموعة</label>
           <select id="level-select" {...register("group", { required: "اختار مجموعة للسؤال" })}>
             <option value="">اختر المجموعة</option>
-            <option value="group1">مجموعة 1</option>
+            <option value="last2">مجموعة 1</option>
             <option value="group2">مجموعة 2</option>
             <option value="group3">مجموعة 3</option>
           </select>
@@ -96,9 +125,8 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen }) => {
           <label htmlFor="">صور الفئة</label>
           <CustomFileUpload
             accept="image/*"
-            multiple={true}
-            selectedFiles={categoryImages}
-            setSelectedFiles={setCategoryImages}
+            selectedFiles={categoryImage}
+            setSelectedFiles={setCategoryImage}
           />
         </div>
         <div style={{ width: "100%", textAlign: "center" }}>
