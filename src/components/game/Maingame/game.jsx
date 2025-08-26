@@ -9,6 +9,7 @@ import {
   switchTurn,
   mutateTeamHelpers,
 } from "../../../gameSlice";
+import ReportForm from "./ReportForm";
 
 const Header = () => {
   const [showConfirm, setShowConfirm] = useState(false);
@@ -409,6 +410,7 @@ const QandA = ({
 }) => {
   const [timer, setTimer] = useState(60);
   const [turn, setTurn] = useState(1);
+  const [openReportForm, setOpenReportForm] = useState(false);
   useEffect(() => {
     if (currentView !== "question") return;
 
@@ -440,6 +442,7 @@ const QandA = ({
 
   return (
     <div className="qa">
+      <ReportForm open={openReportForm} setOpen={setOpenReportForm} />
       <div className="qa-cont">
         <div className="game-btn ca" onClick={onToggleText} style={{ cursor: "pointer" }}>
           <span className="number">
@@ -457,7 +460,11 @@ const QandA = ({
             <img src="/back.png" alt="" />
           </span>
         </div>
-        <div className="game-btn excl">
+        <div
+          className="game-btn excl"
+          style={{ cursor: "pointer" }}
+          onClick={() => setOpenReportForm(true)}
+        >
           <span className="number">
             <img src="./Excl.png" alt="" />
           </span>

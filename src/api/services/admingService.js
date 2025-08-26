@@ -66,3 +66,18 @@ export const editVoucher = async (voucherData) => {
     throw error.response?.data?.message || "Failed to edit voucher";
   }
 };
+
+//categories
+export const uploadCategoryWithQuestions = async (formData) => {
+  try {
+    const response = await api.post("/admin/upload-category-with-questions", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to upload category";
+  }
+};
