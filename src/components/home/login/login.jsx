@@ -27,12 +27,18 @@ const Login = () => {
       } else {
         response = await loginUser(identifier, password);
       }
-      localStorage.setItem("authData", JSON.stringify(response));
+      localStorage.setItem("authData", JSON.stringify(isAdmin ? response.admin : response.user));
       localStorage.setItem("token", JSON.stringify(response.token));
+      localStorage.setItem("loginType", isAdmin ? "admin" : "user");
       console.log("response:", response);
-      dispatch(setUser(response.user));
+      dispatch(
+        setUser({
+          user: isAdmin ? response.admin : response.user,
+          loginType: isAdmin ? "admin" : "user",
+        })
+      );
 
-      navigate("/user", { state: { user: response.user } });
+      navigate(isAdmin ? "/admin" : "/user", { state: { user: response.user } });
     } catch (err) {
       setError(err.message || "خطأ في تسجيل الدخول");
     } finally {
@@ -80,7 +86,7 @@ const Login = () => {
             {error && <p style={{ color: "red", direction: "rtl" }}>{error}</p>}
             <div className="login-type">
               <span>مشرف</span>
-              <CustomSwitch checked={isAdmin} onChange={() => setIsAdmin(!isAdmin)} />
+              <CustomSwitch checked={isAdmin} onChange={() => setIsAdmin((prev) => !prev)} />
               <span>مستخدم</span>
             </div>
             <div className="links">

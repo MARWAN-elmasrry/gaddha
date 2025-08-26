@@ -10,6 +10,16 @@ export const loginUser = async (identifier, password) => {
 };
 
 export const RegisterUser = async ({
+  name,
+  username,
+  email,
+  password,
+  countryCode,
+  phone,
+  birthday,
+}) => {
+  try {
+    const response = await api.post("/user/register", {
       name,
       username,
       email,
@@ -17,19 +27,9 @@ export const RegisterUser = async ({
       countryCode,
       phone,
       birthday,
-    }) => {
-    try {
-      const response = await api.post("/user/register", {
-        name,
-        username, 
-        email,
-        password,
-        countryCode,
-        phone,
-        birthday,
-      });
-      return response.data;
-    } catch (error) {
-      throw error.response?.data?.message || "register failed";
-    }
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "register failed";
+  }
 };

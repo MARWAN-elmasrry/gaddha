@@ -23,26 +23,17 @@
   height: 280px;
 }
 .pack .pack-cont .card .main {
-  background-color: rgba(
-    244,
-    190,
-    50,
-    1
-  );
+  background-color: rgba(244, 190, 50, 1);
   -webkit-transform: rotate(45deg);
   width: 150px;
   height: 150px;
   position: absolute;
   bottom: 33px;
   left: 33px;
+  cursor: pointer;
 }
 .pack .pack-cont .card .top {
-  background-color: rgba(
-    244,
-    190,
-    50,
-    1
-  );
+  background-color: rgba(244, 190, 50, 1);
   -webkit-transform: rotate(45deg);
   position: absolute;
   right: 34px;
@@ -51,12 +42,7 @@
   height: 80px;
 }
 .pack .pack-cont .card .center {
-  background-color: rgba(
-    244,
-    190,
-    50,
-    1
-  );
+  background-color: rgba(244, 190, 50, 1);
   -webkit-transform: rotate(45deg);
   position: absolute;
   right: 6px;
@@ -98,12 +84,7 @@
   bottom: -20px;
 }
 .pack .pack-cont .card4 .top {
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
   color: rgba(255, 255, 255, 1);
 }
 .pack .pack-cont .card4 .top h3 {
@@ -117,29 +98,15 @@
   right: 0;
   bottom: 0;
   width: 75px;
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
 }
-.pack
-  .pack-cont
-  .card
-  .price
-  .price-info {
+.pack .pack-cont .card .price .price-info {
   -webkit-transform: rotate(315deg);
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.pack
-  .pack-cont
-  .card
-  .price
-  .price-info
-  p {
+.pack .pack-cont .card .price .price-info p {
   font-size: 1.7rem;
   color: rgba(249, 231, 197, 1);
   margin: 0;

@@ -42,7 +42,8 @@
   font-size: 18px;
 }
 .modal .modal-container .modal-passed-content input,
-.modal .modal-container .modal-passed-content select {
+.modal .modal-container .modal-passed-content select,
+.modal .modal-container .modal-passed-content textarea {
   background-color: transparent;
   border-radius: 12px;
   border: 1px solid #883813;
@@ -52,7 +53,8 @@
   font-size: 18px;
 }
 .modal .modal-container .modal-passed-content input:focus,
-.modal .modal-container .modal-passed-content select:focus {
+.modal .modal-container .modal-passed-content select:focus,
+.modal .modal-container .modal-passed-content textarea:focus {
   outline: none;
   border-color: #c0643a;
   box-shadow: 0 0 8px 2px rgba(136, 56, 19, 0.25);

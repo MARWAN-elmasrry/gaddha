@@ -1,12 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://gaddha-production.up.railway.app/api", 
+  baseURL: "https://gaddha-production.up.railway.app/api",
   headers: {
     "Content-Type": "application/json",
   },
 });
-
 
 // api.interceptors.request.use((config) => {
 //   const token = localStorage.getItem("token");
