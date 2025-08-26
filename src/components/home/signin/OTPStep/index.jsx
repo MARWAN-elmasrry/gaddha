@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 import CustomOTP from "../../../ui/OTP";
 import "./OTPStep.css";
-import { useForm } from "react-hook-form";
-const OTPStep = () => {
+import { useNavigate } from "react-router-dom";
+
+import { verifyOtp } from "../../../../api/services/userService";
+const OTPStep = ({ phone, countryCode }) => {
+  const navigate = useNavigate();
+
   const [otpValues, setOtpValues] = useState(Array(6).fill(""));
   const [formError, setFormError] = useState("");
   const otpString = otpValues.join("");
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (otpString.length < 6) {
       setFormError("ادخل الكود كاملا 6 ارقام");
       return;
     }
     setFormError("");
-    console.log("OTP Submitted:", data);
+    try {
+      await verifyOtp({ otp: otpString, countryCode, phone });
+      navigate("/login");
+    } catch {
+      setFormError("خطأ في التحقق من OTP");
+    }
   };
   return (
     <div className="otp-step">

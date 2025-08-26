@@ -66,3 +66,8 @@
 .add-button > button {
   margin: 0 !important;
 }
+
+.dfooter {
+  position: fixed;
+  bottom: 0;
+}

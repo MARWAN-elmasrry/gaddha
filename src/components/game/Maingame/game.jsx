@@ -449,12 +449,12 @@ const QandA = ({
         <div className="game-btn del">
           <span className="timer" data-turn={turn}>
             {timer}
-            {/* <img src="./delete.png" alt="" /> */}
+            {/* <img src="/delete.png" alt="" /> */}
           </span>
         </div>
         <div className="game-btn back" onClick={handleBackClick} style={{ cursor: "pointer" }}>
           <span className="number">
-            <img src="./back.png" alt="" />
+            <img src="/back.png" alt="" />
           </span>
         </div>
         <div className="game-btn excl">

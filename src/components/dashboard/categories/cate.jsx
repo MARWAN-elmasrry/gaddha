@@ -22,7 +22,7 @@ const Categories = () => {
                   window.location.href = "/dash";
                 }}
               >
-                <img src="./back.png" alt="" />
+                <img src="/back.png" alt="" />
               </button>
             </div>
             <h1>الفئات</h1>
@@ -49,7 +49,7 @@ const Categories = () => {
             <div className="card">
               <div className="card-num">
                 <span class="number">
-                  <img src="./delete.png" alt="" />
+                  <img src="/delete.png" alt="" />
                 </span>
               </div>
               <div className="card-info">
@@ -64,7 +64,7 @@ const Categories = () => {
             <div className="card">
               <div className="card-num">
                 <span class="number">
-                  <img src="./delete.png" alt="" />
+                  <img src="/delete.png" alt="" />
                 </span>
               </div>
               <div className="card-info">
@@ -79,7 +79,7 @@ const Categories = () => {
             <div className="card">
               <div className="card-num">
                 <span class="number">
-                  <img src="./delete.png" alt="" />
+                  <img src="/delete.png" alt="" />
                 </span>
               </div>
               <div className="card-info">
@@ -94,7 +94,7 @@ const Categories = () => {
             <div className="card">
               <div className="card-num">
                 <span class="number">
-                  <img src="./delete.png" alt="" />
+                  <img src="/delete.png" alt="" />
                 </span>
               </div>
               <div className="card-info">

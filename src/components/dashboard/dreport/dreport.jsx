@@ -16,7 +16,7 @@ const Dreport = () => {
                   window.location.href = "/dash";
                 }}
               >
-                <img src="./back.png" alt="" />
+                <img src="/back.png" alt="" />
               </button>
             </div>
             <h1>البلاغات</h1>
@@ -36,7 +36,7 @@ const Dreport = () => {
               <div className="card" key={idx}>
                 <div className="card-num">
                   <span className="number">
-                    <img src="./delete.png" alt="" />
+                    <img src="/delete.png" alt="" />
                   </span>
                 </div>
                 <div className="card-info">

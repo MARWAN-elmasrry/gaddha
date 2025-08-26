@@ -4,8 +4,9 @@ import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
 import CustomSwitch from "../../../ui/SwitchInput";
+import { createVoucher, editVoucher } from "../../../../api/services/admingService";
 
-const CouponForm = ({ mode = "create", initialData, open, setOpen }) => {
+const CouponForm = ({ mode = "create", initialData, open, setOpen, setTriggerRefetch }) => {
   const [isFixedCoupon, setIsFixedCoupon] = useState(true);
   console.log("initialData", initialData);
 
@@ -16,13 +17,13 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen }) => {
     reset,
   } = useForm({
     defaultValues: {
-      couponCode: "",
+      code: "",
       perUserLimit: "",
       userLimit: "",
       discount: "",
       ...(mode === "edit" && initialData
         ? {
-            couponCode: initialData.couponCode || "",
+            code: initialData.code || "",
             perUserLimit: initialData.perUserLimit || "",
             userLimit: initialData.userLimit || "",
             discount: initialData.discount || "",
@@ -35,7 +36,7 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen }) => {
   React.useEffect(() => {
     if (mode === "edit" && initialData) {
       reset({
-        couponCode: initialData.couponCode || "",
+        code: initialData.code || "",
         perUserLimit: initialData.perUserLimit || "",
         userLimit: initialData.userLimit || "",
         discount: initialData.discount || "",
@@ -46,8 +47,29 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("files", data);
+    if (mode === "create") {
+      try {
+        await createVoucher({ ...data, type: isFixedCoupon ? "fixed" : "percentage" });
+        setTriggerRefetch((prev) => !prev);
+      } catch (error) {
+        console.error("Error creating voucher:", error);
+      }
+      handleClose();
+    } else {
+      try {
+        await editVoucher({
+          id: initialData._id,
+          ...data,
+          type: isFixedCoupon ? "fixed" : "percentage",
+        });
+        setTriggerRefetch((prev) => !prev);
+      } catch (error) {
+        console.error("Error editing voucher:", error);
+      }
+      handleClose();
+    }
   };
   const title = mode === "create" ? "اضافة كوبون جديد" : "تعديل كوبون";
   return (
@@ -64,8 +86,8 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen }) => {
       >
         <div className="input-content" style={{ width: "49%" }}>
           <label htmlFor="">كود الخصم</label>
-          <input type="text" {...register("couponCode", { required: "كود الخصم مطلوب" })} />
-          {errors.couponCode && <p style={{ color: "red" }}>{errors.couponCode.message}</p>}
+          <input type="text" {...register("code", { required: "كود الخصم مطلوب" })} />
+          {errors.code && <p style={{ color: "red" }}>{errors.code.message}</p>}
         </div>
         <div className="input-content" style={{ width: "49%" }}>
           <label htmlFor="">حدد الاستخدام على اليوزر</label>

@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./disStyle.css";
 import CouponForm from "./CouponForm";
+import { getVouchers } from "../../../api/services/admingService";
 
 const Discount = () => {
-  const cards = Array.from({ length: 4 });
-
+  const [coupons, setCoupons] = useState([]);
   const [opneCouponFormCreate, setOpentCouponFormCreate] = useState(false);
   const [opneCouponFormEdit, setOpentCouponFormEdit] = useState(false);
+  const [triggerRefetch, setTriggerRefetch] = useState(false);
   const [initialData, setInitialData] = useState(null);
   const [mode, setMode] = useState("create");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getVouchers();
+        setCoupons(data);
+        console.log("Vouchers data:", data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, [triggerRefetch]);
+
   return (
     <>
       <div className="dis">
@@ -21,7 +36,7 @@ const Discount = () => {
                   window.location.href = "/dash";
                 }}
               >
-                <img src="./back.png" alt="" />
+                <img src="/back.png" alt="" />
               </button>
             </div>
             <h1>اكواد الخصم</h1>
@@ -45,11 +60,11 @@ const Discount = () => {
             </div>
           </div>
           <div className="cards">
-            {cards.map((_, idx) => (
+            {coupons?.map((coupon, idx) => (
               <div className="card">
                 <div className="card-num">
                   <span class="number">
-                    <img src="./delete.png" alt="" />
+                    <img src="/delete.png" alt="" />
                   </span>
                 </div>
                 <div className="card-info">
@@ -57,33 +72,33 @@ const Discount = () => {
                     onClick={() => {
                       setOpentCouponFormEdit(true);
                       setMode("edit");
-                      setInitialData({
-                        couponCode: "#1234",
-                        discount: 30,
-                        userLimit: 2,
-                        perUserLimit: 2,
-                        type: "percentage",
-                      });
+                      setInitialData(coupon);
                     }}
                   >
                     تعديل
                   </button>
                   <img src="./inf.png" alt="" />
                   <img src="./inf.png" alt="" />
-                  <p>45</p>
-                  <p>30%</p>
-                  <p>#1234</p>
+                  <p>{coupon.perUserLimit}</p>
+                  <p>{coupon.discount}</p>
+                  <p>{coupon.code}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <CouponForm open={opneCouponFormCreate} setOpen={setOpentCouponFormCreate} mode={mode} />
+        <CouponForm
+          open={opneCouponFormCreate}
+          setOpen={setOpentCouponFormCreate}
+          mode={mode}
+          setTriggerRefetch={setTriggerRefetch}
+        />
         <CouponForm
           open={opneCouponFormEdit}
           setOpen={setOpentCouponFormEdit}
           initialData={initialData}
           mode={mode}
+          setTriggerRefetch={setTriggerRefetch}
         />
       </div>
     </>

@@ -34,6 +34,8 @@ import Sign from "./components/home/signin/sign";
 import Rec from "./components/home/rec/rec";
 import User from "./components/home/user/user";
 import Ver from "./components/home/ver/ver";
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
 export const ForceUpdateContext = createContext();
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
@@ -110,12 +112,31 @@ export default function App() {
 
   const forceUpdate = () => setTick((prev) => prev + 1);
 
+  // Import hooks and selector
+
+  // Helper components for route protection
+  function RequireAuth({ allowedTypes, children, redirectTo }) {
+    const { loginType } = useSelector((state) => state.users);
+    const location = useLocation();
+
+    if (!loginType) {
+      // Not logged in, redirect to login
+      return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+    if (!allowedTypes.includes(loginType)) {
+      // Wrong type, redirect accordingly
+
+      return <Navigate to={redirectTo} replace />;
+    }
+    return children;
+  }
+
   return (
     <ForceUpdateContext.Provider value={forceUpdate}>
       <div key={tick}>
         <Routes>
+          {/* Public routes */}
           <Route path="/" element={<HomePage />} />
-
           <Route
             path="/contact"
             element={
@@ -157,16 +178,6 @@ export default function App() {
             }
           />
           <Route
-            path="/user"
-            element={
-              <>
-                <Header />
-                <User />
-                <Footer />
-              </>
-            }
-          />
-          <Route
             path="/ver"
             element={
               <>
@@ -177,96 +188,146 @@ export default function App() {
             }
           />
 
-          <Route path="/games" element={<Games />} />
-          <Route path="/game" element={<MainGame />} />
+          {/* User protected routes */}
+          <Route
+            path="/user"
+            element={
+              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                <>
+                  <Header />
+                  <User />
+                  <Footer />
+                </>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/games"
+            element={
+              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                <Games />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/game"
+            element={
+              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                <MainGame />
+              </RequireAuth>
+            }
+          />
           <Route
             path="/start"
             element={
-              <>
-                <Header />
-                <Start />
-              </>
+              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                <>
+                  <Header />
+                  <Start />
+                </>
+              </RequireAuth>
             }
           />
 
+          {/* Admin protected routes */}
           <Route
-            path="/dash"
+            path="admin"
             element={
-              <DashboardLayout>
-                <Dmain />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Dmain />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/dmess"
+            path="admin/dmess"
             element={
-              <DashboardLayout>
-                <Dmess />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Dmess />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/dreport"
+            path="admin/dreport"
             element={
-              <DashboardLayout>
-                <Dreport />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Dreport />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/dsale"
+            path="admin/dsale"
             element={
-              <DashboardLayout>
-                <Dsale />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Dsale />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/discount"
+            path="admin/discount"
             element={
-              <DashboardLayout>
-                <Discount />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Discount />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/categories"
+            path="admin/categories"
             element={
-              <DashboardLayout>
-                <Categories />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Categories />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/files"
+            path="admin/files"
             element={
-              <DashboardLayout>
-                <Files />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Files />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/controls"
+            path="admin/controls"
             element={
-              <DashboardLayout>
-                <Controls />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Controls />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/dgames"
+            path="admin/dgames"
             element={
-              <DashboardLayout>
-                <Dgames />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Dgames />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
           <Route
-            path="/users"
+            path="admin/users"
             element={
-              <DashboardLayout>
-                <Users />
-              </DashboardLayout>
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <Users />
+                </DashboardLayout>
+              </RequireAuth>
             }
           />
         </Routes>

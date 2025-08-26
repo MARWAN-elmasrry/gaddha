@@ -29,10 +29,16 @@ const Login = () => {
       }
       localStorage.setItem("authData", JSON.stringify(response));
       localStorage.setItem("token", JSON.stringify(response.token));
+      localStorage.setItem("loginType", isAdmin ? "admin" : "user");
       console.log("response:", response);
-      dispatch(setUser(response.user));
+      dispatch(
+        setUser({
+          user: isAdmin ? response.admin : response.user,
+          loginType: isAdmin ? "admin" : "user",
+        })
+      );
 
-      navigate("/user", { state: { user: response.user } });
+      navigate(isAdmin ? "/admin" : "/user", { state: { user: response.user } });
     } catch (err) {
       setError(err.message || "خطأ في تسجيل الدخول");
     } finally {

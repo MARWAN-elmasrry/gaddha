@@ -60,3 +60,14 @@ export const createPayment = async (price) => {
     throw error.response?.data?.message || error.message || "خطأ فى انشاء الدفع";
   }
 };
+
+//otp
+export const verifyOtp = async (data) => {
+  try {
+    console.log("data in service", data);
+    const response = await api.post("/user/verify-otp", data);
+    return response.data?.user || response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى التحقق من OTP";
+  }
+};

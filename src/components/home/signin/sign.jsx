@@ -188,7 +188,7 @@ const Sign = () => {
           </div>
         </div>
       ) : (
-        <OTPStep />
+        <OTPStep phone={phone} countryCode={countryCode} />
       )}
     </>
   );
