@@ -80,7 +80,7 @@ const Login = () => {
             {error && <p style={{ color: "red", direction: "rtl" }}>{error}</p>}
             <div className="login-type">
               <span>مشرف</span>
-              <CustomSwitch checked={isAdmin} onChange={() => setIsAdmin(!isAdmin)} />
+              <CustomSwitch checked={isAdmin} onChange={() => setIsAdmin((prev) => !prev)} />
               <span>مستخدم</span>
             </div>
             <div className="links">
