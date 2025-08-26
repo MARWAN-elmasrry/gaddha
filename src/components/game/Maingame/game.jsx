@@ -442,7 +442,7 @@ const QandA = ({
 
   return (
     <div className="qa">
-      <ReportForm open={openReportForm} setOpenReportForm={setOpenReportForm} />
+      <ReportForm open={openReportForm} setOpen={setOpenReportForm} />
       <div className="qa-cont">
         <div className="game-btn ca" onClick={onToggleText} style={{ cursor: "pointer" }}>
           <span className="number">

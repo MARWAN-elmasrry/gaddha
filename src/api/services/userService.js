@@ -44,7 +44,6 @@ export const passUser = async (oldPassword, newPassword) => {
   }
 };
 
-//reports
 export const createPayment = async (price) => {
   const rawToken = localStorage.getItem("token");
   let token;
@@ -90,5 +89,19 @@ export const getCategories = async () => {
     return response.data.groupedCategories;
   } catch (error) {
     throw error.response?.data?.message || error.message || "خطأ فى جلب الفئات";
+  }
+};
+
+//reports
+export const createReport = async (data) => {
+  try {
+    const response = await api.post("/user/create-report", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى انشاء التقرير";
   }
 };

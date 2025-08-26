@@ -1,15 +1,9 @@
-import React from "react";
-import CustomFileUpload from "../../../ui/FileUpload";
 import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
+import { createReport } from "../../../../api/services/userService";
 
-const ReportForm = ({ open, setOpen, questionId }) => {
-  const [questionFile, setQuestionFile] = useState([]);
-  const [answerFile, setAnswerFile] = useState([]);
-
-  const questionValue = "ما اسم هذه المستشفى؟";
-  const questionAnswer = "مستشفى الحياة الوطنى";
+const ReportForm = ({ open, setOpen, questionId = "68acb8cf816245c32979c130" }) => {
   const {
     register,
     handleSubmit,
@@ -19,12 +13,17 @@ const ReportForm = ({ open, setOpen, questionId }) => {
       description: "",
     },
   });
-  const handleClose = () => {
+  const handleClose = async () => {
     setOpen(false);
   };
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    console.log("files", questionFile, answerFile);
+    try {
+      await createReport({ description: data.description, questionId });
+    } catch (error) {
+      console.error("Error creating report:", error);
+    }
+    setOpen(false);
   };
   const title = `ارسال بلاغ`;
   return (
