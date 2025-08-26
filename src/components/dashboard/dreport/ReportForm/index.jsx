@@ -1,34 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomFileUpload from "../../../ui/FileUpload";
 import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
+import { getQuestionById } from "../../../../api/services/admingService";
 
-const ReportForm = ({ open, setOpen }) => {
+const ReportForm = ({ open, setOpen, questionId }) => {
   const [questionFile, setQuestionFile] = useState([]);
   const [answerFile, setAnswerFile] = useState([]);
 
-  const questionValue = "ما اسم هذه المستشفى؟";
-  const questionAnswer = "مستشفى الحياة الوطنى";
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
-      question: questionValue,
-      answer: questionAnswer,
+      question: "",
+      answer: "",
       level: "",
     },
   });
   const handleClose = () => {
     setOpen(false);
   };
+  useEffect(() => {
+    if (!questionId) return;
+    const fetchData = async () => {
+      try {
+        const question = await getQuestionById(questionId);
+
+        console.log("Question data:", question);
+        // Ensure reset is called after data is loaded
+        reset({
+          question: question?.text || "",
+          answer: question?.answer || "",
+          level: question?.difficulty || "",
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, [questionId, reset]);
   const onSubmit = (data) => {
     console.log(data);
     console.log("files", questionFile, answerFile);
   };
-  const title = `تعديل السؤال 60`;
+  const title = `تعديل السؤال  `;
   return (
     <Modal title={title} isOpen={open} onClose={handleClose}>
       <form

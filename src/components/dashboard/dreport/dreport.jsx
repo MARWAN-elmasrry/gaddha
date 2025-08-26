@@ -1,9 +1,23 @@
 import "./drStyle.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReportForm from "./ReportForm";
+import { getAllReports } from "../../../api/services/admingService";
 const Dreport = () => {
-  const cards = Array.from({ length: 4 });
-  const [opneReportForm, setOpentReportForm] = useState(false);
+  const [reports, setReports] = useState([]);
+  const [questionId, setQuestionId] = useState(null);
+  const [openReportForm, setOpenReportForm] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllReports();
+        setReports(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <>
       <div className="d-report">
@@ -21,18 +35,18 @@ const Dreport = () => {
             </div>
             <h1>البلاغات</h1>
             <div className="cont-info">
-              <div className="info">
+              {/* <div className="info">
                 <h3>جديد</h3>
                 <p>0</p>
-              </div>
+              </div> */}
               <div className="info">
                 <h3>كلى</h3>
-                <p>15</p>
+                <p>{reports.length}</p>
               </div>
             </div>
           </div>
           <div className="cards">
-            {cards.map((_, idx) => (
+            {reports.map((report, idx) => (
               <div className="card" key={idx}>
                 <div className="card-num">
                   <span className="number">
@@ -58,7 +72,13 @@ const Dreport = () => {
                     <p>نعمل شراكة شرايكم</p>
                   </div>
                   <div className="edit-btn">
-                    <button className="r-edit" onClick={() => setOpentReportForm(true)}>
+                    <button
+                      className="r-edit"
+                      onClick={() => {
+                        setOpenReportForm(true);
+                        setQuestionId(report.questionId._id);
+                      }}
+                    >
                       تعديل
                     </button>
                   </div>
@@ -67,7 +87,7 @@ const Dreport = () => {
             ))}
           </div>
         </div>
-        <ReportForm open={opneReportForm} setOpen={setOpentReportForm} />
+        <ReportForm questionId={questionId} open={openReportForm} setOpen={setOpenReportForm} />
       </div>
     </>
   );

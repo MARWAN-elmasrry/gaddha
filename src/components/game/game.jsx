@@ -1,11 +1,13 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import GameCate from "./gamecate/gamecate";
 import Kgame from "./keepgame/kgame";
 import { QUESTION_BANK } from "./questionBank";
 import { setGame } from "../../gameSlice";
 import "./mgStyle.css";
+import { createGameSession, startGameCheck } from "../../api/services/userService";
+import { transformQuestions } from "../../utils/games";
 
 const CATEGORIES = [
   {
@@ -199,15 +201,34 @@ const Game = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const startGame = () => {
-    console.log("reach that");
+  let gameQuestions;
+  const startGame = async () => {
+    try {
+      const gameStatus = await startGameCheck();
+      if (gameStatus.message !== "Game started successfully") return;
+      console.log("reach that success start game");
+      const body = {
+        gameName: "first game",
+        player1Cat1id: selected[0],
+        player1Cat2id: selected[1],
+        player1Cat3id: selected[2],
+        player2Cat1id: selected[3],
+        player2Cat2id: selected[4],
+        player2Cat3id: selected[5],
+      };
+      const session = (await createGameSession(body)).session;
+      gameQuestions = transformQuestions(session);
+      console.log("create game session success full", gameQuestions);
+    } catch {
+      return;
+    }
     const payload = {
       selectedCategories: selected.map((id) => ({
         id,
         name: id,
         qa: QUESTION_BANK[id] || [],
       })),
-      questionBank: QUESTION_BANK,
+      questionBank: gameQuestions,
     };
 
     dispatch(setGame(payload));
@@ -257,6 +278,7 @@ const Game = () => {
                   الفئات
                 </a>
               </div>
+              {/* {selected.length > 1 && ( */}
               {selected.length === 6 && (
                 <button className="remg" onClick={startGame}>
                   ابدأ اللعب

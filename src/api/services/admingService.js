@@ -16,7 +16,7 @@ export const loginAdmin = async (identifier, password) => {
 // Reports
 export const getAllReports = async () => {
   try {
-    const response = await api.get("/admin/reports", {
+    const response = await api.get("/admin/get-all-reports", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -68,6 +68,7 @@ export const editVoucher = async (voucherData) => {
 };
 
 //categories
+
 export const uploadCategoryWithQuestions = async (formData) => {
   try {
     const response = await api.post("/admin/upload-category-with-questions", formData, {
@@ -79,5 +80,32 @@ export const uploadCategoryWithQuestions = async (formData) => {
     return response.data;
   } catch (error) {
     throw error.response?.data?.message || "Failed to upload category";
+  }
+};
+
+export const getAllCategories = async () => {
+  try {
+    const response = await api.get("/admin/categories", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.categories;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch categories";
+  }
+};
+
+//questions
+export const getQuestionById = async (id) => {
+  try {
+    const response = await api.get(`/admin/get-question/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.question;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch question";
   }
 };

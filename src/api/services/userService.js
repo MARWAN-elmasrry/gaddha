@@ -105,3 +105,34 @@ export const createReport = async (data) => {
     throw error.response?.data?.message || error.message || "خطأ فى انشاء التقرير";
   }
 };
+
+// game
+export const startGameCheck = async () => {
+  try {
+    const response = await api.post(
+      "/user/start-game",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى بدء اللعبة";
+  }
+};
+
+export const createGameSession = async (data) => {
+  try {
+    const response = await api.post("/user/create-gameSession", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى انشاء جلسة اللعبة";
+  }
+};
