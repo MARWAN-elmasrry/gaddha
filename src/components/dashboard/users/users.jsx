@@ -3,6 +3,7 @@ import "./uStyle.css";
 import { useEffect, useState } from "react";
 import coins from '../../../../public/ydot.png';
 import searchIcon from '../../../../public/search.png'
+import { toast } from "react-toastify";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -15,6 +16,7 @@ const Users = () => {
         setUsers(data);
       } catch (err) {
         console.error(err);
+        toast.error("خطا غى سحب البيانات")
       }
     };
 

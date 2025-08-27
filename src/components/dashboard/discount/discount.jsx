@@ -3,6 +3,7 @@ import "./disStyle.css";
 import CouponForm from "./CouponForm";
 import { getVouchers } from "../../../api/services/admingService";
 import { toast } from "react-toastify";
+
 const Discount = () => {
   const [coupons, setCoupons] = useState([]);
   const [opneCouponFormCreate, setOpentCouponFormCreate] = useState(false);

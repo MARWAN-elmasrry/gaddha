@@ -1,6 +1,7 @@
 import "./dmStyle.css";
 import { useEffect, useState } from "react";
-import { getAllMessages, getAllReports } from "../../../api/services/admingService";
+import { getAllMessages, getAllReports, getUserCount } from "../../../api/services/admingService";
+import { toast } from "react-toastify";
 
 import {
   LineChart,
@@ -25,12 +26,12 @@ const Dmain = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [ reports , setReports] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [userCount , setUserCount] = useState([]);
 
   let firstThreeReports = []
   let firstThreeMessages = []
   firstThreeReports = reports.slice(0, 3);
   firstThreeMessages = messages.slice(0, 3);
-  console.log(firstThreeMessages)
 
   useEffect(() => {
       const fetchData = async () => {
@@ -41,12 +42,26 @@ const Dmain = () => {
           setMessages(data2);
         } catch (err) {
           console.error(err);
+          toast.error("خطأ في سحب البيانات الرسايل او البلاغات")
+        }
+      };
+      fetchData();
+    }, []);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const data = await getUserCount();
+          setUserCount(data);
+        } catch (err) {
+          console.error(err);
+          toast.error("خطا غى سحب البيانات العدد من المستخدمين")
         }
       };
       
       fetchData();
     }, []);
-    
+
   const getImageSrc = (cardType, position) => {
     if (hoveredCard === cardType) {
       return "./dashrm.png";
@@ -267,7 +282,7 @@ const Dmain = () => {
                   <p>المستخدمين</p>
                 </div>
                 <div className="mess">
-                  <h4 classname="r-h">55,567</h4>
+                  <h4 classname="r-h">{userCount}</h4>
                 </div>
               </div>
               <div className="rcard r-info">

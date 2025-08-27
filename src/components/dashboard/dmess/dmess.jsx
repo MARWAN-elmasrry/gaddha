@@ -1,6 +1,8 @@
 import { getAllMessages } from "../../../api/services/admingService";
 import "./dmStyle.css";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 
 const Dmess = () => {
   const [messages, setMessages] = useState([]);
@@ -12,6 +14,7 @@ const Dmess = () => {
         setMessages(data);
       } catch (err) {
         console.error(err);
+        toast.error("خطا غى سحب البيانات")
       }
     };
 

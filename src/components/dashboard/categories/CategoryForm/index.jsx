@@ -4,6 +4,8 @@ import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
 import { uploadCategoryWithQuestions } from "../../../../api/services/admingService";
+import { toast } from "react-toastify";
+
 
 const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerRefetch }) => {
   const [questionsAnswersFile, setQuestionsAnswersFile] = useState([]);
@@ -51,8 +53,10 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerR
       try {
         await uploadCategoryWithQuestions(formData);
         setTriggerRefetch((prev) => !prev);
+        toast.success("نجح الرفع")
       } catch (error) {
         console.error("Error creating category:", error);
+          toast.error("خطا غى الرفع")
       }
       handleClose();
     }
