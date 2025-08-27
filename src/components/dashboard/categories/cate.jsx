@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./cStyle.css";
 import CategoryForm from "./CategoryForm";
 import { getAllCategories } from "../../../api/services/admingService";
+import { getGroups } from "../../../api/services/userService";
 const Categories = () => {
   const cards = Array.from({ length: 4 });
 
@@ -11,11 +12,14 @@ const Categories = () => {
   const [mode, setMode] = useState("create");
   const [categories, setCategories] = useState([]);
   const [triggerRefetch, setTriggerRefetch] = useState(false);
+  const [groups, setGroups] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getAllCategories();
         setCategories(data);
+        const groups = await getGroups();
+        setGroups(groups);
         console.log("Categories data:", data);
       } catch (err) {
         console.error(err);
@@ -30,6 +34,7 @@ const Categories = () => {
         open={openCategoryFormCreate}
         setOpen={setOpenCategoryFormCreate}
         setTriggerRefetch={setTriggerRefetch}
+        groups={groups}
       />
 
       <div className="cate">
