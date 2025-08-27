@@ -17,7 +17,6 @@ const CategoryForm = ({
   const [questionImages, setQuestionImages] = useState([]);
   const [answersImages, setAnswersImages] = useState([]);
   const [categoryImage, setCategoryImage] = useState([]);
-  console.log("categoryImage", categoryImage[0]);
   const {
     register,
     handleSubmit,
