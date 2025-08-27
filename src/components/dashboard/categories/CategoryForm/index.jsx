@@ -14,7 +14,7 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerR
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
     defaultValues: {
       categoryName: initialData ? initialData.categoryName : "",
@@ -37,10 +37,10 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerR
         formData.append("excelFile", questionsAnswersFile[0]);
       }
       questionImages.forEach((file) => {
-        formData.append("questionsImages[]", file);
+        formData.append("questionsImages", file);
       });
       answersImages.forEach((file) => {
-        formData.append("answersImages[]", file);
+        formData.append("answersImages", file);
       });
       if (categoryImage[0]) {
         formData.append("categoryImage", categoryImage[0]);
@@ -130,8 +130,8 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerR
           />
         </div>
         <div style={{ width: "100%", textAlign: "center" }}>
-          <button type="submit" class="submit-button">
-            {mode === "create" ? "اضافة" : "تعديل"}
+          <button type="submit" class="submit-button" disabled={isSubmitting}>
+            {isSubmitting ? <span class="loader"></span> : mode === "create" ? "اضافة" : "تعديل"}
           </button>
         </div>
       </form>

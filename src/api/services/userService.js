@@ -163,3 +163,18 @@ export const createGameSession = async (data) => {
     throw error.response?.data?.message || error.message || "خطأ فى انشاء جلسة اللعبة";
   }
 };
+
+//messages
+
+export const sendMessage = async (data) => {
+  try {
+    const response = await api.post("/user/send-message", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى ارسال الرسالة";
+  }
+};
