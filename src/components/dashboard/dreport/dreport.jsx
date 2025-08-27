@@ -57,7 +57,7 @@ const Dreport = () => {
                 <div className="card-info">
                   <div className="main-info">
                     <h3>11:20</h3>
-                    <h3>صالح عبد الرحمن</h3>
+                    <h3>{report.userId.name}</h3>
                   </div>
                   <div className="report-info">
                     <h4> أيقونة: لا</h4>
@@ -72,7 +72,7 @@ const Dreport = () => {
                     <p>333-222-245</p>
                   </div>
                   <div className="mess">
-                    <p>نعمل شراكة شرايكم</p>
+                    <p>{report.description}</p>
                   </div>
                   <div className="edit-btn">
                     <button
