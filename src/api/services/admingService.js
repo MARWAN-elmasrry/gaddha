@@ -109,7 +109,7 @@ export const getQuestionById = async (id) => {
   }
 };
 // Messages
-export  const getAllMessages = async () =>{
+export const getAllMessages = async () => {
   try {
     const response = await api.get(`/admin/get-all-messages`, {
       headers: {
@@ -120,19 +120,45 @@ export  const getAllMessages = async () =>{
   } catch (error) {
     throw error.response?.data?.message || "Failed to fetch message";
   }
-}
+};
 
-// users 
-export  const getAllUsers = async () =>{
+//control
+
+export const addAdmin = async (adminData) => {
   try {
-    const response = await api.get(`/admin/get-all-users`, {
+    const response = await api.post("/admin/add-admin", adminData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response.data.users)
-    return response.data.users;
+    return response.data;
   } catch (error) {
-    throw error.response?.data?.message || "Failed to fetch message";
+    throw error.response?.data?.message || "Failed to add admin";
   }
-}
+};
+
+export const giftUserCoins = async (data) => {
+  try {
+    const response = await api.post("/admin/gift-user-coins", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to gift user coins";
+  }
+};
+
+export const getUserCoins = async (userId) => {
+  try {
+    const response = await api.get(`/admin/get-user-coins/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.coins;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to get user coins";
+  }
+};

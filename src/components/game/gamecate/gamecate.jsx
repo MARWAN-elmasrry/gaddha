@@ -5,7 +5,7 @@ import { QUESTION_BANK } from "../questionBank";
 import { setGame } from "../../../gameSlice";
 import "./gcStyle.css";
 import {
-  addCategoryFavorite,
+  toggleCategoryFavorite,
   getCategories,
   getFavoriteCategories,
 } from "../../../api/services/userService";
@@ -137,7 +137,7 @@ export default function GameCate({ selected, setSelected }) {
   const handleFavoriteClick = async (id) => {
     console.log("reach that categorie favorite", id);
     try {
-      await addCategoryFavorite(id);
+      await toggleCategoryFavorite(id);
     } catch (error) {
       console.error("Error adding category to favorites:", error);
     }

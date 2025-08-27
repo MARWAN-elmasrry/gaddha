@@ -3,7 +3,8 @@ import { NavLink, useLocation } from "react-router-dom";
 
 const Dhead = () => {
   const location = useLocation();
-
+  const user = JSON.parse(localStorage.getItem("authData"));
+  console.log("user from local storage:", user);
   const menuItems = [
     { path: "/admin", label: "لوحة الإحصائيات" },
     { path: "/admin/dmess", label: "الرسائل" },
@@ -46,7 +47,7 @@ const Dhead = () => {
                 </li>
               </ul>
             </div>
-            <h1>مرحباً مستر عباس</h1>
+            <h1 style={{ direction: "rtl" }}>مرحباً مستر {user.username}</h1>
             <a href="/">
               <img src="/logo.png" alt="logo" style={{ width: 100 }} />
             </a>
