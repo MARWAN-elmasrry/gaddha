@@ -1,25 +1,16 @@
-import "./hStyle.css"
-import {
-  NavLink,
-  useLocation,
-  useNavigate,
-} from "react-router-dom"
-import {
-  useSelector,
-  useDispatch,
-} from "react-redux"
-import { logoutUser } from "../../../userSlice"
-import { StartBtn } from "../../startBtn"
-import { useEffect } from "react"
+import "./hStyle.css";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../../../userSlice";
+import { StartBtn } from "../../startBtn";
+import { useEffect } from "react";
 
 const Header = () => {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const user = useSelector(
-    (state) => state.users.user
-  )
+  const user = useSelector((state) => state.users.user);
 
   const menuItems = [
     { path: "/", label: "الرئيسية" },
@@ -32,12 +23,12 @@ const Header = () => {
       path: "/packages",
       label: "الباقات",
     },
-  ]
+  ];
 
   const handleLogout = () => {
-    dispatch(logoutUser())
-    navigate("/login")
-  }
+    dispatch(logoutUser());
+    navigate("/login");
+  };
 
   return (
     <header>
@@ -51,64 +42,28 @@ const Header = () => {
                 <span></span>
               </span>
               <ul className="open">
-                {menuItems.map(
-                  (item) => (
-                    <li
-                      key={item.path}
-                      className={
-                        location.pathname ===
-                        item.path
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <NavLink
-                        to={item.path}
-                      >
-                        {item.label}
-                        {location.pathname ===
-                          item.path && (
-                          <img
-                            src="./dashr.png"
-                            alt=""
-                          />
-                        )}
-                      </NavLink>
-                    </li>
-                  )
-                )}
+                {menuItems.map((item) => (
+                  <li key={item.path} className={location.pathname === item.path ? "active" : ""}>
+                    <NavLink to={item.path}>
+                      {item.label}
+                      {location.pathname === item.path && <img src="/dashr.png" alt="" />}
+                    </NavLink>
+                  </li>
+                ))}
 
                 {user && (
                   <>
                     {/* رابط صفحة حسابي */}
-                    <li
-                      className={
-                        location.pathname ===
-                        "/user"
-                          ? "active"
-                          : ""
-                      }
-                    >
+                    <li className={location.pathname === "/user" ? "active" : ""}>
                       <NavLink to="/user">
                         حسابي
-                        {location.pathname ===
-                          "/user" && (
-                          <img
-                            src="./dashr.png"
-                            alt=""
-                          />
-                        )}
+                        {location.pathname === "/user" && <img src="/dashr.png" alt="" />}
                       </NavLink>
                     </li>
 
                     {/* زر تسجيل الخروج */}
                     <li className="exit">
-                      <button
-                        onClick={
-                          handleLogout
-                        }
-                        className="logout-btn"
-                      >
+                      <button onClick={handleLogout} className="logout-btn">
                         تسجيل الخروج{" "}
                         <img
                           src="./exit.png"
@@ -139,26 +94,17 @@ const Header = () => {
                 <StartBtn />
               </>
             ) : (
-              <button
-                onClick={() =>
-                  navigate("/login")
-                }
-                className="play"
-              >
+              <button onClick={() => navigate("/login")} className="play">
                 تسجيل
               </button>
             )}
           </div>
           <a href="/">
-            <img
-              src="./logo.png"
-              alt="logo"
-              style={{ width: 100 }}
-            />
+            <img src="./logo.png" alt="logo" style={{ width: 100 }} />
           </a>
         </div>
       </div>
     </header>
-  )
-}
-export default Header
+  );
+};
+export default Header;

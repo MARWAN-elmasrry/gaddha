@@ -4,7 +4,11 @@ import { useDispatch } from "react-redux";
 import { QUESTION_BANK } from "../questionBank";
 import { setGame } from "../../../gameSlice";
 import "./gcStyle.css";
-import { getCategories } from "../../../api/services/userService";
+import {
+  toggleCategoryFavorite,
+  getCategories,
+  getFavoriteCategories,
+} from "../../../api/services/userService";
 
 const CATEGORIES = [
   {
@@ -87,10 +91,17 @@ export default function GameCate({ selected, setSelected }) {
   const [favorites, setFavorites] = useState([]);
   const [categories, setCategories] = useState([]);
   console.log("categoriessss", categories);
-  // Load favorites from localStorage on component mount
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem("categoryFavorites") || "[]");
-    setFavorites(savedFavorites);
+    const fetchData = async () => {
+      try {
+        const data = await getFavoriteCategories();
+        setFavorites(data.map((cat) => cat._id));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -123,7 +134,13 @@ export default function GameCate({ selected, setSelected }) {
     });
   };
 
-  const handleFavoriteClick = (id) => {
+  const handleFavoriteClick = async (id) => {
+    console.log("reach that categorie favorite", id);
+    try {
+      await toggleCategoryFavorite(id);
+    } catch (error) {
+      console.error("Error adding category to favorites:", error);
+    }
     setFavorites((prev) => {
       const updatedFavorites = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
 

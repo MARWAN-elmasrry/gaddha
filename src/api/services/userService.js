@@ -91,7 +91,34 @@ export const getCategories = async () => {
     throw error.response?.data?.message || error.message || "خطأ فى جلب الفئات";
   }
 };
-
+export const toggleCategoryFavorite = async (categoryId) => {
+  try {
+    const response = await api.post(
+      "/user/toggle-category-favourite",
+      { categoryId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى اضافة الفئة للمفضلة";
+  }
+};
+export const getFavoriteCategories = async () => {
+  try {
+    const response = await api.get("/user/favourite-categories", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.favouriteCategories;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب الفئات المفضلة";
+  }
+};
 //reports
 export const createReport = async (data) => {
   try {
@@ -103,5 +130,61 @@ export const createReport = async (data) => {
     return response.data;
   } catch (error) {
     throw error.response?.data?.message || error.message || "خطأ فى انشاء التقرير";
+  }
+};
+
+// game
+export const startGameCheck = async () => {
+  try {
+    const response = await api.post(
+      "/user/start-game",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى بدء اللعبة";
+  }
+};
+
+export const createGameSession = async (data) => {
+  try {
+    const response = await api.post("/user/create-gameSession", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى انشاء جلسة اللعبة";
+  }
+};
+
+//messages
+
+export const sendMessage = async (data) => {
+  try {
+    const response = await api.post("/user/send-message", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى ارسال الرسالة";
+  }
+};
+
+//groups
+export const getGroups = async () => {
+  try {
+    const response = await api.get("/user/groups");
+    return response.data.groups;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب المجموعات";
   }
 };

@@ -1,11 +1,19 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import GameCate from "./gamecate/gamecate";
 import Kgame from "./keepgame/kgame";
 import { QUESTION_BANK } from "./questionBank";
 import { setGame } from "../../gameSlice";
 import "./mgStyle.css";
+import {
+  createGameSession,
+  getFavoriteCategories,
+  getGroups,
+  startGameCheck,
+  toggleCategoryFavorite,
+} from "../../api/services/userService";
+import { transformQuestions } from "../../utils/games";
 
 const CATEGORIES = [
   {
@@ -49,7 +57,12 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
     onCardClick();
   };
 
-  const handleRemoveFavorite = (e) => {
+  const handleRemoveFavorite = async (e) => {
+    try {
+      await toggleCategoryFavorite(category._id);
+    } catch (error) {
+      console.error("Error adding category to favorites:", error);
+    }
     e.stopPropagation();
     onRemoveFavorite();
   };
@@ -71,7 +84,7 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
             <img src="./exit.png" alt="remove from favorites" />
           </button>
         </div>
-        <img src={category.img} alt="" />
+        <img src={category.image} alt="" />
         <h5>{category.name}</h5>
       </div>
     </div>
@@ -85,10 +98,17 @@ function FavoriteCate() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem("categoryFavorites") || "[]");
-    setFavorites(savedFavorites);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const data = await getFavoriteCategories();
+        setFavorites(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
+    fetchData();
+  }, []);
   const selectedWithOrder = useMemo(() => {
     const orderMap = new Map(selected.map((id, i) => [id, i + 1]));
     return orderMap;
@@ -96,7 +116,7 @@ function FavoriteCate() {
 
   const favoriteCategories = CATEGORIES.filter((cat) => favorites.includes(cat.id));
 
-  const handleCardClick = (id) => {
+  const handleCardClick = async (id) => {
     setSelected((prev) => {
       if (prev.includes(id)) {
         return prev.filter((x) => x !== id);
@@ -107,9 +127,9 @@ function FavoriteCate() {
   };
 
   const handleRemoveFavorite = (id) => {
-    const updatedFavorites = favorites.filter((favId) => favId !== id);
+    const updatedFavorites = favorites.filter((cat) => cat._id !== id);
     setFavorites(updatedFavorites);
-    localStorage.setItem("categoryFavorites", JSON.stringify(updatedFavorites));
+    // localStorage.setItem("categoryFavorites", JSON.stringify(updatedFavorites));
     setSelected((prev) => prev.filter((selectedId) => selectedId !== id));
   };
 
@@ -129,7 +149,7 @@ function FavoriteCate() {
     });
   };
 
-  if (favoriteCategories.length === 0) {
+  if (favorites.length === 0) {
     return (
       <div className="game-cate">
         <div className="container">
@@ -173,15 +193,15 @@ function FavoriteCate() {
           <h3>فئاتي المفضلة - اختر 6 فئات للعب</h3>
 
           <div className="cards">
-            {favoriteCategories.map((cat, idx) => (
+            {favorites.map((cat, idx) => (
               <FavoriteCard
-                key={cat.id}
+                key={cat._id}
                 index={idx}
                 category={cat}
-                selected={selected.includes(cat.id)}
-                order={selectedWithOrder.get(cat.id)}
-                onCardClick={() => handleCardClick(cat.id)}
-                onRemoveFavorite={() => handleRemoveFavorite(cat.id)}
+                selected={selected.includes(cat._id)}
+                order={selectedWithOrder.get(cat._id)}
+                onCardClick={() => handleCardClick(cat._id)}
+                onRemoveFavorite={() => handleRemoveFavorite(cat._id)}
               />
             ))}
           </div>
@@ -196,18 +216,51 @@ const Game = () => {
   const [activeTab, setActiveTab] = useState("games");
   const [isFlipping, setIsFlipping] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [activeGroup, setActiveGroup] = useState(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getGroups();
+        setGroups(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  const startGame = () => {
-    console.log("reach that");
+    fetchData();
+  }, []);
+  let gameQuestions;
+  const startGame = async () => {
+    try {
+      const gameStatus = await startGameCheck();
+      if (gameStatus.message !== "Game started successfully") return;
+      console.log("reach that success start game");
+      const body = {
+        gameName: "first game",
+        player1Cat1id: selected[0],
+        player1Cat2id: selected[1],
+        player1Cat3id: selected[2],
+        player2Cat1id: selected[3],
+        player2Cat2id: selected[4],
+        player2Cat3id: selected[5],
+      };
+      const session = (await createGameSession(body)).session;
+      gameQuestions = transformQuestions(session);
+      console.log("create game session success full", gameQuestions);
+    } catch {
+      return;
+    }
     const payload = {
       selectedCategories: selected.map((id) => ({
         id,
         name: id,
         qa: QUESTION_BANK[id] || [],
       })),
-      questionBank: QUESTION_BANK,
+      questionBank: gameQuestions,
     };
 
     dispatch(setGame(payload));
@@ -257,12 +310,33 @@ const Game = () => {
                   الفئات
                 </a>
               </div>
+              {/* {selected.length > 1 && ( */}
               {selected.length === 6 && (
                 <button className="remg" onClick={startGame}>
                   ابدأ اللعب
                 </button>
               )}
             </div>
+            {activeTab === "categories" && (
+              <div className="g-links group-links">
+                <div className="g-link group-link">
+                  {groups.map((group) => (
+                    <a
+                      key={group}
+                      className={activeGroup === group ? "g-active" : ""}
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveGroup(group);
+                      }}
+                    >
+                      {group}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className={`card-flip-container ${isFlipping ? "flipping" : ""}`}>
               <div className="card-content">
                 {activeTab === "games" && <Kgame />}

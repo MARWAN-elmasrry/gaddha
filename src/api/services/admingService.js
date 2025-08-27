@@ -16,7 +16,7 @@ export const loginAdmin = async (identifier, password) => {
 // Reports
 export const getAllReports = async () => {
   try {
-    const response = await api.get("/admin/reports", {
+    const response = await api.get("/admin/get-all-reports", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -68,6 +68,7 @@ export const editVoucher = async (voucherData) => {
 };
 
 //categories
+
 export const uploadCategoryWithQuestions = async (formData) => {
   try {
     const response = await api.post("/admin/upload-category-with-questions", formData, {
@@ -79,5 +80,114 @@ export const uploadCategoryWithQuestions = async (formData) => {
     return response.data;
   } catch (error) {
     throw error.response?.data?.message || "Failed to upload category";
+  }
+};
+
+export const getAllCategories = async () => {
+  try {
+    const response = await api.get("/admin/categories", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.categories;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch categories";
+  }
+};
+
+//questions
+export const getQuestionById = async (id) => {
+  try {
+    const response = await api.get(`/admin/get-question/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.question;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch question";
+  }
+};
+
+export const editQuestion = async (data) => {
+  try {
+    const response = await api.post(`/admin/edit-question`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to update question";
+  }
+};
+
+//control
+
+export const addAdmin = async (adminData) => {
+  try {
+    const response = await api.post("/admin/add-admin", adminData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to add admin";
+  }
+};
+
+export const giftUserCoins = async (data) => {
+  try {
+    const response = await api.post("/admin/gift-user-coins", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to gift user coins";
+  }
+};
+
+export const getUserCoins = async (userId) => {
+  try {
+    const response = await api.get(`/admin/get-user-coins/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.coins;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to get user coins";
+  }
+};
+//messages
+export const getAllMessages = async () => {
+  try {
+    const response = await api.get(`/admin/get-all-messages`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.messages;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch message";
+  }
+};
+//users
+// users
+export const getAllUsers = async () => {
+  try {
+    const response = await api.get(`/admin/get-all-users`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data.users);
+    return response.data.users;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch message";
   }
 };

@@ -1,9 +1,28 @@
 import "./drStyle.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReportForm from "./ReportForm";
+import { getAllReports } from "../../../api/services/admingService";
+
 const Dreport = () => {
-  const cards = Array.from({ length: 4 });
-  const [opneReportForm, setOpentReportForm] = useState(false);
+  const [reports, setReports] = useState([]);
+  const [question, setQuestion] = useState(null);
+  const [openReportForm, setOpenReportForm] = useState(false);
+  const difficultyLevels = { easy: "سهل", medium: "متوسط", hard: "صعب" };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllReports();
+        setReports(data);
+        firstThreeReports =  data.slice(0, 3);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="d-report">
@@ -13,7 +32,7 @@ const Dreport = () => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  window.location.href = "/dash";
+                  window.location.href = "/admin";
                 }}
               >
                 <img src="/back.png" alt="" />
@@ -21,18 +40,18 @@ const Dreport = () => {
             </div>
             <h1>البلاغات</h1>
             <div className="cont-info">
-              <div className="info">
+              {/* <div className="info">
                 <h3>جديد</h3>
                 <p>0</p>
-              </div>
+              </div> */}
               <div className="info">
                 <h3>كلى</h3>
-                <p>15</p>
+                <p>{reports.length}</p>
               </div>
             </div>
           </div>
           <div className="cards">
-            {cards.map((_, idx) => (
+            {reports.map((report, idx) => (
               <div className="card" key={idx}>
                 <div className="card-num">
                   <span className="number">
@@ -42,23 +61,31 @@ const Dreport = () => {
                 <div className="card-info">
                   <div className="main-info">
                     <h3>11:20</h3>
-                    <h3>صالح عبد الرحمن</h3>
+                    <h3>{report.userId.name}</h3>
                   </div>
                   <div className="report-info">
                     <h4> أيقونة: لا</h4>
-                    <h4>سهل</h4>
-                    <h4>أنمي</h4>
+                    <h4>{difficultyLevels[report.questionId.difficulty]}</h4>
+                    <h4>{report.questionId.category.name}</h4>
                   </div>
                   <div className="contact-info">
-                    <p>something@gmail.com</p>
-                    <p>+90 552-593-90-69</p>
+                    <p>{report.userId.email}</p>
+                    <p>
+                      {report.userId.countryCode} {report.userId.phone}
+                    </p>
                     <p>333-222-245</p>
                   </div>
                   <div className="mess">
-                    <p>نعمل شراكة شرايكم</p>
+                    <p>{report.description}</p>
                   </div>
                   <div className="edit-btn">
-                    <button className="r-edit" onClick={() => setOpentReportForm(true)}>
+                    <button
+                      className="r-edit"
+                      onClick={() => {
+                        setOpenReportForm(true);
+                        setQuestion(report.questionId);
+                      }}
+                    >
                       تعديل
                     </button>
                   </div>
@@ -67,7 +94,7 @@ const Dreport = () => {
             ))}
           </div>
         </div>
-        <ReportForm open={opneReportForm} setOpen={setOpentReportForm} />
+        <ReportForm question={question} open={openReportForm} setOpen={setOpenReportForm} />
       </div>
     </>
   );

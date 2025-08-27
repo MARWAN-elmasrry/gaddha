@@ -64,3 +64,31 @@
   position: fixed;
   bottom: 0;
 }
+.group-links {
+  margin: 0 !important;
+
+  .group-link {
+    padding: 8px 12px !important;
+    gap: 12px !important;
+    align-items: center;
+    // width: 460px;
+    flex-wrap: nowrap;
+    // overflow-x: auto;
+    > a {
+      font-size: 16px !important;
+      white-space: nowrap;
+    }
+    > a:nth-child(2) {
+      background: none;
+      padding: 0;
+    }
+    .g-active {
+      background-color: #cf8a41 !important;
+      padding: 4px 8px !important;
+      border-radius: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

@@ -5,16 +5,22 @@ import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
 import { uploadCategoryWithQuestions } from "../../../../api/services/admingService";
 
-const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerRefetch }) => {
+const CategoryForm = ({
+  mode = "create",
+  initialData,
+  open,
+  setOpen,
+  setTriggerRefetch,
+  groups,
+}) => {
   const [questionsAnswersFile, setQuestionsAnswersFile] = useState([]);
   const [questionImages, setQuestionImages] = useState([]);
   const [answersImages, setAnswersImages] = useState([]);
   const [categoryImage, setCategoryImage] = useState([]);
-  console.log("categoryImage", categoryImage[0]);
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
     defaultValues: {
       categoryName: initialData ? initialData.categoryName : "",
@@ -37,10 +43,10 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerR
         formData.append("excelFile", questionsAnswersFile[0]);
       }
       questionImages.forEach((file) => {
-        formData.append("questionsImages[]", file);
+        formData.append("questionsImages", file);
       });
       answersImages.forEach((file) => {
-        formData.append("answersImages[]", file);
+        formData.append("answersImages", file);
       });
       if (categoryImage[0]) {
         formData.append("categoryImage", categoryImage[0]);
@@ -89,9 +95,11 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerR
           <label htmlFor="level-select"> المجموعة</label>
           <select id="level-select" {...register("group", { required: "اختار مجموعة للسؤال" })}>
             <option value="">اختر المجموعة</option>
-            <option value="last2">مجموعة 1</option>
-            <option value="group2">مجموعة 2</option>
-            <option value="group3">مجموعة 3</option>
+            {groups.map((group) => (
+              <option key={group} value={group}>
+                {group}
+              </option>
+            ))}
           </select>
           {errors.group && <p style={{ color: "red" }}>{errors.group.message}</p>}
         </div>
@@ -130,8 +138,8 @@ const CategoryForm = ({ mode = "create", initialData, open, setOpen, setTriggerR
           />
         </div>
         <div style={{ width: "100%", textAlign: "center" }}>
-          <button type="submit" class="submit-button">
-            {mode === "create" ? "اضافة" : "تعديل"}
+          <button type="submit" class="submit-button" disabled={isSubmitting}>
+            {isSubmitting ? <span class="loader"></span> : mode === "create" ? "اضافة" : "تعديل"}
           </button>
         </div>
       </form>

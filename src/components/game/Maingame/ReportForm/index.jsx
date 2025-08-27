@@ -3,7 +3,8 @@ import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
 import { createReport } from "../../../../api/services/userService";
 
-const ReportForm = ({ open, setOpen, questionId = "68acb8cf816245c32979c130" }) => {
+const ReportForm = ({ open, setOpen, questionId }) => {
+  console.log("from report forom", questionId);
   const {
     register,
     handleSubmit,

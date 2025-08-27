@@ -442,7 +442,7 @@ const QandA = ({
 
   return (
     <div className="qa">
-      <ReportForm open={openReportForm} setOpen={setOpenReportForm} />
+      <ReportForm questionId={currentQA?.id} open={openReportForm} setOpen={setOpenReportForm} />
       <div className="qa-cont">
         <div className="game-btn ca" onClick={onToggleText} style={{ cursor: "pointer" }}>
           <span className="number">
@@ -477,7 +477,7 @@ const QandA = ({
               نقطة): {currentQA?.q}
             </h1>
             <div className="qora">
-              <img src="./catimg.png" alt="" />
+              <img src={currentQA.qImage} alt="" />
             </div>
           </>
         )}
@@ -489,7 +489,7 @@ const QandA = ({
               نقطة): {currentQA?.a}
             </h1>
             <div className="qora">
-              <img src="./catimg.png" alt="" />
+              <img src={currentQA.aImage} alt="" />
             </div>
           </>
         )}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./disStyle.css";
 import CouponForm from "./CouponForm";
 import { getVouchers } from "../../../api/services/admingService";
-
+import { toast } from "react-toastify";
 const Discount = () => {
   const [coupons, setCoupons] = useState([]);
   const [opneCouponFormCreate, setOpentCouponFormCreate] = useState(false);
@@ -15,8 +15,8 @@ const Discount = () => {
       try {
         const data = await getVouchers();
         setCoupons(data);
-        console.log("Vouchers data:", data);
       } catch (err) {
+        toast.error("حدث خطأ ما");
         console.error(err);
       }
     };
@@ -33,7 +33,7 @@ const Discount = () => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  window.location.href = "/dash";
+                  window.location.href = "/admin";
                 }}
               >
                 <img src="/back.png" alt="" />
@@ -54,7 +54,7 @@ const Discount = () => {
               <div className="cont-info">
                 <div className="info">
                   <h3>عدد</h3>
-                  <p>7</p>
+                  <p>{coupons.length}</p>
                 </div>
               </div>
             </div>
