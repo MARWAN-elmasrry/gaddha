@@ -45,7 +45,7 @@ const Pack = () => {
                   <h5>لعبتين</h5>
                   <div className="price">
                     <div className="price-info">
-                      <p>14</p>
+                      <p>10</p>
                       <img src="./riyal.png" alt="" />
                     </div>
                   </div>
@@ -58,7 +58,7 @@ const Pack = () => {
                   <h5>لعبة واحدة</h5>
                   <div className="price">
                     <div className="price-info">
-                      <p>8</p>
+                      <p>5</p>
                       <img src="./riyal.png" alt="" />
                     </div>
                   </div>
@@ -71,7 +71,7 @@ const Pack = () => {
                   <h5>ألعاب 10</h5>
                   <div className="price">
                     <div className="price-info">
-                      <p>75</p>
+                      <p>70</p>
                       <img src="./riyal.png" alt="" />
                     </div>
                   </div>
@@ -84,7 +84,7 @@ const Pack = () => {
                   <h5>5 ألعاب</h5>
                   <div className="price">
                     <div className="price-info">
-                      <p>35</p>
+                      <p>37</p>
                       <img src="./riyal.png" alt="" />
                     </div>
                   </div>

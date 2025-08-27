@@ -68,7 +68,6 @@ export const editVoucher = async (voucherData) => {
 };
 
 //categories
-
 export const uploadCategoryWithQuestions = async (formData) => {
   try {
     const response = await api.post("/admin/upload-category-with-questions", formData, {
@@ -109,16 +108,31 @@ export const getQuestionById = async (id) => {
     throw error.response?.data?.message || "Failed to fetch question";
   }
 };
-
-export const editQuestion = async (data) => {
+// Messages
+export  const getAllMessages = async () =>{
   try {
-    const response = await api.post(`/admin/edit-question`, data, {
+    const response = await api.get(`/admin/get-all-messages`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return response.data.messages;
   } catch (error) {
-    throw error.response?.data?.message || "Failed to update question";
+    throw error.response?.data?.message || "Failed to fetch message";
   }
-};
+}
+
+// users 
+export  const getAllUsers = async () =>{
+  try {
+    const response = await api.get(`/admin/get-all-users`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data.users)
+    return response.data.users;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch message";
+  }
+}

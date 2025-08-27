@@ -1,5 +1,6 @@
 import "./dmStyle.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllMessages, getAllReports } from "../../../api/services/admingService";
 
 import {
   LineChart,
@@ -22,7 +23,30 @@ const data = [
 
 const Dmain = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [ reports , setReports] = useState([]);
+  const [messages, setMessages] = useState([]);
 
+  let firstThreeReports = []
+  let firstThreeMessages = []
+  firstThreeReports = reports.slice(0, 3);
+  firstThreeMessages = messages.slice(0, 3);
+  console.log(firstThreeMessages)
+
+  useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const data = await getAllReports();
+          const data2 = await getAllMessages();
+          setReports(data);
+          setMessages(data2);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      
+      fetchData();
+    }, []);
+    
   const getImageSrc = (cardType, position) => {
     if (hoveredCard === cardType) {
       return "./dashrm.png";
@@ -156,7 +180,7 @@ const Dmain = () => {
             <h3
               onClick={(e) => {
                 e.preventDefault();
-                window.location.href = "/dreport";
+                window.location.href = "/admin/dreport";
               }}
               style={{ cursor: "pointer" }}
               className="card-title"
@@ -166,46 +190,24 @@ const Dmain = () => {
             </h3>
             <div className="card-info">
               <div className="info">
-                <h3>جديد</h3>
-                <p>0</p>
-              </div>
-              <div className="info">
                 <h3>كلى</h3>
-                <p>15</p>
+                <p>{reports.length}</p>
               </div>
             </div>
             <div className="r-cards">
-              <div className="rcard">
-                <div className="info">
-                  <p>jj345@gmail.com</p>
-                  <p>أنمي</p>
-                  <p>11:20</p>
-                </div>
-                <div className="mess">
-                  <p>الصوره غير صحيحه</p>
-                </div>
+                {firstThreeReports.map((firstThreeReports) => (
+                  <div className="rcard" key={firstThreeReports._id}>
+                    <div className="info">
+                      <p>{firstThreeReports.userId?.email}</p>
+                      <p>{firstThreeReports.questionId?.category?.name}</p>
+                      <p>{new Date(firstThreeReports.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                    </div>
+                    <div className="mess">
+                      <p>{firstThreeReports.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="rcard">
-                <div className="info">
-                  <p>jj345@gmail.com</p>
-                  <p>أنمي</p>
-                  <p>11:20</p>
-                </div>
-                <div className="mess">
-                  <p>الصوره غير صحيحه</p>
-                </div>
-              </div>
-              <div className="rcard">
-                <div className="info">
-                  <p>jj345@gmail.com</p>
-                  <p>أنمي</p>
-                  <p>11:20</p>
-                </div>
-                <div className="mess">
-                  <p>الصوره غير صحيحه</p>
-                </div>
-              </div>
-            </div>
           </div>
           <div
             className="r-card"
@@ -215,7 +217,7 @@ const Dmain = () => {
             <h3
               onClick={(e) => {
                 e.preventDefault();
-                window.location.href = "/dmess";
+                window.location.href = "/admin/dmess";
               }}
               style={{ cursor: "pointer" }}
               className="card-title"
@@ -225,44 +227,28 @@ const Dmain = () => {
             </h3>
             <div className="card-info">
               <div className="info">
-                <h3>جديد</h3>
-                <p>0</p>
-              </div>
-              <div className="info">
                 <h3>كلى</h3>
-                <p>15</p>
+                <p>{messages.length}</p>
               </div>
             </div>
             <div className="r-cards">
-              <div className="rcard">
-                <div className="info">
-                  <p>jj345@gmail.com</p>
-                  <p>أنمي</p>
-                  <p>11:20</p>
-                </div>
-                <div className="mess">
-                  <p>الصوره غير صحيحه</p>
-                </div>
-              </div>
-              <div className="rcard">
-                <div className="info">
-                  <p>jj345@gmail.com</p>
-                  <p>أنمي</p>
-                  <p>11:20</p>
-                </div>
-                <div className="mess">
-                  <p>الصوره غير صحيحه</p>
-                </div>
-              </div>
-              <div className="rcard">
-                <div className="info">
-                  <p>jj345@gmail.com</p>
-                  <p>أنمي</p>
-                  <p>11:20</p>
-                </div>
-                <div className="mess">
-                  <p>الصوره غير صحيحه</p>
-                </div>
+              <div className="r-cards">
+                {firstThreeMessages.map((msg) => (
+                  <div className="rcard" key={msg._id}>
+                    <div className="info">
+                      <p>{msg.email}</p>
+                      <p>
+                        {new Date(msg.timestamp).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                    <div className="mess">
+                      <p>{msg.content}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

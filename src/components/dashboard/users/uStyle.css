@@ -88,3 +88,11 @@
 
 }
 }
+@media screen and (max-width: 450px) {
+    .users .cards .card .card-info .main-info,.users .cards .card .card-info .contant-info{
+        flex-direction: column-reverse;
+    }
+    .users .cards .card .extra-info p{
+        max-width: 100%;
+    }
+}

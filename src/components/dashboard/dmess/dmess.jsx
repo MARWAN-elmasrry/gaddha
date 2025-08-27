@@ -1,6 +1,34 @@
+import { getAllMessages } from "../../../api/services/admingService";
 import "./dmStyle.css";
+import { useEffect, useState } from "react";
 
 const Dmess = () => {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllMessages();
+        setMessages(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleString("ar-EG", {
+      hour: "2-digit",
+      minute: "2-digit",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
   return (
     <>
       <div className="d-mess">
@@ -11,7 +39,7 @@ const Dmess = () => {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    window.location.href = "/dash";
+                    window.location.href = "/admin";
                   }}
                 >
                   <img src="/back.png" alt="" />
@@ -20,96 +48,41 @@ const Dmess = () => {
               <h1>الرسائل</h1>
               <div className="cont-info">
                 <div className="info">
-                  <h3>جديد</h3>
-                  <p>0</p>
-                </div>
-                <div className="info">
-                  <h3>كلى</h3>
-                  <p>15</p>
+                  <h3>كلي</h3>
+                  <p>{messages.length}</p>
                 </div>
               </div>
             </div>
+
             <div className="cards">
-              <div className="card">
-                <div className="card-num">
-                  <span class="number">
-                    <img src="/delete.png" alt="" />
-                  </span>
-                </div>
-                <div className="card-info">
-                  <div className="main-info">
-                    <h3>11:20</h3>
-                    <h3>صالح عبد الرحمن</h3>
+              {messages.map((msg) => (
+                <div className="card" key={msg._id}>
+                  <div className="card-num">
+                    <span className="number">
+                      <img src="/delete.png" alt="delete" />
+                    </span>
                   </div>
-                  <div className="contact-info">
-                    <p>something@gmail.com</p>
-                    <p>+90 552-593-90-69</p>
-                  </div>
-                  <div className="mess">
-                    <p>نعمل شراكة شرايكم</p>
-                  </div>
-                </div>
-              </div>
-              <div className="card">
-                <div className="card-num">
-                  <span class="number">
-                    <img src="/delete.png" alt="" />
-                  </span>
-                </div>
-                <div className="card-info">
-                  <div className="main-info">
-                    <h3>11:20</h3>
-                    <h3>صالح عبد الرحمن</h3>
-                  </div>
-                  <div className="contact-info">
-                    <p>something@gmail.com</p>
-                    <p>+90 552-593-90-69</p>
-                  </div>
-                  <div className="mess">
-                    <p>نعمل شراكة شرايكم</p>
+                  <div className="card-info">
+                    <div className="main-info">
+                      <h3>{formatDate(msg.timestamp)}</h3>
+                      <h3>{msg.name}</h3>
+                    </div>
+                    <div className="contact-info">
+                      <p>{msg.email}</p>
+                      <p>{msg.phone}</p>
+                    </div>
+                    <div className="mess">
+                      <p>{msg.content}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="card">
-                <div className="card-num">
-                  <span class="number">
-                    <img src="/delete.png" alt="" />
-                  </span>
-                </div>
-                <div className="card-info">
-                  <div className="main-info">
-                    <h3>11:20</h3>
-                    <h3>صالح عبد الرحمن</h3>
-                  </div>
-                  <div className="contact-info">
-                    <p>something@gmail.com</p>
-                    <p>+90 552-593-90-69</p>
-                  </div>
-                  <div className="mess">
-                    <p>نعمل شراكة شرايكم</p>
-                  </div>
-                </div>
-              </div>
-              <div className="card">
-                <div className="card-num">
-                  <span class="number">
-                    <img src="/delete.png" alt="" />
-                  </span>
-                </div>
-                <div className="card-info">
-                  <div className="main-info">
-                    <h3>11:20</h3>
-                    <h3>صالح عبد الرحمن</h3>
-                  </div>
-                  <div className="contact-info">
-                    <p>something@gmail.com</p>
-                    <p>+90 552-593-90-69</p>
-                  </div>
-                  <div className="mess">
-                    <p>نعمل شراكة شرايكم</p>
-                  </div>
-                </div>
-              </div>
+              ))}
+
+              {messages.length === 0 && (
+                <p style={{ textAlign: "center", marginTop: "20px" }}>
+                  لا توجد رسائل
+                </p>
+              )}
             </div>
           </div>
         </div>

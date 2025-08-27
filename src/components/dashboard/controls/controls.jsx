@@ -11,7 +11,7 @@ const Controls = () => {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    window.location.href = "/dash";
+                    window.location.href = "/admin";
                   }}
                 >
                   <img src="/back.png" alt="" />

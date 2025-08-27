@@ -2,16 +2,19 @@ import "./drStyle.css";
 import { useEffect, useState } from "react";
 import ReportForm from "./ReportForm";
 import { getAllReports } from "../../../api/services/admingService";
+
 const Dreport = () => {
   const [reports, setReports] = useState([]);
   const [question, setQuestion] = useState(null);
   const [openReportForm, setOpenReportForm] = useState(false);
   const difficultyLevels = { easy: "سهل", medium: "متوسط", hard: "صعب" };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getAllReports();
         setReports(data);
+        firstThreeReports =  data.slice(0, 3);
       } catch (err) {
         console.error(err);
       }
@@ -19,6 +22,7 @@ const Dreport = () => {
 
     fetchData();
   }, []);
+
   return (
     <>
       <div className="d-report">
@@ -28,7 +32,7 @@ const Dreport = () => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  window.location.href = "/dash";
+                  window.location.href = "/admin";
                 }}
               >
                 <img src="/back.png" alt="" />

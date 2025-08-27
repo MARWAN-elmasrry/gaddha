@@ -206,6 +206,7 @@ vertical-align: middle;
 .d-main .d-main-cont .r-card .r-cards{
   padding: 1rem;
   display: flex;
+  gap: 1rem;
   justify-content: space-between;
   flex-wrap: wrap;
 }
