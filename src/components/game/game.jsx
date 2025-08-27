@@ -11,6 +11,7 @@ import {
   getFavoriteCategories,
   getGroups,
   startGameCheck,
+  toggleCategoryFavorite,
 } from "../../api/services/userService";
 import { transformQuestions } from "../../utils/games";
 
@@ -56,7 +57,12 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
     onCardClick();
   };
 
-  const handleRemoveFavorite = (e) => {
+  const handleRemoveFavorite = async (e) => {
+    try {
+      await toggleCategoryFavorite(category._id);
+    } catch (error) {
+      console.error("Error adding category to favorites:", error);
+    }
     e.stopPropagation();
     onRemoveFavorite();
   };
@@ -110,7 +116,7 @@ function FavoriteCate() {
 
   const favoriteCategories = CATEGORIES.filter((cat) => favorites.includes(cat.id));
 
-  const handleCardClick = (id) => {
+  const handleCardClick = async (id) => {
     setSelected((prev) => {
       if (prev.includes(id)) {
         return prev.filter((x) => x !== id);
@@ -121,9 +127,9 @@ function FavoriteCate() {
   };
 
   const handleRemoveFavorite = (id) => {
-    const updatedFavorites = favorites.filter((favId) => favId !== id);
+    const updatedFavorites = favorites.filter((cat) => cat._id !== id);
     setFavorites(updatedFavorites);
-    localStorage.setItem("categoryFavorites", JSON.stringify(updatedFavorites));
+    // localStorage.setItem("categoryFavorites", JSON.stringify(updatedFavorites));
     setSelected((prev) => prev.filter((selectedId) => selectedId !== id));
   };
 

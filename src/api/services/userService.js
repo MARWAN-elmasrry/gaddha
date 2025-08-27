@@ -91,10 +91,10 @@ export const getCategories = async () => {
     throw error.response?.data?.message || error.message || "خطأ فى جلب الفئات";
   }
 };
-export const addCategoryFavorite = async (categoryId) => {
+export const toggleCategoryFavorite = async (categoryId) => {
   try {
     const response = await api.post(
-      "/user/add-category-to-favourite",
+      "/user/toggle-category-favourite",
       { categoryId },
       {
         headers: {

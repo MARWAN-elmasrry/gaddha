@@ -37,6 +37,7 @@ import Ver from "./components/home/ver/ver";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 export const ForceUpdateContext = createContext();
+import { ToastContainer } from "react-toastify";
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -134,6 +135,7 @@ export default function App() {
   return (
     <ForceUpdateContext.Provider value={forceUpdate}>
       <div key={tick}>
+        <ToastContainer />
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<HomePage />} />

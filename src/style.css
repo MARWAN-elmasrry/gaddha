@@ -70,3 +70,12 @@ body {
     transform: rotate(360deg);
   }
 }
+.coin {
+  width: 15px;
+  height: 15px;
+  background-color: #f4be32;
+  transform: rotate(45deg);
+}
+.Toastify__toast-theme--light {
+  background-color: #ffdccb !important;
+}
