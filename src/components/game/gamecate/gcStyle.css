@@ -44,7 +44,7 @@
 }
 .game-cate .cards .card-cate {
   width: 230px;
-  height: 260px;
+  height: 320px;
   position: relative;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -58,6 +58,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 }
 .game-cate .card-cate .card-info .select {
   background-color: rgba(249, 231, 197, 1);
@@ -66,6 +67,7 @@
   border-top-right-radius: 20px;
   display: flex;
   justify-content: center;
+  z-index: 3;
 }
 .game-cate .card-cate .card-info .select .select-btn,
 .remove-favorite-btn {
@@ -77,16 +79,17 @@
   width: 30px;
 }
 .game-cate .card-cate .card-info .select + img {
-  width: 100%;
-  height: 100%;
+  height: 230px !important;
+  width: 230px !important;
+  z-index: 1;
 }
 .game-cate .card-cate .card-info h5 {
   width: 100%;
-  height: 20%;
+  height: 14%;
   margin: 0;
-  padding-top: 10px;
-  border-bottom-right-radius: 23px;
-  border-bottom-left-radius: 23px;
+  padding: 10px 0;
+  border-bottom-right-radius: 21px;
+  border-bottom-left-radius: 21px;
   background-color: rgba(136, 56, 19, 1);
   text-align: center;
   color: rgba(255, 255, 255, 1);
@@ -102,6 +105,7 @@
   position: absolute;
   top: -25px;
   left: -26px;
+  z-index: 5;
 }
 .game-cate .card-cate .card-num .number {
   color: white;
