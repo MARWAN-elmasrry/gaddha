@@ -76,7 +76,7 @@
   margin: 0;
   width: 30px;
 }
-.game-cate .card-cate .card-info img {
+.game-cate .card-cate .card-info .select + img {
   width: 100%;
   height: 100%;
 }

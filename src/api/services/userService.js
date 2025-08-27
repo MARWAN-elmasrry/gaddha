@@ -91,7 +91,34 @@ export const getCategories = async () => {
     throw error.response?.data?.message || error.message || "خطأ فى جلب الفئات";
   }
 };
-
+export const addCategoryFavorite = async (categoryId) => {
+  try {
+    const response = await api.post(
+      "/user/add-category-to-favourite",
+      { categoryId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى اضافة الفئة للمفضلة";
+  }
+};
+export const getFavoriteCategories = async () => {
+  try {
+    const response = await api.get("/user/favourite-categories", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.favouriteCategories;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب الفئات المفضلة";
+  }
+};
 //reports
 export const createReport = async (data) => {
   try {

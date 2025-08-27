@@ -6,7 +6,11 @@ import Kgame from "./keepgame/kgame";
 import { QUESTION_BANK } from "./questionBank";
 import { setGame } from "../../gameSlice";
 import "./mgStyle.css";
-import { createGameSession, startGameCheck } from "../../api/services/userService";
+import {
+  createGameSession,
+  getFavoriteCategories,
+  startGameCheck,
+} from "../../api/services/userService";
 import { transformQuestions } from "../../utils/games";
 
 const CATEGORIES = [
@@ -73,7 +77,7 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
             <img src="./exit.png" alt="remove from favorites" />
           </button>
         </div>
-        <img src={category.img} alt="" />
+        <img src={category.image} alt="" />
         <h5>{category.name}</h5>
       </div>
     </div>
@@ -87,10 +91,17 @@ function FavoriteCate() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem("categoryFavorites") || "[]");
-    setFavorites(savedFavorites);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const data = await getFavoriteCategories();
+        setFavorites(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
+    fetchData();
+  }, []);
   const selectedWithOrder = useMemo(() => {
     const orderMap = new Map(selected.map((id, i) => [id, i + 1]));
     return orderMap;
@@ -131,7 +142,7 @@ function FavoriteCate() {
     });
   };
 
-  if (favoriteCategories.length === 0) {
+  if (favorites.length === 0) {
     return (
       <div className="game-cate">
         <div className="container">
@@ -175,15 +186,15 @@ function FavoriteCate() {
           <h3>فئاتي المفضلة - اختر 6 فئات للعب</h3>
 
           <div className="cards">
-            {favoriteCategories.map((cat, idx) => (
+            {favorites.map((cat, idx) => (
               <FavoriteCard
-                key={cat.id}
+                key={cat._id}
                 index={idx}
                 category={cat}
-                selected={selected.includes(cat.id)}
-                order={selectedWithOrder.get(cat.id)}
-                onCardClick={() => handleCardClick(cat.id)}
-                onRemoveFavorite={() => handleRemoveFavorite(cat.id)}
+                selected={selected.includes(cat._id)}
+                order={selectedWithOrder.get(cat._id)}
+                onCardClick={() => handleCardClick(cat._id)}
+                onRemoveFavorite={() => handleRemoveFavorite(cat._id)}
               />
             ))}
           </div>

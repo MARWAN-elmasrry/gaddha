@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import CustomFileUpload from "../../../ui/FileUpload";
 import { useState } from "react";
 import Modal from "../../../ui/Modal";
-import { useForm } from "react-hook-form";
-import { getQuestionById } from "../../../../api/services/admingService";
+import { set, useForm } from "react-hook-form";
+import { editQuestion, getQuestionById } from "../../../../api/services/admingService";
 
-const ReportForm = ({ open, setOpen, questionId }) => {
+const ReportForm = ({ open, setOpen, question }) => {
   const [questionFile, setQuestionFile] = useState([]);
   const [answerFile, setAnswerFile] = useState([]);
-
+  const questionId = question?._id;
   const {
     register,
     handleSubmit,
@@ -25,28 +25,31 @@ const ReportForm = ({ open, setOpen, questionId }) => {
     setOpen(false);
   };
   useEffect(() => {
-    if (!questionId) return;
-    const fetchData = async () => {
-      try {
-        const question = await getQuestionById(questionId);
+    if (!question?._id) return;
 
-        console.log("Question data:", question);
-        // Ensure reset is called after data is loaded
-        reset({
-          question: question?.text || "",
-          answer: question?.answer || "",
-          level: question?.difficulty || "",
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchData();
+    reset({
+      question: question?.text || "",
+      answer: question?.answer || "",
+      level: question?.difficulty || "",
+    });
   }, [questionId, reset]);
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    console.log("files", questionFile, answerFile);
+    // console.log("files", questionFile, answerFile);
+    try {
+      await editQuestion({
+        questionId: questionId,
+        text: data.question,
+        correctAnswer: data.answer,
+        difficulty: data.level,
+        categoryId: question?.category._id,
+        // questionImage: questionFile[0],
+        // answerImage: answerFile[0],
+      });
+    } catch (error) {
+      console.error("Error updating question:", error);
+    }
+    setOpen(false);
   };
   const title = `تعديل السؤال  `;
   return (
@@ -88,9 +91,17 @@ const ReportForm = ({ open, setOpen, questionId }) => {
           {errors.level && <p style={{ color: "red" }}>{errors.level.message}</p>}
         </div>
 
-        {/* <div>
-          <CustomSwitch checked={checkSwitch} onChange={() => setCheckSwitch((prev) => !prev)} />
-        </div> */}
+        <div className="input-content" style={{ width: "49%" }}>
+          <a href={question?.questionImage} target="_blank" rel="noopener noreferrer">
+            عرض صورة السؤال
+          </a>
+        </div>
+        <div className="input-content" style={{ width: "49%" }}>
+          <a href={question?.answerImage} target="_blank" rel="noopener noreferrer">
+            عرض صورة الاجابة
+          </a>{" "}
+        </div>
+
         <div className="input-content" style={{ width: "49%" }}>
           <label htmlFor="">ملف السؤال</label>
           <CustomFileUpload selectedFiles={questionFile} setSelectedFiles={setQuestionFile} />

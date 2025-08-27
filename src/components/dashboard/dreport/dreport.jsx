@@ -4,8 +4,9 @@ import ReportForm from "./ReportForm";
 import { getAllReports } from "../../../api/services/admingService";
 const Dreport = () => {
   const [reports, setReports] = useState([]);
-  const [questionId, setQuestionId] = useState(null);
+  const [question, setQuestion] = useState(null);
   const [openReportForm, setOpenReportForm] = useState(false);
+  const difficultyLevels = { easy: "سهل", medium: "متوسط", hard: "صعب" };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,12 +61,14 @@ const Dreport = () => {
                   </div>
                   <div className="report-info">
                     <h4> أيقونة: لا</h4>
-                    <h4>سهل</h4>
-                    <h4>أنمي</h4>
+                    <h4>{difficultyLevels[report.questionId.difficulty]}</h4>
+                    <h4>{report.questionId.category.name}</h4>
                   </div>
                   <div className="contact-info">
                     <p>{report.userId.email}</p>
-                    <p>+90 552-593-90-69</p>
+                    <p>
+                      {report.userId.countryCode} {report.userId.phone}
+                    </p>
                     <p>333-222-245</p>
                   </div>
                   <div className="mess">
@@ -76,7 +79,7 @@ const Dreport = () => {
                       className="r-edit"
                       onClick={() => {
                         setOpenReportForm(true);
-                        setQuestionId(report.questionId._id);
+                        setQuestion(report.questionId);
                       }}
                     >
                       تعديل
@@ -87,7 +90,7 @@ const Dreport = () => {
             ))}
           </div>
         </div>
-        <ReportForm questionId={questionId} open={openReportForm} setOpen={setOpenReportForm} />
+        <ReportForm question={question} open={openReportForm} setOpen={setOpenReportForm} />
       </div>
     </>
   );

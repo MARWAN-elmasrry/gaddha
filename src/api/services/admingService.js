@@ -109,3 +109,16 @@ export const getQuestionById = async (id) => {
     throw error.response?.data?.message || "Failed to fetch question";
   }
 };
+
+export const editQuestion = async (data) => {
+  try {
+    const response = await api.post(`/admin/edit-question`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to update question";
+  }
+};
