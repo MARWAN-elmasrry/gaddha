@@ -6,9 +6,8 @@ let parsedUser = null;
 let parsedLoginType = null;
 if (savedAuthData) {
   try {
-    const parsedData = JSON.parse(savedAuthData);
+    parsedUser = JSON.parse(savedAuthData);
 
-    parsedUser = parsedData.user;
     parsedLoginType = savedLoginType;
   } catch (error) {
     console.error("Error parsing authData:", error);
