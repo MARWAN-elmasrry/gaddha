@@ -9,6 +9,7 @@ import "./mgStyle.css";
 import {
   createGameSession,
   getFavoriteCategories,
+  getGroups,
   startGameCheck,
 } from "../../api/services/userService";
 import { transformQuestions } from "../../utils/games";
@@ -209,9 +210,23 @@ const Game = () => {
   const [activeTab, setActiveTab] = useState("games");
   const [isFlipping, setIsFlipping] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [activeGroup, setActiveGroup] = useState(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getGroups();
+        setGroups(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
+    fetchData();
+  }, []);
   let gameQuestions;
   const startGame = async () => {
     try {
@@ -296,6 +311,26 @@ const Game = () => {
                 </button>
               )}
             </div>
+            {activeTab === "categories" && (
+              <div className="g-links group-links">
+                <div className="g-link group-link">
+                  {groups.map((group) => (
+                    <a
+                      key={group}
+                      className={activeGroup === group ? "g-active" : ""}
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveGroup(group);
+                      }}
+                    >
+                      {group}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className={`card-flip-container ${isFlipping ? "flipping" : ""}`}>
               <div className="card-content">
                 {activeTab === "games" && <Kgame />}

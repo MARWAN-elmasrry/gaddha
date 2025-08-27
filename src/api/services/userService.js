@@ -178,3 +178,13 @@ export const sendMessage = async (data) => {
     throw error.response?.data?.message || error.message || "خطأ فى ارسال الرسالة";
   }
 };
+
+//groups
+export const getGroups = async () => {
+  try {
+    const response = await api.get("/user/groups");
+    return response.data.groups;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب المجموعات";
+  }
+};
