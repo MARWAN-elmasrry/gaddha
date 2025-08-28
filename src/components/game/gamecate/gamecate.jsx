@@ -92,7 +92,6 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
   const [favorites, setFavorites] = useState([]);
   const [categories, setCategories] = useState([]);
   const [initCategories, setInitCategories] = useState([]);
-  console.log("categoriessss", categories);
   useEffect(() => {
     const fetchData = async () => {
       try {
