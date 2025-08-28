@@ -164,6 +164,20 @@ export const createGameSession = async (data) => {
   }
 };
 
+
+export const gameHistory = async ()=>{
+  try {
+    const response = await api.get("/user/game-history", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.gameHistory;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب تاريخ الالعاب";
+  }
+}
+
 //messages
 
 export const sendMessage = async (data) => {
