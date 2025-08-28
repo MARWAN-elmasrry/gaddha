@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import GameCate from "./gamecate/gamecate";
 import Kgame from "./keepgame/kgame";
 import { QUESTION_BANK } from "./questionBank";

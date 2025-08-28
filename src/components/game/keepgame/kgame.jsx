@@ -1,11 +1,44 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { gameHistory } from "../../../api/services/userService";
+import { gameHistory, startGameCheck } from "../../../api/services/userService";
 import "./kgStyle.css";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setGame } from "../../../gameSlice";
 
 const Card = ({ game }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const gameCategories = game.categories.map((cat) => cat._id);
+  const selectedCategories = {
+    player1Cat1id: gameCategories[0],
+    player1Cat2id: gameCategories[1],
+    player1Cat3id: gameCategories[2],
+    player2Cat1id: gameCategories[3],
+    player2Cat2id: gameCategories[4],
+    player2Cat3id: gameCategories[5],
+  };
+  const handleCardClick = async () => {
+    // Handle card click event
+    try {
+      const gameStatus = await startGameCheck();
+      if (gameStatus.message !== "Game started successfully") {
+        toast.error("لا يمكنك بدء لعبة جديدة أثناء وجود لعبة نشطة.");
+        return;
+      }
+      toast.success("تم بدء اللعبة بنجاح.");
+      dispatch(setGame({ selectedCategories }));
+
+      navigate("/start", {
+        replace: true,
+      });
+    } catch {
+      toast.error("لا يمكنك بدء لعبة جديدة أثناء وجود لعبة نشطة.");
+      return;
+    }
+  };
   return (
-    <div className="card">
+    <div className="card" onClick={handleCardClick} style={{ cursor: "pointer" }}>
       <div className="card-num">
         <span className="number">
           <img src="./cate.png" alt="" />
@@ -38,7 +71,7 @@ const Kgame = () => {
     };
     fetchData();
   }, []);
-  
+
   return (
     <div className="kgame">
       <div className="container">
