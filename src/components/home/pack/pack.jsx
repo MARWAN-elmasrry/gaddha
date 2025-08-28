@@ -4,12 +4,12 @@ import Modal from "../../ui/Modal";
 import "./pStyle.css";
 
 const Pack = () => {
+  console.log("Pack component rendered");
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [price, setPrice] = useState(0);
   const pay = async (price) => {
     setPrice(price);
-    console.log("reach pay", price);
     const response = await createPayment(price);
     const script = document.createElement("script");
     script.src = `https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${response?.checkoutId}`;

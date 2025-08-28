@@ -204,6 +204,18 @@ export default function App() {
             }
           />
           <Route
+            path="/packages"
+            element={
+              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                <>
+                  <Header />
+                  <Pack />
+                  <Footer />
+                </>
+              </RequireAuth>
+            }
+          />
+          <Route
             path="/games"
             element={
               <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
