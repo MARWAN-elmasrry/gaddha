@@ -5,6 +5,7 @@ import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
 import CustomSwitch from "../../../ui/SwitchInput";
 import { createVoucher, editVoucher } from "../../../../api/services/admingService";
+import { toast } from "react-toastify";
 
 const CouponForm = ({ mode = "create", initialData, open, setOpen, setTriggerRefetch }) => {
   const [isFixedCoupon, setIsFixedCoupon] = useState(true);
@@ -53,8 +54,10 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen, setTriggerRef
       try {
         await createVoucher({ ...data, type: isFixedCoupon ? "fixed" : "percentage" });
         setTriggerRefetch((prev) => !prev);
+        toast.sussess("تم عمل الخصم")
       } catch (error) {
         console.error("Error creating voucher:", error);
+        toast.error("خطأ في عمل خصم");  
       }
       handleClose();
     } else {
@@ -65,8 +68,10 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen, setTriggerRef
           type: isFixedCoupon ? "fixed" : "percentage",
         });
         setTriggerRefetch((prev) => !prev);
+                toast.sussess("تم عمل تعديل الخصم")
       } catch (error) {
         console.error("Error editing voucher:", error);
+        toast.error("خطأ في تعديل الخصم");  
       }
       handleClose();
     }

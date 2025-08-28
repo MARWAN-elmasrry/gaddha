@@ -6,6 +6,8 @@ import { loginAdmin } from "../../../api/services/admingService";
 import { setUser } from "../../../userSlice";
 import "./lStyle.css";
 import CustomSwitch from "../../ui/SwitchInput";
+import { toast } from "react-toastify";
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,10 +39,11 @@ const Login = () => {
           loginType: isAdmin ? "admin" : "user",
         })
       );
-
+      toast.success("تم التسجيل بى نجاح")
       navigate(isAdmin ? "/admin" : "/user", { state: { user: response.user } });
     } catch (err) {
       setError(err.message || "خطأ في تسجيل الدخول");
+      toast.error("خطأ في تسجيل الدخول")
     } finally {
       setLoading(false);
     }

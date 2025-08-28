@@ -3,6 +3,8 @@ import "./cStyle.css";
 import CategoryForm from "./CategoryForm";
 import { getAllCategories } from "../../../api/services/admingService";
 import { getGroups } from "../../../api/services/userService";
+import { toast } from "react-toastify";
+
 const Categories = () => {
   const cards = Array.from({ length: 4 });
 
@@ -23,6 +25,7 @@ const Categories = () => {
         console.log("Categories data:", data);
       } catch (err) {
         console.error(err);
+        toast.error("خطا غى سحب البيانات");
       }
     };
 

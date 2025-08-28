@@ -208,7 +208,6 @@ vertical-align: middle;
   display: flex;
   gap: 1rem;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 .d-main .d-main-cont .r-card .r-cards .rcard{
   width: 25rem;

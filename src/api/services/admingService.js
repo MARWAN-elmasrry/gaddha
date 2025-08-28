@@ -124,7 +124,6 @@ export const editQuestion = async (data) => {
 };
 
 //control
-
 export const addAdmin = async (adminData) => {
   try {
     const response = await api.post("/admin/add-admin", adminData, {
@@ -177,7 +176,6 @@ export const getAllMessages = async () => {
   }
 };
 //users
-// users
 export const getAllUsers = async () => {
   try {
     const response = await api.get(`/admin/get-all-users`, {
@@ -187,6 +185,19 @@ export const getAllUsers = async () => {
     });
     console.log(response.data.users);
     return response.data.users;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch message";
+  }
+};
+
+export const getUserCount = async () => {
+  try {
+    const response = await api.get(`/admin/user-count`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.count.usersCount;
   } catch (error) {
     throw error.response?.data?.message || "Failed to fetch message";
   }

@@ -2,6 +2,8 @@ import "./drStyle.css";
 import { useEffect, useState } from "react";
 import ReportForm from "./ReportForm";
 import { getAllReports } from "../../../api/services/admingService";
+import { toast } from "react-toastify";
+
 
 const Dreport = () => {
   const [reports, setReports] = useState([]);
@@ -14,9 +16,9 @@ const Dreport = () => {
       try {
         const data = await getAllReports();
         setReports(data);
-        firstThreeReports =  data.slice(0, 3);
       } catch (err) {
         console.error(err);
+        toast.error("خطأ في سحب البيانات")
       }
     };
 

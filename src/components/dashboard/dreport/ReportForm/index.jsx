@@ -4,6 +4,8 @@ import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { set, useForm } from "react-hook-form";
 import { editQuestion, getQuestionById } from "../../../../api/services/admingService";  // هو ده السطر ++++++++++++++=============
+import { toast } from "react-toastify";
+
 
 const ReportForm = ({ open, setOpen, question }) => {
   const [questionFile, setQuestionFile] = useState([]);
@@ -46,8 +48,11 @@ const ReportForm = ({ open, setOpen, question }) => {
         // questionImage: questionFile[0],
         // answerImage: answerFile[0],
       });
+      toast.success("نجح التعديل")
+      
     } catch (error) {
       console.error("Error updating question:", error);
+      toast.error("خطا غى التعديل")
     }
     setOpen(false);
   };
