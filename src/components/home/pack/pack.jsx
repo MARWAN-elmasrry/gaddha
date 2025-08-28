@@ -4,7 +4,10 @@ import Modal from "../../ui/Modal";
 import "./pStyle.css";
 
 const Pack = () => {
-  console.log("Pack component rendered");
+  const loginType = localStorage.getItem("loginType");
+  if (loginType === "admin") {
+    return <></>;
+  }
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [price, setPrice] = useState(0);
