@@ -9,6 +9,7 @@ import {
   getCategories,
   getFavoriteCategories,
 } from "../../../api/services/userService";
+import { set } from "react-hook-form";
 
 const CATEGORIES = [
   {
@@ -83,13 +84,14 @@ function Card({ category, index, selected, order, isFavorite, onCardClick, onFav
   );
 }
 
-export default function GameCate({ selected, setSelected }) {
+export default function GameCate({ selected, setSelected, activeGroup, setActiveGroup }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [selected, setSelected] =
   //   useState([])
   const [favorites, setFavorites] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [initCategories, setInitCategories] = useState([]);
   console.log("categoriessss", categories);
   useEffect(() => {
     const fetchData = async () => {
@@ -102,6 +104,7 @@ export default function GameCate({ selected, setSelected }) {
     };
 
     fetchData();
+    return () => setActiveGroup(null);
   }, []);
 
   useEffect(() => {
@@ -109,6 +112,7 @@ export default function GameCate({ selected, setSelected }) {
       try {
         const data = await getCategories();
         setCategories(data);
+        setInitCategories(data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -116,6 +120,14 @@ export default function GameCate({ selected, setSelected }) {
 
     fetchCategories();
   }, []);
+  useEffect(() => {
+    if (activeGroup) {
+      const filteredCategories = initCategories.filter(
+        (cat) => cat.group && cat.group === activeGroup
+      );
+      setCategories(filteredCategories);
+    } else setCategories(initCategories);
+  }, [activeGroup]);
 
   const canStart = selected.length === 6;
 

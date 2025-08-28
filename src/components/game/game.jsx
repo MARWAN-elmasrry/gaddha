@@ -327,7 +327,7 @@ const Game = () => {
                       href="#"
                       onClick={(e) => {
                         e.preventDefault();
-                        setActiveGroup(group);
+                        setActiveGroup((previous) => (previous === group ? null : group));
                       }}
                     >
                       {group}
@@ -341,7 +341,12 @@ const Game = () => {
               <div className="card-content">
                 {activeTab === "games" && <Kgame />}
                 {activeTab === "categories" && (
-                  <GameCate selected={selected} setSelected={setSelected} />
+                  <GameCate
+                    selected={selected}
+                    setSelected={setSelected}
+                    activeGroup={activeGroup}
+                    setActiveGroup={setActiveGroup}
+                  />
                 )}
                 {activeTab === "favorites" && <FavoriteCate />}
               </div>

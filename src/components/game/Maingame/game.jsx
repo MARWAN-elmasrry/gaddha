@@ -309,9 +309,9 @@ const GameFooter = ({ setDoublePointsClicked, showQandA }) => {
   };
   return (
     <div className="game-footer">
-      <div className="currentTurn" style={{ textAlign: "center", fontSize: "24px" }}>
+      {/* <div className="currentTurn" style={{ textAlign: "center", fontSize: "24px" }}>
         current Turn :{currentTurn}
-      </div>
+      </div> */}
       <div className="footer-container">
         <div className="game-foot-cont">
           <div className="t1">
