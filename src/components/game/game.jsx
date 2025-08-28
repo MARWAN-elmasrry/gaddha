@@ -6,6 +6,8 @@ import Kgame from "./keepgame/kgame";
 import { QUESTION_BANK } from "./questionBank";
 import { setGame } from "../../gameSlice";
 import "./mgStyle.css";
+import { toast } from "react-toastify";
+
 import {
   createGameSession,
   getFavoriteCategories,
@@ -233,34 +235,30 @@ const Game = () => {
 
     fetchData();
   }, []);
-  let gameQuestions;
+  // let gameQuestions;
   const startGame = async () => {
+    const selectedCategories = {
+      player1Cat1id: selected[0],
+      player1Cat2id: selected[1],
+      player1Cat3id: selected[2],
+      player2Cat1id: selected[3],
+      player2Cat2id: selected[4],
+      player2Cat3id: selected[5],
+    };
     try {
       const gameStatus = await startGameCheck();
-      if (gameStatus.message !== "Game started successfully") return;
-      console.log("reach that success start game");
-      const body = {
-        gameName: "first game",
-        player1Cat1id: selected[0],
-        player1Cat2id: selected[1],
-        player1Cat3id: selected[2],
-        player2Cat1id: selected[3],
-        player2Cat2id: selected[4],
-        player2Cat3id: selected[5],
-      };
-      const session = (await createGameSession(body)).session;
-      gameQuestions = transformQuestions(session);
-      console.log("create game session success full", gameQuestions);
+      if (gameStatus.message !== "Game started successfully") {
+        toast.error("لا يمكنك بدء لعبة جديدة أثناء وجود لعبة نشطة.");
+        return;
+      }
+      toast.success("تم بدء اللعبة بنجاح.");
     } catch {
+      toast.error("لا يمكنك بدء لعبة جديدة أثناء وجود لعبة نشطة.");
       return;
     }
     const payload = {
-      selectedCategories: selected.map((id) => ({
-        id,
-        name: id,
-        qa: QUESTION_BANK[id] || [],
-      })),
-      questionBank: gameQuestions,
+      selectedCategories,
+      // questionBank: gameQuestions,
     };
 
     dispatch(setGame(payload));

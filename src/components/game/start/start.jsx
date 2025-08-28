@@ -1,20 +1,43 @@
 import "./sgStyle.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { setGameNames } from "../../../gameSlice"; 
+import { setGameNames, setGame } from "../../../gameSlice";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import { createGameSession } from "../../../api/services/userService";
+import { transformQuestions } from "../../../utils/games";
 const Start = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { gameName, teamOne, teamTwo } = useSelector((state) => state.game);
+  const { gameName, teamOne, teamTwo, selectedCategories } = useSelector((state) => state.game);
 
   const [localGameName, setLocalGameName] = useState(gameName);
   const [localTeamOne, setLocalTeamOne] = useState(teamOne);
   const [localTeamTwo, setLocalTeamTwo] = useState(teamTwo);
+  let gameQuestions;
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    console.log("Saving game session...", selectedCategories);
+    try {
+      const session = (await createGameSession({ ...selectedCategories, gameName: localGameName }))
+        .session;
+      gameQuestions = transformQuestions(session);
+      dispatch(
+        setGame({
+          gameName: localGameName,
+          teamOne: localTeamOne,
+          teamTwo: localTeamTwo,
+          questionBank: gameQuestions,
+        })
+      );
+
+      toast.success("تم إنشاء جلسة اللعبة بنجاح");
+    } catch (error) {
+      console.log("Error creating game session:", error);
+      toast.error("حدث خطأ أثناء إنشاء جلسة اللعبة");
+      return;
+    }
     dispatch(
       setGameNames({
         gameName: localGameName,
@@ -22,7 +45,7 @@ const Start = () => {
         teamTwo: localTeamTwo,
       })
     );
-    navigate("/game", { replace: true }); 
+    navigate("/game", { replace: true });
   };
 
   return (
