@@ -110,8 +110,9 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
     const fetchCategories = async () => {
       try {
         const data = await getCategories();
-        setCategories(data);
-        setInitCategories(data);
+        const flattenCategories = data.flatMap((cat) => cat.categories);
+        setCategories(flattenCategories);
+        setInitCategories(flattenCategories);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -199,16 +200,16 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
           <h3> اختر 6 فئات، ثلاثة لكل فريق</h3>
 
           <div className="cards">
-            {categories.map(({ categories: cat }, idx) => (
+            {categories.map((cat, idx) => (
               <Card
-                key={cat[0]._id}
+                key={cat._id}
                 index={idx}
-                category={cat[0]}
-                selected={selected.includes(cat[0]._id)}
-                order={selectedWithOrder.get(cat[0]._id)}
-                isFavorite={favorites.includes(cat[0]._id)}
-                onCardClick={() => handleCardClick(cat[0]._id)}
-                onFavoriteClick={() => handleFavoriteClick(cat[0]._id)}
+                category={cat}
+                selected={selected.includes(cat._id)}
+                order={selectedWithOrder.get(cat._id)}
+                isFavorite={favorites.includes(cat._id)}
+                onCardClick={() => handleCardClick(cat._id)}
+                onFavoriteClick={() => handleFavoriteClick(cat._id)}
               />
             ))}
           </div>
