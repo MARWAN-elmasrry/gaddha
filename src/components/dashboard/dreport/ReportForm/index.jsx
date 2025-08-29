@@ -3,14 +3,14 @@ import CustomFileUpload from "../../../ui/FileUpload";
 import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { set, useForm } from "react-hook-form";
-import { editQuestion, getQuestionById } from "../../../../api/services/admingService";  // هو ده السطر ++++++++++++++=============
+import { editQuestion, getQuestionById } from "../../../../api/services/admingService"; // هو ده السطر ++++++++++++++=============
 import { toast } from "react-toastify";
-
 
 const ReportForm = ({ open, setOpen, question }) => {
   const [questionFile, setQuestionFile] = useState([]);
   const [answerFile, setAnswerFile] = useState([]);
   const questionId = question?._id;
+  console.log("questionFile from Question form:", questionFile);
   const {
     register,
     handleSubmit,
@@ -37,22 +37,28 @@ const ReportForm = ({ open, setOpen, question }) => {
   }, [questionId, reset]);
   const onSubmit = async (data) => {
     console.log(data);
-    // console.log("files", questionFile, answerFile);
     try {
-      await editQuestion({
-        questionId: questionId,
-        text: data.question,
-        correctAnswer: data.answer,
-        difficulty: data.level,
-        categoryId: question?.category._id,
-        // questionImage: questionFile[0],
-        // answerImage: answerFile[0],
-      });
-      toast.success("نجح التعديل")
-      
+      const formData = new FormData();
+      formData.append("questionId", questionId);
+      formData.append("text", data.question);
+      formData.append("answer", data.answer);
+      formData.append("difficulty", data.level);
+      if (questionFile.length > 0) {
+        formData.append("questionImage", questionFile[0]);
+      }
+
+      if (answerFile.length > 0) {
+        formData.append("answerImage", answerFile[0]);
+      }
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+      await editQuestion(formData);
+
+      toast.success("نجح التعديل");
     } catch (error) {
       console.error("Error updating question:", error);
-      toast.error("خطا غى التعديل")
+      toast.error("خطا غى التعديل");
     }
     setOpen(false);
   };
@@ -108,12 +114,20 @@ const ReportForm = ({ open, setOpen, question }) => {
         </div>
 
         <div className="input-content" style={{ width: "49%" }}>
-          <label htmlFor="">ملف السؤال</label>
-          <CustomFileUpload selectedFiles={questionFile} setSelectedFiles={setQuestionFile} />
+          <label htmlFor="">صورة السؤال</label>
+          <CustomFileUpload
+            accept="image/*"
+            selectedFiles={questionFile}
+            setSelectedFiles={setQuestionFile}
+          />
         </div>
         <div className="input-content" style={{ width: "49%" }}>
-          <label htmlFor="">ملف الاجابة</label>
-          <CustomFileUpload selectedFiles={answerFile} setSelectedFiles={setAnswerFile} />
+          <label htmlFor="">صورة الاجابة</label>
+          <CustomFileUpload
+            accept="image/*"
+            selectedFiles={answerFile}
+            setSelectedFiles={setAnswerFile}
+          />
         </div>
         <div style={{ width: "100%", textAlign: "center" }}>
           <button type="submit" class="submit-button">

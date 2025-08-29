@@ -39,6 +39,7 @@ import { Navigate, useLocation } from "react-router-dom";
 export const ForceUpdateContext = createContext();
 import { ToastContainer } from "react-toastify";
 import CategoryView from "./components/dashboard/categories/category/view";
+import CategoryEdit from "./components/dashboard/categories/category/edit";
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -311,6 +312,16 @@ export default function App() {
               <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
                 <DashboardLayout>
                   <CategoryView />
+                </DashboardLayout>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="admin/category/edit/:id"
+            element={
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <CategoryEdit />
                 </DashboardLayout>
               </RequireAuth>
             }

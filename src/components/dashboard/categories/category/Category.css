@@ -1,0 +1,203 @@
+@charset "UTF-8";
+.category-container {
+  direction: rtl;
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  /* Links */
+}
+.category-container a {
+  color: #00bfff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.category-container a:hover {
+  text-decoration: underline;
+}
+.category-container .edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #ffd28a;
+  transition: color 0.3s ease;
+}
+.category-container .edit-btn:hover {
+  color: #fff;
+}
+.category-container button {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.category-container button:hover svg {
+  stroke: #ffb347 !important;
+}
+.category-container .edit-button {
+  color: #ffd28a;
+}
+.category-container > h1 {
+  width: auto !important;
+  text-align: right;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 48px;
+  color: #ffd28a;
+}
+.category-container .category-details {
+  background: #5c2b14;
+  /* نفس البوكس */
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.category-container .category-table {
+  height: 50vh;
+  overflow-y: auto;
+  position: relative;
+}
+.category-container .category-table .table-header {
+  position: sticky;
+  top: 0px;
+}
+.category-container .category-title {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffd28a;
+  /* نفس لون العناوين */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 8px;
+}
+.category-container .category-content {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+.category-container .category-row {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 215, 179, 0.05);
+  padding: 10px 12px;
+  border-radius: 8px;
+  width: 80%;
+  align-items: center;
+}
+.category-container .category-row img {
+  height: 100px;
+  width: 100px;
+  border-radius: 12px;
+}
+.category-container .category-row .label {
+  font-weight: bold;
+  color: #ffd28a;
+}
+.category-container .category-row .value {
+  color: #fff;
+}
+.category-container .image-link {
+  color: #00bfff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.category-container .image-link:hover {
+  text-decoration: underline;
+  color: #ffd28a;
+}
+.category-container .category-input,
+.category-container .category-textarea,
+.category-container .category-content select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 179, 0.4);
+  background-color: rgba(255, 215, 179, 0.1);
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s ease;
+}
+.category-container select {
+  color: #ffd28a !important;
+}
+.category-container .category-input:focus,
+.category-container .category-textarea:focus,
+.category-container .category-content select:focus {
+  border-color: #ffd28a;
+  background-color: rgba(255, 215, 179, 0.2);
+}
+.category-container .category-textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+.category-container .preview-img {
+  display: block;
+  max-width: 150px;
+  max-height: 100px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 179, 0.3);
+}
+.category-container .category-card {
+  background-color: #6d2c0c;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  height: 60vh;
+  margin-bottom: 64px;
+}
+.category-container .category-card .card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ffd28a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 8px;
+  width: 100%;
+  text-align: right;
+}
+
+/* Table */
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  /* عشان الـ radius يظهر */
+}
+
+/* Row */
+.table-row {
+  display: flex;
+}
+
+.table-row:hover {
+  background-color: #8b3e1f !important;
+}
+
+.table-cell {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Header */
+.table-header {
+  background-color: #8b3e1f;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Row Striping */
+.table-row:nth-child(even):not(.table-header) {
+  background-color: rgba(255, 215, 179, 0.1);
+}

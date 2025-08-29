@@ -1,84 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import QuestionForm from "../../dreport/ReportForm";
 
-import { useState } from "react";
-// import { Edit } from "lucide-react";
-
-const CategoryTable = () => {
-  // Dummy Data
-  const [rows] = useState([
-    {
-      id: 1,
-      question: "من هو آخر نبي؟",
-      answer: "محمد",
-      level: "سهل",
-      questionImage: "https://via.placeholder.com/100x60?text=Q1",
-      answerImage: "https://via.placeholder.com/100x60?text=A1",
-      canEdit: true,
-    },
-    {
-      id: 2,
-      question: "ما هي عاصمة مصر؟",
-      answer: "القاهرة",
-      level: "سهل",
-      questionImage: "https://via.placeholder.com/100x60?text=Q2",
-      answerImage: "https://via.placeholder.com/100x60?text=A2",
-      canEdit: false,
-    },
-  ]);
-
+const CategoryTable = ({ questions, mode }) => {
+  const difficultyLevels = { easy: "سهل", medium: "متوسط", hard: "صعب" };
+  const [editingQuestion, setEditingQuestion] = useState(null);
+  const [showQuestionForm, setShowQuestionForm] = useState(false);
+  console.log("Questions in CategoryTable:", editingQuestion);
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse border border-gray-300 text-center">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="border border-gray-300 px-2 py-1">#</th>
-            <th className="border border-gray-300 px-2 py-1">السؤال</th>
-            <th className="border border-gray-300 px-2 py-1">الإجابة</th>
-            <th className="border border-gray-300 px-2 py-1">المستوى</th>
-            <th className="border border-gray-300 px-2 py-1">صورة السؤال</th>
-            <th className="border border-gray-300 px-2 py-1">صورة الإجابة</th>
-            <th className="border border-gray-300 px-2 py-1">الإجراء</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, index) => (
-            <tr key={row.id}>
-              <td className="border border-gray-300 px-2 py-1">{index + 1}</td>
-              <td className="border border-gray-300 px-2 py-1">{row.question}</td>
-              <td className="border border-gray-300 px-2 py-1">{row.answer}</td>
-              <td className="border border-gray-300 px-2 py-1">{row.level}</td>
-              <td className="border border-gray-300 px-2 py-1">
-                <a
-                  href={row.questionImage}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-600 underline"
+    <div className="table-wrapper">
+      <QuestionForm
+        question={editingQuestion}
+        open={showQuestionForm}
+        setOpen={setShowQuestionForm}
+      />
+      <div className="category-table">
+        {/* Header */}
+        <div className="table-row table-header">
+          <div className="table-cell">#</div>
+          <div className="table-cell">السؤال</div>
+          <div className="table-cell">الإجابة</div>
+          <div className="table-cell">المستوى</div>
+          <div className="table-cell">صورة السؤال</div>
+          <div className="table-cell">صورة الإجابة</div>
+          <div className="table-cell">الإجراء</div>
+        </div>
+
+        {/* Body */}
+        {questions?.map((row, index) => (
+          <div className="table-row" key={row.id}>
+            <div className="table-cell">{index + 1}</div>
+            <div className="table-cell">{row.text}</div>
+            <div className="table-cell">{row.answer}</div>
+            <div className="table-cell">{difficultyLevels[row.difficulty]}</div>
+            <div className="table-cell">
+              <a href={row.questionImage} target="_blank" rel="noreferrer">
+                عرض
+              </a>
+            </div>
+            <div className="table-cell">
+              <a href={row.answerImage} target="_blank" rel="noreferrer">
+                عرض
+              </a>
+            </div>
+            <div className="table-cell">
+              {mode === "edit" && (
+                <button
+                  className="edit-btn"
+                  onClick={() => {
+                    setEditingQuestion(row);
+                    setShowQuestionForm(true);
+                  }}
                 >
-                  عرض
-                </a>
-              </td>
-              <td className="border border-gray-300 px-2 py-1">
-                <a
-                  href={row.answerImage}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-600 underline"
-                >
-                  عرض
-                </a>
-              </td>
-              <td className="border border-gray-300 px-2 py-1">
-                {row.canEdit && (
-                  <button className="text-blue-600 hover:text-blue-800">
-                    {/* <Edit size={18} /> */}
-                    edit
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#ffd28a"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="edit-icon"
+                  >
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -95,7 +95,18 @@ export const getAllCategories = async () => {
     throw error.response?.data?.message || "Failed to fetch categories";
   }
 };
-
+export const getCategoryById = async (id) => {
+  try {
+    const response = await api.get(`/admin/get-category/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.category;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch category";
+  }
+};
 //questions
 export const getQuestionById = async (id) => {
   try {
@@ -115,6 +126,7 @@ export const editQuestion = async (data) => {
     const response = await api.post(`/admin/edit-question`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
       },
     });
     return response.data;

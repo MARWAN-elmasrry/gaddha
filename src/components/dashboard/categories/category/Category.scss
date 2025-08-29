@@ -1,0 +1,215 @@
+.category-container {
+  direction: rtl;
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  /* Links */
+  a {
+    color: #00bfff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ffd28a;
+    transition: color 0.3s ease;
+  }
+
+  .edit-btn:hover {
+    color: #fff;
+  }
+
+  button {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  button:hover {
+    svg {
+      stroke: #ffb347 !important;
+    }
+  }
+  .edit-button {
+    color: #ffd28a;
+  }
+
+  > h1 {
+    width: auto !important;
+    text-align: right;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 48px;
+    color: #ffd28a;
+  }
+  .category-details {
+    background: #5c2b14; /* نفس البوكس */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  .category-table {
+    height: 50vh;
+    overflow-y: auto;
+    position: relative;
+    .table-header {
+      position: sticky;
+      top: 0px;
+    }
+  }
+  .category-title {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffd28a; /* نفس لون العناوين */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 8px;
+  }
+
+  .category-content {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .category-row {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 215, 179, 0.05);
+    padding: 10px 12px;
+    border-radius: 8px;
+    width: 80%;
+    align-items: center;
+    img {
+      height: 100px;
+      width: 100px;
+      border-radius: 12px;
+    }
+  }
+
+  .category-row .label {
+    font-weight: bold;
+    color: #ffd28a;
+  }
+
+  .category-row .value {
+    color: #fff;
+  }
+
+  .image-link {
+    color: #00bfff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .image-link:hover {
+    text-decoration: underline;
+    color: #ffd28a;
+  }
+  .category-input,
+  .category-textarea,
+  .category-content select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 179, 0.4);
+    background-color: rgba(255, 215, 179, 0.1);
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s ease;
+  }
+  select {
+    color: #ffd28a !important;
+  }
+  .category-input:focus,
+  .category-textarea:focus,
+  .category-content select:focus {
+    border-color: #ffd28a;
+    background-color: rgba(255, 215, 179, 0.2);
+  }
+
+  .category-textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  .preview-img {
+    display: block;
+    max-width: 150px;
+    max-height: 100px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 179, 0.3);
+  }
+  .category-card {
+    background-color: #6d2c0c;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    height: 60vh;
+    margin-bottom: 64px;
+    .card-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #ffd28a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      padding-bottom: 8px;
+      width: 100%;
+      text-align: right;
+    }
+  }
+}
+
+/* Table */
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  overflow: hidden; /* عشان الـ radius يظهر */
+}
+
+/* Row */
+.table-row {
+  display: flex;
+  //   cursor: pointer;
+}
+.table-row:hover {
+  background-color: #8b3e1f !important;
+}
+
+.table-cell {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Header */
+.table-header {
+  background-color: #8b3e1f;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Row Striping */
+.table-row:nth-child(even):not(.table-header) {
+  background-color: rgba(255, 215, 179, 0.1);
+}
