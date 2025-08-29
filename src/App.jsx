@@ -38,6 +38,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 export const ForceUpdateContext = createContext();
 import { ToastContainer } from "react-toastify";
+import CategoryView from "./components/dashboard/categories/category/view";
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -300,6 +301,16 @@ export default function App() {
               <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
                 <DashboardLayout>
                   <Categories />
+                </DashboardLayout>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="admin/category/view/:id"
+            element={
+              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                <DashboardLayout>
+                  <CategoryView />
                 </DashboardLayout>
               </RequireAuth>
             }
