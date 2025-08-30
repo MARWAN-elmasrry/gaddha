@@ -39,12 +39,32 @@
   align-items: flex-end;
   justify-content: space-between;
 }
-.hero .tress .camel{
+.hero .tress .camel {
   position: absolute;
   left: 21%;
-  transform: translate(80%, 0%);
-  z-index: -1;
+  transform: translate(-20%, 0%);
+  z-index: 4;
+  animation: moveFlip 30s infinite linear;
 }
+
+@keyframes moveFlip {
+  0% {
+    transform: translate(-20%, 0%) scaleX(-1); /* البداية شمال عادي */
+  }
+  25% {
+    transform: translate(-20%, 0%) scaleX(1); /* شمال ويقلب */
+  }
+  50% {
+    transform: translate(200%, 0%) scaleX(1); /* يروح يمين وهو مقلوب */
+  }
+  75% {
+    transform: translate(200%, 0%) scaleX(-1); /* يوقف يمين ويقلب */
+  }
+  100% {
+    transform: translate(-20%, 0%) scaleX(-1); /* يرجع شمال عادي */
+  }
+}
+
 .hero .tress img:first-child {
   width: 300px;
   margin-left: 2rem;
@@ -52,12 +72,15 @@
 
 .hero .tress img:nth-child(2) {
   width: 200px;
+  z-index: 5;
 }
 
 .hero .tress img:nth-child(3) {
     width: 375px;
 }
+.hero .tress img:nth-child(4) {
 
+}
 .hero .tress img:last-child {
   width: 400px;    
   margin-right: 2rem;
