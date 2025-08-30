@@ -293,7 +293,21 @@ export const getUserCount = async () => {
     throw error.response?.data?.message || "Failed to fetch message";
   }
 };
+
 // Sales
+export const getLastSevenDays = async () =>{
+  try {
+    const response = await api.get(`/admin/sales-last-seven-days`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch message";
+  }
+}
+
 export const getTotalSoldGames = async () =>{
   try {
     const response = await api.get(`/admin/total-sold-games`, {
