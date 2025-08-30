@@ -225,6 +225,9 @@ vertical-align: middle;
   opacity: .6;
   margin-top: .7rem;
 }
+.d-main .d-main-cont .r-card .r-cards .r-info:hover p{
+  opacity: 1;
+}
 .d-main .d-main-cont .r-card .r-cards .rcard .mess{
   margin: 1rem;
   height: 60%;

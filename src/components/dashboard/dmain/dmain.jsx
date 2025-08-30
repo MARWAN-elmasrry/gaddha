@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getAllCategories, getAllMessages, getAllReports, getTotalProfit, getTotalSoldGames, getUserCount } from "../../../api/services/admingService";
 import { toast } from "react-toastify";
 
+
 import {
   LineChart,
   Line,
@@ -333,7 +334,13 @@ useEffect(() => {
               <img src={getImageSrc("info")} alt="hover" />
             </h3>
             <div className="r-cards">
-              <div className="rcard r-info">
+              <div className="rcard r-info" 
+                onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/admin/users";
+              }}
+              style={{ cursor: "pointer" }}
+              >
                 <div className="info">
                   <p>المستخدمين</p>
                 </div>
@@ -341,7 +348,13 @@ useEffect(() => {
                   <h4 classname="r-h">{userCount}</h4>
                 </div>
               </div>
-              <div className="rcard r-info">
+              <div className="rcard r-info"
+                onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/admin/categories";
+              }}
+              style={{ cursor: "pointer" }}
+              >
                 <div className="info">
                   <p>الفئات</p>
                 </div>
