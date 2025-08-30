@@ -16,7 +16,7 @@ const Howt = () => {
                   ثواني بعد ما يجاوب الفريق الأول.
                 </p>
               </div>
-              <img src="./qb.png" alt="" />
+              <img src="./qb.png" alt="" className="swinging-img" />
             </div>
             <div className="how-w-cont">
               <h4>
