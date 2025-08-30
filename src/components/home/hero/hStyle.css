@@ -51,13 +51,13 @@
   0% {
     transform: translate(-20%, 0%) scaleX(-1); /* البداية شمال عادي */
   }
-  5% {
+  2% {
     transform: translate(-20%, 0%) scaleX(1); /* يقلب بسرعة */
   }
   50% {
     transform: translate(200%, 0%) scaleX(1); /* يمين وهو مقلوب */
   }
-  55% {
+  52% {
     transform: translate(200%, 0%) scaleX(-1); /* يقلب بسرعة في اليمين */
   }
   100% {
