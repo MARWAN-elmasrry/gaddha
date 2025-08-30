@@ -1,7 +1,7 @@
 .h-cont{
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 9rem;
     color: rgba(249, 231, 197, 1);
 }
 .h-cont .back-btn button{

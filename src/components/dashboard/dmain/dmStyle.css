@@ -1,7 +1,10 @@
 .d-main{
   margin-bottom: 4rem;
 }
-.d-main .d-main-cont h1{
+.d-main .d-main-cont {
+  margin-top: 7rem;
+}
+.d-main .d-main-cont  h1{
     text-align: center;
     color: rgba(249, 231, 197, 1);
     width: 95%;
