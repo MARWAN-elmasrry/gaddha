@@ -54,7 +54,20 @@
   font-size: 1.6rem;
   opacity: 0.6;
 }
-
+.d-report .cards .card  .reply{
+    color: #f9e7c5;
+    width: 100%;
+    padding: 20px;
+    background: transparent;
+    border: none;
+    font-size: 1.6rem;
+    text-align: right;
+    outline: none;
+    resize: none;
+}
+.d-report .cards .card  textarea::placeholder{
+    color: #f9e7c5;
+}
 .d-report .cards .card .card-info .mess {
   margin: 1rem;
   height: 150px;

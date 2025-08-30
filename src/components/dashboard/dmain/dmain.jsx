@@ -33,20 +33,32 @@ const Dmain = () => {
   firstThreeReports = reports.slice(0, 3);
   firstThreeMessages = messages.slice(0, 3);
 
-  useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const data = await getAllReports();
-          const data2 = await getAllMessages();
-          setReports(data);
-          setMessages(data2);
-        } catch (err) {
-          console.error(err);
-          toast.error("خطأ في سحب البيانات الرسايل او البلاغات")
-        }
-      };
-      fetchData();
-    }, []);
+useEffect(() => {
+  const fetchReports = async () => {
+    try {
+      const data = await getAllReports();
+      setReports(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("خطأ في سحب بيانات البلاغات");
+    }
+  };
+  fetchReports();
+}, []);
+
+useEffect(() => {
+  const fetchMessages = async () => {
+    try {
+      const data2 = await getAllMessages();
+      setMessages(data2);
+    } catch (err) {
+      console.error(err);
+      toast.error("خطأ في سحب بيانات الرسائل");
+    }
+  };
+  fetchMessages();
+}, []);
+
 
     useEffect(() => {
       const fetchData = async () => {

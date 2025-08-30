@@ -1,11 +1,13 @@
-import { getAllMessages } from "../../../api/services/admingService";
+import { getAllMessages, messageReply, messageAsSeen } from "../../../api/services/admingService";
 import "./dmStyle.css";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-
 const Dmess = () => {
   const [messages, setMessages] = useState([]);
+  const [replyingTo, setReplyingTo] = useState(null);
+  const [replies, setReplies] = useState({});
+  const [sentReply, setSentReply] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +16,7 @@ const Dmess = () => {
         setMessages(data);
       } catch (err) {
         console.error(err);
-        toast.error("خطا غى سحب البيانات")
+        toast.error("خطأ في سحب البيانات", err);
       }
     };
 
@@ -30,6 +32,53 @@ const Dmess = () => {
       month: "2-digit",
       year: "numeric",
     });
+  };
+
+  const handleReply = (msgId) => {
+    setReplyingTo(msgId);
+  };
+
+  const handleChangeReply = (msgId, text) => {
+    setReplies((prev) => ({
+      ...prev,
+      [msgId]: text,
+    }));
+  };
+
+  const handleSendReply = (msgId) => {
+    const replyText = replies[msgId] || "";
+    setSentReply({ id: msgId, reply: replyText });
+    setReplyingTo(null);
+  };
+
+  useEffect(() => {
+  const sendReply = async () => {
+    if (sentReply) {
+      try {
+        await messageReply(sentReply.id, sentReply.reply);
+        toast.success("تم ارسال الرد بنجاح");
+
+        setMessages((prev) => prev.filter((msg) => msg._id !== sentReply.id));
+      } catch (err) {
+        console.error(err);
+        toast.error("فشل ارسال الرد");
+      }
+    }
+  };
+
+  sendReply();
+}, [sentReply]);
+
+
+  const handleMarkAsSeen = async (id) => {
+    try {
+      await messageAsSeen(id);
+      toast.success("تم تعليم الرسالة كمقروءة");
+      setMessages((prev) => prev.filter((msg) => msg._id !== id));  
+    } catch (err) {
+      console.error(err);
+      toast.error("فشل تعليم الرسالة كمقروءة");
+    }
   };
 
   return (
@@ -56,12 +105,15 @@ const Dmess = () => {
                 </div>
               </div>
             </div>
-
             <div className="cards">
               {messages.map((msg) => (
                 <div className="card" key={msg._id}>
                   <div className="card-num">
-                    <span className="number">
+                    <span
+                      className="number"
+                      onClick={() => handleMarkAsSeen(msg._id)}
+                      style={{ cursor: "pointer" }}
+                    >
                       <img src="/delete.png" alt="delete" />
                     </span>
                   </div>
@@ -75,16 +127,40 @@ const Dmess = () => {
                       <p>{msg.phone}</p>
                     </div>
                     <div className="mess">
-                      <p>{msg.content}</p>
+                      {replyingTo === msg._id ? (
+                        <textarea
+                          value={replies[msg._id] || ""}
+                          onChange={(e) =>
+                            handleChangeReply(msg._id, e.target.value)
+                          }
+                          placeholder="اكتب ردك هنا..."
+                          className="reply"
+                          rows={3}
+                        />
+                      ) : (
+                        <p>{msg.content}</p>
+                      )}
                     </div>
+
+                    {replyingTo === msg._id ? (
+                      <div className="reply-actions">
+                        <button onClick={() => handleSendReply(msg._id)}>
+                          ارسال
+                        </button>
+                        <button onClick={() => setReplyingTo(null)}>
+                          الغاء
+                        </button>
+                      </div>
+                    ) : (
+                      <button onClick={() => handleReply(msg._id)}>رد</button>
+                    )}
                   </div>
                 </div>
               ))}
-
               {messages.length === 0 && (
-                <p style={{ textAlign: "center", marginTop: "20px" }}>
+                <h1 style={{ textAlign: "center", marginTop: "20px" }}>
                   لا توجد رسائل
-                </p>
+                </h1>
               )}
             </div>
           </div>

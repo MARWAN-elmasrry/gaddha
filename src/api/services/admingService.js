@@ -27,6 +27,38 @@ export const getAllReports = async () => {
   }
 };
 
+
+export const reportReply = async (id, reply) => {
+  try {
+    const response = await api.post(
+      `/admin/respond-to-report`,
+      { reportId: id, responseText: reply },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to reply report";
+  }
+};
+
+export const reportAsSeen = async (id) => {
+  try {
+    const response = await api.post(
+      `/admin/mark-report-as-seen`,
+      { reportId: id },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to mark report as seen";
+  }
+};
+
+
 //vouchers
 export const getVouchers = async () => {
   try {
@@ -175,6 +207,37 @@ export const getAllMessages = async () => {
     throw error.response?.data?.message || "Failed to fetch message";
   }
 };
+
+export const messageReply = async (id, reply) => {
+  try {
+    const response = await api.post(
+      `/admin/respond-to-message`, 
+      { messageId: id, responseText: reply }, 
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to reply message";
+  }
+};
+
+export const messageAsSeen = async(id) =>{
+  try {
+      const response = await api.post(
+        `/admin/mark-message-as-seen`, 
+        { messageId: id }, 
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to reply message";
+    }
+}
+
 //users
 export const getAllUsers = async () => {
   try {
