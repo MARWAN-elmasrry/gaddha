@@ -16,6 +16,25 @@
   text-align: end;
   font-size: 30px;
 }
+.how .how-t-cont .swinging-img {
+  width: 350px;
+  display: block;
+  margin: 10px 10px;
+  animation: swing 3s infinite ease-in-out;
+  transform-origin: top center; /* تخلي الدوران كأنه معلق */
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(-15deg); /* لليسار */
+  }
+  50% {
+    transform: rotate(15deg); /* لليمين */
+  }
+  100% {
+    transform: rotate(-15deg); /* يرجع لليسار */
+  }
+}
 
 .how .how-t-cont .info {
   text-align: end;
