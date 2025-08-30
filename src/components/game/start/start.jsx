@@ -56,9 +56,9 @@ const Start = () => {
             <img src="./offerv.png" alt="" className="opc-img6" />
             <img src="./offerv.png" alt="" className="opc-img6" />
             <img src="./offerv.png" alt="" className="opc-img6" />
-            <img src="./offerv2.png" alt="" className="opc-img1" />
-            <img src="./offerv2.png" alt="" className="opc-img1" />
-            <img src="./offerv2.png" alt="" className="opc-img1" />
+            <img src="./offerw.png" alt="" className="opc-img1" />
+            <img src="./offerw.png" alt="" className="opc-img1" />
+            <img src="./offerw.png" alt="" className="opc-img1" />
           </div>
 
           <div className="start-inp">
@@ -66,7 +66,7 @@ const Start = () => {
             <div className="start-input-group">
               <div className="start-input-row">
                 <span className="start-icon">
-                  <img src="./offerw.png" alt="" />
+                  <img src="./offerv2.png" alt="" />
                 </span>
                 <input
                   className="start-input"
@@ -94,7 +94,7 @@ const Start = () => {
 
               <div className="start-input-row">
                 <span className="start-icon">
-                  <img src="./offerv2.png" alt="" />
+                  <img src="./offerw.png" alt="" />
                 </span>
                 <input
                   className="start-input"

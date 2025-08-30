@@ -80,7 +80,33 @@
   width: 100%;
   justify-content: space-between;
 }
+.main-image {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
 
+.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.fade-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.clickable-img {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.clickable-img:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.clickable-img:active {
+  transform: scale(0.95);
+}
 @media (max-width: 500px) {
   .help .help-cont .up {
     border-width: 0 175px 173.2px 175px !important;

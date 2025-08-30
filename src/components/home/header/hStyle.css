@@ -124,12 +124,13 @@ li:first-child.active a {
 }
 
 .side-menu .exit {
-  background-color: #cf8a41;
   border-radius: 0 0 20px 20px;
 }
 
-.side-menu .exit .logout-btn {
-  background: none;
+.side-menu .exit .logout-btn{
+      background-color: #cf8a41 !important;
+    background: none;
+    margin-right: 1rem;
 }
 
 header .links button {

@@ -81,7 +81,7 @@ const Kgame = () => {
             {games.length > 0 ? (
               games.map((game) => <Card key={game._id} game={game} />)
             ) : (
-              <p>لا يوجد ألعاب سابقة</p>
+              <h1>لا يوجد ألعاب سابقة</h1>
             )}
           </div>
         </div>
