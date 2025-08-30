@@ -30,7 +30,7 @@ const Dsale = () => {
 });
 
 
-    const data = [
+const data = [
   { day: "S", value: 20 },
   { day: "M", value: 0 },
   { day: "T", value: 30 },
