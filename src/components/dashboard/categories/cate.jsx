@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./cStyle.css";
 import CategoryForm from "./CategoryForm";
-import { getAllCategories } from "../../../api/services/admingService";
+import { getAllCategories, toggleCategoryVisibility } from "../../../api/services/admingService";
 import { getGroups } from "../../../api/services/userService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,15 @@ const Categories = () => {
 
     fetchData();
   }, [triggerRefetch]);
+  const handleToggleCategoryVisibility = async (categoryId) => {
+    try {
+      await toggleCategoryVisibility(categoryId);
+      toast.success("تم تغيير حالة الفئة بنجاح");
+      setTriggerRefetch((prev) => !prev);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
   return (
     <>
       <CategoryForm
@@ -87,12 +96,14 @@ const Categories = () => {
                   <button onClick={() => navigate(`/admin/category/edit/${category._id}`)}>
                     تعديل
                   </button>
-                  <button>رفع</button>
+                  <button onClick={() => handleToggleCategoryVisibility(category._id)}>
+                    {category.isVisible ? "إخفاء" : "رفع"}
+                  </button>
                   <button onClick={() => navigate(`/admin/category/view/${category._id}`)}>
                     عرض
                   </button>
                   <p>322</p>
-                  <p>200</p>
+                  <p>{category.questionsCount}</p>
                   <p>{category.name}</p>
                 </div>
               </div>

@@ -107,6 +107,22 @@ export const getCategoryById = async (id) => {
     throw error.response?.data?.message || "Failed to fetch category";
   }
 };
+export const toggleCategoryVisibility = async (categoryId) => {
+  try {
+    const response = await api.post(
+      `/admin/toggle-category-visibility/${categoryId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to toggle category visibility";
+  }
+};
 //questions
 export const getQuestionById = async (id) => {
   try {
