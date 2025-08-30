@@ -4,7 +4,6 @@ import { NavLink, useLocation } from "react-router-dom";
 const Dhead = () => {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("authData"));
-  console.log("user from local storage:", user);
   const menuItems = [
     { path: "/admin", label: "لوحة الإحصائيات" },
     { path: "/admin/dmess", label: "الرسائل" },

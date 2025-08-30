@@ -134,7 +134,7 @@ useEffect(() => {
               className="s-card"
               onClick={(e) => {
                 e.preventDefault();
-                window.location.href = "/dsale";
+                window.location.href = "/admin/dsale";
               }}
               style={{ cursor: "pointer" }}
             >

@@ -265,3 +265,57 @@ export const getUserCount = async () => {
     throw error.response?.data?.message || "Failed to fetch message";
   }
 };
+// Sales
+export const getTotalSoldGames = async () =>{
+  try {
+    const response = await api.get(`/admin/total-sold-games`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.totalSoldGames;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch message";
+  }
+}
+
+export const getTotalProfit = async () =>{
+  try {
+    const response = await api.get(`/admin/total-profit`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.totalRevenue;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch message";
+  }
+}
+
+export const getGamesSoldCounts = async () => {
+  try {
+    const [one, two, five, ten] = await Promise.all([
+      api.get(`/admin/count-one-game-sold`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      api.get(`/admin/count-two-game-sold`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      api.get(`/admin/count-five-game-sold`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      api.get(`/admin/count-ten-game-sold`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    ]);
+
+    return {
+      oneGame: one.data.oneGameSold,
+      twoGames: two.data.twoGameSold,
+      fiveGames: five.data.fiveGameSold,
+      tenGames: ten.data.tenGameSold,
+    };
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch counts";
+  }
+};
