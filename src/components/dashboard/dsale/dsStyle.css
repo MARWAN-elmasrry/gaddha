@@ -13,6 +13,9 @@
     justify-content: center;
     align-items: center;
 }
+.d-sale-cont{
+    padding-bottom: 2rem;
+}
 .sale-cont .chart{
     display: flex;
 }
