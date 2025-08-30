@@ -1,5 +1,6 @@
-import React from "react";
 import "./dsStyle.css";
+import  riyal  from '../../../../public/riyal.png';
+import { useEffect, useState } from "react";
 
 import {
   LineChart,
@@ -14,7 +15,22 @@ import {
   Cell,
 } from "recharts";
 
-const data = [
+import { getGamesSoldCounts, getTotalProfit, getTotalSoldGames } from "../../../api/services/admingService";
+
+
+const Dsale = () => {
+
+  const [sold , setSold] = useState([]);
+  const [profits , setProfits] = useState([]);
+  const [profit, setProfit] = useState({
+  oneGame: 0,
+  twoGames: 0,
+  fiveGames: 0,
+  tenGames: 0
+});
+
+
+    const data = [
   { day: "S", value: 20 },
   { day: "M", value: 0 },
   { day: "T", value: 30 },
@@ -24,10 +40,10 @@ const data = [
 ];
 
 const pieData = [
-  { name: "10 العاب", value: 60, color: "rgba(83, 33, 10, 1)", count: 10, label: "العاب" },
-  { name: "1 لعبة", value: 15, color: "rgba(207, 138, 65, 1)", count: 1, label: "لعبة" },
-  { name: "2 لعبتين", value: 33, color: "rgba(244, 190, 50, 1)", count: 2, label: "لعبتين" },
-  { name: "5 العاب", value: 22, color: "rgba(180, 0, 0, 1)", count: 5, label: "العاب" },
+  { name: "10 العاب", value: profit.tenGames , color: "rgba(83, 33, 10, 1)", count: 10 , label: "العاب" },
+  { name: "1 لعبة", value: profit.oneGame , color: "rgba(207, 138, 65, 1)", count: 1 , label: "لعبة" },
+  { name: "2 لعبتين", value: profit.twoGames , color: "rgba(244, 190, 50, 1)", count: 2 , label: "لعبتين" },
+  { name: "5 العاب", value: profit.fiveGames , color: "rgba(180, 0, 0, 1)", count: 5 , label: "العاب" },
 ];
 
 const pieDat = [
@@ -37,7 +53,45 @@ const pieDat = [
   { name2: "بابارا", value2: 22, color2: "rgba(180, 0, 0, 1)", label2: "بابارا" },
 ];
 
-const Dsale = () => {
+  useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const data = await getTotalSoldGames();
+          setSold(data);
+        } catch (err) {
+          console.error(err);
+          toast.error("خطأ في جلب بيانات عدد الالعاب");
+        }
+      };
+      fetchData();
+    }, []);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const data = await getTotalProfit();
+          setProfits(data);
+        } catch (err) {
+          console.error(err);
+          toast.error("خطأ في جلب بيانات الارباح");
+        }
+      };
+      fetchData();
+    }, []);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const data = await getGamesSoldCounts();
+          setProfit(data);
+        } catch (err) {
+          console.error(err);
+          toast.error("خطأ في جلب بيانات ال");
+        }
+      };
+      fetchData();
+    }, []);
+
   const RADIAN = Math.PI / 180;
 
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
@@ -107,16 +161,12 @@ const Dsale = () => {
             <h1>المبيعات</h1>
             <div className="cont-info">
               <div className="info">
-                <h3>قيمة</h3>
-                <p>333,444</p>
-              </div>
-              <div className="info">
                 <h3>عدد</h3>
-                <p>22,55</p>
+                <p>{sold}</p>
               </div>
               <div className="info">
                 <h3>أرباح</h3>
-                <p>233,445$</p>
+                <p>{profits} <img src={riyal} alt={riyal}/> </p>
               </div>
             </div>
           </div>
@@ -175,8 +225,6 @@ const Dsale = () => {
                   >
                     <div className="pie-info">
                       <div style={{ width: "400px", height: "400px", flexShrink: 0 }}>
-                        {/* <div style={{ width: '400px', height: '400px', flexShrink: 0 }}>  and this also too  */}
-
                         <ResponsiveContainer width="100%" height="100%">
                           <PieChart>
                             <Pie
@@ -186,7 +234,6 @@ const Dsale = () => {
                               labelLine={false}
                               label={renderCustomizedLabel}
                               outerRadius={200}
-                              //  outerRadius={200}  can i make this reponcive to the widht of the screen
                               fill="#8884d8"
                               dataKey="value"
                               stroke="#fff"
@@ -259,7 +306,10 @@ const Dsale = () => {
                       </div>
                       <div className="item">
                         {pieDat.map((item, index) => (
-                          <StatItem key={index} label={item.label2} color={item.color2} />
+                          <StatItem 
+                          key={index}
+                           label={item.label2}
+                          color={item.color2} />
                         ))}
                       </div>
                     </div>
