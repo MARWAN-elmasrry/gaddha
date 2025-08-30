@@ -1,6 +1,6 @@
 import "./dmStyle.css";
 import { useEffect, useState } from "react";
-import { getAllMessages, getAllReports, getUserCount } from "../../../api/services/admingService";
+import { getAllCategories, getAllMessages, getAllReports, getTotalProfit, getTotalSoldGames, getUserCount } from "../../../api/services/admingService";
 import { toast } from "react-toastify";
 
 import {
@@ -27,6 +27,10 @@ const Dmain = () => {
   const [ reports , setReports] = useState([]);
   const [messages, setMessages] = useState([]);
   const [userCount , setUserCount] = useState([]);
+  const [sold , setSold] = useState([]);
+  const [profits , setProfits] = useState([]);
+  const [categories, setCategories] = useState([]);
+
 
   let firstThreeReports = []
   let firstThreeMessages = []
@@ -73,6 +77,46 @@ useEffect(() => {
       
       fetchData();
     }, []);
+
+
+    useEffect(() => {
+          const fetchData = async () => {
+            try {
+              const data = await getTotalSoldGames();
+              setSold(data);
+            } catch (err) {
+              console.error(err);
+              toast.error("خطأ في جلب بيانات عدد الالعاب");
+            }
+          };
+          fetchData();
+        }, []);
+    
+        useEffect(() => {
+          const fetchData = async () => {
+            try {
+              const data = await getTotalProfit();
+              setProfits(data);
+            } catch (err) {
+              console.error(err);
+              toast.error("خطأ في جلب بيانات الارباح");
+            }
+          };
+          fetchData();
+        }, []);
+        useEffect(() => {
+            const fetchData = async () => {
+              try {
+                const data = await getAllCategories();
+                setCategories(data);
+              } catch (err) {
+                console.error(err);
+                toast.error("خطا غى سحب البيانات");
+              }
+            };
+        
+            fetchData();
+          }, []);
 
   const getImageSrc = (cardType, position) => {
     if (hoveredCard === cardType) {
@@ -190,9 +234,9 @@ useEffect(() => {
                     </div>
                     <div className="chart-info">
                       <h6>العدد</h6>
-                      <p>189</p>
-                      <h6>القيمة</h6>
-                      <p>1,300</p>
+                      <p>{sold}</p>
+                      <h6>أرباح</h6>
+                      <p>{profits}</p>
                     </div>
                   </div>
                 </div>
@@ -302,7 +346,7 @@ useEffect(() => {
                   <p>الفئات</p>
                 </div>
                 <div className="mess">
-                  <h4 classname="r-h">22,666</h4>
+                  <h4 classname="r-h">{categories.length}</h4>
                 </div>
               </div>
               <div className="rcard r-info">
