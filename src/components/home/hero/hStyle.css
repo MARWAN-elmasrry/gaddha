@@ -51,17 +51,17 @@
   0% {
     transform: translate(-20%, 0%) scaleX(-1); /* البداية شمال عادي */
   }
-  25% {
-    transform: translate(-20%, 0%) scaleX(1); /* شمال ويقلب */
+  5% {
+    transform: translate(-20%, 0%) scaleX(1); /* يقلب بسرعة */
   }
   50% {
-    transform: translate(200%, 0%) scaleX(1); /* يروح يمين وهو مقلوب */
+    transform: translate(200%, 0%) scaleX(1); /* يمين وهو مقلوب */
   }
-  75% {
-    transform: translate(200%, 0%) scaleX(-1); /* يوقف يمين ويقلب */
+  55% {
+    transform: translate(200%, 0%) scaleX(-1); /* يقلب بسرعة في اليمين */
   }
   100% {
-    transform: translate(-20%, 0%) scaleX(-1); /* يرجع شمال عادي */
+    transform: translate(-20%, 0%) scaleX(-1); /* يرجع شمال */
   }
 }
 
