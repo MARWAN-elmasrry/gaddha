@@ -1,13 +1,18 @@
 .hero-cont {
-  position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
 
-.hero-cont .back-img {
-  margin-top: 70px;
+.hero-cont .back-img{
+    position: absolute;
+    top: -309px;
+    left: 958px;
+    width: 730px;
+    height: 500px;
+    display: inline-block;
+    margin: 20px 0;
 }
 
 .hero-cont .back-img img:nth-child(3) {
