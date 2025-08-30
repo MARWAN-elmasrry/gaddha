@@ -1,26 +1,40 @@
 import { getAllMessages, messageReply, messageAsSeen } from "../../../api/services/admingService";
+import { Loading } from "../dmain/dmain";
 import "./dmStyle.css";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const Dmess = () => {
   const [messages, setMessages] = useState([]);
+  const [loadingMessages , setloadingMessages] = useState(true)
+
   const [replyingTo, setReplyingTo] = useState(null);
   const [replies, setReplies] = useState({});
   const [sentReply, setSentReply] = useState(null);
 
   useEffect(() => {
+    let timeoutId;
+
     const fetchData = async () => {
       try {
+        timeoutId = setTimeout(() => {
+        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+      }, 5000);
         const data = await getAllMessages();
         setMessages(data);
       } catch (err) {
         console.error(err);
         toast.error("خطأ في سحب البيانات", err);
       }
+      finally {
+      clearTimeout(timeoutId);
+      setloadingMessages(false);
+    }
     };
 
     fetchData();
+    return () => clearTimeout(timeoutId);
+
   }, []);
 
   const formatDate = (isoString) => {
@@ -105,8 +119,13 @@ const Dmess = () => {
                 </div>
               </div>
             </div>
+              {loadingMessages?(<>
+              <div style={{marginTop:100}}>
+                <Loading />
+              </div>
+              </>):(<>
             <div className="cards">
-              {messages.map((msg) => (
+                {messages.map((msg) => (
                 <div className="card" key={msg._id}>
                   <div className="card-num">
                     <span
@@ -163,6 +182,7 @@ const Dmess = () => {
                 </h1>
               )}
             </div>
+              </>)}
           </div>
         </div>
       </div>

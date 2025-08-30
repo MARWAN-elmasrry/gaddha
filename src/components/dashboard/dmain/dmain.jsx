@@ -25,7 +25,7 @@ const data = [
 
 export const Loading = () =>{
   return(<>
-      <div style={{ textAlign: "center", padding: "20px" }}>
+      <div className="loading">
         <FourSquare color={[ "#f4be32" , "#e0e0e0"]} size="large" text="انت قدها" />
       </div>
   </>)

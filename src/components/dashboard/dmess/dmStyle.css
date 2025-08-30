@@ -41,6 +41,9 @@
   font-weight: 700;
   margin: 0;
 }
+.d-mess .d-mess-cont{
+    padding-bottom: 2rem;
+}
 .d-mess .d-mess-cont .cards{
     margin-top: 80px;
     padding: 3rem;
