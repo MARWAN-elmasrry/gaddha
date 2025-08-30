@@ -3,7 +3,6 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../../userSlice";
 import { StartBtn } from "../../startBtn";
-import { useEffect } from "react";
 
 const Header = () => {
   const location = useLocation();

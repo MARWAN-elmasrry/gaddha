@@ -1,120 +1,78 @@
 import { StartBtn } from "../../startBtn"
 import "./footStyle.css"
-import { useLocation } from "react-router-dom"
+import { useLocation, Link } from "react-router-dom"
 
 const Footer = () => {
   const location = useLocation()
-  const isUserPage =
-    location.pathname === "/user"
+  const isUserPage = location.pathname === "/user"
+
+  const isLoggedIn = Boolean(localStorage.getItem("token"))
 
   return (
-    <>
-      <div className="foot">
-        <div className="container">
-          <div className="foot-cont">
-            <div
-              className="back-img"
-              style={
-                !isUserPage
-                  ? { display: "" }
-                  : { display: "none" }
-              }
-            >
+    <footer className="foot">
+      <div className="container">
+        <div className="foot-cont">
+          {!isUserPage && (
+            <div className="back-img">
               <div className="info-f">
-                <h1>
-                  قدها ولابس سوالف؟
-                </h1>
-                <h3> !ورنا الحين</h3>
+                <h1>قدها ولابس سوالف؟</h1>
+                <h3>!ورنا الحين</h3>
                 <StartBtn />
               </div>
-              <img
-                src="./hero.png"
-                alt=""
-              />
-              <img
-                src="./herof.png"
-                alt=""
-              />
-              <img
-                src="./logo.png"
-                alt=""
-                style={{ width: 120 }}
-              />
+              <img src="/hero.png" alt="hero" />
+              <img src="/herof.png" alt="herof" />
+              <img src="/logo.png" alt="logo" style={{ width: 120 }} />
             </div>
-            <div
-              className="camel"
-              style={
-                isUserPage
-                  ? {
-                      display: "flex",
-                      justifyContent:
-                        "space-between",
-                      width: "100%",
-                      alignItems:
-                        "center",
-                    }
-                  : { display: "none" }
-              }
-            >
-              <img
-                src="./camel.png"
-                alt=""
-              />
-              <img
-                src="./cam.png"
-                alt=""
-              />
+          )}
+
+          {isUserPage && (
+            <div className="camel">
+              <img src="/camel.png" alt="camel" />
+              <img src="/cam.png" alt="camel-deco" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="links">
+        <div className="link-cont">
+          <div className="f-links">
+            <div className="all-links">
+              <div className="game-links">
+                <p>صفحات</p>
+                <Link to="/">الرئيسية</Link>
+                <Link to="/contact">تواصل</Link>
+                {isLoggedIn ? (<>
+                  <Link to="/user">حسابى</Link>               
+                </>):(<>
+                  <Link to="/login">تسجيل</Link>
+
+                </>)}
+                <Link to="/games">إنشاء لعبة</Link>
+                <Link to="/games">ألعابي</Link>
+              </div>
+
+              <div className="police-links">
+                <p>السياسات</p>
+                <Link to="/privacy">سياسة الخصوصية</Link>
+                <Link to="/refund">سياسة الاسترداد</Link>
+              </div>
+            </div>
+
+            <div className="f-logo">
+              <img src="/logo.png" alt="logo" />
+              <h2>قدها ولا بس سوالف؟</h2>
+              <div className="line"></div>
             </div>
           </div>
-        </div>
-        <div className="links">
-          <div className="link-cont">
-            <div className="f-links">
-              <div className="all-links">
-                <div className="game-links">
-                  <p>صفحات</p>
-                  <a href="#">
-                    الرئيسية
-                  </a>
-                  <a href="#">تواصل</a>
-                  <a href="#">تسجيل</a>
-                  <a href="#">
-                    انشائ لعبة
-                  </a>
-                  <a href="#">ألعابي</a>
-                </div>
-                <div className="police-links">
-                  <p>السياسات</p>
-                  <a href="#">
-                    سياسة الخصوصية
-                  </a>
-                  <a href="#">
-                    سياسة الاسترداد
-                  </a>
-                </div>
-              </div>
-              <div className="f-logo">
-                <img
-                  src="./logo.png"
-                  alt=""
-                />
-                <h2>
-                  قدها ولا بس سوالف؟
-                </h2>
-                <div className="line"></div>
-              </div>
-            </div>
-            <div className="p-police">
-              <p>
-                2025 قدّها, كل الحقوق
-                محفوظة
-              </p>
-            </div>
+
+          <div className="p-police">
+            <p>2025 قدّها, كل الحقوق محفوظة</p>
           </div>
         </div>
       </div>
-    </>
+    </footer>
   )
 }
 
-export default Footer
+export default Footer;

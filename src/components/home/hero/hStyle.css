@@ -4,17 +4,19 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
-
-.hero-cont .back-img{
-    position: absolute;
-    top: -309px;
-    left: 958px;
-    width: 730px;
-    height: 500px;
-    display: inline-block;
-    margin: 20px 0;
+.hero .container{
+  position: relative;
 }
-
+.hero-cont .back-img{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  width: 730px;
+  height: 500px;
+  transform: translate(37%, -50%);
+  display: inline-block;
+  margin: 20px 0;
+}
 .hero-cont .back-img img:nth-child(3) {
   top: 4px;
   z-index: 2;
@@ -31,26 +33,57 @@
 }
 
 .hero .tress {
-  margin-top: 350px;
+  position: relative;
+  margin-top: 230px;
   display: flex;
   align-items: flex-end;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+.hero .tress .camel {
+  position: absolute;
+  left: 21%;
+  transform: translate(-20%, 0%);
+  z-index: 4;
+  animation: moveFlip 30s infinite linear;
+}
+
+@keyframes moveFlip {
+  0% {
+    transform: translate(-20%, 0%) scaleX(-1); /* البداية شمال عادي */
+  }
+  25% {
+    transform: translate(-20%, 0%) scaleX(1); /* شمال ويقلب */
+  }
+  50% {
+    transform: translate(200%, 0%) scaleX(1); /* يروح يمين وهو مقلوب */
+  }
+  75% {
+    transform: translate(200%, 0%) scaleX(-1); /* يوقف يمين ويقلب */
+  }
+  100% {
+    transform: translate(-20%, 0%) scaleX(-1); /* يرجع شمال عادي */
+  }
 }
 
 .hero .tress img:first-child {
   width: 300px;
+  margin-left: 2rem;
 }
 
 .hero .tress img:nth-child(2) {
   width: 200px;
+  z-index: 5;
 }
 
 .hero .tress img:nth-child(3) {
-  width: 230px;
+    width: 375px;
 }
+.hero .tress img:nth-child(4) {
 
+}
 .hero .tress img:last-child {
-  width: 400px;
+  width: 400px;    
+  margin-right: 2rem;
 }
 
 @media (max-width: 1439px) {
