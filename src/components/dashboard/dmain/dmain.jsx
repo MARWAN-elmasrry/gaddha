@@ -2,7 +2,7 @@ import "./dmStyle.css";
 import { useEffect, useState } from "react";
 import { getAllCategories, getAllMessages, getAllReports, getTotalProfit, getTotalSoldGames, getUserCount } from "../../../api/services/admingService";
 import { toast } from "react-toastify";
-
+import {FourSquare} from 'react-loading-indicators';
 
 import {
   LineChart,
@@ -23,101 +23,162 @@ const data = [
   { day: "F", value: 30 },
 ];
 
+export const Loading = () =>{
+  return(<>
+      <div style={{ textAlign: "center", padding: "20px" }}>
+        <FourSquare color={[ "#f4be32" , "#e0e0e0"]} size="large" text="انت قدها" />
+      </div>
+  </>)
+}
+
 const Dmain = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
-  const [ reports , setReports] = useState([]);
+
+  const [reports , setReports] = useState([]);
+  const [loadingReports, setloadingReports] = useState(true)
+
   const [messages, setMessages] = useState([]);
+  const [loadingMessages , setloadingMessages] = useState(true)
+
   const [userCount , setUserCount] = useState([]);
+  const [loadingUserCount , setLoadingUserCount] = useState(true)
+
+  const [categories, setCategories] = useState([]);
+  const [loadingCategories,setLoadingCategories]= useState(true)
+
   const [sold , setSold] = useState([]);
   const [profits , setProfits] = useState([]);
-  const [categories, setCategories] = useState([]);
-
 
   let firstThreeReports = []
   let firstThreeMessages = []
   firstThreeReports = reports.slice(0, 3);
   firstThreeMessages = messages.slice(0, 3);
 
+
+// getAllReports
 useEffect(() => {
+  let timeoutId;
+
   const fetchReports = async () => {
     try {
+      timeoutId = setTimeout(() => {
+        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+      }, 5000);
       const data = await getAllReports();
       setReports(data);
     } catch (err) {
       console.error(err);
       toast.error("خطأ في سحب بيانات البلاغات");
+    } finally {
+      clearTimeout(timeoutId);
+      setloadingReports(false);
     }
   };
   fetchReports();
+  return () => clearTimeout(timeoutId);
 }, []);
 
+// getAllMessages
 useEffect(() => {
+  let timeoutId;
+
   const fetchMessages = async () => {
     try {
+      timeoutId = setTimeout(() => {
+        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+      }, 5000);
       const data2 = await getAllMessages();
       setMessages(data2);
     } catch (err) {
       console.error(err);
       toast.error("خطأ في سحب بيانات الرسائل");
     }
+    finally {
+      clearTimeout(timeoutId);
+      setloadingMessages(false);
+    }
   };
   fetchMessages();
+  return () => clearTimeout(timeoutId);
 }, []);
 
+// getUserCount
+useEffect(() => {
+    let timeoutId;
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const data = await getUserCount();
-          setUserCount(data);
-        } catch (err) {
-          console.error(err);
-          toast.error("خطا غى سحب البيانات العدد من المستخدمين")
-        }
-      };
-      
-      fetchData();
-    }, []);
+  const fetchData = async () => {
+    try {
+      timeoutId = setTimeout(() => {
+        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+      }, 5000);
+      const data = await getUserCount();
+      setUserCount(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("خطا غى سحب البيانات العدد من المستخدمين")
+    }
+    finally {
+      clearTimeout(timeoutId);
+      setLoadingUserCount(false);
+    }
+  };
+  fetchData();
+    return () => clearTimeout(timeoutId);
+}, []);
 
+// getAllCategories
+useEffect(() => {    
+  let timeoutId;
 
-    useEffect(() => {
-          const fetchData = async () => {
-            try {
-              const data = await getTotalSoldGames();
-              setSold(data);
-            } catch (err) {
-              console.error(err);
-              toast.error("خطأ في جلب بيانات عدد الالعاب");
-            }
-          };
-          fetchData();
-        }, []);
-    
-        useEffect(() => {
-          const fetchData = async () => {
-            try {
-              const data = await getTotalProfit();
-              setProfits(data);
-            } catch (err) {
-              console.error(err);
-              toast.error("خطأ في جلب بيانات الارباح");
-            }
-          };
-          fetchData();
-        }, []);
-        useEffect(() => {
-            const fetchData = async () => {
-              try {
-                const data = await getAllCategories();
-                setCategories(data);
-              } catch (err) {
-                console.error(err);
-                toast.error("خطا غى سحب البيانات");
-              }
-            };
-        
-            fetchData();
-          }, []);
+  const fetchData = async () => {
+    try {
+      timeoutId = setTimeout(() => {
+        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+      }, 5000);
+      const data = await getAllCategories();
+      setCategories(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("خطا غى سحب البيانات");
+    }
+    finally {
+      clearTimeout(timeoutId);
+      setLoadingCategories(false);
+    }
+  };
+
+  fetchData();
+    return () => clearTimeout(timeoutId);
+}, []);
+
+// getTotalSoldGames
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const data = await getTotalSoldGames();
+      setSold(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("خطأ في جلب بيانات عدد الالعاب");
+    }
+  };
+  fetchData();
+}, []);
+
+// getTotalProfit
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const data = await getTotalProfit();
+      setProfits(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("خطأ في جلب بيانات الارباح");
+    }
+  };
+  fetchData();
+}, []);
+
 
   const getImageSrc = (cardType, position) => {
     if (hoveredCard === cardType) {
@@ -260,26 +321,31 @@ useEffect(() => {
               <img src={getImageSrc("report")} alt="" /> البلاغات{" "}
               <img src={getImageSrc("report")} alt="" />
             </h3>
-            <div className="card-info">
-              <div className="info">
-                <h3>كلى</h3>
-                <p>{reports.length}</p>
-              </div>
-            </div>
-            <div className="r-cards">
-                {firstThreeReports.map((firstThreeReports) => (
-                  <div className="rcard" key={firstThreeReports._id}>
-                    <div className="info">
-                      <p>{firstThreeReports.userId?.email}</p>
-                      <p>{firstThreeReports.questionId?.category?.name}</p>
-                      <p>{new Date(firstThreeReports.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                    </div>
-                    <div className="mess">
-                      <p>{firstThreeReports.description}</p>
-                    </div>
+             {loadingReports ? (
+              <Loading />
+            ) : (
+              <>
+                <div className="card-info">
+                  <div className="info">
+                    <h3>كلى</h3>
+                    <p>{reports.length}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+                <div className="r-cards">
+                  {firstThreeReports.map((rep) => (
+                    <div className="rcard" key={rep._id}>
+                      <div className="info">
+                        <p>{rep.userId?.email}</p>
+                        <p>{rep.questionId?.category?.name}</p>
+                      </div>
+                      <div className="mess">
+                        <p>{rep.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
           <div
             className="r-card"
@@ -297,6 +363,9 @@ useEffect(() => {
               <img src={getImageSrc("mess")} alt="hover" /> الرسائل{" "}
               <img src={getImageSrc("mess")} alt="hover" />
             </h3>
+            {loadingMessages ? (<>
+                <Loading />
+            </>) : (<>
             <div className="card-info">
               <div className="info">
                 <h3>كلى</h3>
@@ -323,6 +392,7 @@ useEffect(() => {
                 ))}
               </div>
             </div>
+            </>)}
           </div>
           <div
             className="r-card"
@@ -334,7 +404,10 @@ useEffect(() => {
               <img src={getImageSrc("info")} alt="hover" />
             </h3>
             <div className="r-cards">
-              <div className="rcard r-info" 
+              {loadingUserCount?(<>
+                 <Loading />
+              </>):(<>
+                            <div className="rcard r-info" 
                 onClick={(e) => {
                 e.preventDefault();
                 window.location.href = "/admin/users";
@@ -348,7 +421,12 @@ useEffect(() => {
                   <h4 classname="r-h">{userCount}</h4>
                 </div>
               </div>
-              <div className="rcard r-info"
+              </>)}
+
+              {loadingCategories?(<>
+                 <Loading />
+              </>):(<>
+                <div className="rcard r-info"
                 onClick={(e) => {
                 e.preventDefault();
                 window.location.href = "/admin/categories";
@@ -362,6 +440,8 @@ useEffect(() => {
                   <h4 classname="r-h">{categories.length}</h4>
                 </div>
               </div>
+              </>)}
+
               <div className="rcard r-info">
                 <div className="info">
                   <p>الكوبونات</p>
@@ -370,6 +450,7 @@ useEffect(() => {
                   <h4 classname="r-h">10</h4>
                 </div>
               </div>
+
               <div className="rcard r-info">
                 <div className="info">
                   <p>الأللعاب</p>
@@ -378,6 +459,7 @@ useEffect(() => {
                   <h4 classname="r-h">33,555</h4>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
