@@ -20,8 +20,9 @@
 
 .cat .cat-cont h1,
 h2 {
-  text-align: center;
-  margin-bottom: 60px;
+      text-align: center;
+    margin-bottom: 21px;
+    margin-top: 31px;
   width: 500px;
 }
 
