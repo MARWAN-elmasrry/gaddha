@@ -85,7 +85,6 @@ const gameSlice = createSlice({
     },
     updateTeamScore: (state, action) => {
       const { team, points } = action.payload;
-
       if (team === "teamOne") {
         state.teamOneScore += points;
       } else if (team === "teamTwo") {
@@ -93,7 +92,7 @@ const gameSlice = createSlice({
       }
 
       localStorage.setItem("gameData", JSON.stringify(state));
-      if (state.numberOfShownQuestions >= 36) {
+      if (state.numberOfShownQuestions >= Object.keys(state.questionBank).length * 6) {
         state.isGameOver = true;
         state.winnerTeam =
           state.teamOneScore > state.teamTwoScore
