@@ -139,21 +139,19 @@
     height: 20px !important;
   }
 }
-.back-btn {
+.start .back-btn {
   position: absolute;
   top: -25px;
   left: -25px;
 }
-
-.back-btn button {
+.start .back-btn button {
   width: 50px;
   height: 50px;
   border-radius: 0;
   background-color: #8b4513;
   transform: rotate(45deg);
 }
-
-.back-btn button img {
+.start .back-btn button img {
   position: absolute;
   top: 9px;
   right: 7px;

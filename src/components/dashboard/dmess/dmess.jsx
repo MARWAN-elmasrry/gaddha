@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const Dmess = () => {
   const [messages, setMessages] = useState([]);
-  const [loadingMessages , setloadingMessages] = useState(true)
+  const [loadingMessages, setloadingMessages] = useState(true);
 
   const [replyingTo, setReplyingTo] = useState(null);
   const [replies, setReplies] = useState({});
@@ -18,23 +18,21 @@ const Dmess = () => {
     const fetchData = async () => {
       try {
         timeoutId = setTimeout(() => {
-        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-      }, 5000);
+          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+        }, 5000);
         const data = await getAllMessages();
         setMessages(data);
       } catch (err) {
         console.error(err);
         toast.error("خطأ في سحب البيانات", err);
+      } finally {
+        clearTimeout(timeoutId);
+        setloadingMessages(false);
       }
-      finally {
-      clearTimeout(timeoutId);
-      setloadingMessages(false);
-    }
     };
 
     fetchData();
     return () => clearTimeout(timeoutId);
-
   }, []);
 
   const formatDate = (isoString) => {
@@ -66,29 +64,28 @@ const Dmess = () => {
   };
 
   useEffect(() => {
-  const sendReply = async () => {
-    if (sentReply) {
-      try {
-        await messageReply(sentReply.id, sentReply.reply);
-        toast.success("تم ارسال الرد بنجاح");
+    const sendReply = async () => {
+      if (sentReply) {
+        try {
+          await messageReply(sentReply.id, sentReply.reply);
+          toast.success("تم ارسال الرد بنجاح");
 
-        setMessages((prev) => prev.filter((msg) => msg._id !== sentReply.id));
-      } catch (err) {
-        console.error(err);
-        toast.error("فشل ارسال الرد");
+          setMessages((prev) => prev.filter((msg) => msg._id !== sentReply.id));
+        } catch (err) {
+          console.error(err);
+          toast.error("فشل ارسال الرد");
+        }
       }
-    }
-  };
+    };
 
-  sendReply();
-}, [sentReply]);
-
+    sendReply();
+  }, [sentReply]);
 
   const handleMarkAsSeen = async (id) => {
     try {
       await messageAsSeen(id);
       toast.success("تم تعليم الرسالة كمقروءة");
-      setMessages((prev) => prev.filter((msg) => msg._id !== id));  
+      setMessages((prev) => prev.filter((msg) => msg._id !== id));
     } catch (err) {
       console.error(err);
       toast.error("فشل تعليم الرسالة كمقروءة");
@@ -119,70 +116,68 @@ const Dmess = () => {
                 </div>
               </div>
             </div>
-              {loadingMessages?(<>
-              <div style={{marginTop:100}}>
-                <Loading />
-              </div>
-              </>):(<>
-            <div className="cards">
-                {messages.map((msg) => (
-                <div className="card" key={msg._id}>
-                  <div className="card-num">
-                    <span
-                      className="number"
-                      onClick={() => handleMarkAsSeen(msg._id)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <img src="/delete.png" alt="delete" />
-                    </span>
-                  </div>
-                  <div className="card-info">
-                    <div className="main-info">
-                      <h3>{formatDate(msg.timestamp)}</h3>
-                      <h3>{msg.name}</h3>
-                    </div>
-                    <div className="contact-info">
-                      <p>{msg.email}</p>
-                      <p>{msg.phone}</p>
-                    </div>
-                    <div className="mess">
-                      {replyingTo === msg._id ? (
-                        <textarea
-                          value={replies[msg._id] || ""}
-                          onChange={(e) =>
-                            handleChangeReply(msg._id, e.target.value)
-                          }
-                          placeholder="اكتب ردك هنا..."
-                          className="reply"
-                          rows={3}
-                        />
-                      ) : (
-                        <p>{msg.content}</p>
-                      )}
-                    </div>
-
-                    {replyingTo === msg._id ? (
-                      <div className="reply-actions">
-                        <button onClick={() => handleSendReply(msg._id)}>
-                          ارسال
-                        </button>
-                        <button onClick={() => setReplyingTo(null)}>
-                          الغاء
-                        </button>
-                      </div>
-                    ) : (
-                      <button onClick={() => handleReply(msg._id)}>رد</button>
-                    )}
-                  </div>
+            {loadingMessages ? (
+              <>
+                <div style={{ marginTop: 100 }}>
+                  <Loading />
                 </div>
-              ))}
-              {messages.length === 0 && (
-                <h1 style={{ textAlign: "center", marginTop: "20px" , color:'#f6e4c3'}}>
-                  لا توجد رسائل
-                </h1>
-              )}
-            </div>
-              </>)}
+              </>
+            ) : (
+              <>
+                <div className="cards">
+                  {messages.map((msg) => (
+                    <div className="card" key={msg._id}>
+                      <div className="card-num">
+                        <span
+                          className="number"
+                          onClick={() => handleMarkAsSeen(msg._id)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <img src="/delete.png" alt="delete" />
+                        </span>
+                      </div>
+                      <div className="card-info">
+                        <div className="main-info">
+                          <h3>{formatDate(msg.timestamp)}</h3>
+                          <h3>{msg.name}</h3>
+                        </div>
+                        <div className="contact-info">
+                          <p>{msg.email}</p>
+                          <p>{msg.phone}</p>
+                        </div>
+                        <div className="mess">
+                          {replyingTo === msg._id ? (
+                            <textarea
+                              value={replies[msg._id] || ""}
+                              onChange={(e) => handleChangeReply(msg._id, e.target.value)}
+                              placeholder="اكتب ردك هنا..."
+                              className="reply"
+                              rows={3}
+                            />
+                          ) : (
+                            <p>{msg.content}</p>
+                          )}
+                        </div>
+
+                        {replyingTo === msg._id ? (
+                          <div className="reply-actions">
+                            <button onClick={() => handleSendReply(msg._id)}>ارسال</button>
+                            <button onClick={() => setReplyingTo(null)}>الغاء</button>
+                          </div>
+                        ) : (
+                          <button onClick={() => handleReply(msg._id)}>رد</button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                  {messages.length === 0 && (
+                    <h1 style={{ textAlign: "center", marginTop: "20px", color: "#f6e4c3" }}>
+                      لا توجد رسائل
+                    </h1>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

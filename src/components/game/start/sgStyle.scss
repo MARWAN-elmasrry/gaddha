@@ -140,21 +140,23 @@
     }
   }
 }
-.back-btn {
-  position: absolute;
-  top: -25px;
-  left: -25px;
-}
-.back-btn button {
-  width: 50px;
-  height: 50px;
-  border-radius: 0;
-  background-color: #8b4513;
-  transform: rotate(45deg);
-}
-.back-btn button img {
-  position: absolute;
-  top: 9px;
-  right: 7px;
-  transform: rotate(-45deg);
+.start {
+  .back-btn {
+    position: absolute;
+    top: -25px;
+    left: -25px;
+  }
+  .back-btn button {
+    width: 50px;
+    height: 50px;
+    border-radius: 0;
+    background-color: #8b4513;
+    transform: rotate(45deg);
+  }
+  .back-btn button img {
+    position: absolute;
+    top: 9px;
+    right: 7px;
+    transform: rotate(-45deg);
+  }
 }
