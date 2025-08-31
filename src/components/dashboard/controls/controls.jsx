@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getUserCoins, giftUserCoins , addAdmin } from "../../../api/services/admingService";
+import { getUserCoins, giftUserCoins , addAdmin, getUserGameHistory } from "../../../api/services/admingService";
 import "./cStyle.css";
 import { toast } from "react-toastify";
 
@@ -11,8 +11,8 @@ const Controls = () => {
   });
   const [userCoinsData, setUserCoinsData] = useState({ userId: "", coins: "", errors: "" });
   const [addAdminData, setAddAdminData] = useState({ username: "", email: "",password: "", privileges: [] });
-  // const [user,setUser] = useState("")
-  // const [userHistory, setUserHistory ] = useState([]);
+  const [user,setUser] = useState("")
+  const [userHistory, setUserHistory ] = useState([]);
   
   const handleGiftUserCoins = async () => {
     try {
@@ -47,16 +47,15 @@ const Controls = () => {
     }
   }
 
-// const handleGetHistory = async () => {
-//   try {
-//     const history = await getUserGameHistory(user);
-//     setUserHistory(history); 
-//     console.log(history)
-//   } catch (error) {
-//     toast.error("حدث خطأ");
-//     console.error("Error getting history:", error);
-//   }
-// };
+const handleGetHistory = async () => {
+  try {
+    const history = await getUserGameHistory(user);
+    setUserHistory(history); 
+  } catch (error) {
+    toast.error("حدث خطأ");
+    console.error("Error getting history:", error);
+  }
+};
 
   const handleTogglePrivilege = (privilege) => {
     setAddAdminData((prev) => {
@@ -90,47 +89,6 @@ const Controls = () => {
               <div className="cont-info"></div>
             </div>
             <div className="cards">
-              {/* <div className="card">
-                <div className="info">
-                  <div className="btn">
-                    <button className="color" onClick={handleGiftUserCoins}>
-                      حفظ
-                    </button>
-                    <button
-                      className="no-color"
-                      onClick={() => {
-                        setGiftedCoinsData({ userId: "", amount: "", errors: "" });
-                      }}
-                    >
-                      اعادة تهيئة
-                    </button>
-                  </div>
-                  <h2>التحكم في الألعاب المتبقية</h2>
-                </div>
-                <div className="inputs">
-                  <input
-                    type="text"
-                    placeholder=" ID إيميل رقم الهاتف أو"
-                    dir="rtl"
-                    value={giftedCoinsData.userId}
-                    onChange={(e) =>
-                      setGiftedCoinsData((prev) => ({ ...prev, userId: e.target.value }))
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="عدد الألعاب للأضافه"
-                    dir="rtl"
-                    value={giftedCoinsData.amount}
-                    onChange={(e) =>
-                      setGiftedCoinsData((prev) => ({ ...prev, amount: e.target.value }))
-                    }
-                  />
-                  <div style={{ color: "red", direction: "rtl", fontSize: "18px" }}>
-                    {giftedCoinsData.errors}
-                  </div>
-                </div>
-              </div> */}
               <div className="card">
                 <div className="info">
                   <div className="btn">
@@ -189,31 +147,59 @@ const Controls = () => {
               <div className="card">
                 <div className="info">
                   <div className="btn">
-                    {/* onClick={handleGetHistory} */}
-                    <button className="color"  >
+                    <button className="color" onClick={handleGetHistory} >
                       عرض
                     </button>
                   </div>
                   <h2>عرض الألعاب السابقة</h2>
                 </div>
                 <div className="inputs">
-                  {/* <input
+                  <input
                     type="text"
                     placeholder=" ID إيميل رقم الهاتف أو"
                     dir="rtl"
                     value={user}
                     onChange= {(e) => setUser(e.target.value)}
-                  /> */}
-                  <input
-                    type="text"
-                    placeholder=" ID إيميل رقم الهاتف أو"
-                    dir="rtl"
                   />
-                  {userCoinsData.coins && (
-                    <div style={{ direction: "rtl", fontSize: "18px" }}>
-                        
-                    </div>
-                  )}
+                   {userHistory?.gameHistory?.length > 0 ? (
+                      <table
+                        style={{
+                          width: "100%",
+                          marginTop: "15px",
+                          direction: "rtl",
+                          textAlign: "center",
+                          fontSize: "25px",
+                          borderCollapse: "collapse",
+                        }}
+                      >
+                        <thead>
+                          <tr style={{ background: "#000000", color: "#fff" }}>
+                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>#</th>
+                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>اسم اللعبة</th>
+                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>التاريخ</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {userHistory.gameHistory.map((game, index) => (
+                            <tr key={game._id || index}>
+                              <td style={{ border: "1px solid #ccc", padding: "6px" }}>
+                                {index + 1}
+                              </td>
+                              <td style={{ border: "1px solid #ccc", padding: "6px" }}>
+                                {game.gameName}
+                              </td>
+                              <td style={{ border: "1px solid #ccc", padding: "6px" }}>
+                                {new Date(game.playedAt).toLocaleString("ar-EG")}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : (                    
+                      <h2 style={{ marginTop: "15px", textAlign: "center", fontSize: "30px" }}>
+                        لا يوجد العاب سابقه
+                      </h2>
+                    )}
                 </div>
               </div>
               <div className="card">

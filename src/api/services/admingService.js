@@ -195,26 +195,24 @@ export const editQuestion = async (data) => {
   }
 };
 
-// //control
-// export const getUserGameHistory = async (user) => {
-//   console.log(user);
-//   try {
-//     const response = await api.get("/admin/get-user-game-history", {
-//       params: {
-//         identifier: user
-//       },
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     return response.data;
-//   } catch (error) {
-//     throw error.response?.data?.message || "Failed to get history";
-//   }
-// };
-
-
-
+//control
+export const getUserGameHistory = async (user) => {
+  try {
+    const response = await api.post("/admin/get-user-game-history", 
+      {
+        identifier: user
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to get history";
+  }
+};
 export const addAdmin = async (addAdminData) => {
   try {
     const response = await api.post("/admin/add-admin", addAdminData , {
@@ -223,7 +221,7 @@ export const addAdmin = async (addAdminData) => {
       },
     });
     return response.data;
-  } catch (error) {
+  } catch (error) { 
     throw error.response?.data?.message || "Failed to add admin";
   }
 };
