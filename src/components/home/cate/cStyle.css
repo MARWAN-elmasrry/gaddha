@@ -7,8 +7,8 @@
 }
 
 .cat .cat-cont {
-  height: 130vh;
-  padding-top: 300px;
+  height: max-content;
+  padding-top: 190px;
   padding-bottom: 200px;
 }
 
@@ -16,12 +16,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+      margin-bottom: 2rem;
 }
 
 .cat .cat-cont h1,
 h2 {
-  text-align: center;
-  margin-bottom: 60px;
+      text-align: center;
+    margin-bottom: 21px;
+    margin-top: 31px;
   width: 500px;
 }
 
@@ -30,6 +32,7 @@ h2 {
   display: flex;
   justify-content: center;
   gap: 4rem;
+  flex-wrap: wrap;
 }
 
 .cat .cat-cont .cards .card {
@@ -49,6 +52,7 @@ h2 {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .cat .cat-cont .card .card-info img {
@@ -114,13 +118,13 @@ h2 {
     width: auto !important;
   }
   .cat-cont .cards {
-    gap: 16px !important;
+    gap: 35px !important;
   }
   .cat-cont .cards .card .card-num {
-    width: 25px;
-    height: 25px;
-    top: -9px;
-    left: -7px;
+    width: 50px;
+    height: 50px;
+    top: -26px;
+    left: -26px;
   }
 }
 @media (max-width: 390px) {

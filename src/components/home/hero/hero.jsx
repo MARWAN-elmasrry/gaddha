@@ -19,9 +19,10 @@ const Hero =()=>{
             </div>
         </div>
                 <div className="tress">
-                    <img src="./tree3.png" alt="" />
-                    <img src="./tree3.png" alt="" />
                     <img src="./tree4.png" alt="" />
+                    <img src="./tree3.png" alt="" />
+                    <img src="./camel.png" alt="" className='camel' />
+                    <img src="./tree3.png" alt="" />
                     <img src="./tree4.png" alt="" />
                 </div>
       </div>

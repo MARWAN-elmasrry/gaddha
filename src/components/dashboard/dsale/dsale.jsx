@@ -1,5 +1,5 @@
 import "./dsStyle.css";
-import  riyal  from '../../../../public/riyal.png';
+import riyal from "../../../../public/riyal.png";
 import { useEffect, useState } from "react";
 
 import {
@@ -15,86 +15,202 @@ import {
   Cell,
 } from "recharts";
 
-import { getGamesSoldCounts, getTotalProfit, getTotalSoldGames } from "../../../api/services/admingService";
+import {
+  getGamesSoldCounts,
+  getLastSevenDays,
+  getTotalProfit,
+  getTotalSoldGames,
+} from "../../../api/services/admingService";
 
+// ✅ دالة لحساب ticks بشكل "لطيف"
+const getNiceTicks = (min, max, count = 6) => {
+  const range = max - min;
+  if (range <= 0) return [0, max || 1];
+
+  const rawStep = range / (count - 1);
+  const pow10 = Math.pow(10, Math.floor(Math.log10(rawStep)));
+  const niceStep = Math.ceil(rawStep / pow10) * pow10;
+  const niceMax = Math.ceil(max / niceStep) * niceStep;
+
+  const ticks = [];
+  for (let i = 0; i <= niceMax; i += niceStep) {
+    ticks.push(i);
+  }
+
+  return ticks;
+};
 
 const Dsale = () => {
-
-  const [sold , setSold] = useState([]);
-  const [profits , setProfits] = useState([]);
+  const [sold, setSold] = useState(0);
+  const [profits, setProfits] = useState(0);
   const [profit, setProfit] = useState({
-  oneGame: 0,
-  twoGames: 0,
-  fiveGames: 0,
-  tenGames: 0
-});
+    oneGame: 0,
+    twoGames: 0,
+    fiveGames: 0,
+    tenGames: 0,
+  });
 
+  const dummyData = [
+    { day: "S", value: 20 },
+    { day: "M", value: 0 },
+    { day: "T", value: 30 },
+    { day: "W", value: 20 },
+    { day: "T", value: 50 },
+    { day: "F", value: 30 },
+  ];
 
-    const data = [
-  { day: "S", value: 20 },
-  { day: "M", value: 0 },
-  { day: "T", value: 30 },
-  { day: "W", value: 20 },
-  { day: "T", value: 50 },
-  { day: "F", value: 30 },
-];
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(50);
+  const [chartData, setChartData] = useState(dummyData);
 
-const pieData = [
-  { name: "10 العاب", value: profit.tenGames , color: "rgba(83, 33, 10, 1)", count: 10 , label: "العاب" },
-  { name: "1 لعبة", value: profit.oneGame , color: "rgba(207, 138, 65, 1)", count: 1 , label: "لعبة" },
-  { name: "2 لعبتين", value: profit.twoGames , color: "rgba(244, 190, 50, 1)", count: 2 , label: "لعبتين" },
-  { name: "5 العاب", value: profit.fiveGames , color: "rgba(180, 0, 0, 1)", count: 5 , label: "العاب" },
-];
+  const pieData = [
+    {
+      name: "10 العاب",
+      value: profit.tenGames,
+      color: "rgba(83, 33, 10, 1)",
+      count: 10,
+      label: "العاب",
+    },
+    {
+      name: "1 لعبة",
+      value: profit.oneGame,
+      color: "rgba(207, 138, 65, 1)",
+      count: 1,
+      label: "لعبة",
+    },
+    {
+      name: "2 لعبتين",
+      value: profit.twoGames,
+      color: "rgba(244, 190, 50, 1)",
+      count: 2,
+      label: "لعبتين",
+    },
+    {
+      name: "5 العاب",
+      value: profit.fiveGames,
+      color: "rgba(180, 0, 0, 1)",
+      count: 5,
+      label: "العاب",
+    },
+  ];
 
-const pieDat = [
-  { name2: "فيزا و ماستر", value2: 60, color2: "rgba(83, 33, 10, 1)", label2: "فيزا و ماستر" },
-  { name2: "ابل", value2: 15, color2: "rgba(207, 138, 65, 1)", label2: "ابل" },
-  { name2: "مدا", value2: 33, color2: "rgba(244, 190, 50, 1)", label2: "مدا" },
-  { name2: "بابارا", value2: 22, color2: "rgba(180, 0, 0, 1)", label2: "بابارا" },
-];
+  const pieDat = [
+    {
+      name2: "فيزا و ماستر",
+      value2: 60,
+      color2: "rgba(83, 33, 10, 1)",
+      label2: "فيزا و ماستر",
+    },
+    {
+      name2: "ابل",
+      value2: 15,
+      color2: "rgba(207, 138, 65, 1)",
+      label2: "ابل",
+    },
+    {
+      name2: "مدا",
+      value2: 33,
+      color2: "rgba(244, 190, 50, 1)",
+      label2: "مدا",
+    },
+    {
+      name2: "بابارا",
+      value2: 22,
+      color2: "rgba(180, 0, 0, 1)",
+      label2: "بابارا",
+    },
+  ];
 
+  // last seven days chart
   useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const data = await getTotalSoldGames();
-          setSold(data);
-        } catch (err) {
-          console.error(err);
-          toast.error("خطأ في جلب بيانات عدد الالعاب");
-        }
-      };
-      fetchData();
-    }, []);
+    const fetchData = async () => {
+      try {
+        const apiData = await getLastSevenDays();
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const data = await getTotalProfit();
-          setProfits(data);
-        } catch (err) {
-          console.error(err);
-          toast.error("خطأ في جلب بيانات الارباح");
-        }
-      };
-      fetchData();
-    }, []);
+        const finalData =
+          apiData && apiData.length > 0
+            ? apiData.map((item) => ({
+                day: item.day,
+                value: item.value,
+              }))
+            : dummyData;
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const data = await getGamesSoldCounts();
-          setProfit(data);
-        } catch (err) {
-          console.error(err);
-          toast.error("خطأ في جلب بيانات ال");
-        }
-      };
-      fetchData();
-    }, []);
+        setChartData(finalData);
+
+        // احسب min و max
+        const values = finalData.map((d) => d.value);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+
+        setMinValue(min > 0 ? min - 5 : 0);
+        setMaxValue(max + 5);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في جلب بيانات عدد الالعاب");
+        setChartData(dummyData);
+
+        const values = dummyData.map((d) => d.value);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        setMinValue(min > 0 ? min - 5 : 0);
+        setMaxValue(max + 5);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // total sold games
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getTotalSoldGames();
+        setSold(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في جلب بيانات عدد الالعاب");
+      }
+    };
+    fetchData();
+  }, []);
+
+  // total profit
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getTotalProfit();
+        setProfits(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في جلب بيانات الارباح");
+      }
+    };
+    fetchData();
+  }, []);
+
+  // games sold counts (pie data)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getGamesSoldCounts();
+        setProfit(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في جلب بيانات الالعاب");
+      }
+    };
+    fetchData();
+  }, []);
 
   const RADIAN = Math.PI / 180;
 
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+  }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.6;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -136,8 +252,12 @@ const pieDat = [
           marginLeft: 12,
         }}
       />
-      <div style={{ display: "flex", alignItems: "center", gap: 13, opacity: 0.6 }}>
-        <span style={{ color: "rgba(249, 231, 197, 1)" }}>{count}</span>
+      <div
+        style={{ display: "flex", alignItems: "center", gap: 13, opacity: 0.6 }}
+      >
+        {count !== undefined && (
+          <span style={{ color: "rgba(249, 231, 197, 1)" }}>{count}</span>
+        )}
         <span style={{ color: "rgba(249, 231, 197, 1)" }}>{label}</span>
       </div>
     </div>
@@ -166,7 +286,9 @@ const pieDat = [
               </div>
               <div className="info">
                 <h3>أرباح</h3>
-                <p>{profits} <img src={riyal} alt={riyal}/> </p>
+                <p>
+                  {profits} <img src={riyal} alt="riyal" />
+                </p>
               </div>
             </div>
           </div>
@@ -176,7 +298,10 @@ const pieDat = [
                 <div className="chart">
                   <div className="chart-graf">
                     <ResponsiveContainer width="100%" height={400}>
-                      <LineChart data={data} margin={{ top: 10, right: 10, left: -35, bottom: 0 }}>
+                      <LineChart
+                        data={chartData}
+                        margin={{ top: 10, right: 10, left: -35, bottom: 0 }}
+                      >
                         <CartesianGrid
                           stroke="#e0e0e0"
                           strokeWidth={1.2}
@@ -187,14 +312,20 @@ const pieDat = [
                           dataKey="day"
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 16, fill: "rgba(249, 231, 197, 1)" }}
+                          tick={{
+                            fontSize: 16,
+                            fill: "rgba(249, 231, 197, 1)",
+                          }}
                         />
                         <YAxis
-                          domain={[0, 50]}
+                          domain={[0, maxValue]}
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 16, fill: "rgba(249, 231, 197, 1)" }}
-                          ticks={[0, 10, 20, 30, 40, 50]}
+                          tick={{
+                            fontSize: 16,
+                            fill: "rgba(249, 231, 197, 1)",
+                          }}
+                          ticks={getNiceTicks(minValue, maxValue)}
                         />
                         <Tooltip />
                         <Line
@@ -202,8 +333,15 @@ const pieDat = [
                           dataKey="value"
                           stroke="rgba(249, 231, 197, 1)"
                           strokeWidth={2}
-                          dot={{ fill: "rgba(249, 231, 197, 1)", strokeWidth: 2, r: 4 }}
-                          activeDot={{ r: 6, fill: "rgba(249, 231, 197, 1)" }}
+                          dot={{
+                            fill: "rgba(249, 231, 197, 1)",
+                            strokeWidth: 2,
+                            r: 4,
+                          }}
+                          activeDot={{
+                            r: 6,
+                            fill: "rgba(249, 231, 197, 1)",
+                          }}
                         />
                       </LineChart>
                     </ResponsiveContainer>
@@ -224,7 +362,13 @@ const pieDat = [
                     }}
                   >
                     <div className="pie-info">
-                      <div style={{ width: "400px", height: "400px", flexShrink: 0 }}>
+                      <div
+                        style={{
+                          width: "400px",
+                          height: "400px",
+                          flexShrink: 0,
+                        }}
+                      >
                         <ResponsiveContainer width="100%" height="100%">
                           <PieChart>
                             <Pie
@@ -278,7 +422,13 @@ const pieDat = [
                     }}
                   >
                     <div className="pie-info">
-                      <div style={{ width: "400px", height: "400px", flexShrink: 0 }}>
+                      <div
+                        style={{
+                          width: "400px",
+                          height: "400px",
+                          flexShrink: 0,
+                        }}
+                      >
                         <ResponsiveContainer width="100%" height="100%">
                           <PieChart>
                             <Pie
@@ -306,10 +456,11 @@ const pieDat = [
                       </div>
                       <div className="item">
                         {pieDat.map((item, index) => (
-                          <StatItem 
-                          key={index}
-                           label={item.label2}
-                          color={item.color2} />
+                          <StatItem
+                            key={index}
+                            label={item.label2}
+                            color={item.color2}
+                          />
                         ))}
                       </div>
                     </div>

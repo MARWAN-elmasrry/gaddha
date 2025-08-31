@@ -1,6 +1,47 @@
+import React, { useState } from "react"
 import "./helpStyle.css"
 
 const Help = () => {
+  const helpOptions = {
+    phone: {
+      image: "./hphone.png",
+      text: {
+        p: "قبل تشوف السؤال, وعندك 60 ثانية بس",
+        h5: "دق على خويك"
+      }
+    },
+    hr: {
+      image: "./hr.png",
+      text: {
+        p: "الإجابة الصحيحة للسؤال",
+        h5: "السؤال صحيح"
+      }
+    },
+    hdp: {
+      image: "./hdp.png",
+      text: {
+        p: "مضاعفة النقاط للفريق",
+        h5: "ضاعف النقاط"
+      }
+    }
+  }
+
+  const [activeOption, setActiveOption] = useState("phone")
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  const getClickableOptions = () => {
+    return Object.keys(helpOptions).filter(key => key !== activeOption)
+  }
+
+  const handleImageClick = (optionKey) => {
+    setIsAnimating(true)
+    
+    setTimeout(() => {
+      setActiveOption(optionKey)
+      setIsAnimating(false)
+    }, 300)
+  }
+
   return (
     <>
       <div className="help">
@@ -12,28 +53,27 @@ const Help = () => {
             </h3>
             <div className="help-info">
               <img
-                src="./hphone.png"
+                src={helpOptions[activeOption].image}
                 alt=""
+                className={`main-image ${isAnimating ? 'fade-out' : 'fade-in'}`}
               />
               <div className="up">
                 <p>
-                  قبل تشوف السؤال, وعندك
-                  60 ثانية بس
+                  {helpOptions[activeOption].text.p}
                 </p>
-                <h5>دق على خويك</h5>
+                <h5>{helpOptions[activeOption].text.h5}</h5>
               </div>
             </div>
             <div className="img-h">
-              <img
-                src="./hr.png"
-                alt=""
-                className="hr-img"
-              />
-              <img
-                src="./hdp.png"
-                alt=""
-                className="hdp-img"
-              />
+              {getClickableOptions().map((optionKey) => (
+                <img
+                  key={optionKey}
+                  src={helpOptions[optionKey].image}
+                  alt=""
+                  className={`${optionKey}-img clickable-img`}
+                  onClick={() => handleImageClick(optionKey)}
+                />
+              ))}
             </div>
           </div>
         </div>

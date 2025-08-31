@@ -9,6 +9,22 @@
   align-items: center;
   padding-top: 30px;
 }
+.what .rotating-img {
+  width: 200px;
+  animation: rotateRightLeft 3s infinite ease-in-out;
+}
+
+@keyframes rotateRightLeft {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(20deg); /* يمين */
+  }
+  100% {
+    transform: rotate(0deg); /* يرجع */
+  }
+}
 
 .what-cont p {
   width: 536px;
