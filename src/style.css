@@ -1,11 +1,14 @@
+html{
+  height: 100%;
+}
 body {
+  cursor: url('../public/selection.png') 16 16 , auto ;
   background-color: rgba(207, 138, 65, 1);
   margin: 0;
   padding: 0;
   font-family: "ArefRuqaa", sans-serif;
   box-sizing: border-box;
 }
-
 @font-face {
   font-family: "ArefRuqaa";
   src: url("../public/font/ArefRuqaa-Regular.ttf") format("truetype");

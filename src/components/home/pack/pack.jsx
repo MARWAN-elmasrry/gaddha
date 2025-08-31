@@ -48,7 +48,7 @@ const Pack = () => {
                   <h5>لعبتين</h5>
                   <div className="price">
                     <div className="price-info">
-                      <p>10</p>
+                      <p>14</p>
                       <img src="./riyal.png" alt="" />
                     </div>
                   </div>
@@ -61,7 +61,7 @@ const Pack = () => {
                   <h5>لعبة واحدة</h5>
                   <div className="price">
                     <div className="price-info">
-                      <p>5</p>
+                      <p>8</p>
                       <img src="./riyal.png" alt="" />
                     </div>
                   </div>

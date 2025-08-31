@@ -17,6 +17,7 @@ const Header = () => {
   const [allNotifications, setAllNotifications] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [expanded, setExpanded] = useState(null);
+  const [isShaking, setIsShaking] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +43,11 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
     navigate("/login");
+  };
+
+  const handleShack = () => {
+    setIsShaking(true);
+    setTimeout(() => setIsShaking(false), 600); 
   };
 
   return (
@@ -101,6 +107,8 @@ const Header = () => {
                       height="28"
                       fill={openNotifications ? "#8b3e1f" : "#f9e7c5"}
                       viewBox="0 0 24 24"
+                      onClick={handleShack}
+                      className={isShaking ? "shake" : ""}
                     >
                       <path d="M12 24c1.104 0 2-.896 2-2h-4c0 1.104.896 2 2 2zm6.364-6c-.958-.958-1.364-2.165-1.364-3.464V10c0-3.309-2.691-6-6-6S5 6.691 5 10v4.536c0 1.299-.406 2.506-1.364 3.464L2 20h20l-3.636-2z" />
                     </svg>

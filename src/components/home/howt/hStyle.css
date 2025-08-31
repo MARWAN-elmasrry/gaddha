@@ -7,7 +7,7 @@
 }
 
 .how .how-t-cont {
-  padding: 354px  128px 212px 72px;
+  padding: 368px  128px 264px 72px;
   color: #883813;
   display: flex;
   gap: 74px;
@@ -21,20 +21,20 @@
   display: block;
   margin: 10px 10px;
   animation: swing 3s infinite ease-in-out;
-  transform-origin: top center; /* تخلي الدوران كأنه معلق */
+  animation: swingUpDown 5s infinite ease-in-out;
 }
 
-@keyframes swing {
-  0% {
-    transform: rotate(-15deg); /* لليسار */
+@keyframes swingUpDown {
+    0% {
+      transform: translateY(0);   /* البداية */
+    }
+    50% {
+      transform: translateY(-30px); /* يطلع لفوق */
+    }
+    100% {
+      transform: translateY(0);   /* يرجع مكانه */
+    }
   }
-  50% {
-    transform: rotate(15deg); /* لليمين */
-  }
-  100% {
-    transform: rotate(-15deg); /* يرجع لليسار */
-  }
-}
 
 .how .how-t-cont .info {
   text-align: end;
@@ -56,6 +56,32 @@
   margin: 0;
   padding-bottom: 40px;
   color: #f9e7c5;
+  font-size: 2rem;
+  height: 3rem;
+}
+.fade-img {
+  animation: fadeInOut 3s ease-in-out;
+  width: 60px;
+  vertical-align: middle;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
 }
 
 @media (max-width: 1440px) {

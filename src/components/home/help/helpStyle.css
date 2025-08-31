@@ -82,7 +82,21 @@
 }
 .main-image {
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  animation: upDown 2s ease-in-out infinite;
 }
+
+@keyframes upDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px); /* يطلع لفوق */
+  }
+  100% {
+    transform: translateY(0); /* يرجع مكانه */
+  }
+}
+
 
 .fade-out {
   opacity: 0;

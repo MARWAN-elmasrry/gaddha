@@ -1,53 +1,68 @@
-import './cStyle.css';
+import { useState } from "react";
+import "./cStyle.css";
 
-const Comq = () =>{
-    return(<>
-        <div className="com">
-            <div className="container">
-                <div className="com-cont">
-                    <h1>الأسئلة الشائعة</h1>
-                    <div className="cards">
-                        <div className="card">
-                            <div className="q-card active">
-                                <img src="./offerv.png" alt=""/>
-                                <h3>كيف اسجل بقدها ؟ </h3>
-                            </div>
-                            <p>عن طريق الموقع الأكتروني أو التطبيق</p>
-                        </div>
-                        <div className="card">
-                            <div className="q-card">
-                                <img src="./offerv.png" alt="" />
-                                <h3>اقدر العب مع خوياي اونلاين ؟ </h3>
-                            </div>                        </div>
-                        <div className="card">
-                            <div className="q-card">
-                                <img src="./offerv.png" alt="" />
-                                <h3>كفي حال حدثت مشكلة تقنية ماذا افعل ؟</h3>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <div className="q-card">
-                                <img src="./offerv.png" alt="" />
-                                <h3>المقاطع ما تشتغل وش اسوي ؟</h3>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <div className="q-card">
-                                <img src="./offerv.png" alt="" />
-                                <h3>اقدر ارجع فلوسي ؟ </h3>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <div className="q-card">
-                                <img src="./offerv.png" alt="" />
-                                <h3>واجهت سؤال غلط وش اسوي</h3>
-                            </div>
-                        </div>
-                    </div>
+const faqs = [
+  {
+    q: "كيف اسجل بقدها ؟",
+    a: "عن طريق الموقع الأكتروني أو التطبيق",
+  },
+  {
+    q: "اقدر العب مع خوياي اونلاين ؟",
+    a: "نعم تقدر تلعب مع أصحابك أونلاين بكل سهولة",
+  },
+  {
+    q: "في حال حدثت مشكلة تقنية ماذا افعل ؟",
+    a: "تواصل مع الدعم الفني عبر التطبيق أو الموقع",
+  },
+  {
+    q: "المقاطع ما تشتغل وش اسوي ؟",
+    a: "تأكد من الاتصال بالإنترنت أو حدث التطبيق",
+  },
+  {
+    q: "اقدر ارجع فلوسي ؟",
+    a: "حسب سياسة الاسترجاع الموضحة في الموقع",
+  },
+  {
+    q: "واجهت سؤال غلط وش اسوي ؟",
+    a: "بلغنا عن السؤال الغلط من خلال الدعم",
+  },
+];
+
+const Comq = () => {
+  const [activeIndex, setActiveIndex] = useState(null)
+  return (
+    <div className="com">
+      <div className="container">
+        <div className="com-cont">
+          <h1>الأسئلة الشائعة</h1>
+          <div className="cards">
+            {faqs.map((item, index) => (
+              <div
+                key={index}
+                className={`card ${activeIndex === index ? "active" : ""}`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(null)}
+              >
+                <div className="q-card">
+                  <img
+                    src={activeIndex === index ? "./offerw.png" : "./offerv.png" }
+                    alt="icon"
+                    className="card-icon"
+                  />
+                  <h3>{item.q}</h3>
                 </div>
-            </div>
+                <div className={`answer ${activeIndex === index ? "answer-active" : ""}`}>
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-    </>)
-}
+      </div>
+    </div>
+  );
+};
+
+
 
 export default Comq;
