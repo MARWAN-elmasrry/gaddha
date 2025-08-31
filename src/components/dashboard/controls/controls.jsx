@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getUserCoins, giftUserCoins } from "../../../api/services/admingService";
+import { getUserCoins, giftUserCoins , addAdmin } from "../../../api/services/admingService";
 import "./cStyle.css";
 import { toast } from "react-toastify";
 
@@ -10,9 +10,8 @@ const Controls = () => {
     errors: "",
   });
   const [userCoinsData, setUserCoinsData] = useState({ userId: "", coins: "", errors: "" });
-  const [addAdminData, setAddAdminData] = useState({ userId: "", privileges: [], errors: "" });
-
-  console.log("privileges", addAdminData.privileges);
+  const [addAdminData, setAddAdminData] = useState({ username: "", email: "",password: "", privileges: [] });
+  
   const handleGiftUserCoins = async () => {
     try {
       await giftUserCoins({ userId: giftedCoinsData.userId, amount: giftedCoinsData.amount });
@@ -24,6 +23,7 @@ const Controls = () => {
       setGiftedCoinsData((prev) => ({ ...prev, errors: "حدث خطأ أثناء إرسال العملات" }));
     }
   };
+  
   const handleGetUserCoins = async () => {
     try {
       const coins = await getUserCoins(userCoinsData.userId);
@@ -34,6 +34,17 @@ const Controls = () => {
       setUserCoinsData((prev) => ({ ...prev, errors: "حدث خطأ أثناء محاولة جلب العملات" }));
     }
   };
+
+  const handleAddAdmin = async() =>{
+    try {
+      await addAdmin(addAdminData)
+      toast.success("نجح عمل الادمن");
+    } catch (error) {
+      toast.error("حدث خطأ ⚠️");
+      console.error("Error adding admin", error);
+    }
+  }
+
   const handleTogglePrivilege = (privilege) => {
     setAddAdminData((prev) => {
       const hasPrivilege = prev.privileges.includes(privilege);
@@ -45,6 +56,7 @@ const Controls = () => {
       };
     });
   };
+
   return (
     <>
       <div className="control">
@@ -219,10 +231,11 @@ const Controls = () => {
               <div className="card">
                 <div className="info">
                   <div className="btn">
-                    <button className="color">حفظ</button>
+                    <button className="color" 
+                    onClick={() => handleAddAdmin()}
+                    >حفظ</button>
                     <button
                       className="no-color"
-                      onClick={() => setAddAdminData({ userId: "", privileges: [], errors: "" })}
                     >
                       اعادة تهيئة
                     </button>
@@ -232,11 +245,29 @@ const Controls = () => {
                 <div className="inputs">
                   <input
                     type="text"
-                    placeholder=" ID إيميل رقم الهاتف أو"
+                    placeholder=" اسم اليوزر "
                     dir="rtl"
-                    value={addAdminData.userId}
+                    value={addAdminData.username}
                     onChange={(e) =>
-                      setAddAdminData((prev) => ({ ...prev, userId: e.target.value }))
+                      setAddAdminData((prev) => ({ ...prev, username: e.target.value }))
+                    }
+                  />
+                  <input
+                    type="text"
+                    placeholder=" إيميل"
+                    dir="rtl"
+                    value={addAdminData.email}
+                    onChange={(e) =>
+                      setAddAdminData((prev) => ({ ...prev, email: e.target.value }))
+                    }
+                  />
+                  <input
+                    type="text"
+                    placeholder="الباسورد"
+                    dir="rtl"
+                    value={addAdminData.password}
+                    onChange={(e) =>
+                      setAddAdminData((prev) => ({ ...prev, password: e.target.value }))
                     }
                   />
                 </div>

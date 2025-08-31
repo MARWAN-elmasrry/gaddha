@@ -196,9 +196,10 @@ export const editQuestion = async (data) => {
 };
 
 //control
-export const addAdmin = async (adminData) => {
+export const addAdmin = async (addAdminData) => {
+  console.log(addAdminData)
   try {
-    const response = await api.post("/admin/add-admin", adminData, {
+    const response = await api.post("/admin/add-admin", addAdminData , {
       headers: {
         Authorization: `Bearer ${token}`,
       },
