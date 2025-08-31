@@ -44,6 +44,7 @@ header .head-cont .links {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  z-index: 100003;
 }
 
 .side-menu .icon span {
@@ -82,7 +83,7 @@ header .head-cont .links {
   left: -12px;
   top: 20px;
   display: none;
-  z-index: 1;
+  z-index: 100002;
 }
 
 .side-menu.open ul {
@@ -124,7 +125,6 @@ li:first-child.active a {
 }
 
 .side-menu .exit {
-  background-color: #cf8a41;
   border-radius: 0 0 20px 20px;
 }
 

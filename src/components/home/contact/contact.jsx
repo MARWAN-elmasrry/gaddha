@@ -1,7 +1,9 @@
 import "./cStyle.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { sendMessage } from "../../../api/services/userService";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const {
@@ -10,8 +12,11 @@ const Contact = () => {
     formState: { errors, isSubmitting, isSubmitSuccessful },
     reset,
   } = useForm();
+  const { loginType, user } = useSelector((state) => state.users);
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    if (loginType != "user") navigate("/login");
     try {
       await sendMessage(data);
     } catch (error) {
@@ -19,7 +24,15 @@ const Contact = () => {
     }
     reset();
   };
-
+  useEffect(() => {
+    if (loginType === "user") {
+      reset({
+        name: user.name || "",
+        email: user.email || "",
+        phone: user.phone || "",
+      });
+    }
+  }, [loginType, reset]);
   return (
     <div className="contact">
       <div className="container">
@@ -36,6 +49,7 @@ const Contact = () => {
                 type="text"
                 placeholder="الاسم"
                 dir="rtl"
+                disabled={loginType == "user"}
                 {...register("name", { required: "الاسم مطلوب" })}
               />
             </div>
@@ -50,6 +64,7 @@ const Contact = () => {
                 type="email"
                 placeholder="البريد الإلكتروني"
                 dir="rtl"
+                disabled={loginType == "user"}
                 {...register("email", {
                   required: "البريد الإلكتروني مطلوب",
                   pattern: {
@@ -70,6 +85,7 @@ const Contact = () => {
                 type="text"
                 placeholder="رقم الهاتف"
                 dir="rtl"
+                disabled={loginType == "user"}
                 {...register("phone", {
                   required: "رقم الهاتف مطلوب",
                   pattern: {

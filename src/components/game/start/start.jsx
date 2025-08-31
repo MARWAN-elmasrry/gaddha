@@ -62,6 +62,16 @@ const Start = () => {
           </div>
 
           <div className="start-inp">
+            <div className="back-btn">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = "/games";
+                }}
+              >
+                <img src="/back.png" alt="" />
+              </button>
+            </div>
             <h2 className="start-title">اختر الأسامي ولا نشوف مين قدها</h2>
             <div className="start-input-group">
               <div className="start-input-row">

@@ -1,9 +1,13 @@
 import "./dhStyle.css";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../../userSlice";
 
 const Dhead = () => {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("authData"));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const menuItems = [
     { path: "/admin", label: "لوحة الإحصائيات" },
     { path: "/admin/dmess", label: "الرسائل" },
@@ -16,7 +20,10 @@ const Dhead = () => {
     { path: "/admin/dgames", label: "الألعاب" },
     { path: "/admin/users", label: "المستخدمين" },
   ];
-
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/login");
+  };
   return (
     <>
       <div className="d-head">
@@ -40,7 +47,12 @@ const Dhead = () => {
                   </li>
                 ))}
                 <li className="exit">
-                  <a href="/logout">
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleLogout();
+                    }}
+                  >
                     <img src="./exit.png" alt="" style={{ width: 20 }} /> exit
                   </a>
                 </li>

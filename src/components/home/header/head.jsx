@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../../userSlice";
 import { useEffect, useState } from "react";
 import { myMessagesResponses } from "../../../api/services/userService";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const location = useLocation();
@@ -25,7 +26,6 @@ const Header = () => {
         setNotifications(data.slice(0, 3));
       } catch (err) {
         console.error(err);
-        toast.error("خطا غى سحب البيانات");
       }
     };
 

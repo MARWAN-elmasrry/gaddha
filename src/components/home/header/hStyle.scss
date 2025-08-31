@@ -38,6 +38,7 @@ header .head-cont .links {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  z-index: 100003;
 }
 .side-menu .icon span {
   background-color: rgba(136, 56, 19, 1);
@@ -72,7 +73,7 @@ header .head-cont .links {
   left: -12px;
   top: 20px;
   display: none;
-  z-index: 1;
+  z-index: 100002;
 }
 
 .side-menu.open ul {
@@ -110,7 +111,6 @@ li:first-child.active a {
   padding-left: 25px;
 }
 .side-menu .exit {
-  background-color: rgba(207, 138, 65, 1);
   border-radius: 0 0 20px 20px;
 }
 .side-menu .exit .logout-btn {

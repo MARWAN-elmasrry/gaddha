@@ -1,18 +1,13 @@
 .d-head {
   background-color: #883813;
   color: #f9e7c5;
-  height: 6rem;
-  left: 0;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 1000;
+  height: 5rem;
 }
+
 .d-head .d-head-cont .side-menu .icon span {
   background-color: #f9e7c5;
 }
+
 .d-head .d-head-cont {
   height: 5rem;
   display: flex;
@@ -30,8 +25,7 @@
   min-width: 324px;
   left: -12px;
   top: -15px;
-  z-index: 1;
-  width: 230px;
+  z-index: 100002;
 }
 
 .side-menu ul li {

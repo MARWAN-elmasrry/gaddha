@@ -87,3 +87,6 @@ button {
   display: flex;
   justify-content: center;
 }
+.contact input[disabled] {
+  cursor: not-allowed;
+}

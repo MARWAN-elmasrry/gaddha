@@ -1,24 +1,10 @@
 .d-head {
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
   color: rgba(249, 231, 197, 1);
   height: 5rem;
 }
-.d-head
-  .d-head-cont
-  .side-menu
-  .icon
-  span {
-  background-color: rgba(
-    249,
-    231,
-    197,
-    1
-  );
+.d-head .d-head-cont .side-menu .icon span {
+  background-color: rgba(249, 231, 197, 1);
 }
 .d-head .d-head-cont {
   height: 5rem;
@@ -31,18 +17,13 @@
   border-radius: 20px;
   padding: 0px;
   /* padding-top: 93px; */
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
   position: absolute;
   min-width: 324px;
   left: -12px;
   top: -15px;
   // display: none;
-  z-index: 1;
+  z-index: 100002;
 }
 .side-menu ul li {
   text-align: end;
