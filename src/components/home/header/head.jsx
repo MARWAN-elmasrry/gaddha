@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../../userSlice";
 import { useEffect, useState } from "react";
 import { myMessagesResponses } from "../../../api/services/userService";
-import { toast } from "react-toastify";
 
 const Header = () => {
   const location = useLocation();
@@ -31,7 +30,7 @@ const Header = () => {
     };
 
     if (user) fetchData();
-  }, []);
+  }, [user]);
 
   const menuItems = [
     { path: "/", label: "الرئيسية" },
@@ -75,7 +74,7 @@ const Header = () => {
                   <>
                     <li className={location.pathname === "/user" ? "active" : ""}>
                       <NavLink to="/user">
-                        حسابي
+                        {user.role ? "لوحة الإحصائيات" : "حسابى"}
                         {location.pathname === "/user" && <img src="/dashr.png" alt="" />}
                       </NavLink>
                     </li>
