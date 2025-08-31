@@ -2,6 +2,8 @@ import { useState } from "react";
 import { createPayment } from "../../../api/services/userService";
 import Modal from "../../ui/Modal";
 import "./pStyle.css";
+import GlareHover from './GlareHover'
+
 
 const Pack = () => {
   const loginType = localStorage.getItem("loginType");
@@ -43,19 +45,36 @@ const Pack = () => {
         <div className="container">
           <div className="pack-cont">
             <div className="cards">
-              <div className="card">
-                <div className="main" onClick={() => pay(14)}>
-                  <h5>لعبتين</h5>
-                  <div className="price">
-                    <div className="price-info">
-                      <p>14</p>
-                      <img src="./riyal.png" alt="" />
-                    </div>
-                  </div>
-                </div>
-                <div className="top"></div>
-                <div className="center"></div>
-              </div>
+              <GlareHover
+                glareColor="#53210A"
+                glareOpacity={0.3}
+                glareAngle={-45}
+                glareSize={300}
+                transitionDuration={1000}
+                playOnce={false}
+              >
+                <div className="card">
+                            <div className="main" onClick={() => pay(14)}>
+                              <h5>لعبتين</h5>
+                              <div className="price">
+                                <div className="price-info">
+                                  <p>14</p>
+                                  <img src="./riyal.png" alt="" />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="top"></div>
+                            <div className="center"></div>
+                          </div>
+              </GlareHover>
+              <GlareHover
+                glareColor="#53210A"
+                glareOpacity={0.3}
+                glareAngle={-45}
+                glareSize={300}
+                transitionDuration={1000}
+                playOnce={false}
+              >
               <div className="card card2">
                 <div className="main" onClick={() => pay(8)}>
                   <h5>لعبة واحدة</h5>
@@ -69,6 +88,15 @@ const Pack = () => {
                 <div className="top"></div>
                 <div className="center"></div>
               </div>
+              </GlareHover>
+              <GlareHover
+                glareColor="#53210A"
+                glareOpacity={0.3}
+                glareAngle={-45}
+                glareSize={300}
+                transitionDuration={1000}
+                playOnce={false}
+              >
               <div className="card card3">
                 <div className="main" onClick={() => pay(75)}>
                   <h5>ألعاب 10</h5>
@@ -82,6 +110,15 @@ const Pack = () => {
                 <div className="top"></div>
                 <div className="center"></div>
               </div>
+              </GlareHover>
+              <GlareHover
+                glareColor="#53210A"
+                glareOpacity={0.3}
+                glareAngle={-45}
+                glareSize={300}
+                transitionDuration={1000}
+                playOnce={false}
+              >
               <div className="card card4">
                 <div className="main" onClick={() => pay(35)}>
                   <h5>5 ألعاب</h5>
@@ -97,6 +134,7 @@ const Pack = () => {
                 </div>
                 <div className="center"></div>
               </div>
+              </GlareHover>
             </div>
             <img src="./offers.png" alt="" />
           </div>
