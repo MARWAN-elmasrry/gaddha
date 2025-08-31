@@ -40,7 +40,7 @@ const Login = () => {
         })
       );
       toast.success("تم التسجيل بى نجاح")
-      navigate(isAdmin ? "/admin" : "/user", { state: { user: response.user } });
+      navigate(isAdmin ? "/admin" : "/", { state: { user: response.user } });
     } catch (err) {
       setError(err.message || "خطأ في تسجيل الدخول");
       toast.error("خطأ في تسجيل الدخول")
