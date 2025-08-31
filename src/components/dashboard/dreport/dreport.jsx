@@ -181,7 +181,7 @@ const Dreport = () => {
               </div>
             ))}
             {reports.length === 0 && (
-              <h1 style={{ textAlign: "center", marginTop: "20px" }}>
+              <h1 style={{ textAlign: "center", marginTop: "20px" , color:'#f6e4c3'}}>
                 لا توجد بلاغات
               </h1>
             )}

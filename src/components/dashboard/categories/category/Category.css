@@ -3,11 +3,11 @@
   direction: rtl;
   margin: 0 auto;
   width: 80%;
-  margin-top: 48px;
+  margin-top: 110px;
   display: flex;
   flex-direction: column;
   gap: 32px;
-  /* Links */
+  /* Links */ 
 }
 .category-container a {
   color: #00bfff;

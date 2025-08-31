@@ -22,7 +22,6 @@ import {
   getTotalSoldGames,
 } from "../../../api/services/admingService";
 
-// ✅ دالة لحساب ticks بشكل "لطيف"
 const getNiceTicks = (min, max, count = 6) => {
   const range = max - min;
   if (range <= 0) return [0, max || 1];

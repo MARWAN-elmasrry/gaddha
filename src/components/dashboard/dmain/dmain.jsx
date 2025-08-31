@@ -31,6 +31,26 @@ export const Loading = () =>{
   </>)
 }
 
+import { getLastSevenDays } from "../../../api/services/admingService";
+
+const getNiceTicks = (min, max, count = 6) => {
+  const range = max - min;
+  if (range <= 0) return [0, max || 1];
+
+  const rawStep = range / (count - 1);
+  const pow10 = Math.pow(10, Math.floor(Math.log10(rawStep)));
+  const niceStep = Math.ceil(rawStep / pow10) * pow10;
+  const niceMax = Math.ceil(max / niceStep) * niceStep;
+
+  const ticks = [];
+  for (let i = 0; i <= niceMax; i += niceStep) {
+    ticks.push(i);
+  }
+
+  return ticks;
+};
+
+
 const Dmain = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -54,6 +74,46 @@ const Dmain = () => {
   firstThreeReports = reports.slice(0, 3);
   firstThreeMessages = messages.slice(0, 3);
 
+// chart states
+  const [chartData, setChartData] = useState([]);
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(50);
+
+  // fetch last seven days
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiData = await getLastSevenDays();
+        const finalData =
+          apiData && apiData.length > 0
+            ? apiData.map((item) => ({
+                day: item.day,
+                value: item.value,
+              }))
+            : [
+                { day: "S", value: 20 },
+                { day: "M", value: 0 },
+                { day: "T", value: 30 },
+                { day: "W", value: 20 },
+                { day: "T", value: 50 },
+                { day: "F", value: 30 },
+              ];
+
+        setChartData(finalData);
+
+        const values = finalData.map((d) => d.value);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+
+        setMinValue(min > 0 ? min - 5 : 0);
+        setMaxValue(max + 5);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في جلب بيانات المبيعات");
+      }
+    };
+    fetchData();
+  }, []);
 
 // getAllReports
 useEffect(() => {
@@ -259,40 +319,40 @@ useEffect(() => {
                   <div className="chart">
                     <div className="chart-graf">
                       <ResponsiveContainer width="100%" height={200}>
-                        <LineChart
-                          data={data}
-                          margin={{ top: 10, right: 60, left: -35, bottom: 0 }}
-                        >
-                          <CartesianGrid
-                            stroke="#e0e0e0"
-                            strokeWidth={1}
-                            horizontal={true}
-                            vertical={false}
-                          />
-                          <XAxis
-                            dataKey="day"
-                            axisLine={false}
-                            tickLine={false}
-                            tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
-                          />
-                          <YAxis
-                            domain={[0, 50]}
-                            axisLine={false}
-                            tickLine={false}
-                            tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
-                            ticks={[0, 10, 20, 30, 40, 50]}
-                          />
-                          <Tooltip />
-                          <Line
-                            type="monotone"
-                            dataKey="value"
-                            stroke="rgba(249, 231, 197, 1)"
-                            strokeWidth={2}
-                            dot={{ fill: "rgba(249, 231, 197, 1)", strokeWidth: 2, r: 4 }}
-                            activeDot={{ r: 6, fill: "rgba(249, 231, 197, 1)" }}
-                          />
-                        </LineChart>
-                      </ResponsiveContainer>
+                          <LineChart
+                            data={chartData}
+                            margin={{ top: 10, right: 60, left: -35, bottom: 0 }}
+                          >
+                            <CartesianGrid
+                              stroke="#e0e0e0"
+                              strokeWidth={1}
+                              horizontal={true}
+                              vertical={false}
+                            />
+                            <XAxis
+                              dataKey="day"
+                              axisLine={false}
+                              tickLine={false}
+                              tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
+                            />
+                            <YAxis
+                              domain={[0, maxValue]}
+                              axisLine={false}
+                              tickLine={false}
+                              tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
+                              ticks={getNiceTicks(minValue, maxValue)}
+                            />
+                            <Tooltip />
+                            <Line
+                              type="monotone"
+                              dataKey="value"
+                              stroke="rgba(249, 231, 197, 1)"
+                              strokeWidth={2}
+                              dot={{ fill: "rgba(249, 231, 197, 1)", strokeWidth: 2, r: 4 }}
+                              activeDot={{ r: 6, fill: "rgba(249, 231, 197, 1)" }}
+                            />
+                          </LineChart>
+                        </ResponsiveContainer>
                     </div>
                     <div className="chart-info">
                       <h6>العدد</h6>
