@@ -18,6 +18,8 @@ const CategoryForm = ({
   const [questionImages, setQuestionImages] = useState([]);
   const [answersImages, setAnswersImages] = useState([]);
   const [categoryImage, setCategoryImage] = useState([]);
+  const [isCustomGroup, setIsCustomGroup] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -94,17 +96,42 @@ const CategoryForm = ({
           />
           {errors.description && <p style={{ color: "red" }}>{errors.description.message}</p>}
         </div>
-        <div className="input-content" style={{ width: "100%" }}>
-          <label htmlFor="level-select"> المجموعة</label>
-          <select id="level-select" {...register("group", { required: "اختار مجموعة للسؤال" })}>
-            <option value="">اختر المجموعة</option>
-            {groups.map((group) => (
-              <option key={group} value={group}>
-                {group}
-              </option>
-            ))}
-          </select>
+        <div className="input-content input-group-section" style={{ width: "100%" }}>
+          <label>المجموعة</label>
+          {!isCustomGroup ? (
+            <select {...register("group", { required: "اختار مجموعة للسؤال" })}>
+              <option value="">اختر المجموعة</option>
+              {groups.map((group) => (
+                <option key={group} value={group}>
+                  {group}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type="text"
+              placeholder="اكتب اسم المجموعة الجديدة"
+              {...register("group", { required: "اسم المجموعة مطلوب" })}
+            />
+          )}
           {errors.group && <p style={{ color: "red" }}>{errors.group.message}</p>}
+          <button
+            type="button"
+            className="switch-group-state"
+            onClick={() => setIsCustomGroup((prev) => !prev)}
+            style={{
+              marginTop: "6px",
+              background: "#8b3e1f",
+              border: "1px solid #8b3e1f",
+              color: "#ffd28a",
+              padding: "4px 8px",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "14px",
+            }}
+          >
+            {isCustomGroup ? "اختر من القائمة" : "اكتب مجموعة جديدة"}
+          </button>
         </div>
         <div className="input-content" style={{ width: "49%" }}>
           <label htmlFor="">ملف الاسئلة والاجوبة</label>

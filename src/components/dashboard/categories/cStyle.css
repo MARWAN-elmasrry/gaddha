@@ -1,52 +1,62 @@
-.cate .cards .card{
-position: relative;
-    background-color: rgba(136, 56, 19, 1);
-    border-radius: 10 px;
-    padding: 1.4rem;
-    margin-top: 80px;
-    width: 100%;
-    height: max-content;
-    color: rgba(249, 231, 197, 1);
-    font-weight: 700;
-    margin-bottom: 100px;
+.cate .cards .card {
+  position: relative;
+  background-color: rgba(136, 56, 19, 1);
+  border-radius: 10 px;
+  padding: 1.4rem;
+  margin-top: 80px;
+  width: 100%;
+  height: max-content;
+  color: rgba(249, 231, 197, 1);
+  font-weight: 700;
+  margin-bottom: 100px;
 }
-.cate .cards .card .card-num{
-    width: 50px;
-    height: 50px;
-    background-color: rgba(136, 56, 19, 1);
-    transform: rotate(45deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: -25px;
-    left: -26px;
+.cate .cards .card .card-num {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(136, 56, 19, 1);
+  transform: rotate(45deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -25px;
+  left: -26px;
 }
-.cate .cards .card .card-num .number{
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    transform: rotate(-45deg);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+.cate .cards .card .card-num .number {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  transform: rotate(-45deg);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
-.cate .cards .card .card-info{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.cate .cards .card .card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.cate .cards .card .card-info p{
-    margin: 0;
-    opacity: .6;
-    font-size: 1.3rem;
+.cate .cards .card .card-info p {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 1.3rem;
 }
-.cate .card button{
-        width: 91.08820343017578;
-    height: 51.096580505371094;
-    border-radius: 45px;
-    padding: 5px 23px;
-    color: rgba(249, 231, 197, 1);
-    font-size: 1.7rem;
-    border: none;
-    border-radius: 45px;
-    background: linear-gradient(90deg, rgba(207, 138, 65, 0.1) 37.5%, #CF8A41 100%);
+.cate .card button {
+  width: 91.08820343017578;
+  height: 51.096580505371094;
+  border-radius: 45px;
+  padding: 5px 23px;
+  color: rgba(249, 231, 197, 1);
+  font-size: 1.7rem;
+  border: none;
+  border-radius: 45px;
+  background: linear-gradient(90deg, rgba(207, 138, 65, 0.1) 37.5%, #cf8a41 100%);
+}
+.input-group-section {
+  position: relative;
+}
+.input-group-section .switch-group-state {
+  width: 100px;
+  position: absolute;
+  left: 40px;
+  top: 15px;
+  z-index: 100;
 }
