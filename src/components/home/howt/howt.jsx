@@ -1,6 +1,17 @@
+import { useState, useEffect } from "react";
 import "./hStyle.css";
 
 const Howt = () => {
+  const images = ["./pc.png", "./lap.png"]; 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <div className="how">
@@ -20,9 +31,14 @@ const Howt = () => {
             </div>
             <div className="how-w-cont">
               <h4>
-                {" "}
-                <img src="./pc.png" alt="" /> اذا تبون تجربة افضل استخدمو شاشة كبيره مثل:{" "}
-                <img src="./lap.png" alt="" /> أو{" "}
+                {"  "}
+                <img
+                  key={currentIndex}
+                  src={images[currentIndex]}
+                  alt="device"
+                  className="fade-img"
+                />
+                  اذا تبون تجربة افضل استخدمو شاشة كبيره مثل
               </h4>
             </div>
           </div>

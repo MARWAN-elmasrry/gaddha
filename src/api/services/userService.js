@@ -224,3 +224,13 @@ export const getGroups = async () => {
     throw error.response?.data?.message || error.message || "خطأ فى جلب المجموعات";
   }
 };
+// last three cate
+export const LatestThreeCate = async () => {
+  try {
+    const response = await api.get("/user/latest-three-categories");
+    console.log(response)
+    return response.data.categories;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب المجموعات";
+  }
+};

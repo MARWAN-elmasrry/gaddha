@@ -10,7 +10,7 @@ const Hero =()=>{
                         <div className="info-f">
                             <h2>لعبة تفاعلية من قلب السعودية</h2>
                             <h3>قدها ولابس سوالف؟</h3>
-                            <StartBtn />
+                                {/* <StartBtn /> */}
                         </div>
                         <img src="./hero.png" alt="" />
                         <img src="./herof.png" alt="" />

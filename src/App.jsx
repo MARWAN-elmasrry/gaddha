@@ -141,7 +141,7 @@ export default function App() {
         <ToastContainer />
         <Routes>
           {/* Public routes */}
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage  />} />
           <Route
             path="/contact"
             element={
