@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { gameHistory, startGameCheck } from "../../../api/services/userService";
+import { gameHistory, getGameSession, startGameCheck } from "../../../api/services/userService";
 import "./kgStyle.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setGame } from "../../../gameSlice";
+import { setGame, setGameNames } from "../../../gameSlice";
+import { transformQuestions } from "../../../utils/games";
 
 const Card = ({ game }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [gameSession, setGameSession] = useState([]);
+
   const gameCategories = game.categories.map((cat) => cat._id);
   const selectedCategories = {
     player1Cat1id: gameCategories[0],
@@ -21,21 +24,30 @@ const Card = ({ game }) => {
   const handleCardClick = async () => {
     // Handle card click event
     try {
-      const gameStatus = await startGameCheck();
-      if (gameStatus.message !== "Game started successfully") {
-        toast.error("لا يمكنك بدء لعبة جديدة أثناء وجود لعبة نشطة.");
-        return;
-      }
-      toast.success("تم بدء اللعبة بنجاح.");
-      dispatch(setGame({ selectedCategories }));
-
-      navigate("/start", {
-        replace: true,
-      });
-    } catch {
-      toast.error("لا يمكنك بدء لعبة جديدة أثناء وجود لعبة نشطة.");
-      return;
+      const session = await getGameSession(game.gameSessionId);
+      const gameQuestions = transformQuestions(session, "categories");
+      console.log("gameQuestions", gameQuestions);
+      dispatch(
+        setGame({
+          gameName: game.name,
+          teamOne: "احمد",
+          teamTwo: "محمد",
+          questionBank: gameQuestions,
+        })
+      );
+      // setGameSession(session);
+    } catch (err) {
+      console.error(err);
+      toast.error("خطأ في سحب بيانات الألعاب السابقة");
     }
+    dispatch(
+      setGameNames({
+        gameName: game.name,
+        teamOne: "احمد",
+        teamTwo: "محمد",
+      })
+    );
+    navigate("/game", { replace: true });
   };
   return (
     <div className="card" onClick={handleCardClick} style={{ cursor: "pointer" }}>

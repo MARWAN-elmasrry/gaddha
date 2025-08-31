@@ -164,8 +164,7 @@ export const createGameSession = async (data) => {
   }
 };
 
-
-export const gameHistory = async ()=>{
+export const gameHistory = async () => {
   try {
     const response = await api.get("/user/game-history", {
       headers: {
@@ -176,7 +175,19 @@ export const gameHistory = async ()=>{
   } catch (error) {
     throw error.response?.data?.message || error.message || "خطأ فى جلب تاريخ الالعاب";
   }
-}
+};
+export const getGameSession = async (id) => {
+  try {
+    const response = await api.get(`/user/gameSession/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.session;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب جلسة اللعبة";
+  }
+};
 
 //messages
 
@@ -192,7 +203,18 @@ export const sendMessage = async (data) => {
     throw error.response?.data?.message || error.message || "خطأ فى ارسال الرسالة";
   }
 };
-
+export const myMessagesResponses = async () => {
+  try {
+    const response = await api.get("/user/my-messages-responses", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.messages;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى جلب ردود الرسائل";
+  }
+};
 //groups
 export const getGroups = async () => {
   try {

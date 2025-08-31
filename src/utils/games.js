@@ -1,4 +1,5 @@
 const fillCategory = (questionsByCategory, questionBank) => {
+  console.log("Filling category", questionsByCategory, questionBank);
   for (const [categoryKey, difficulties] of Object.entries(questionsByCategory)) {
     questionBank[categoryKey] = [];
 
@@ -22,11 +23,17 @@ const fillCategory = (questionsByCategory, questionBank) => {
     }
   }
 };
-export const transformQuestions = (session) => {
+export const transformQuestions = (session, fieldAccess = "questions") => {
   const questionBank = {};
-
-  const questionsByPlayer1Category = session.player1.questions;
-  const questionsByPlayer2Category = session.player2.questions;
+  let questionsByPlayer1Category, questionsByPlayer2Category;
+  if (fieldAccess === "questions") {
+    questionsByPlayer1Category = session.player1.questions;
+    questionsByPlayer2Category = session.player2.questions;
+  } else {
+    questionsByPlayer1Category = session.player1.categories;
+    questionsByPlayer2Category = session.player2.categories;
+  }
+  console.log("trans", session, questionsByPlayer1Category, questionsByPlayer2Category);
   fillCategory(questionsByPlayer1Category, questionBank);
   fillCategory(questionsByPlayer2Category, questionBank);
   return questionBank;

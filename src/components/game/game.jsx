@@ -93,10 +93,10 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
   );
 }
 
-function FavoriteCate() {
+function FavoriteCate({ selected, setSelected }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState([]);
+  // const [selected, setSelected] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -346,7 +346,9 @@ const Game = () => {
                     setActiveGroup={setActiveGroup}
                   />
                 )}
-                {activeTab === "favorites" && <FavoriteCate />}
+                {activeTab === "favorites" && (
+                  <FavoriteCate selected={selected} setSelected={setSelected} />
+                )}
               </div>
             </div>
           </div>
