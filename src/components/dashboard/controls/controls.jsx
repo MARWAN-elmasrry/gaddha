@@ -11,6 +11,8 @@ const Controls = () => {
   });
   const [userCoinsData, setUserCoinsData] = useState({ userId: "", coins: "", errors: "" });
   const [addAdminData, setAddAdminData] = useState({ username: "", email: "",password: "", privileges: [] });
+  // const [user,setUser] = useState("")
+  // const [userHistory, setUserHistory ] = useState([]);
   
   const handleGiftUserCoins = async () => {
     try {
@@ -44,6 +46,17 @@ const Controls = () => {
       console.error("Error adding admin", error);
     }
   }
+
+// const handleGetHistory = async () => {
+//   try {
+//     const history = await getUserGameHistory(user);
+//     setUserHistory(history); 
+//     console.log(history)
+//   } catch (error) {
+//     toast.error("حدث خطأ");
+//     console.error("Error getting history:", error);
+//   }
+// };
 
   const handleTogglePrivilege = (privilege) => {
     setAddAdminData((prev) => {
@@ -176,54 +189,29 @@ const Controls = () => {
               <div className="card">
                 <div className="info">
                   <div className="btn">
-                    <button className="color" onClick={handleGetUserCoins}>
+                    {/* onClick={handleGetHistory} */}
+                    <button className="color"  >
                       عرض
-                    </button>
-                    <button
-                      className="no-color"
-                      onClick={() => {
-                        setUserCoinsData({ userId: "", coins: "", errors: "" });
-                      }}
-                    >
-                      اعادة تهيئة
                     </button>
                   </div>
                   <h2>عرض الألعاب السابقة</h2>
                 </div>
                 <div className="inputs">
+                  {/* <input
+                    type="text"
+                    placeholder=" ID إيميل رقم الهاتف أو"
+                    dir="rtl"
+                    value={user}
+                    onChange= {(e) => setUser(e.target.value)}
+                  /> */}
                   <input
                     type="text"
                     placeholder=" ID إيميل رقم الهاتف أو"
                     dir="rtl"
-                    value={userCoinsData.userId}
-                    onChange={(e) =>
-                      setUserCoinsData((prev) => ({ ...prev, userId: e.target.value }))
-                    }
                   />
                   {userCoinsData.coins && (
                     <div style={{ direction: "rtl", fontSize: "18px" }}>
-                      <h2
-                        style={{
-                          direction: "rtl",
-                          textAlign: "right",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                          paddingRight: "14px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                          }}
-                        >
-                          <span className="coin"></span>
-                          {userCoinsData.coins}
-                        </span>
-                        لعبة متبقية
-                      </h2>
+                        
                     </div>
                   )}
                 </div>

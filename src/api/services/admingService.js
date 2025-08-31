@@ -195,9 +195,27 @@ export const editQuestion = async (data) => {
   }
 };
 
-//control
+// //control
+// export const getUserGameHistory = async (user) => {
+//   console.log(user);
+//   try {
+//     const response = await api.get("/admin/get-user-game-history", {
+//       params: {
+//         identifier: user
+//       },
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     return response.data;
+//   } catch (error) {
+//     throw error.response?.data?.message || "Failed to get history";
+//   }
+// };
+
+
+
 export const addAdmin = async (addAdminData) => {
-  console.log(addAdminData)
   try {
     const response = await api.post("/admin/add-admin", addAdminData , {
       headers: {
@@ -287,7 +305,6 @@ export const getAllUsers = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response.data.users);
     return response.data.users;
   } catch (error) {
     throw error.response?.data?.message || "Failed to fetch message";
