@@ -40,6 +40,7 @@ export const ForceUpdateContext = createContext();
 import { ToastContainer } from "react-toastify";
 import CategoryView from "./components/dashboard/categories/category/view";
 import CategoryEdit from "./components/dashboard/categories/category/edit";
+import GameResult from "./components/game/Result";
 
 const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
   <div
@@ -230,6 +231,14 @@ export default function App() {
             element={
               <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
                 <MainGame />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/game/result"
+            element={
+              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                <GameResult />
               </RequireAuth>
             }
           />

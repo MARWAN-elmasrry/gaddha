@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import CategoryTable from "../CategoryTable";
 import "../Category.css";
 import { useEffect, useState } from "react";
-import { getCategoryById } from "../../../../../api/services/admingService";
+import { editCategory, getCategoryById } from "../../../../../api/services/admingService";
 import CustomFileUpload from "../../../../ui/FileUpload";
 import { getGroups } from "../../../../../api/services/userService";
 import { useForm } from "react-hook-form";
@@ -53,20 +53,23 @@ export default function CategoryEdit() {
   }, [id]);
   const onSubmit = async (data) => {
     const formData = new FormData();
+    formData.append("categoryId", id);
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("group", data.group);
 
     if (categoryImage[0]) {
-      formData.append("image", categoryImage[0]);
+      formData.append("categoryImage", categoryImage[0]);
     }
 
-    // try {
-    //   await updateCategory(id, formData);
-    //   toast.success("تم تعديل الفئة بنجاح");
-    // } catch (error) {
-    //   toast.error("حدث خطأ أثناء التعديل");
-    // }
+    try {
+      await editCategory(formData);
+      toast.success("تم تعديل الفئة بنجاح");
+      if (categoryImage[0])
+        setCategory((prev) => ({ ...prev, image: URL.createObjectURL(categoryImage[0]) }));
+    } catch (error) {
+      toast.error("حدث خطأ أثناء التعديل");
+    }
   };
   return (
     <div className="category-container">

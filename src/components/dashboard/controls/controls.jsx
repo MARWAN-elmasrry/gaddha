@@ -11,6 +11,8 @@ const Controls = () => {
   });
   const [userCoinsData, setUserCoinsData] = useState({ userId: "", coins: "", errors: "" });
   const [addAdminData, setAddAdminData] = useState({ userId: "", privileges: [], errors: "" });
+
+  console.log("privileges", addAdminData.privileges);
   const handleGiftUserCoins = async () => {
     try {
       await giftUserCoins({ userId: giftedCoinsData.userId, amount: giftedCoinsData.amount });
@@ -63,7 +65,7 @@ const Controls = () => {
               <div className="cont-info"></div>
             </div>
             <div className="cards">
-              <div className="card">
+              {/* <div className="card">
                 <div className="info">
                   <div className="btn">
                     <button className="color" onClick={handleGiftUserCoins}>
@@ -102,6 +104,61 @@ const Controls = () => {
                   <div style={{ color: "red", direction: "rtl", fontSize: "18px" }}>
                     {giftedCoinsData.errors}
                   </div>
+                </div>
+              </div> */}
+              <div className="card">
+                <div className="info">
+                  <div className="btn">
+                    <button className="color" onClick={handleGetUserCoins}>
+                      عرض
+                    </button>
+                    <button
+                      className="no-color"
+                      onClick={() => {
+                        setUserCoinsData({ userId: "", coins: "", errors: "" });
+                      }}
+                    >
+                      اعادة تهيئة
+                    </button>
+                  </div>
+                  <h2>التحكم في الألعاب المتبقية</h2>
+                </div>
+                <div className="inputs">
+                  <input
+                    type="text"
+                    placeholder=" ID إيميل رقم الهاتف أو"
+                    dir="rtl"
+                    value={userCoinsData.userId}
+                    onChange={(e) =>
+                      setUserCoinsData((prev) => ({ ...prev, userId: e.target.value }))
+                    }
+                  />
+                  {userCoinsData.coins && (
+                    <div style={{ direction: "rtl", fontSize: "18px" }}>
+                      <h2
+                        style={{
+                          direction: "rtl",
+                          textAlign: "right",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                          paddingRight: "14px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "8px",
+                          }}
+                        >
+                          <span className="coin"></span>
+                          {userCoinsData.coins}
+                        </span>
+                        لعبة متبقية
+                      </h2>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="card">

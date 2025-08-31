@@ -565,8 +565,9 @@ const GameResult = ({ currentQA, onBack, setDoublePointsClicked, doublePointsCli
 };
 
 const MainGame = () => {
-  const { questionBank } = useSelector((state) => state.game);
+  const { questionBank, isGameOver, winnerTeam } = useSelector((state) => state.game);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [showQandA, setShowQandA] = useState(false);
   const [currentView, setCurrentView] = useState("question");
@@ -583,32 +584,35 @@ const MainGame = () => {
     setFlippedCard(index);
     setCurrentCategory(category);
   };
-
+  useEffect(() => {
+    console.log("is game over", isGameOver, winnerTeam);
+    if (isGameOver) {
+      console.log("Navigating to game result");
+      navigate("/game/result");
+    }
+  }, [isGameOver, navigate]);
   const handleDifficultyClick = (points) => {
     const categoryQuestions = questionBank[currentCategory] || [];
 
     // Filter questions by points and find unshown ones
     const questionsWithPoints = categoryQuestions.filter((q) => q.points === points);
     const unshownQuestions = questionsWithPoints.filter((q) => !q.shown);
-
-    // If no unshown questions, don't proceed
+    // If no unshown questions, don0't proceed
     if (unshownQuestions.length === 0) {
       console.log(`No more questions available for ${points} points in ${currentCategory}`);
       return;
     }
 
-    // Get a random unshown question
-    const randomQ = unshownQuestions[Math.floor(Math.random() * unshownQuestions.length)];
-
+    // console.log("random question", randomQ);
     // Mark this question as shown in Redux
     dispatch(
       markQuestionAsShown({
         category: currentCategory,
-        question: randomQ,
+        question: unshownQuestions[0],
       })
     );
 
-    setCurrentQA(randomQ);
+    setCurrentQA(unshownQuestions[0]);
     setShowQandA(true);
     setCurrentView("question");
   };

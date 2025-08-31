@@ -19,9 +19,20 @@ const initialState = {
   teamTwo: parsedGame?.teamTwo || "",
   teamOneScore: parsedGame?.teamOneScore || 0,
   teamTwoScore: parsedGame?.teamTwoScore || 0,
-  currentTurn: "1",
-  teamOneHelpers: { phoneCall: true, doublePoints: true, doubleAnswers: true },
-  teamTwoHelpers: { phoneCall: true, doublePoints: true, doubleAnswers: true },
+  currentTurn: parsedGame?.currentTurn || "1",
+  teamOneHelpers: parsedGame?.teamOneHelpers || {
+    phoneCall: true,
+    doublePoints: true,
+    doubleAnswers: true,
+  },
+  teamTwoHelpers: parsedGame?.teamTwoHelpers || {
+    phoneCall: true,
+    doublePoints: true,
+    doubleAnswers: true,
+  },
+  isGameOver: parsedGame?.isGameOver || false,
+  numberOfShownQuestions: parsedGame?.numberOfShownQuestions || 0,
+  winnerTeam: parsedGame?.winnerTeam || null,
 };
 
 const gameSlice = createSlice({
@@ -59,15 +70,15 @@ const gameSlice = createSlice({
     },
     markQuestionAsShown: (state, action) => {
       const { category, question } = action.payload;
-
       const categoryQuestions = state.questionBank[category];
       if (categoryQuestions) {
-        const questionIndex = categoryQuestions.findIndex(
-          (q) => q.q === question.q && q.a === question.a && q.points === question.points
-        );
+        const questionIndex = categoryQuestions.findIndex((q) => q.id === question.id);
 
         if (questionIndex !== -1) {
           state.questionBank[category][questionIndex].shown = true;
+          state.numberOfShownQuestions += 1;
+          console.log("Number of shown questions:", state.numberOfShownQuestions);
+
           localStorage.setItem("gameData", JSON.stringify(state));
         }
       }
@@ -82,6 +93,15 @@ const gameSlice = createSlice({
       }
 
       localStorage.setItem("gameData", JSON.stringify(state));
+      if (state.numberOfShownQuestions >= 3) {
+        state.isGameOver = true;
+        state.winnerTeam =
+          state.teamOneScore > state.teamTwoScore
+            ? "teamOne"
+            : state.teamTwoScore > state.teamOneScore
+            ? "teamTwo"
+            : "draw";
+      }
     },
     adjustScore: (state, action) => {
       const { team, operation } = action.payload;

@@ -27,7 +27,6 @@ export const getAllReports = async () => {
   }
 };
 
-
 export const reportReply = async (id, reply) => {
   try {
     const response = await api.post(
@@ -57,7 +56,6 @@ export const reportAsSeen = async (id) => {
     throw error.response?.data?.message || "Failed to mark report as seen";
   }
 };
-
 
 //vouchers
 export const getVouchers = async () => {
@@ -155,6 +153,20 @@ export const toggleCategoryVisibility = async (categoryId) => {
     throw error.response?.data?.message || "Failed to toggle category visibility";
   }
 };
+export const editCategory = async (formData) => {
+  try {
+    const response = await api.post("/admin/edit-category", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to edit category";
+  }
+};
+
 //questions
 export const getQuestionById = async (id) => {
   try {
@@ -239,8 +251,8 @@ export const getAllMessages = async () => {
 export const messageReply = async (id, reply) => {
   try {
     const response = await api.post(
-      `/admin/respond-to-message`, 
-      { messageId: id, responseText: reply }, 
+      `/admin/respond-to-message`,
+      { messageId: id, responseText: reply },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -251,20 +263,20 @@ export const messageReply = async (id, reply) => {
   }
 };
 
-export const messageAsSeen = async(id) =>{
+export const messageAsSeen = async (id) => {
   try {
-      const response = await api.post(
-        `/admin/mark-message-as-seen`, 
-        { messageId: id }, 
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      throw error.response?.data?.message || "Failed to reply message";
-    }
-}
+    const response = await api.post(
+      `/admin/mark-message-as-seen`,
+      { messageId: id },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to reply message";
+  }
+};
 
 //users
 export const getAllUsers = async () => {
@@ -294,7 +306,7 @@ export const getUserCount = async () => {
   }
 };
 // Sales
-export const getTotalSoldGames = async () =>{
+export const getTotalSoldGames = async () => {
   try {
     const response = await api.get(`/admin/total-sold-games`, {
       headers: {
@@ -305,9 +317,9 @@ export const getTotalSoldGames = async () =>{
   } catch (error) {
     throw error.response?.data?.message || "Failed to fetch message";
   }
-}
+};
 
-export const getTotalProfit = async () =>{
+export const getTotalProfit = async () => {
   try {
     const response = await api.get(`/admin/total-profit`, {
       headers: {
@@ -318,7 +330,7 @@ export const getTotalProfit = async () =>{
   } catch (error) {
     throw error.response?.data?.message || "Failed to fetch message";
   }
-}
+};
 
 export const getGamesSoldCounts = async () => {
   try {
