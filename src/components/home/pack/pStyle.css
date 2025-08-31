@@ -62,15 +62,13 @@
 }
 
 .pack .pack-cont .card:hover .top {
-  transform: rotate(65deg) scale(1.1);
-      right: 53px;
-    top: 37px;
+    right: 66px;
+    top: 56px;
 }
 
 .pack .pack-cont .card:hover .center {
-  transform: rotate(65deg) scale(1.3);
-  right: 74px;
-    top: 212px;
+  right: 114px;
+  top: 221px;
 }
 
 
