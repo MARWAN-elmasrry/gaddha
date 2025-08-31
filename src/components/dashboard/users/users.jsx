@@ -1,13 +1,15 @@
 import { getAllUsers } from "../../../api/services/admingService";
 import "./uStyle.css";
 import { useEffect, useState } from "react";
-import coins from '../../../../public/ydot.png';
-import searchIcon from '../../../../public/search.png'
+import coins from "../../../../public/ydot.png";
+import searchIcon from "../../../../public/search.png";
 import { toast } from "react-toastify";
-
+import UserForm from "./UserForm";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
+  const [openUserForm, setOpenUserForm] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +18,7 @@ const Users = () => {
         setUsers(data);
       } catch (err) {
         console.error(err);
-        toast.error("خطا غى سحب البيانات")
+        toast.error("خطا غى سحب البيانات");
       }
     };
 
@@ -44,17 +46,22 @@ const Users = () => {
   };
 
   // فلترة المستخدمين حسب البحث
- const filteredUsers = users.filter((u) => {
-  return (
-    (u.name?.toLowerCase() || "").includes(search.toLowerCase()) ||
-    (u.username?.toLowerCase() || "").includes(search.toLowerCase()) ||
-    (u.email?.toLowerCase() || "").includes(search.toLowerCase())
-  );
-});
+  const filteredUsers = users.filter((u) => {
+    return (
+      (u.name?.toLowerCase() || "").includes(search.toLowerCase()) ||
+      (u.username?.toLowerCase() || "").includes(search.toLowerCase()) ||
+      (u.email?.toLowerCase() || "").includes(search.toLowerCase())
+    );
+  });
 
   return (
     <>
       <div className="users">
+        <UserForm
+          open={openUserForm}
+          user={selectedUser}
+          handleClose={() => setOpenUserForm(false)}
+        />
         <div className="container">
           <div className="users-cont">
             <div className="h-cont">
@@ -94,13 +101,22 @@ const Users = () => {
               {filteredUsers.map((user) => (
                 <div className="card" key={user._id}>
                   <div className="card-info">
-                    <button>عرض</button>
+                    <button
+                      onClick={() => {
+                        setSelectedUser(user);
+                        setOpenUserForm(true);
+                      }}
+                    >
+                      عرض
+                    </button>
                     <div className="contant-info">
                       <p>{calculateAge(user.birthday)}</p>
                       <p>{user.countryCode + user.phone}</p>
                     </div>
                     <div className="main-info">
-                      <p>{user.coins} <img src={coins} style={{width:25}} /></p>
+                      <p>
+                        {user.coins} <img src={coins} style={{ width: 25 }} />
+                      </p>
                       <p>{user.username}</p>
                       <h5>{user.name}</h5>
                     </div>
@@ -112,9 +128,7 @@ const Users = () => {
               ))}
 
               {filteredUsers.length === 0 && (
-                <h1 style={{ textAlign: "center", marginTop: "20px" }}>
-                  لا يوجد مستخدمين
-                </h1>
+                <h1 style={{ textAlign: "center", marginTop: "20px" }}>لا يوجد مستخدمين</h1>
               )}
             </div>
           </div>

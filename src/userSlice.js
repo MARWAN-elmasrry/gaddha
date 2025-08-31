@@ -36,6 +36,7 @@ const userSlice = createSlice({
       localStorage.removeItem("authData");
       localStorage.removeItem("token");
       localStorage.clear();
+      Object.assign(state, { user: null, loginType: null });
     },
   },
 });

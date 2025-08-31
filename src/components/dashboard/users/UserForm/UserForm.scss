@@ -1,0 +1,38 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 15px;
+
+  .user-field {
+    display: flex;
+    justify-content: space-between;
+    background: #fdf7f2; // بيج فاتح
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: 1px solid #d1bfa7; // بيج غامق
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    .label {
+      font-weight: bold;
+      color: #5a2e1d; // بني غامق
+    }
+
+    .value {
+      color: #3c2a20; // بني متوسط
+      font-size: 0.95rem;
+    }
+
+    .status {
+      font-weight: bold;
+
+      &.verified {
+        color: #2e7d32; // أخضر للتفعيل
+      }
+
+      &.not-verified {
+        color: #c62828; // أحمر لغير مفعل
+      }
+    }
+  }
+}

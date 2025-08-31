@@ -1,0 +1,32 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 15px;
+}
+.user-form .user-field {
+  display: flex;
+  justify-content: space-between;
+  background: #fdf7f2;
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: 1px solid #d1bfa7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.user-form .user-field .label {
+  font-weight: bold;
+  color: #5a2e1d;
+}
+.user-form .user-field .value {
+  color: #3c2a20;
+  font-size: 0.95rem;
+}
+.user-form .user-field .status {
+  font-weight: bold;
+}
+.user-form .user-field .status.verified {
+  color: #2e7d32;
+}
+.user-form .user-field .status.not-verified {
+  color: #c62828;
+}

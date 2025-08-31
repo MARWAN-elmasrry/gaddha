@@ -29,7 +29,7 @@ const Header = () => {
       }
     };
 
-    fetchData();
+    if (user) fetchData();
   }, []);
 
   const menuItems = [
