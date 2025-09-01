@@ -24,7 +24,6 @@
   position: relative;
   width: 300px;
   height: 280px;
-  color: #53210A;
 }
 
 .pack .pack-cont .card .main {
@@ -38,16 +37,10 @@
   cursor: pointer;
 }
 
-.pack .pack-cont .card .top,
-.pack .pack-cont .card .center {
+.pack .pack-cont .card .top {
   background-color: #f4be32;
   -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
   position: absolute;
-  transition: all 0.4s ease; 
-}
-
-.pack .pack-cont .card .top {
   right: 34px;
   top: 17px;
   width: 80px;
@@ -55,22 +48,14 @@
 }
 
 .pack .pack-cont .card .center {
+  background-color: #f4be32;
+  -webkit-transform: rotate(45deg);
+  position: absolute;
   right: 6px;
   top: 130px;
   width: 30px;
   height: 30px;
 }
-
-.pack .pack-cont .card:hover .top {
-    right: 66px;
-    top: 56px;
-}
-
-.pack .pack-cont .card:hover .center {
-  right: 114px;
-  top: 221px;
-}
-
 
 .pack .pack-cont .card .main h5 {
   -webkit-transform: rotate(315deg);
@@ -155,4 +140,162 @@
   .pack-cont .cards {
     display: block !important;
   }
+}
+.dialog-header {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.dialog-header .close-btn {
+  background: none !important;
+  border: none !important;
+  font-size: 1.2rem !important;
+  cursor: pointer !important;
+  color: #5a2e1d !important;
+}
+
+.dialog-content {
+  margin-top: 20px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.dialog-content .address-form,
+.dialog-content .payment-form {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  flex-wrap: wrap;
+}
+.dialog-content label {
+  display: flex !important;
+  flex-direction: column !important;
+  font-size: 0.9rem !important;
+  color: #5a2e1d !important;
+  width: 45%;
+  gap: 8px;
+}
+.dialog-content label input {
+  padding: 10px 12px !important;
+  border-radius: 8px !important;
+  background-color: rgba(255, 215, 179, 0.1) !important;
+  font-size: 15px !important;
+  outline: none !important;
+  transition: 0.3s ease !important;
+}
+.dialog-content label input:focus {
+  border-color: #ffd28a !important;
+  background-color: rgba(255, 215, 179, 0.2) !important;
+}
+.dialog-content .actions {
+  display: flex !important;
+  gap: 10px !important;
+  width: 100%;
+  justify-content: center;
+}
+.dialog-content .actions .next-btn,
+.dialog-content .actions .back-btn,
+.dialog-content .actions .confirm-btn {
+  padding: 8px !important;
+  border-radius: 24px !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+  transition: 0.3s !important;
+  margin: 0 !important;
+  width: 150px;
+  font-size: 18px;
+}
+.dialog-content .actions .next-btn {
+  background: #8b3e1f !important;
+  color: #fff !important;
+}
+.dialog-content .actions .next-btn:hover {
+  background: #6d2f17 !important;
+}
+.dialog-content .actions .back-btn {
+  background: #d1bfa7 !important;
+  color: #3c2a20 !important;
+}
+.dialog-content .actions .back-btn:hover {
+  background: #c7af8f !important;
+}
+.dialog-content .actions .confirm-btn {
+  background: #2e7d32 !important;
+  color: #fff !important;
+}
+.dialog-content .actions .confirm-btn:hover {
+  background: #1b5e20 !important;
+}
+.dialog-content .payment-iframe {
+  border: none !important;
+  height: 250px !important;
+  width: 100% !important;
+  border-radius: 12px !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.stepper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin: 20px 0 !important;
+}
+.stepper .step {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.stepper .step .circle {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  border: 2px solid #d1bfa7 !important;
+  background: #fff !important;
+  color: #5a2e1d !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  position: relative !important;
+  transition: 0.3s ease !important;
+}
+.stepper .step span {
+  margin-top: 6px !important;
+  font-size: 16px !important;
+  color: #9a7b5c !important;
+  font-weight: 500 !important;
+}
+.stepper .step.active .circle {
+  background: #8b3e1f !important;
+  color: #fff !important;
+  border-color: #8b3e1f !important;
+}
+.stepper .step.active span {
+  color: #8b3e1f !important;
+  font-weight: bold !important;
+}
+.stepper .step.done .circle {
+  background: #d1bfa7 !important;
+  color: #fff !important;
+  border-color: #d1bfa7 !important;
+}
+.stepper .step.done span {
+  color: #5a2e1d !important;
+}
+.stepper .line {
+  flex: 1 !important;
+  height: 2px !important;
+  background: #d1bfa7 !important;
+  transition: background 0.3s ease !important;
+  width: 100px;
+}
+.stepper .line.active {
+  background: #8b3e1f !important;
+}
+.stepper .line.done {
+  background: #d1bfa7 !important;
 }

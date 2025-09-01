@@ -44,22 +44,18 @@ export const passUser = async (oldPassword, newPassword) => {
   }
 };
 
-export const createPayment = async (price) => {
+export const createPayment = async (data) => {
   const rawToken = localStorage.getItem("token");
   let token;
   if (rawToken) {
     token = rawToken.startsWith('"') && rawToken.endsWith('"') ? rawToken.slice(1, -1) : rawToken;
   } else return;
   try {
-    const response = await api.post(
-      "/user/create-payment",
-      { price },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await api.post("/user/create-payment", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log("response", response.data);
     return response.data;
   } catch (error) {
@@ -228,7 +224,7 @@ export const getGroups = async () => {
 export const LatestThreeCate = async () => {
   try {
     const response = await api.get("/user/latest-three-categories");
-    console.log(response)
+    console.log(response);
     return response.data.categories;
   } catch (error) {
     throw error.response?.data?.message || error.message || "خطأ فى جلب المجموعات";

@@ -23,7 +23,7 @@ const CategoryForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       categoryName: initialData ? initialData.categoryName : "",
@@ -35,8 +35,6 @@ const CategoryForm = ({
     setOpen(false);
   };
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log("files", questionsAnswersFile, questionImages);
     if (mode === "create") {
       const formData = new FormData();
       formData.append("categoryName", data.categoryName);
