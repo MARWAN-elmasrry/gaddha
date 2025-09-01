@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 import api from "../axios";
 let token = null;
 const rawToken = localStorage.getItem("token");
@@ -77,6 +78,16 @@ export const verifyOtp = async (data) => {
     throw error.response?.data?.message || error.message || "خطأ فى التحقق من OTP";
   }
 };
+
+export const resendOtp = async(data)=>{
+  try {
+    console.log("data in service", data);
+    const response = await api.post("/user/resend-otp", data);
+    return response.data?.user || response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى التحقق من OTP";
+  }
+}
 
 //categories
 export const getCategories = async () => {

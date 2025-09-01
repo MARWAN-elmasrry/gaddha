@@ -64,7 +64,7 @@
   border: none;
   background: linear-gradient(90deg, rgba(136, 56, 19, 0.1) 37.5%, #883813 100%);
   cursor: pointer;
-  transition: transform 0.4s ease , box-shadow 0.4s ease ;
+  transition: transform 0.3s ease , box-shadow 0.3s ease ;
 }
 
 .back-img .info-f button:hover {
