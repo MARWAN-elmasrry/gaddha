@@ -56,7 +56,6 @@ const Sign = () => {
         birthday: birthdate,
       });
       setOtpStep(true);
-      // navigate("/login");
     } catch (err) {
       setError(err.message || "خطأ في تسجيل ");
     } finally {
