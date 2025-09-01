@@ -147,7 +147,6 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
   };
 
   const handleFavoriteClick = async (id) => {
-    console.log("reach that categorie favorite", id);
     try {
       await toggleCategoryFavorite(id);
     } catch (error) {
@@ -170,6 +169,7 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
         qa: QUESTION_BANK[id] || [],
       })),
       questionBank: QUESTION_BANK,
+      isNewGame: true,
     };
 
     dispatch(setGame(payload));

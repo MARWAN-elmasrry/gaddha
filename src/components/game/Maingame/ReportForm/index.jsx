@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { createReport } from "../../../../api/services/userService";
 
 const ReportForm = ({ open, setOpen, questionId }) => {
-  console.log("from report forom", questionId);
   const {
     register,
     handleSubmit,

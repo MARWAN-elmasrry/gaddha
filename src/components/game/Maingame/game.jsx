@@ -585,9 +585,7 @@ const MainGame = () => {
     setCurrentCategory(category);
   };
   useEffect(() => {
-    console.log("is game over", isGameOver, winnerTeam);
     if (isGameOver) {
-      console.log("Navigating to game result");
       navigate("/game/result");
     }
   }, [isGameOver, navigate]);

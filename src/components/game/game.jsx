@@ -9,13 +9,11 @@ import "./mgStyle.css";
 import { toast } from "react-toastify";
 
 import {
-  createGameSession,
   getFavoriteCategories,
   getGroups,
   startGameCheck,
   toggleCategoryFavorite,
 } from "../../api/services/userService";
-import { transformQuestions } from "../../utils/games";
 
 const CATEGORIES = [
   {
@@ -258,7 +256,7 @@ const Game = () => {
     }
     const payload = {
       selectedCategories,
-      // questionBank: gameQuestions,
+      isNewGame: true,
     };
 
     dispatch(setGame(payload));

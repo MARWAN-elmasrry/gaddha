@@ -10,41 +10,52 @@ const Start = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { gameName, teamOne, teamTwo, selectedCategories } = useSelector((state) => state.game);
-
+  const { gameName, teamOne, teamTwo, selectedCategories, isNewGame } = useSelector(
+    (state) => state.game
+  );
   const [localGameName, setLocalGameName] = useState(gameName);
   const [localTeamOne, setLocalTeamOne] = useState(teamOne);
   const [localTeamTwo, setLocalTeamTwo] = useState(teamTwo);
   let gameQuestions;
 
   const handleSave = async () => {
-    console.log("Saving game session...", selectedCategories);
-    try {
-      const session = (await createGameSession({ ...selectedCategories, gameName: localGameName }))
-        .session;
-      gameQuestions = transformQuestions(session);
+    if (isNewGame) {
+      try {
+        const session = (
+          await createGameSession({ ...selectedCategories, gameName: localGameName })
+        ).session;
+        gameQuestions = transformQuestions(session);
+        dispatch(
+          setGame({
+            gameName: localGameName,
+            teamOne: localTeamOne,
+            teamTwo: localTeamTwo,
+            questionBank: gameQuestions,
+          })
+        );
+
+        toast.success("تم إنشاء جلسة اللعبة بنجاح");
+      } catch (error) {
+        console.log("Error creating game session:", error);
+        toast.error("حدث خطأ أثناء إنشاء جلسة اللعبة");
+        return;
+      }
       dispatch(
-        setGame({
+        setGameNames({
           gameName: localGameName,
           teamOne: localTeamOne,
           teamTwo: localTeamTwo,
-          questionBank: gameQuestions,
         })
       );
-
-      toast.success("تم إنشاء جلسة اللعبة بنجاح");
-    } catch (error) {
-      console.log("Error creating game session:", error);
-      toast.error("حدث خطأ أثناء إنشاء جلسة اللعبة");
-      return;
+    } else {
+      dispatch(
+        setGameNames({
+          gameName: gameName,
+          teamOne: localTeamOne,
+          teamTwo: localTeamTwo,
+        })
+      );
     }
-    dispatch(
-      setGameNames({
-        gameName: localGameName,
-        teamOne: localTeamOne,
-        teamTwo: localTeamTwo,
-      })
-    );
     navigate("/game", { replace: true });
   };
 
@@ -74,19 +85,21 @@ const Start = () => {
             </div>
             <h2 className="start-title">اختر الأسامي ولا نشوف مين قدها</h2>
             <div className="start-input-group">
-              <div className="start-input-row">
-                <span className="start-icon">
-                  <img src="./offerv2.png" alt="" />
-                </span>
-                <input
-                  className="start-input"
-                  type="text"
-                  placeholder="اسم اللعبة"
-                  dir="rtl"
-                  value={localGameName}
-                  onChange={(e) => setLocalGameName(e.target.value)}
-                />
-              </div>
+              {isNewGame && (
+                <div className="start-input-row">
+                  <span className="start-icon">
+                    <img src="./offerv2.png" alt="" />
+                  </span>
+                  <input
+                    className="start-input"
+                    type="text"
+                    placeholder="اسم اللعبة"
+                    dir="rtl"
+                    value={localGameName}
+                    onChange={(e) => setLocalGameName(e.target.value)}
+                  />
+                </div>
+              )}
 
               <div className="start-input-row">
                 <span className="start-icon">

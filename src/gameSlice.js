@@ -33,6 +33,7 @@ const initialState = {
   isGameOver: parsedGame?.isGameOver || false,
   numberOfShownQuestions: parsedGame?.numberOfShownQuestions || 0,
   winnerTeam: parsedGame?.winnerTeam || null,
+  isNewGame: parsedGame?.isNewGame || false,
 };
 
 const gameSlice = createSlice({
@@ -40,21 +41,26 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     setGame: (state, action) => {
-      state.selectedCategories = action.payload.selectedCategories;
-      state.questionBank = action.payload.questionBank;
+      state.selectedCategories = action.payload.selectedCategories
+        ? action.payload.selectedCategories
+        : state.selectedCategories;
+      state.questionBank = action.payload.questionBank
+        ? action.payload.questionBank
+        : state.questionBank;
       state.gameName = action.payload.gameName || state.gameName;
       state.teamOne = action.payload.teamOne || state.teamOne;
       state.teamTwo = action.payload.teamTwo || state.teamTwo;
+      state.isNewGame =
+        action.payload.isNewGame !== undefined ? action.payload.isNewGame : state.isNewGame;
       // Reset scores when starting a new game
       state.teamOneScore = 0;
       state.teamTwoScore = 0;
-
       localStorage.setItem("gameData", JSON.stringify(state));
     },
     setGameNames: (state, action) => {
-      state.gameName = action.payload.gameName;
-      state.teamOne = action.payload.teamOne;
-      state.teamTwo = action.payload.teamTwo;
+      state.gameName = action.payload.gameName || state.gameName;
+      state.teamOne = action.payload.teamOne || state.teamOne;
+      state.teamTwo = action.payload.teamTwo || state.teamTwo;
 
       localStorage.setItem("gameData", JSON.stringify(state));
     },
@@ -77,7 +83,6 @@ const gameSlice = createSlice({
         if (questionIndex !== -1) {
           state.questionBank[category][questionIndex].shown = true;
           state.numberOfShownQuestions += 1;
-          console.log("Number of shown questions:", state.numberOfShownQuestions);
 
           localStorage.setItem("gameData", JSON.stringify(state));
         }
