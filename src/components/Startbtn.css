@@ -9,37 +9,44 @@
   width: 20px;
   height: 20px;
   background-color: transparent;
-  opacity: 0;                     /* مخفي */
-  transition: all 0.6s ease;      /* حركة سلسة */
+  opacity: 0;                     
+  transition: all 0.1s ease;      
 }
 
+/* ====== تأخير كل عنصر ====== */
+.btn-play .an1 { transition-delay: 0s; }
+.btn-play .an2 { transition-delay: 0.1s; }
+.btn-play .an3 { transition-delay: .2s; }
+.btn-play .an4 { transition-delay: .3s; }
+
+/* عند الـ hover */
 .btn-play:hover .an {
   opacity: 1;
 }
 
 .btn-play:hover .an1 {
-background-color: #000000  ;
+  background-color: #000000;
   top: 78px;
   left: 68px;
   rotate: 70deg;
 }
 
 .btn-play:hover .an2 {
-    background-color: #853510 ;
+  background-color: #853510;
   top: 93px;
   left: 104px;
   rotate: 143deg;
 }
 
 .btn-play:hover .an3 {
-    background-color: #f4be32;
+  background-color: #f4be32;
   top: 93px;
   left: 141px;
   rotate: 125deg;
 }
 
 .btn-play:hover .an4 {
-    background-color: #f9e7c5;
+  background-color: #f9e7c5;
   top: 81px;
   left: 176px;
   rotate: 102deg;
