@@ -10,7 +10,6 @@ const ReportForm = ({ open, setOpen, question }) => {
   const [questionFile, setQuestionFile] = useState([]);
   const [answerFile, setAnswerFile] = useState([]);
   const questionId = question?._id;
-  console.log("questionFile from Question form:", questionFile);
   const {
     register,
     handleSubmit,
@@ -36,7 +35,6 @@ const ReportForm = ({ open, setOpen, question }) => {
     });
   }, [questionId, reset]);
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const formData = new FormData();
       formData.append("questionId", questionId);
