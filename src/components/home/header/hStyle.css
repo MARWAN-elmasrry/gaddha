@@ -121,7 +121,13 @@ li:first-child.active a {
   color: #f9e7c5;
   transition: 0.3s;
 }
-
+.notification-btn{
+  transition: none;
+}
+.notification-btn:hover{
+  transform: none;
+  box-shadow: none;
+}
 .side-menu ul li a:hover {
   padding-left: 25px;
 }
