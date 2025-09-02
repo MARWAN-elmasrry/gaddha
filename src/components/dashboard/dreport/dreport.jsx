@@ -24,10 +24,10 @@ const Dreport = () => {
         toast.error("خطأ في سحب البيانات");
       }
     };
-
+    
     fetchData();
   }, []);
-
+  
   const formatDate = (isoString) => {
     const date = new Date(isoString);
     return date.toLocaleString("ar-EG", {
@@ -128,7 +128,9 @@ const Dreport = () => {
                   <div className="report-info">
                     <h4>أيقونة: لا</h4>
                     <h4>{difficultyLevels[report.questionId.difficulty]}</h4>
-                    <h4>{report.questionId.category.name}</h4>
+                    <h4>
+                      {report?.questionId?.category?.name ? report.questionId.category.name : "لا يوجد اسم"}
+                    </h4>
                   </div>
                   <div className="contact-info">
                     <p>{report.userId.email}</p>
