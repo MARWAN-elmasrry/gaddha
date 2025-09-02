@@ -111,76 +111,85 @@ const Dreport = () => {
           <div className="cards">
             {reports.map((report) => (
               <div className="card" key={report._id}>
-                <div className="card-num">
-                  <span
-                    className="number"
-                    onClick={() => handleMarkAsSeen(report._id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <img src="/delete.png" alt="delete" />
-                  </span>
-                </div>
-                <div className="card-info">
-                  <div className="main-info">
-                    <h3>{formatDate(report.timestamp)}</h3>
-                    <h3>{report.userId.name}</h3>
-                  </div>
-                  <div className="report-info">
-                    <h4>أيقونة: لا</h4>
-                    <h4>{difficultyLevels[report.questionId.difficulty]}</h4>
-                    <h4>
-                      {report?.questionId?.category?.name ? report.questionId.category.name : "لا يوجد اسم"}
-                    </h4>
-                  </div>
-                  <div className="contact-info">
-                    <p>{report.userId.email}</p>
-                    <p>
-                      {report.userId.countryCode} {report.userId.phone}
-                    </p>
-                  </div>
-                  <div className="mess">
-                    {replyingTo === report._id ? (
-                      <textarea
-                        value={replies[report._id] || ""}
-                        onChange={(e) =>
-                          handleChangeReply(report._id, e.target.value)
-                        }
-                        placeholder="اكتب ردك هنا..."
-                        className="reply"
-                        rows={3}
-                      />
-                    ) : (
-                      <p>{report.description}</p>
-                    )}
-                  </div>
+              <div className="card-num">
+                <span
+                  className="number"
+                  onClick={() => handleMarkAsSeen(report._id)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <img src="/delete.png" alt="delete" />
+                </span>
+              </div>
 
+              <div className="card-info">
+                {/* main info */}
+                <div className="main-info">
+                  <h3>{report?.createdAt ? formatDate(report.createdAt) : "لا يوجد تاريخ"}</h3>
+                  <h3>{report?.userId?.name ? report.userId.name : "لا يوجد اسم مستخدم"}</h3>
+                </div>
+
+                {/* report info */}
+                <div className="report-info">
+                  <h4>أيقونة: لا</h4>
+                  <h4>
+                    {report?.questionId?.difficulty !== undefined
+                      ? difficultyLevels[report.questionId.difficulty]
+                      : "لا يوجد مستوى"}
+                  </h4>
+                  <h4>
+                    {report?.questionId?.category?.name
+                      ? report.questionId.category.name
+                      : "لا يوجد اسم"}
+                  </h4>
+                </div>
+                    
+                {/* contact info */}
+                <div className="contact-info">
+                  <p>{report?.userId?.email ? report.userId.email : "لا يوجد ايميل"}</p>
+                  <p>
+                    {report?.userId?.countryCode && report?.userId?.phone
+                      ? `${report.userId.countryCode} ${report.userId.phone}`
+                      : "لا يوجد رقم"}
+                  </p>
+                </div>
+                    
+                {/* message section */}
+                <div className="mess">
                   {replyingTo === report._id ? (
-                    <div className="reply-actions">
-                      <button onClick={() => handleSendReply(report._id)}>
-                        ارسال
-                      </button>
-                      <button onClick={() => setReplyingTo(null)}>
-                        الغاء
-                      </button>
-                    </div>
+                    <textarea
+                      value={replies[report._id] || ""}
+                      onChange={(e) => handleChangeReply(report._id, e.target.value)}
+                      placeholder="اكتب ردك هنا..."
+                      className="reply"
+                      rows={3}
+                    />
                   ) : (
-                    <div className="edit-btn">
-                      <button
-                        className="r-edit"
-                        onClick={() => {
-                          setOpenReportForm(true);
-                          setQuestion(report.questionId);
-                        }}
-                      >
-                        تعديل
-                      </button>
-                      <button onClick={() => handleReply(report._id)}>
-                        رد
-                      </button>
-                    </div>
+                    <p>{report?.description ? report.description : "لا يوجد وصف"}</p>
                   )}
                 </div>
+                
+                {/* reply/edit actions */}
+                {replyingTo === report._id ? (
+                  <div className="reply-actions">
+                    <button onClick={() => handleSendReply(report._id)}>ارسال</button>
+                    <button onClick={() => setReplyingTo(null)}>الغاء</button>
+                  </div>
+                ) : (
+                  <div className="edit-btn">
+                    <button
+                      className="r-edit"
+                      onClick={() => {
+                        setOpenReportForm(true);
+                        setQuestion(report?.questionId || null);
+                      }}
+                    >
+                      تعديل
+                    </button>
+                    <button onClick={() => handleReply(report._id)}>رد</button>
+                  </div>
+                )}
               </div>
+            </div>
             ))}
             {reports.length === 0 && (
               <h1 style={{ textAlign: "center", marginTop: "20px" , color:'#f6e4c3'}}>
