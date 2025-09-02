@@ -9,11 +9,10 @@ const OTPStep = ({ phone, countryCode }) => {
 
   const [otpValues, setOtpValues] = useState(Array(6).fill(""));
   const [formError, setFormError] = useState("");
-  const [timer, setTimer] = useState(300);  
+  const [timer, setTimer] = useState(10);  
 
   const otpString = otpValues.join("");
 
-  // countdown للزر
   useEffect(() => {
     let interval;
     if (timer > 0) {
@@ -40,9 +39,9 @@ const OTPStep = ({ phone, countryCode }) => {
 
   const handleResendOtp = async () => {
     try {
-      await resendOtp({ countryCode, phone });
+      await resendOtp({ countryCode , phone });
       setFormError("تم إرسال الكود مجددًا");
-      setTimer(300); 
+      setTimer(10); 
     } catch (error) {
       setFormError("خطأ أثناء إعادة إرسال الكود");
     }
