@@ -1,0 +1,11 @@
+.privacy .privacy-cont{
+    display: flex;
+    height: 80vh;
+    gap: 5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.privacy .privacy-cont h1{
+    font-size: 6rem;
+}

@@ -41,41 +41,8 @@ import { ToastContainer } from "react-toastify";
 import CategoryView from "./components/dashboard/categories/category/view";
 import CategoryEdit from "./components/dashboard/categories/category/edit";
 import GameResult from "./components/game/Result";
-
-const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
-  <div
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "rgba(207, 138, 65, 1)",
-      zIndex: -1,
-      pointerEvents: "none",
-    }}
-  >
-    {["before", "after"].map((key, i) => (
-      <div
-        key={i}
-        style={{
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "110%",
-          background: `repeating-conic-gradient(#0003 0.000001%, #fff0 .00005%, #fff0 .00035%, #fff0 .00005%),
-                       repeating-conic-gradient(#fff2 0.00002%, #fff0 .00008%, #fff0 .0008%, #fff0 .00008%)`,
-          opacity: intensity,
-          filter: blur + "px" && (key === "after" ? "none" : `blur(${blur}px)`),
-          transform: key === "after" ? "rotate(180deg) scale(5)" : undefined,
-          pointerEvents: "none",
-        }}
-      />
-    ))}
-  </div>
-);
+import { Privacy } from "./components/home/privacy/privacy";
+import { Refund } from "./components/home/refund/refund";
 
 const DashboardLayout = ({ children }) => (
   <>
@@ -88,7 +55,6 @@ const DashboardLayout = ({ children }) => (
 function HomePage() {
   return (
     <>
-      <SandBackground />
       <Header />
       <Hero />
       <What />
@@ -148,6 +114,27 @@ export default function App() {
               <>
                 <Header />
                 <Contact />
+                <Footer />
+              </>
+            }
+          />
+          
+          <Route
+            path="/privacy"
+            element={
+              <>
+                <Header />
+                <Privacy />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/refund"
+            element={
+              <>
+                <Header />
+                <Refund />
                 <Footer />
               </>
             }

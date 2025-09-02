@@ -53,7 +53,12 @@ const Category = () => {
           </div>
 
           <div className="bar-b">
-            <button>عرض المزيد</button>
+            <button className="play"
+            onClick={(e) => {
+          e.preventDefault();
+          window.location.href = "/games";
+        }}
+            >عرض المزيد</button>
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@
 
 .how .how-t-cont {
   padding: 368px  128px 264px 72px;
-  color: #883813;
   display: flex;
   gap: 74px;
   align-items: center;
@@ -45,19 +44,27 @@
 }
 .how .how-t-cont .info > h3 {
   font-size: 40px;
+    color: #883813 !important;
+
 }
 .how .how-t-cont .info > p {
+    color: #883813 !important;
+
   font-size: 38px;
   font-weight: 500;
 }
 
 .how .how-w-cont h4 {
   text-align: center;
-  margin: 0;
-  padding-bottom: 40px;
-  color: #f9e7c5;
-  font-size: 2rem;
-  height: 3rem;
+    margin: 0;
+    padding-bottom: 40px;
+    color: #f9e7c5;
+    font-size: 2rem;
+    display: flex;
+    height: 3rem;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
 }
 .fade-img {
   animation: fadeInOut 3s ease-in-out;
