@@ -99,18 +99,11 @@ h2 {
   align-items: center;
   gap: 2rem;
 }
-
-.cat .cat-cont .bar-b button {
-  width: 91.0882034302;
-  height: 51.0965805054;
-  border-radius: 45px;
-  padding: 5px 23px;
-  color: #f9e7c5;
-  font-size: 1.7rem;
-  border: none;
-  border-radius: 45px;
-  background: linear-gradient(90deg, rgba(136, 56, 19, 0.1) 37.5%, #883813 100%);
+.cat .cat-cont .bar{
+  width: 140px;
+  height: 51.0965805054px;
 }
+
 
 @media (max-width: 600px) {
   .cat-cont .info h1,

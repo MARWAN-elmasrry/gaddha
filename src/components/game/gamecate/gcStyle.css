@@ -51,7 +51,15 @@
   background-position: top;
   border-radius: 22.8px;
   border: 2px solid;
+  cursor: pointer; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.game-cate .cards .card-cate:hover {
+  transform: translate(-7px, -9px);
+  box-shadow: 10px 9px 0px rgba(0, 0, 0, 0.8);
+}
+
 .game-cate .card-cate .card-info {
   height: 100%;
   display: flex;
@@ -73,6 +81,12 @@
 .remove-favorite-btn {
   margin: 1px;
   display: flex;
+transition:none
+}
+.game-cate .card-cate .card-info .select .select-btn,
+.remove-favorite-btn:hover{
+  transform: none;  box-shadow: none;
+
 }
 .game-cate .card-cate .card-info .select img {
   margin: 0;

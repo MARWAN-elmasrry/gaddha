@@ -187,7 +187,7 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
             {[0, 1, 2, 3, 4, 5].map((i) => (
               <img
                 key={i}
-                src={i < 3 ? "./offerv.png" : "./offerv2.png"}
+                src={i < 3 ? "./offerv.png" : "./offerw.png"}
                 alt=""
                 className={i < 3 ? "opc-img6" : "opc-img1"}
                 style={{

@@ -53,10 +53,12 @@
   transform: translate(-50%, -50%);
 }
 
-.back-img .info-f button {
-  margin-top: 30px;
+.back-img .info-f button{
   width: 95;
   height: 55;
+}
+button {
+  margin-top: 30px;
   border-radius: 45px;
   padding: 5px 23px;
   color: #fff; 
@@ -66,11 +68,10 @@
   cursor: pointer;
   transition: transform 0.3s ease , box-shadow 0.3s ease ;
 }
-
-.back-img .info-f button:hover {
+button:hover{
   transform: translate(-7px, -9px);
-    box-shadow: 10px 9px 0px rgba(0, 0, 0, 0.8);
-}
+  box-shadow: 10px 9px 0px rgba(0, 0, 0, 0.8);
+} 
 
 .foot .links .link-cont {
   height: max-content;
@@ -132,7 +133,9 @@
   align-items: flex-end;
   color: #f9e7c5;
 }
-
+.foot .police-links-p,.game-links-p{
+  color: #883813 !important;
+}
 .link-cont .f-links .f-logo h2 {
   margin-bottom: 20px;
   margin-top: 40px;
@@ -153,7 +156,9 @@
   position: static;
   width: 0;
 }
-
+.foot .links .link-cont .active{
+  color: #883813 !important;
+}
 @media (max-width: 1439px) {
   .foot .link-cont {
     padding: 0 5% 0 0 !important;

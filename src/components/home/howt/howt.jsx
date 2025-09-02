@@ -37,6 +37,7 @@ const Howt = () => {
                   src={images[currentIndex]}
                   alt="device"
                   className="fade-img"
+                  style={{ width: "70px", height: "70px" }}
                 />
                   اذا تبون تجربة افضل استخدمو شاشة كبيره مثل
               </h4>
