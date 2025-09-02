@@ -127,48 +127,52 @@ const Dmess = () => {
                 <div className="cards">
                   {messages.map((msg) => (
                     <div className="card" key={msg._id}>
-                      <div className="card-num">
-                        <span
-                          className="number"
-                          onClick={() => handleMarkAsSeen(msg._id)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <img src="/delete.png" alt="delete" />
-                        </span>
-                      </div>
-                      <div className="card-info">
-                        <div className="main-info">
-                          <h3>{formatDate(msg.timestamp)}</h3>
-                          <h3>{msg.name}</h3>
-                        </div>
-                        <div className="contact-info">
-                          <p>{msg.email}</p>
-                          <p>{msg.phone}</p>
-                        </div>
-                        <div className="mess">
-                          {replyingTo === msg._id ? (
-                            <textarea
-                              value={replies[msg._id] || ""}
-                              onChange={(e) => handleChangeReply(msg._id, e.target.value)}
-                              placeholder="اكتب ردك هنا..."
-                              className="reply"
-                              rows={3}
-                            />
-                          ) : (
-                            <p>{msg.content}</p>
-                          )}
+                        <div className="card-num">
+                          <span
+                            className="number"
+                            onClick={() => handleMarkAsSeen(msg._id)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            <img src="/delete.png" alt="delete" />
+                          </span>
                         </div>
 
-                        {replyingTo === msg._id ? (
-                          <div className="reply-actions">
-                            <button onClick={() => handleSendReply(msg._id)}>ارسال</button>
-                            <button onClick={() => setReplyingTo(null)}>الغاء</button>
+                        <div className="card-info">
+                          <div className="main-info">
+                            <h3>{msg?.timestamp ? formatDate(msg.timestamp) : "لا يوجد تاريخ"}</h3>
+                            <h3>{msg?.name ? msg.name : "لا يوجد اسم"}</h3>
                           </div>
-                        ) : (
-                          <button onClick={() => handleReply(msg._id)}>رد</button>
-                        )}
+
+                          {/* <div className="contact-info">
+                            <p>{msg?.email ? msg.email : "لا يوجد ايميل"}</p>
+                            <p>{msg?.phone ? msg.phone : "لا يوجد رقم"}</p>
+                          </div> */}
+
+                          <div className="mess">
+                            {replyingTo === msg._id ? (
+                              <textarea
+                                value={replies[msg._id] || ""}
+                                onChange={(e) => handleChangeReply(msg._id, e.target.value)}
+                                placeholder="اكتب ردك هنا..."
+                                className="reply"
+                                rows={3}
+                              />
+                            ) : (
+                              <p>{msg?.content ? msg.content : "لا يوجد محتوى"}</p>
+                            )}
+                          </div>
+
+                          {/* reply/edit actions */}
+                          {replyingTo === msg._id ? (
+                            <div className="reply-actions">
+                              <button onClick={() => handleSendReply(msg._id)}>ارسال</button>
+                              <button onClick={() => setReplyingTo(null)}>الغاء</button>
+                            </div>
+                          ) : (
+                            <button onClick={() => handleReply(msg._id)}>رد</button>
+                          )}
+                        </div>
                       </div>
-                    </div>
                   ))}
                   {messages.length === 0 && (
                     <h1 style={{ textAlign: "center", marginTop: "20px", color: "#f6e4c3" }}>
