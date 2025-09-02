@@ -91,7 +91,12 @@ const Header = () => {
 
             {user ? (
               <>
-                <button className="points">
+                <button className="points"
+                  onClick={(e) => {
+          e.preventDefault();
+          window.location.href = "/packages";
+        }}
+                >
                   <img src="./ydot.png" alt="" style={{ width: 25 }} /> {user.coins}
                 </button>
 
