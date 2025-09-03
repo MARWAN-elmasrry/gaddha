@@ -10,6 +10,7 @@ import {
   getFavoriteCategories,
 } from "../../../api/services/userService";
 import { set } from "react-hook-form";
+import { Loading } from "../../dashboard/dmain/dmain";
 
 const CATEGORIES = [
   {
@@ -91,6 +92,7 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
   //   useState([])
   const [favorites, setFavorites] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [loadingCategories , setloadingCategories ] = useState(true)
   const [initCategories, setInitCategories] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -115,6 +117,9 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
         setInitCategories(flattenCategories);
       } catch (error) {
         console.error("Error fetching categories:", error);
+      }
+      finally{
+        setloadingCategories(false)
       }
     };
 
@@ -200,7 +205,10 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
           <h3> اختر 6 فئات، ثلاثة لكل فريق</h3>
 
           <div className="cards">
-            {categories.map((cat, idx) => (
+            {loadingCategories?(<>
+                <Loading />
+            </>):(<>
+                {categories.map((cat, idx) => (
               <Card
                 key={cat._id}
                 index={idx}
@@ -212,6 +220,7 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
                 onFavoriteClick={() => handleFavoriteClick(cat._id)}
               />
             ))}
+            </>)}
           </div>
         </div>
       </div>
