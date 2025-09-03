@@ -12,6 +12,7 @@
   },
   "homepage": "https://marwan-elmasrry.github.io/gaddha/",
   "dependencies": {
+    "@casl/ability": "^6.7.3",
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
