@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setGame, setGameNames } from "../../../gameSlice";
 import { transformQuestions } from "../../../utils/games";
+import { Loading } from "../../dashboard/dmain/dmain";
 
 const Card = ({ game }) => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const Card = ({ game }) => {
 
 const Kgame = () => {
   const [games, setGames] = useState([]);
+  const [loadingGame , setLoadingGame ] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +68,9 @@ const Kgame = () => {
         console.error(err);
         toast.error("خطأ في سحب بيانات الألعاب السابقة");
       }
+      finally{
+        setLoadingGame(false)
+      }
     };
     fetchData();
   }, []);
@@ -75,13 +80,17 @@ const Kgame = () => {
       <div className="container">
         <div className="kgame-cont">
           <h3>تابع ألعابك القديمة وين ما وقفت</h3>
-          <div className="cards">
+          {loadingGame?(<>
+              <Loading />
+          </>):(<>
+            <div className="cards">
             {games.length > 0 ? (
               games.map((game) => <Card key={game._id} game={game} />)
             ) : (
               <h1>لا يوجد ألعاب سابقة</h1>
             )}
           </div>
+          </>)}
         </div>
       </div>
     </div>
