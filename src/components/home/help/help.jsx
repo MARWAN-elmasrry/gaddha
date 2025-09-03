@@ -72,7 +72,7 @@ const Help = () => {
                   key={optionKey}
                   src={helpOptions[optionKey].image}
                   alt=""
-                  className={`${optionKey}-img clickable-img`}
+                  className={`${optionKey}-img clickable-img ${isAnimating ? 'fade-out' : 'fade-in'}`}
                 />
               ))}
           </div>
