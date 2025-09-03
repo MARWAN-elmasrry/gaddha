@@ -50,6 +50,8 @@ const getNiceTicks = (min, max, count = 6) => {
 
 const Dmain = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [errorCount, setErrorCount] = useState(0);
+  const [maxRetries] = useState(3);
 
   const [reports, setReports] = useState([]);
   const [loadingReports, setLoadingReports] = useState(true);
@@ -83,6 +85,17 @@ const Dmain = () => {
     window.location.reload();
   };
 
+  // Auto-refresh on errors
+  useEffect(() => {
+    if (errorCount >= maxRetries) {
+      toast.error("فشل تحميل البيانات بعد عدة محاولات.. تحديث الصفحة تلقائياً");
+      const timer = setTimeout(() => {
+        handleRefresh();
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorCount, maxRetries]);
+
   // Fetch vouchers
   useEffect(() => {
     let timeoutId;
@@ -94,8 +107,10 @@ const Dmain = () => {
         }, 5000);
         const data = await getVouchers();
         setVouchers(data);
+        setErrorCount(0); // Reset error count on success
       } catch (err) {
         console.error(err);
+        setErrorCount(prev => prev + 1);
         toast.error("خطأ في سحب عدد القسائم .. إعادة المحاولة بعد ثانيتين");
       } finally {
         clearTimeout(timeoutId);
@@ -138,8 +153,10 @@ const Dmain = () => {
 
         setMinValue(min > 0 ? min - 5 : 0);
         setMaxValue(max + 5);
+        setErrorCount(0); // Reset error count on success
       } catch (err) {
         console.error(err);
+        setErrorCount(prev => prev + 1);
         toast.error("خطأ في جلب بيانات المبيعات .. إعادة المحاولة بعد ثانيتين");
       }
     };
@@ -158,8 +175,10 @@ const Dmain = () => {
         }, 5000);
         const data = await getAllReports();
         setReports(data);
+        setErrorCount(0); // Reset error count on success
       } catch (err) {
         console.error(err);
+        setErrorCount(prev => prev + 1);
         toast.error("خطأ في سحب بيانات البلاغات .. إعادة المحاولة بعد ثانيتين");
       } finally {
         clearTimeout(timeoutId);
@@ -185,8 +204,10 @@ const Dmain = () => {
         }, 5000);
         const data = await getAllMessages();
         setMessages(data);
+        setErrorCount(0); // Reset error count on success
       } catch (err) {
         console.error(err);
+        setErrorCount(prev => prev + 1);
         toast.error("خطأ في سحب بيانات الرسائل .. إعادة المحاولة بعد ثانيتين");
       } finally {
         clearTimeout(timeoutId);
@@ -212,8 +233,10 @@ const Dmain = () => {
         }, 5000);
         const data = await getUserCount();
         setUserCount(data);
+        setErrorCount(0); // Reset error count on success
       } catch (err) {
         console.error(err);
+        setErrorCount(prev => prev + 1);
         toast.error("خطأ في سحب عدد المستخدمين .. إعادة المحاولة بعد ثانيتين");
       } finally {
         clearTimeout(timeoutId);
@@ -239,8 +262,10 @@ const Dmain = () => {
         }, 5000);
         const data = await getAllCategories();
         setCategories(data);
+        setErrorCount(0); // Reset error count on success
       } catch (err) {
         console.error(err);
+        setErrorCount(prev => prev + 1);
         toast.error("خطأ في سحب الفئات .. إعادة المحاولة بعد ثانيتين");
       } finally {
         clearTimeout(timeoutId);
@@ -257,36 +282,36 @@ const Dmain = () => {
 
   // Fetch total sold games
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const data = await getTotalSoldGames();
         setSold(data);
+        setErrorCount(0); // Reset error count on success
       } catch (err) {
         console.error(err);
+        setErrorCount(prev => prev + 1);
         toast.error("خطأ في جلب بيانات عدد الألعاب .. إعادة المحاولة بعد ثانيتين");
       }
     };
     
     fetchData();
-
   }, []);
 
   // Fetch total profit
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const data = await getTotalProfit();
         setProfits(data);
+        setErrorCount(0); // Reset error count on success
       } catch (err) {
         console.error(err);
+        setErrorCount(prev => prev + 1);
         toast.error("خطأ في جلب بيانات الأرباح .. إعادة المحاولة بعد ثانيتين");
       }
     };
     
     fetchData();
-
   }, []);
 
   const getImageSrc = (cardType) => {
