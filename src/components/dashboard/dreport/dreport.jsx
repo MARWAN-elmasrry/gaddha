@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ReportForm from "./ReportForm";
 import { getAllReports, reportReply, reportAsSeen } from "../../../api/services/admingService";
 import { toast } from "react-toastify";
+import { Loading } from "../dmain/dmain";
 
 const Dreport = () => {
   const [reports, setReports] = useState([]);
@@ -11,6 +12,7 @@ const Dreport = () => {
   const [sentReply, setSentReply] = useState(null);
   const [question, setQuestion] = useState(null);
   const [openReportForm, setOpenReportForm] = useState(false);
+  const [loadingReports , setLoadingReports] = useState(true)
 
   const difficultyLevels = { easy: "سهل", medium: "متوسط", hard: "صعب" };
 
@@ -22,6 +24,9 @@ const Dreport = () => {
       } catch (err) {
         console.error(err);
         toast.error("خطأ في سحب البيانات");
+      }
+      finally{
+        setLoadingReports(false)
       }
     };
     
@@ -108,7 +113,10 @@ const Dreport = () => {
               </div>
             </div>
           </div>
-          <div className="cards">
+          {loadingReports?(<>
+             <Loading /> 
+          </>):(<>
+            <div className="cards">
             {reports.map((report) => (
               <div className="card" key={report._id}>
               <div className="card-num">
@@ -197,6 +205,7 @@ const Dreport = () => {
               </h1>
             )}
           </div>
+          </>)}
         </div>
         <ReportForm
           question={question}
