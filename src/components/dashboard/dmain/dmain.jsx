@@ -7,10 +7,11 @@ import {
   getTotalProfit,
   getTotalSoldGames,
   getUserCount,
-  getVouchers,  
+  getVouchers,
+  getLastSevenDays
 } from "../../../api/services/admingService";
 import { toast } from "react-toastify";
-import {FourSquare} from 'react-loading-indicators';
+import { FourSquare } from 'react-loading-indicators';
 
 import {
   LineChart,
@@ -22,15 +23,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export const Loading = () =>{
-  return(<>
-      <div className="loading">
-        <FourSquare color={[ "#f4be32" , "#e0e0e0"]} size="large" text="انت قدها" />
-      </div>
-  </>)
-}
-
-import { getLastSevenDays } from "../../../api/services/admingService";
+export const Loading = () => {
+  return (
+    <div className="loading">
+      <FourSquare color={["#f4be32", "#e0e0e0"]} size="large" text="انت قدها" />
+    </div>
+  );
+};
 
 const getNiceTicks = (min, max, count = 6) => {
   const range = max - min;
@@ -52,261 +51,245 @@ const getNiceTicks = (min, max, count = 6) => {
 const Dmain = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const [reports , setReports] = useState([]);
-  const [loadingReports, setloadingReports] = useState(true)
+  const [reports, setReports] = useState([]);
+  const [loadingReports, setLoadingReports] = useState(true);
 
   const [messages, setMessages] = useState([]);
-  const [loadingMessages , setloadingMessages] = useState(true)
+  const [loadingMessages, setLoadingMessages] = useState(true);
 
-  const [userCount , setUserCount] = useState([]);
-  const [loadingUserCount , setLoadingUserCount] = useState(true)
+  const [userCount, setUserCount] = useState(0);
+  const [loadingUserCount, setLoadingUserCount] = useState(true);
 
   const [categories, setCategories] = useState([]);
-  const [loadingCategories,setLoadingCategories]= useState(true)
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
-  const [vouchers, setVouchers] = useState([])
-  const [loadingVouchers, setLoadingVouchers] = useState(true)
+  const [vouchers, setVouchers] = useState([]);
+  const [loadingVouchers, setLoadingVouchers] = useState(true);
 
-  const [sold , setSold] = useState([]);
-  const [profits , setProfits] = useState([]);
+  const [sold, setSold] = useState(0);
+  const [profits, setProfits] = useState(0);
 
-  let firstThreeReports = []
-  let firstThreeMessages = []
-  firstThreeReports = reports.slice(0, 3);
-  firstThreeMessages = messages.slice(0, 3);
-
-// chart states
+  // Chart states
   const [chartData, setChartData] = useState([]);
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(50);
+
+  // Calculate derived values
+  const firstThreeReports = reports.slice(0, 3);
+  const firstThreeMessages = messages.slice(0, 3);
 
   // Function to refresh the page like Ctrl+R
   const handleRefresh = () => {
     window.location.reload();
   };
 
-useEffect(() => {
-let timeoutId, retryId;
+  // Fetch vouchers
+  useEffect(() => {
+    let timeoutId;
 
-const fetchData = async () => {
-  try {
-    timeoutId = setTimeout(() => {
-      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-    }, 5000);
-    const data = await getVouchers();
-    setVouchers(data);
-  } catch (err) {
-    console.error(err);
-    toast.error("خطأ في سحب عدد المستخدمين .. إعادة المحاولة بعد ثانيتين");
-    retryId = setTimeout(fetchData, 1000);
-  } finally {
-    clearTimeout(timeoutId);
-    setLoadingVouchers(false);
-  }
-};
-fetchData();
+    const fetchData = async () => {
+      try {
+        timeoutId = setTimeout(() => {
+          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+        }, 5000);
+        const data = await getVouchers();
+        setVouchers(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في سحب عدد القسائم .. إعادة المحاولة بعد ثانيتين");
+      } finally {
+        clearTimeout(timeoutId);
+        setLoadingVouchers(false);
+      }
+    };
+    
+    fetchData();
 
-return () => {
-  clearTimeout(timeoutId);
-  clearTimeout(retryId);
-};
-}, []);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
-// fetch last seven days
-useEffect(() => {
-let retryId;
+  // Fetch last seven days data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiData = await getLastSevenDays();
+        const finalData =
+          apiData && apiData.length > 0
+            ? apiData.map((item) => ({
+                day: item.day,
+                value: item.value,
+              }))
+            : [
+                { day: "S", value: 20 },
+                { day: "M", value: 0 },
+                { day: "T", value: 30 },
+                { day: "W", value: 20 },
+                { day: "T", value: 50 },
+                { day: "F", value: 30 },
+              ];
 
-const fetchData = async () => {
-  try {
-    const apiData = await getLastSevenDays();
-    const finalData =
-      apiData && apiData.length > 0
-        ? apiData.map((item) => ({
-            day: item.day,
-            value: item.value,
-          }))
-        : [
-            { day: "S", value: 20 },
-            { day: "M", value: 0 },
-            { day: "T", value: 30 },
-            { day: "W", value: 20 },
-            { day: "T", value: 50 },
-            { day: "F", value: 30 },
-          ];
+        setChartData(finalData);
 
-    setChartData(finalData);
+        const values = finalData.map((d) => d.value);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
 
-    const values = finalData.map((d) => d.value);
-    const min = Math.min(...values);
-    const max = Math.max(...values);
+        setMinValue(min > 0 ? min - 5 : 0);
+        setMaxValue(max + 5);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في جلب بيانات المبيعات .. إعادة المحاولة بعد ثانيتين");
+      }
+    };
 
-    setMinValue(min > 0 ? min - 5 : 0);
-    setMaxValue(max + 5);
-  } catch (err) {
-    console.error(err);
-    toast.error("خطأ في جلب بيانات المبيعات .. إعادة المحاولة بعد ثانيتين");
-    retryId = setTimeout(fetchData, 2000);
-  }
-};
+    fetchData();
+  }, []);
 
-fetchData();
+  // Fetch reports
+  useEffect(() => {
+    let timeoutId;
 
-return () => clearTimeout(retryId);
-}, []);
+    const fetchReports = async () => {
+      try {
+        timeoutId = setTimeout(() => {
+          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+        }, 5000);
+        const data = await getAllReports();
+        setReports(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في سحب بيانات البلاغات .. إعادة المحاولة بعد ثانيتين");
+      } finally {
+        clearTimeout(timeoutId);
+        setLoadingReports(false);
+      }
+    };
+    
+    fetchReports();
 
-// getAllReports
-useEffect(() => {
-let timeoutId, retryId;
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
-const fetchReports = async () => {
-  try {
-    timeoutId = setTimeout(() => {
-      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-    }, 5000);
-    const data = await getAllReports();
-    setReports(data);
-  } catch (err) {
-    console.error(err);
-    toast.error("خطأ في سحب بيانات البلاغات .. إعادة المحاولة بعد ثانيتين");
-    retryId = setTimeout(fetchReports, 1000);
-  } finally {
-    clearTimeout(timeoutId);
-    setloadingReports(false);
-  }
-};
-fetchReports();
+  // Fetch messages
+  useEffect(() => {
+    let timeoutId;
 
-return () => {
-  clearTimeout(timeoutId);
-  clearTimeout(retryId);
-};
-}, []);
+    const fetchMessages = async () => {
+      try {
+        timeoutId = setTimeout(() => {
+          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+        }, 5000);
+        const data = await getAllMessages();
+        setMessages(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في سحب بيانات الرسائل .. إعادة المحاولة بعد ثانيتين");
+      } finally {
+        clearTimeout(timeoutId);
+        setLoadingMessages(false);
+      }
+    };
+    
+    fetchMessages();
 
-// getAllMessages
-useEffect(() => {
-let timeoutId, retryId;
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
-const fetchMessages = async () => {
-  try {
-    timeoutId = setTimeout(() => {
-      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-    }, 5000);
-    const data2 = await getAllMessages();
-    setMessages(data2);
-  } catch (err) {
-    console.error(err);
-    toast.error("خطأ في سحب بيانات الرسائل .. إعادة المحاولة بعد ثانيتين");
-    retryId = setTimeout(fetchMessages, 1000);
-  } finally {
-    clearTimeout(timeoutId);
-    setloadingMessages(false);
-  }
-};
-fetchMessages();
+  // Fetch user count
+  useEffect(() => {
+    let timeoutId;
 
-return () => {
-  clearTimeout(timeoutId);
-  clearTimeout(retryId);
-};
-}, []);
+    const fetchData = async () => {
+      try {
+        timeoutId = setTimeout(() => {
+          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+        }, 5000);
+        const data = await getUserCount();
+        setUserCount(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في سحب عدد المستخدمين .. إعادة المحاولة بعد ثانيتين");
+      } finally {
+        clearTimeout(timeoutId);
+        setLoadingUserCount(false);
+      }
+    };
+    
+    fetchData();
 
-console.log(messages)
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
-// getUserCount
-useEffect(() => {
-let timeoutId, retryId;
+  // Fetch categories
+  useEffect(() => {
+    let timeoutId;
 
-const fetchData = async () => {
-  try {
-    timeoutId = setTimeout(() => {
-      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-    }, 5000);
-    const data = await getUserCount();
-    setUserCount(data);
-  } catch (err) {
-    console.error(err);
-    toast.error("خطأ في سحب عدد المستخدمين .. إعادة المحاولة بعد ثانيتين");
-    retryId = setTimeout(fetchData, 1000);
-  } finally {
-    clearTimeout(timeoutId);
-    setLoadingUserCount(false);
-  }
-};
-fetchData();
+    const fetchData = async () => {
+      try {
+        timeoutId = setTimeout(() => {
+          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+        }, 5000);
+        const data = await getAllCategories();
+        setCategories(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في سحب الفئات .. إعادة المحاولة بعد ثانيتين");
+      } finally {
+        clearTimeout(timeoutId);
+        setLoadingCategories(false);
+      }
+    };
+    
+    fetchData();
 
-return () => {
-  clearTimeout(timeoutId);
-  clearTimeout(retryId);
-};
-}, []);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
-// getAllCategories
-useEffect(() => {
-let timeoutId, retryId;
+  // Fetch total sold games
+  useEffect(() => {
 
-const fetchData = async () => {
-  try {
-    timeoutId = setTimeout(() => {
-      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-    }, 5000);
-    const data = await getAllCategories();
-    setCategories(data);
-  } catch (err) {
-    console.error(err);
-    toast.error("خطأ في سحب الفئات .. إعادة المحاولة بعد ثانيتين");
-    retryId = setTimeout(fetchData, 1000);
-  } finally {
-    clearTimeout(timeoutId);
-    setLoadingCategories(false);
-  }
-};
-fetchData();
+    const fetchData = async () => {
+      try {
+        const data = await getTotalSoldGames();
+        setSold(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في جلب بيانات عدد الألعاب .. إعادة المحاولة بعد ثانيتين");
+      }
+    };
+    
+    fetchData();
 
-return () => {
-  clearTimeout(timeoutId);
-  clearTimeout(retryId);
-};
-}, []);
+  }, []);
 
-// getTotalSoldGames
-useEffect(() => {
-let retryId;
+  // Fetch total profit
+  useEffect(() => {
 
-const fetchData = async () => {
-  try {
-    const data = await getTotalSoldGames();
-    setSold(data);
-  } catch (err) {
-    console.error(err);
-    toast.error("خطأ في جلب بيانات عدد الألعاب .. إعادة المحاولة بعد ثانيتين");
-    retryId = setTimeout(fetchData, 1000);
-  }
-};
-fetchData();
+    const fetchData = async () => {
+      try {
+        const data = await getTotalProfit();
+        setProfits(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("خطأ في جلب بيانات الأرباح .. إعادة المحاولة بعد ثانيتين");
+      }
+    };
+    
+    fetchData();
 
-return () => clearTimeout(retryId);
-}, []);
+  }, []);
 
-// getTotalProfit
-useEffect(() => {
-let retryId;
-
-const fetchData = async () => {
-  try {
-    const data = await getTotalProfit();
-    setProfits(data);
-  } catch (err) {
-    console.error(err);
-    toast.error("خطأ في جلب بيانات الأرباح .. إعادة المحاولة بعد ثانيتين");
-    retryId = setTimeout(fetchData,1000);
-  }
-};
-fetchData();
-
-return () => clearTimeout(retryId);
-}, []);
-
-  const getImageSrc = (cardType, position) => {
+  const getImageSrc = (cardType) => {
     if (hoveredCard === cardType) {
       return "./dashrm.png";
     }
@@ -332,9 +315,10 @@ return () => clearTimeout(retryId);
               right: '20px',
               zIndex: 3,
             }}
-            title="تحديث الصفحة (Ctrl+R)">
-              اعاده تحميل
-        </button>
+            title="تحديث الصفحة (Ctrl+R)"
+          >
+            اعاده تحميل
+          </button>
           <h1>لوحة الإحصائيات</h1>
           <div className="cards">
             <div
@@ -398,40 +382,40 @@ return () => clearTimeout(retryId);
                   <div className="chart">
                     <div className="chart-graf">
                       <ResponsiveContainer width="100%" height={200}>
-                          <LineChart
-                            data={chartData}
-                            margin={{ top: 10, right: 60, left: -35, bottom: 0 }}
-                          >
-                            <CartesianGrid
-                              stroke="#e0e0e0"
-                              strokeWidth={1}
-                              horizontal={true}
-                              vertical={false}
-                            />
-                            <XAxis
-                              dataKey="day"
-                              axisLine={false}
-                              tickLine={false}
-                              tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
-                            />
-                            <YAxis
-                              domain={[0, maxValue]}
-                              axisLine={false}
-                              tickLine={false}
-                              tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
-                              ticks={getNiceTicks(minValue, maxValue)}
-                            />
-                            <Tooltip />
-                            <Line
-                              type="monotone"
-                              dataKey="value"
-                              stroke="rgba(249, 231, 197, 1)"
-                              strokeWidth={2}
-                              dot={{ fill: "rgba(249, 231, 197, 1)", strokeWidth: 2, r: 4 }}
-                              activeDot={{ r: 6, fill: "rgba(249, 231, 197, 1)" }}
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
+                        <LineChart
+                          data={chartData}
+                          margin={{ top: 10, right: 60, left: -35, bottom: 0 }}
+                        >
+                          <CartesianGrid
+                            stroke="#e0e0e0"
+                            strokeWidth={1}
+                            horizontal={true}
+                            vertical={false}
+                          />
+                          <XAxis
+                            dataKey="day"
+                            axisLine={false}
+                            tickLine={false}
+                            tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
+                          />
+                          <YAxis
+                            domain={[0, maxValue]}
+                            axisLine={false}
+                            tickLine={false}
+                            tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
+                            ticks={getNiceTicks(minValue, maxValue)}
+                          />
+                          <Tooltip />
+                          <Line
+                            type="monotone"
+                            dataKey="value"
+                            stroke="rgba(249, 231, 197, 1)"
+                            strokeWidth={2}
+                            dot={{ fill: "rgba(249, 231, 197, 1)", strokeWidth: 2, r: 4 }}
+                            activeDot={{ r: 6, fill: "rgba(249, 231, 197, 1)" }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
                     </div>
                     <div className="chart-info">
                       <h6>العدد</h6>
@@ -502,36 +486,36 @@ return () => clearTimeout(retryId);
               <img src={getImageSrc("mess")} alt="hover" /> الرسائل{" "}
               <img src={getImageSrc("mess")} alt="hover" />
             </h3>
-            {loadingMessages ? (<>
-                <Loading />
-            </>) : (<>
-            <div className="card-info">
-              <div className="info">
-                <h3>كلى</h3>
-                <p>{messages.length}</p>
-              </div>
-            </div>
-            <div className="r-cards">
-              <div className="r-cards">
-                {firstThreeMessages.map((msg) => (
-                  <div className="rcard" key={msg._id}>
-                    <div className="info">
-                      <p>{msg.email}</p>
-                      <p>
-                        {new Date(msg.updatedAt).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </p>
-                    </div>
-                    <div className="mess">
-                      <p>{msg.content}</p>
-                    </div>
+            {loadingMessages ? (
+              <Loading />
+            ) : (
+              <>
+                <div className="card-info">
+                  <div className="info">
+                    <h3>كلى</h3>
+                    <p>{messages.length}</p>
                   </div>
-                ))}
-              </div>
-            </div>
-            </>)}
+                </div>
+                <div className="r-cards">
+                  {firstThreeMessages.map((msg) => (
+                    <div className="rcard" key={msg._id}>
+                      <div className="info">
+                        <p>{msg.email}</p>
+                        <p>
+                          {new Date(msg.updatedAt).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                      <div className="mess">
+                        <p>{msg.content}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
           <div
             className="r-card"
@@ -543,82 +527,85 @@ return () => clearTimeout(retryId);
               <img src={getImageSrc("info")} alt="hover" />
             </h3>
             <div className="r-cards">
-              {loadingUserCount?(<>
+              {loadingUserCount ? (
                 <Loading />
-              </>):(<>
-                            <div className="rcard r-info" 
-                onClick={(e) => {
-                e.preventDefault();
-                window.location.href = "/admin/users";
-              }}
-              style={{ cursor: "pointer" }}
-              >
-                <div className="info">
-                  <p>المستخدمين</p>
+              ) : (
+                <div 
+                  className="rcard r-info" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = "/admin/users";
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="info">
+                    <p>المستخدمين</p>
+                  </div>
+                  <div className="mess">
+                    <h4 className="r-h">{userCount}</h4>
+                  </div>
                 </div>
-                <div className="mess">
-                  <h4 classname="r-h">{userCount}</h4>
-                </div>
-              </div>
-              </>)}
+              )}
 
-              {loadingCategories?(<>
+              {loadingCategories ? (
                 <Loading />
-              </>):(<>
-                <div className="rcard r-info"
-                onClick={(e) => {
-                e.preventDefault();
-                window.location.href = "/admin/categories";
-              }}
-              style={{ cursor: "pointer" }}
-              >
-                <div className="info">
-                  <p>الفئات</p>
+              ) : (
+                <div 
+                  className="rcard r-info"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = "/admin/categories";
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="info">
+                    <p>الفئات</p>
+                  </div>
+                  <div className="mess">
+                    <h4 className="r-h">{categories.length}</h4>
+                  </div>
                 </div>
-                <div className="mess">
-                  <h4 classname="r-h">{categories.length}</h4>
-                </div>
-              </div>
-              </>)}
+              )}
 
-              {loadingVouchers?(<>
+              {loadingVouchers ? (
                 <Loading />
-              </>):(<>
-                <div className="rcard r-info"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = "/admin/discount";
-              }}
-              style={{ cursor: "pointer" }}
-              >
-                <div className="info">
-                  <p>أكواد الخصم</p>
+              ) : (
+                <div 
+                  className="rcard r-info"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = "/admin/discount";
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="info">
+                    <p>أكواد الخصم</p>
+                  </div>
+                  <div className="mess">
+                    <h4 className="r-h">{vouchers.length}</h4>
+                  </div>
                 </div>
-                <div className="mess">
-                  <h4 classname="r-h">{vouchers.length}</h4>
-                </div>
-              </div>
-              </>)}
+              )}
 
-              {loadingCategories?(<>
+              {loadingCategories ? (
                 <Loading />
-              </>):(<>
-                <div className="rcard r-info"
-                onClick={(e) => {
-                e.preventDefault();
-                window.location.href = "/admin/categories";
-              }}
-              style={{ cursor: "pointer" }}
-              >
-                <div className="info">
-                  <p>الالعاب</p>
+              ) : (
+                <div 
+                  className="rcard r-info"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = "/admin/categories";
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="info">
+                    <p>الألعاب</p>
+                  </div>
+                  <div className="mess">
+                    <h4 className="r-h">{categories.length}</h4>
+                  </div>
                 </div>
-                <div className="mess">
-                  <h4 classname="r-h">{categories.length}</h4>
-                </div>
-              </div>
-              </>)}
-
+              )}
             </div>
           </div>
         </div>
