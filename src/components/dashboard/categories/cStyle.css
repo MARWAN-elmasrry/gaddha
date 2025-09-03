@@ -1,3 +1,6 @@
+.cate{
+  padding-bottom: 3rem;
+}
 .cate .cards .card {
   position: relative;
   background-color: rgba(136, 56, 19, 1);

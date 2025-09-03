@@ -1,6 +1,14 @@
 import "./dmStyle.css";
 import { useEffect, useState } from "react";
-import { getAllCategories, getAllMessages, getAllReports, getTotalProfit, getTotalSoldGames, getUserCount } from "../../../api/services/admingService";
+import { 
+  getAllCategories,
+  getAllMessages,
+  getAllReports,
+  getTotalProfit,
+  getTotalSoldGames,
+  getUserCount,
+  getVouchers,  
+} from "../../../api/services/admingService";
 import { toast } from "react-toastify";
 import {FourSquare} from 'react-loading-indicators';
 
@@ -13,15 +21,6 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
-
-const data = [
-  { day: "S", value: 20 },
-  { day: "M", value: 0 },
-  { day: "T", value: 30 },
-  { day: "W", value: 20 },
-  { day: "T", value: 50 },
-  { day: "F", value: 30 },
-];
 
 export const Loading = () =>{
   return(<>
@@ -50,7 +49,6 @@ const getNiceTicks = (min, max, count = 6) => {
   return ticks;
 };
 
-
 const Dmain = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -66,6 +64,9 @@ const Dmain = () => {
   const [categories, setCategories] = useState([]);
   const [loadingCategories,setLoadingCategories]= useState(true)
 
+  const [vouchers, setVouchers] = useState([])
+  const [loadingVouchers, setLoadingVouchers] = useState(true)
+
   const [sold , setSold] = useState([]);
   const [profits , setProfits] = useState([]);
 
@@ -79,166 +80,231 @@ const Dmain = () => {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(50);
 
-  // fetch last seven days
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiData = await getLastSevenDays();
-        const finalData =
-          apiData && apiData.length > 0
-            ? apiData.map((item) => ({
-                day: item.day,
-                value: item.value,
-              }))
-            : [
-                { day: "S", value: 20 },
-                { day: "M", value: 0 },
-                { day: "T", value: 30 },
-                { day: "W", value: 20 },
-                { day: "T", value: 50 },
-                { day: "F", value: 30 },
-              ];
+  // Function to refresh the page like Ctrl+R
+  const handleRefresh = () => {
+    window.location.reload();
+  };
 
-        setChartData(finalData);
+useEffect(() => {
+let timeoutId, retryId;
 
-        const values = finalData.map((d) => d.value);
-        const min = Math.min(...values);
-        const max = Math.max(...values);
+const fetchData = async () => {
+  try {
+    timeoutId = setTimeout(() => {
+      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+    }, 5000);
+    const data = await getVouchers();
+    setVouchers(data);
+  } catch (err) {
+    console.error(err);
+    toast.error("خطأ في سحب عدد المستخدمين .. إعادة المحاولة بعد ثانيتين");
+    retryId = setTimeout(fetchData, 1000);
+  } finally {
+    clearTimeout(timeoutId);
+    setLoadingVouchers(false);
+  }
+};
+fetchData();
 
-        setMinValue(min > 0 ? min - 5 : 0);
-        setMaxValue(max + 5);
-      } catch (err) {
-        console.error(err);
-        toast.error("خطأ في جلب بيانات المبيعات");
-      }
-    };
-    fetchData();
-  }, []);
+return () => {
+  clearTimeout(timeoutId);
+  clearTimeout(retryId);
+};
+}, []);
+
+// fetch last seven days
+useEffect(() => {
+let retryId;
+
+const fetchData = async () => {
+  try {
+    const apiData = await getLastSevenDays();
+    const finalData =
+      apiData && apiData.length > 0
+        ? apiData.map((item) => ({
+            day: item.day,
+            value: item.value,
+          }))
+        : [
+            { day: "S", value: 20 },
+            { day: "M", value: 0 },
+            { day: "T", value: 30 },
+            { day: "W", value: 20 },
+            { day: "T", value: 50 },
+            { day: "F", value: 30 },
+          ];
+
+    setChartData(finalData);
+
+    const values = finalData.map((d) => d.value);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+
+    setMinValue(min > 0 ? min - 5 : 0);
+    setMaxValue(max + 5);
+  } catch (err) {
+    console.error(err);
+    toast.error("خطأ في جلب بيانات المبيعات .. إعادة المحاولة بعد ثانيتين");
+    retryId = setTimeout(fetchData, 2000);
+  }
+};
+
+fetchData();
+
+return () => clearTimeout(retryId);
+}, []);
 
 // getAllReports
 useEffect(() => {
-  let timeoutId;
+let timeoutId, retryId;
 
-  const fetchReports = async () => {
-    try {
-      timeoutId = setTimeout(() => {
-        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-      }, 5000);
-      const data = await getAllReports();
-      setReports(data);
-    } catch (err) {
-      console.error(err);
-      toast.error("خطأ في سحب بيانات البلاغات");
-    } finally {
-      clearTimeout(timeoutId);
-      setloadingReports(false);
-    }
-  };
-  fetchReports();
-  return () => clearTimeout(timeoutId);
+const fetchReports = async () => {
+  try {
+    timeoutId = setTimeout(() => {
+      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+    }, 5000);
+    const data = await getAllReports();
+    setReports(data);
+  } catch (err) {
+    console.error(err);
+    toast.error("خطأ في سحب بيانات البلاغات .. إعادة المحاولة بعد ثانيتين");
+    retryId = setTimeout(fetchReports, 1000);
+  } finally {
+    clearTimeout(timeoutId);
+    setloadingReports(false);
+  }
+};
+fetchReports();
+
+return () => {
+  clearTimeout(timeoutId);
+  clearTimeout(retryId);
+};
 }, []);
 
 // getAllMessages
 useEffect(() => {
-  let timeoutId;
+let timeoutId, retryId;
 
-  const fetchMessages = async () => {
-    try {
-      timeoutId = setTimeout(() => {
-        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-      }, 5000);
-      const data2 = await getAllMessages();
-      setMessages(data2);
-    } catch (err) {
-      console.error(err);
-      toast.error("خطأ في سحب بيانات الرسائل");
-    }
-    finally {
-      clearTimeout(timeoutId);
-      setloadingMessages(false);
-    }
-  };
-  fetchMessages();
-  return () => clearTimeout(timeoutId);
+const fetchMessages = async () => {
+  try {
+    timeoutId = setTimeout(() => {
+      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+    }, 5000);
+    const data2 = await getAllMessages();
+    setMessages(data2);
+  } catch (err) {
+    console.error(err);
+    toast.error("خطأ في سحب بيانات الرسائل .. إعادة المحاولة بعد ثانيتين");
+    retryId = setTimeout(fetchMessages, 1000);
+  } finally {
+    clearTimeout(timeoutId);
+    setloadingMessages(false);
+  }
+};
+fetchMessages();
+
+return () => {
+  clearTimeout(timeoutId);
+  clearTimeout(retryId);
+};
 }, []);
+
+console.log(messages)
 
 // getUserCount
 useEffect(() => {
-    let timeoutId;
+let timeoutId, retryId;
 
-  const fetchData = async () => {
-    try {
-      timeoutId = setTimeout(() => {
-        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-      }, 5000);
-      const data = await getUserCount();
-      setUserCount(data);
-    } catch (err) {
-      console.error(err);
-      toast.error("خطا غى سحب البيانات العدد من المستخدمين")
-    }
-    finally {
-      clearTimeout(timeoutId);
-      setLoadingUserCount(false);
-    }
-  };
-  fetchData();
-    return () => clearTimeout(timeoutId);
+const fetchData = async () => {
+  try {
+    timeoutId = setTimeout(() => {
+      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+    }, 5000);
+    const data = await getUserCount();
+    setUserCount(data);
+  } catch (err) {
+    console.error(err);
+    toast.error("خطأ في سحب عدد المستخدمين .. إعادة المحاولة بعد ثانيتين");
+    retryId = setTimeout(fetchData, 1000);
+  } finally {
+    clearTimeout(timeoutId);
+    setLoadingUserCount(false);
+  }
+};
+fetchData();
+
+return () => {
+  clearTimeout(timeoutId);
+  clearTimeout(retryId);
+};
 }, []);
 
 // getAllCategories
-useEffect(() => {    
-  let timeoutId;
+useEffect(() => {
+let timeoutId, retryId;
 
-  const fetchData = async () => {
-    try {
-      timeoutId = setTimeout(() => {
-        toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-      }, 5000);
-      const data = await getAllCategories();
-      setCategories(data);
-    } catch (err) {
-      console.error(err);
-      toast.error("خطا غى سحب البيانات");
-    }
-    finally {
-      clearTimeout(timeoutId);
-      setLoadingCategories(false);
-    }
-  };
+const fetchData = async () => {
+  try {
+    timeoutId = setTimeout(() => {
+      toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
+    }, 5000);
+    const data = await getAllCategories();
+    setCategories(data);
+  } catch (err) {
+    console.error(err);
+    toast.error("خطأ في سحب الفئات .. إعادة المحاولة بعد ثانيتين");
+    retryId = setTimeout(fetchData, 1000);
+  } finally {
+    clearTimeout(timeoutId);
+    setLoadingCategories(false);
+  }
+};
+fetchData();
 
-  fetchData();
-    return () => clearTimeout(timeoutId);
+return () => {
+  clearTimeout(timeoutId);
+  clearTimeout(retryId);
+};
 }, []);
 
 // getTotalSoldGames
 useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const data = await getTotalSoldGames();
-      setSold(data);
-    } catch (err) {
-      console.error(err);
-      toast.error("خطأ في جلب بيانات عدد الالعاب");
-    }
-  };
-  fetchData();
+let retryId;
+
+const fetchData = async () => {
+  try {
+    const data = await getTotalSoldGames();
+    setSold(data);
+  } catch (err) {
+    console.error(err);
+    toast.error("خطأ في جلب بيانات عدد الألعاب .. إعادة المحاولة بعد ثانيتين");
+    retryId = setTimeout(fetchData, 1000);
+  }
+};
+fetchData();
+
+return () => clearTimeout(retryId);
 }, []);
 
 // getTotalProfit
 useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const data = await getTotalProfit();
-      setProfits(data);
-    } catch (err) {
-      console.error(err);
-      toast.error("خطأ في جلب بيانات الارباح");
-    }
-  };
-  fetchData();
-}, []);
+let retryId;
 
+const fetchData = async () => {
+  try {
+    const data = await getTotalProfit();
+    setProfits(data);
+  } catch (err) {
+    console.error(err);
+    toast.error("خطأ في جلب بيانات الأرباح .. إعادة المحاولة بعد ثانيتين");
+    retryId = setTimeout(fetchData,1000);
+  }
+};
+fetchData();
+
+return () => clearTimeout(retryId);
+}, []);
 
   const getImageSrc = (cardType, position) => {
     if (hoveredCard === cardType) {
@@ -246,8 +312,10 @@ useEffect(() => {
     }
     return "/dashr.png";
   };
+  
   return (
     <div className="d-main">
+      {/* Refresh Button */}
       <div className="back-tress">
         <div className="tress">
           <img className="left" src="./dashtree.png" alt="" />
@@ -256,6 +324,17 @@ useEffect(() => {
       </div>
       <div className="container">
         <div className="d-main-cont">
+          <button 
+            onClick={handleRefresh}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              zIndex: 3,
+            }}
+            title="تحديث الصفحة (Ctrl+R)">
+              اعاده تحميل
+        </button>
           <h1>لوحة الإحصائيات</h1>
           <div className="cards">
             <div
@@ -381,7 +460,7 @@ useEffect(() => {
               <img src={getImageSrc("report")} alt="" /> البلاغات{" "}
               <img src={getImageSrc("report")} alt="" />
             </h3>
-             {loadingReports ? (
+            {loadingReports ? (
               <Loading />
             ) : (
               <>
@@ -439,7 +518,7 @@ useEffect(() => {
                     <div className="info">
                       <p>{msg.email}</p>
                       <p>
-                        {new Date(msg.timestamp).toLocaleTimeString([], {
+                        {new Date(msg.updatedAt).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
@@ -465,7 +544,7 @@ useEffect(() => {
             </h3>
             <div className="r-cards">
               {loadingUserCount?(<>
-                 <Loading />
+                <Loading />
               </>):(<>
                             <div className="rcard r-info" 
                 onClick={(e) => {
@@ -484,7 +563,7 @@ useEffect(() => {
               </>)}
 
               {loadingCategories?(<>
-                 <Loading />
+                <Loading />
               </>):(<>
                 <div className="rcard r-info"
                 onClick={(e) => {
@@ -502,23 +581,43 @@ useEffect(() => {
               </div>
               </>)}
 
-              <div className="rcard r-info">
+              {loadingVouchers?(<>
+                <Loading />
+              </>):(<>
+                <div className="rcard r-info"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/admin/discount";
+              }}
+              style={{ cursor: "pointer" }}
+              >
                 <div className="info">
-                  <p>الكوبونات</p>
+                  <p>أكواد الخصم</p>
                 </div>
                 <div className="mess">
-                  <h4 classname="r-h">10</h4>
+                  <h4 classname="r-h">{vouchers.length}</h4>
                 </div>
               </div>
+              </>)}
 
-              <div className="rcard r-info">
+              {loadingCategories?(<>
+                <Loading />
+              </>):(<>
+                <div className="rcard r-info"
+                onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/admin/categories";
+              }}
+              style={{ cursor: "pointer" }}
+              >
                 <div className="info">
-                  <p>الأللعاب</p>
+                  <p>الالعاب</p>
                 </div>
                 <div className="mess">
-                  <h4 classname="r-h">33,555</h4>
+                  <h4 classname="r-h">{categories.length}</h4>
                 </div>
               </div>
+              </>)}
 
             </div>
           </div>

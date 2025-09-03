@@ -47,8 +47,8 @@
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-around;
-  margin-top: 13px;
-  margin-bottom: 5px;
+ margin-top: 4px;
+    margin-bottom: 0px;
   height: 102%;
 }
 .kgame .card .card-info .imgs img {
