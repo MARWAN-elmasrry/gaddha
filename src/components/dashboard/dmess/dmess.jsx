@@ -143,11 +143,6 @@ const Dmess = () => {
                             <h3>{msg?.name ? msg.name : "لا يوجد اسم"}</h3>
                           </div>
 
-                          {/* <div className="contact-info">
-                            <p>{msg?.email ? msg.email : "لا يوجد ايميل"}</p>
-                            <p>{msg?.phone ? msg.phone : "لا يوجد رقم"}</p>
-                          </div> */}
-
                           <div className="mess">
                             {replyingTo === msg._id ? (
                               <textarea
@@ -165,7 +160,7 @@ const Dmess = () => {
                           {/* reply/edit actions */}
                           {replyingTo === msg._id ? (
                             <div className="reply-actions">
-                              <button onClick={() => handleSendReply(msg._id)}>ارسال</button>
+                              <button  onClick={() => handleSendReply(msg._id)}>ارسال</button>
                               <button onClick={() => setReplyingTo(null)}>الغاء</button>
                             </div>
                           ) : (

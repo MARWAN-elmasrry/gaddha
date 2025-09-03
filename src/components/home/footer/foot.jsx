@@ -1,10 +1,12 @@
 import { StartBtn } from "../../startBtn"
 import "./footStyle.css"
 import { useLocation, NavLink } from "react-router-dom"
+import { useSelector } from "react-redux"   // ✅ إضافة مفقودة
 
 const Footer = () => {
   const location = useLocation()
   const isUserPage = location.pathname === "/user"
+  const user = useSelector((state) => state.users.user) // ✅ جلب الـ user من Redux
 
   const isLoggedIn = Boolean(localStorage.getItem("token"))
 
@@ -40,21 +42,42 @@ const Footer = () => {
             <div className="all-links">
               <div className="game-links">
                 <p className="game-links-p">صفحات</p>
-                <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>الرئيسية</NavLink>
-                <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>تواصل</NavLink>
+                <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+                  الرئيسية
+                </NavLink>
+                <NavLink to="/contact" className={({ isActive }) => (isActive ? "active" : "")}>
+                  تواصل
+                </NavLink>
+
                 {isLoggedIn ? (
-                  <NavLink to="/user" className={({ isActive }) => isActive ? "active" : ""}>حسابى</NavLink>               
+                  <NavLink 
+                    to="/user" 
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    {user?.role ? "لوحة الإحصائيات" : "حسابى"}
+                  </NavLink>
                 ) : (
-                  <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>تسجيل</NavLink>
+                  <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
+                    تسجيل
+                  </NavLink>
                 )}
-                <NavLink to="/games" className={({ isActive }) => isActive ? "active" : ""}>إنشاء لعبة</NavLink>
-                <NavLink to="/games" className={({ isActive }) => isActive ? "active" : ""}>ألعابي</NavLink>
+
+                <NavLink to="/games" className={({ isActive }) => (isActive ? "active" : "")}>
+                  إنشاء لعبة
+                </NavLink>
+                <NavLink to="/games" className={({ isActive }) => (isActive ? "active" : "")}>
+                  ألعابي
+                </NavLink>
               </div>
 
               <div className="police-links">
                 <p className="police-links-p">السياسات</p>
-                <NavLink to="/privacy" className={({ isActive }) => isActive ? "active" : ""}>سياسة الخصوصية</NavLink>
-                <NavLink to="/refund" className={({ isActive }) => isActive ? "active" : ""}>سياسة الاسترداد</NavLink>
+                <NavLink to="/privacy" className={({ isActive }) => (isActive ? "active" : "")}>
+                  سياسة الخصوصية
+                </NavLink>
+                <NavLink to="/refund" className={({ isActive }) => (isActive ? "active" : "")}>
+                  سياسة الاسترداد
+                </NavLink>
               </div>
             </div>
 
