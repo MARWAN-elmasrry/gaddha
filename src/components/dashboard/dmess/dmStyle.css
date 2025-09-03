@@ -158,3 +158,20 @@
     width: max-content;
 }
 }
+
+.d-mess .cards button {
+  background: linear-gradient(90deg,rgba(207, 138, 65, 1) 0%,#883813 100%);
+}
+
+.cards .card .card-num {
+  color: #fff;
+  font-size: 1.7rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cards .card .card-num:hover {
+  transform: rotate(45deg) translateY( -7px , -9px);
+  box-shadow: 10px 6px 0px rgb(0, 0, 0);
+}
