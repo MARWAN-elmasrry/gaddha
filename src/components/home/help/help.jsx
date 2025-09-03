@@ -30,6 +30,7 @@ const Help = () => {
   const [activeOption, setActiveOption] = useState("phone")
   const [isAnimating, setIsAnimating] = useState(false)
 
+  // التغيير التلقائي
   useEffect(() => {
     const interval = setInterval(() => {
       setIsAnimating(true)
@@ -41,11 +42,20 @@ const Help = () => {
           return optionKeys[nextIndex]
         })
         setIsAnimating(false)
-      }, 300) 
+      }, 300)
     }, 3000)
 
     return () => clearInterval(interval)
   }, [optionKeys])
+
+  // التغيير بالضغط
+  const handleImageClick = (optionKey) => {
+    setIsAnimating(true)
+    setTimeout(() => {
+      setActiveOption(optionKey)
+      setIsAnimating(false)
+    }, 300)
+  }
 
   return (
     <div className="help">
@@ -72,7 +82,8 @@ const Help = () => {
                   key={optionKey}
                   src={helpOptions[optionKey].image}
                   alt=""
-                  className={`${optionKey}-img clickable-img ${isAnimating ? 'fade-out' : 'fade-in'}`}
+                  className={`${optionKey}-img clickable-img ${isAnimating ? 'fade-out' : 'fade-in'} `}
+                  onClick={() => handleImageClick(optionKey)}
                 />
               ))}
           </div>
