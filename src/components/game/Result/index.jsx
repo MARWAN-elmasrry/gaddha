@@ -1,6 +1,7 @@
-import React, { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearGame } from "../../../gameSlice";
+import { replayGame } from "../../../gameSlice";
 import { useNavigate } from "react-router-dom";
 import "./resultStyle.css";
 const GameResult = () => {
@@ -44,8 +45,8 @@ const GameResult = () => {
       <div className="actions-section">
         <button
           onClick={() => {
-            navigate("/games");
             dispatch(clearGame());
+            navigate("/games");
           }}
         >
           <svg
@@ -62,7 +63,12 @@ const GameResult = () => {
           </svg>
           لعبة جديدة
         </button>
-        <button>
+        <button
+          onClick={() => {
+            dispatch(replayGame());
+            navigate("/game");
+          }}
+        >
           <svg
             width="28"
             height="29"
