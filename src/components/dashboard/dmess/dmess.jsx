@@ -145,7 +145,7 @@ const Dmess = () => {
 
                       <div className="card-info">
                         <div className="main-info">
-                          <h3>{msg?.timestamp ? formatDate(msg.timestamp) : "لا يوجد تاريخ"}</h3>
+                          <h3>{msg?.createdAt ? formatDate(msg.createdAt) : "لا يوجد تاريخ"}</h3>
                           <h3>{msg?.name ? msg.name : "لا يوجد اسم"}</h3>
                         </div>
 
