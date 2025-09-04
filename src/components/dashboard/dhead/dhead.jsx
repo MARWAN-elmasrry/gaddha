@@ -2,24 +2,31 @@ import "./dhStyle.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../../userSlice";
+import { useContext } from "react";
+import { AbilityContext } from "../../../context/abilityContext";
 
 const Dhead = () => {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("authData"));
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const ability = useContext(AbilityContext);
+
   const menuItems = [
     { path: "/admin", label: "لوحة الإحصائيات" },
-    { path: "/admin/dmess", label: "الرسائل" },
-    { path: "/admin/dreport", label: "البلاغات" },
-    { path: "/admin/dsale", label: "المبيعات" },
-    { path: "/admin/discount", label: "أكواد الخصم" },
-    { path: "/admin/categories", label: "الفئات" },
-    { path: "/admin/files", label: "الملفات" },
-    { path: "/admin/controls", label: "ادوات التحكم" },
-    { path: "/admin/dgames", label: "الألعاب" },
-    { path: "/admin/users", label: "المستخدمين" },
+    { path: "/admin/dmess", label: "الرسائل", action: "view", subject: "Messages" },
+    { path: "/admin/dreport", label: "البلاغات", action: "view", subject: "Reports" },
+    { path: "/admin/dsale", label: "المبيعات", action: "view", subject: "Sales" },
+    { path: "/admin/discount", label: "أكواد الخصم", action: "manage", subject: "all" },
+    { path: "/admin/categories", label: "الفئات", action: "manage", subject: "Categories" },
+    { path: "/admin/files", label: "الملفات", action: "view", subject: "Files" },
+    { path: "/admin/controls", label: "ادوات التحكم", action: "manage", subject: "all" },
+    { path: "/admin/dgames", label: "الألعاب", action: "manage", subject: "all" },
+    { path: "/admin/users", label: "المستخدمين", action: "manage", subject: "all" },
   ];
+  const filteredMenu = menuItems.filter(
+    (item) => !item.subject || ability.can(item.action, item.subject)
+  );
   const handleLogout = () => {
     dispatch(logoutUser());
     navigate("/login");
@@ -36,7 +43,7 @@ const Dhead = () => {
                 <span></span>
               </span>
               <ul>
-                {menuItems.map((item) => (
+                {filteredMenu.map((item) => (
                   <li key={item.path} className={location.pathname === item.path ? "active" : ""}>
                     <NavLink to={item.path}>
                       {item.label}

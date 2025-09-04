@@ -1,10 +1,12 @@
 import { StartBtn } from "../../startBtn"
 import "./footStyle.css"
-import { useLocation, Link } from "react-router-dom"
+import { useLocation, NavLink } from "react-router-dom"
+import { useSelector } from "react-redux"   // ✅ إضافة مفقودة
 
 const Footer = () => {
   const location = useLocation()
   const isUserPage = location.pathname === "/user"
+  const user = useSelector((state) => state.users.user) // ✅ جلب الـ user من Redux
 
   const isLoggedIn = Boolean(localStorage.getItem("token"))
 
@@ -39,23 +41,43 @@ const Footer = () => {
           <div className="f-links">
             <div className="all-links">
               <div className="game-links">
-                <p>صفحات</p>
-                <Link to="/">الرئيسية</Link>
-                <Link to="/contact">تواصل</Link>
-                {isLoggedIn ? (<>
-                  <Link to="/user">حسابى</Link>               
-                </>):(<>
-                  <Link to="/login">تسجيل</Link>
+                <p className="game-links-p">صفحات</p>
+                <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+                  الرئيسية
+                </NavLink>
+                <NavLink to="/contact" className={({ isActive }) => (isActive ? "active" : "")}>
+                  تواصل
+                </NavLink>
 
-                </>)}
-                <Link to="/games">إنشاء لعبة</Link>
-                <Link to="/games">ألعابي</Link>
+                {isLoggedIn ? (
+                  <NavLink 
+                    to="/user" 
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    {user?.role ? "لوحة الإحصائيات" : "حسابى"}
+                  </NavLink>
+                ) : (
+                  <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
+                    تسجيل
+                  </NavLink>
+                )}
+
+                <NavLink to="/games" className={({ isActive }) => (isActive ? "active" : "")}>
+                  إنشاء لعبة
+                </NavLink>
+                <NavLink to="/games" className={({ isActive }) => (isActive ? "active" : "")}>
+                  ألعابي
+                </NavLink>
               </div>
 
               <div className="police-links">
-                <p>السياسات</p>
-                <Link to="/privacy">سياسة الخصوصية</Link>
-                <Link to="/refund">سياسة الاسترداد</Link>
+                <p className="police-links-p">السياسات</p>
+                <NavLink to="/privacy" className={({ isActive }) => (isActive ? "active" : "")}>
+                  سياسة الخصوصية
+                </NavLink>
+                <NavLink to="/refund" className={({ isActive }) => (isActive ? "active" : "")}>
+                  سياسة الاسترداد
+                </NavLink>
               </div>
             </div>
 
@@ -75,4 +97,4 @@ const Footer = () => {
   )
 }
 
-export default Footer;
+export default Footer

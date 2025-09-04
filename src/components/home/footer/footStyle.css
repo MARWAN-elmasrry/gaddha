@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-.foot-cont .back-img {
+.back-img {
   position: relative;
   width: 730px;
   height: 500px;
@@ -55,21 +55,15 @@
 
 .back-img .info-f button {
   margin-top: 30px;
-  width: 95;
-  height: 55;
+  width: 91.0882034302;
+  height: 51.0965805054;
   border-radius: 45px;
   padding: 5px 23px;
-  color: #fff; 
+  color: #f9e7c5;
   font-size: 1.7rem;
   border: none;
+  border-radius: 45px;
   background: linear-gradient(90deg, rgba(136, 56, 19, 0.1) 37.5%, #883813 100%);
-  cursor: pointer;
-  transition: transform 0.3s ease , box-shadow 0.3s ease ;
-}
-
-.back-img .info-f button:hover {
-  transform: translate(-7px, -9px);
-    box-shadow: 10px 9px 0px rgba(0, 0, 0, 0.8);
 }
 
 .foot .links .link-cont {
@@ -98,7 +92,7 @@
 .foot .link-cont .f-logo .line {
   width: 196px;
   height: 33px;
-  background-image: url(../ydot.png);
+  background-image: url(./ydot.png);
   background-size: 33px;
 }
 

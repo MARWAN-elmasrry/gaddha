@@ -1,22 +1,25 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../api/services/authService";
 import { loginAdmin } from "../../../api/services/admingService";
 import { setUser } from "../../../userSlice";
 import "./lStyle.css";
-import CustomSwitch from "../../ui/SwitchInput";
+import Offerv from "../../../../public/offerv.png"
 import { toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  
+  const isAdmin = location.pathname === "/admin/login";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -32,18 +35,17 @@ const Login = () => {
       localStorage.setItem("authData", JSON.stringify(isAdmin ? response.admin : response.user));
       localStorage.setItem("token", JSON.stringify(response.token));
       localStorage.setItem("loginType", isAdmin ? "admin" : "user");
-      console.log("response:", response);
       dispatch(
         setUser({
           user: isAdmin ? response.admin : response.user,
           loginType: isAdmin ? "admin" : "user",
         })
       );
-      toast.success("تم التسجيل بى نجاح")
+      toast.success("تم التسجيل بى نجاح");
       navigate(isAdmin ? "/admin" : "/", { state: { user: response.user } });
     } catch (err) {
       setError(err.message || "خطأ في تسجيل الدخول");
-      toast.error("خطأ في تسجيل الدخول")
+      toast.error("خطأ في تسجيل الدخول");
     } finally {
       setLoading(false);
     }
@@ -53,12 +55,12 @@ const Login = () => {
     <div className="login">
       <div className="container">
         <div className="login-cont">
-          <h1>تسجيل الدخول</h1>
+          <h1>تسجيل الدخول {isAdmin ? "- المشرف" : ""}</h1>
           <h3>سجل دخولك زبطو القهوة وخلو اللمة تولع</h3>
           <form className="form" onSubmit={handleSubmit}>
             <div className="start-input-row">
               <span className="start-icon">
-                <img src="./offerv.png" alt="" />
+                <img src={Offerv} alt="" />
               </span>
               <input
                 className="start-input"
@@ -73,7 +75,7 @@ const Login = () => {
 
             <div className="start-input-row">
               <span className="start-icon">
-                <img src="./offerv.png" alt="" />
+                <img src={Offerv} alt="" />
               </span>
               <input
                 className="start-input"
@@ -87,15 +89,22 @@ const Login = () => {
             </div>
 
             {error && <p style={{ color: "red", direction: "rtl" }}>{error}</p>}
+            
             <div className="login-type">
-              <span>مشرف</span>
-              <CustomSwitch checked={isAdmin} onChange={() => setIsAdmin((prev) => !prev)} />
-              <span>مستخدم</span>
+              {isAdmin ? (
+                <a href="/login">تسجيل دخول المستخدم</a>
+              ) : (
+                <a href="/admin/login">تسجيل دخول المشرف</a>
+              )}
             </div>
+            
+            {isAdmin?(<>
+            </>):(<>
             <div className="links">
               <a href="/sign">إنشاء حساب جديد</a>
               <a href="/rec">نسيت كلمة المرور؟</a>
             </div>
+            </>)}
 
             <div className="start-btn">
               <button type="submit" disabled={loading}>

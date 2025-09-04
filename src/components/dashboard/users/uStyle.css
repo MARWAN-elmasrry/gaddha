@@ -28,6 +28,9 @@
     opacity: .6;
     text-align: end;
 }
+.users{
+    padding-bottom: 3rem;
+}
 .users .cards .card{
     background-color: rgba(136, 56, 19, 1);
     border-radius: 10 px;

@@ -41,41 +41,9 @@ import { ToastContainer } from "react-toastify";
 import CategoryView from "./components/dashboard/categories/category/view";
 import CategoryEdit from "./components/dashboard/categories/category/edit";
 import GameResult from "./components/game/Result";
-
-const SandBackground = ({ intensity = 0.75, blur = 1 }) => (
-  <div
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "rgba(207, 138, 65, 1)",
-      zIndex: -1,
-      pointerEvents: "none",
-    }}
-  >
-    {["before", "after"].map((key, i) => (
-      <div
-        key={i}
-        style={{
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "110%",
-          background: `repeating-conic-gradient(#0003 0.000001%, #fff0 .00005%, #fff0 .00035%, #fff0 .00005%),
-                       repeating-conic-gradient(#fff2 0.00002%, #fff0 .00008%, #fff0 .0008%, #fff0 .00008%)`,
-          opacity: intensity,
-          filter: blur + "px" && (key === "after" ? "none" : `blur(${blur}px)`),
-          transform: key === "after" ? "rotate(180deg) scale(5)" : undefined,
-          pointerEvents: "none",
-        }}
-      />
-    ))}
-  </div>
-);
+import { Privacy } from "./components/home/privacy/privacy";
+import { Refund } from "./components/home/refund/refund";
+import { AbilityContext, defineAbilitiesFor } from "./context/abilityContext";
 
 const DashboardLayout = ({ children }) => (
   <>
@@ -88,7 +56,6 @@ const DashboardLayout = ({ children }) => (
 function HomePage() {
   return (
     <>
-      <SandBackground />
       <Header />
       <Hero />
       <What />
@@ -115,12 +82,13 @@ export default function App() {
   const [tick, setTick] = useState(0);
 
   const forceUpdate = () => setTick((prev) => prev + 1);
-
+  const { loginType, user } = useSelector((state) => state.users);
+  const privileges = user?.privileges || [];
+  const ability = defineAbilitiesFor(privileges);
   // Import hooks and selector
 
   // Helper components for route protection
   function RequireAuth({ allowedTypes, children, redirectTo }) {
-    const { loginType } = useSelector((state) => state.users);
     const location = useLocation();
 
     if (!loginType) {
@@ -134,249 +102,315 @@ export default function App() {
     }
     return children;
   }
+  function RequireAbility({ action, subject, children, redirectTo }) {
+    const location = useLocation();
+
+    if (!ability.can(action, subject)) {
+      return <Navigate to={redirectTo} state={{ from: location }} replace />;
+    }
+
+    return children;
+  }
 
   return (
-    <ForceUpdateContext.Provider value={forceUpdate}>
-      <div key={tick}>
-        <ToastContainer />
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<HomePage  />} />
-          <Route
-            path="/contact"
-            element={
-              <>
-                <Header />
-                <Contact />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <>
-                <Header />
-                <Login />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/sign"
-            element={
-              <>
-                <Header />
-                <Sign />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/rec"
-            element={
-              <>
-                <Header />
-                <Rec />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/ver"
-            element={
-              <>
-                <Header />
-                <Ver />
-                <Footer />
-              </>
-            }
-          />
-
-          {/* User protected routes */}
-          <Route
-            path="/user"
-            element={
-              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+    <AbilityContext.Provider value={ability}>
+      <ForceUpdateContext.Provider value={forceUpdate}>
+        <div key={tick}>
+          <ToastContainer />
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/contact"
+              element={
                 <>
                   <Header />
-                  <User />
+                  <Contact />
                   <Footer />
                 </>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/packages"
-            element={
-              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+              }
+            />
+
+            <Route
+              path="/privacy"
+              element={
                 <>
                   <Header />
-                  <Pack />
+                  <Privacy />
                   <Footer />
                 </>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/games"
-            element={
-              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
-                <Games />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/game"
-            element={
-              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
-                <MainGame />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/game/result"
-            element={
-              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
-                <GameResult />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/start"
-            element={
-              <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+              }
+            />
+            <Route
+              path="/refund"
+              element={
                 <>
                   <Header />
-                  <Start />
+                  <Refund />
+                  <Footer />
                 </>
-              </RequireAuth>
-            }
-          />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <>
+                  <Header />
+                  <Login />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/sign"
+              element={
+                <>
+                  <Header />
+                  <Sign />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/rec"
+              element={
+                <>
+                  <Header />
+                  <Rec />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/ver"
+              element={
+                <>
+                  <Header />
+                  <Ver />
+                  <Footer />
+                </>
+              }
+            />
 
-          {/* Admin protected routes */}
-          <Route
-            path="admin"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Dmain />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/dmess"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Dmess />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/dreport"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Dreport />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/dsale"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Dsale />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/discount"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Discount />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/categories"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Categories />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/category/view/:id"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <CategoryView />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/category/edit/:id"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <CategoryEdit />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/files"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Files />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/controls"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Controls />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/dgames"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Dgames />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="admin/users"
-            element={
-              <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
-                <DashboardLayout>
-                  <Users />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-        </Routes>
-      </div>
-    </ForceUpdateContext.Provider>
+            {/* User protected routes */}
+            <Route
+              path="/user"
+              element={
+                <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                  <>
+                    <Header />
+                    <User />
+                    <Footer />
+                  </>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/packages"
+              element={
+                <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                  <>
+                    <Header />
+                    <Pack />
+                    <Footer />
+                  </>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/games"
+              element={
+                <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                  <Games />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/game"
+              element={
+                <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                  <MainGame />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/game/result"
+              element={
+                <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                  <Header />
+
+                  <GameResult />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/start"
+              element={
+                <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                  <>
+                    <Header />
+                    <Start />
+                  </>
+                </RequireAuth>
+              }
+            />
+
+            {/* Admin protected routes */}
+            <Route
+              path="admin"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <DashboardLayout>
+                    <Dmain />
+                  </DashboardLayout>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/login"
+              element={
+                <>
+                  <Header />
+                  <Login />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="admin/dmess"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="view" subject="Messages" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Dmess />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/dreport"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="view" subject="Reports" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Dreport />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/dsale"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="view" subject="Sales" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Dsale />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/discount"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="manage" subject="all" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Discount />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/categories"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="manage" subject="Categories" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Categories />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/category/view/:id"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="manage" subject="Categories" redirectTo="/admin">
+                    <DashboardLayout>
+                      <CategoryView />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/category/edit/:id"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="manage" subject="Categories" redirectTo="/admin">
+                    <DashboardLayout>
+                      <CategoryEdit />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/files"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="view" subject="Files" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Files />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/controls"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="manage" subject="all" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Controls />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/dgames"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="manage" subject="all" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Dgames />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="admin/users"
+              element={
+                <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
+                  <RequireAbility action="manage" subject="all" redirectTo="/admin">
+                    <DashboardLayout>
+                      <Users />
+                    </DashboardLayout>
+                  </RequireAbility>
+                </RequireAuth>
+              }
+            />
+          </Routes>
+        </div>
+      </ForceUpdateContext.Provider>
+    </AbilityContext.Provider>
   );
 }

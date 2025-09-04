@@ -4,7 +4,13 @@ import "./dmStyle.css";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+import { useContext } from "react";
+import { AbilityContext } from "../../../context/abilityContext";
+
 const Dmess = () => {
+
+  const ability = useContext(AbilityContext);
+
   const [messages, setMessages] = useState([]);
   const [loadingMessages, setloadingMessages] = useState(true);
 
@@ -136,15 +142,13 @@ const Dmess = () => {
                           <img src="/delete.png" alt="delete" />
                         </span>
                       </div>
+
                       <div className="card-info">
                         <div className="main-info">
-                          <h3>{formatDate(msg.timestamp)}</h3>
-                          <h3>{msg.name}</h3>
+                          <h3>{msg?.createdAt ? formatDate(msg.createdAt) : "لا يوجد تاريخ"}</h3>
+                          <h3>{msg?.name ? msg.name : "لا يوجد اسم"}</h3>
                         </div>
-                        <div className="contact-info">
-                          <p>{msg.email}</p>
-                          <p>{msg.phone}</p>
-                        </div>
+
                         <div className="mess">
                           {replyingTo === msg._id ? (
                             <textarea
@@ -155,18 +159,23 @@ const Dmess = () => {
                               rows={3}
                             />
                           ) : (
-                            <p>{msg.content}</p>
+                            <p>{msg?.content ? msg.content : "لا يوجد محتوى"}</p>
                           )}
                         </div>
 
+                        {/* reply/edit actions */}
                         {replyingTo === msg._id ? (
                           <div className="reply-actions">
                             <button onClick={() => handleSendReply(msg._id)}>ارسال</button>
                             <button onClick={() => setReplyingTo(null)}>الغاء</button>
                           </div>
-                        ) : (
-                          <button onClick={() => handleReply(msg._id)}>رد</button>
-                        )}
+                        ) : (<>
+                          {ability.can("edit", "Messages")&&<>
+                          <div style={{ width: "100%", direction: "rtl" }}>
+                            <button onClick={() => handleReply(msg._id)}>رد</button>
+                          </div>
+                          </>}
+                        </>)}
                       </div>
                     </div>
                   ))}

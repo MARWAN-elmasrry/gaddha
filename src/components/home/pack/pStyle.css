@@ -34,9 +34,11 @@
   position: absolute;
   bottom: 33px;
   left: 33px;
-  cursor: pointer;
-}
+  cursor: pointer;}
 
+.pack .pack-cont .card .main h5{
+  color: #5a2e1d !important;
+}
 .pack .pack-cont .card .top {
   background-color: #f4be32;
   -webkit-transform: rotate(45deg);
@@ -70,7 +72,7 @@
 
 .pack .pack-cont .card2 .main h5 {
   -webkit-transform: rotate(315deg);
-  left: 58px;
+  left: 74px;
   right: -43px;
   top: 5px;
   bottom: -57px;

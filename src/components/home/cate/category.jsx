@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./cStyle.css";
 import { LatestThreeCate } from "../../../api/services/userService";
+import { Loading } from "../../dashboard/dmain/dmain";
 
 const Category = () => {
   const [lastThree, setLastThree] = useState([]);
+  const [loadingLast , setLoadingLast] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +21,9 @@ const Category = () => {
             "خطأ فى جلب المجموعات"
         );
       }
+      finally{
+        setLoadingLast(false);
+      }
     };
 
     fetchData();
@@ -32,7 +37,10 @@ const Category = () => {
             <h1>الفئات</h1>
             <h2>هنا تشوفون جزء من فئاتنا, سووا حساب وشوفوا باقي الفئات</h2>
           </div>
-          <div className="cards">
+          {loadingLast?(<>
+            <Loading />
+          </>):(<>
+            <div className="cards">
             {lastThree.length > 0 ? (
               lastThree.map((cat, index) => (
                 <div key={index} className="card">
@@ -51,9 +59,14 @@ const Category = () => {
               <h1>لا يوجد فئات حالياً</h1>
             )}
           </div>
-
+          </>)}
           <div className="bar-b">
-            <button>عرض المزيد</button>
+            <button className="play"
+            onClick={(e) => {
+          e.preventDefault();
+          window.location.href = "/games";
+        }}
+            >عرض المزيد</button>
           </div>
         </div>
       </div>

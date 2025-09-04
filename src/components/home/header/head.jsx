@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../../userSlice";
 import { useEffect, useState } from "react";
 import { myMessagesResponses } from "../../../api/services/userService";
+import Logo from "../../../../public/logo.png";
 
 const Header = () => {
   const location = useLocation();
@@ -46,7 +47,7 @@ const Header = () => {
 
   const handleShack = () => {
     setIsShaking(true);
-    setTimeout(() => setIsShaking(false), 600); 
+    setTimeout(() => setIsShaking(false), 600);
   };
 
   return (
@@ -91,8 +92,14 @@ const Header = () => {
 
             {user ? (
               <>
-                <button className="points">
-                  <img src="./ydot.png" alt="" style={{ width: 25 }} /> {user.coins}
+                <button
+                  className="points"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = "/packages";
+                  }}
+                >
+                  <img src="/ydot.png" alt="" style={{ width: 25 }} /> {user.coins}
                 </button>
 
                 <div className="notification-wrapper" style={{ position: "relative" }}>
@@ -182,7 +189,7 @@ const Header = () => {
             )}
           </div>
           <a href="/">
-            <img src="./logo.png" alt="logo" style={{ width: 100 }} />
+            <img src={Logo} alt="logo" style={{ width: 100 }} />
           </a>
         </div>
       </div>

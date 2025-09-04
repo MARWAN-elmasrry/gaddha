@@ -2,7 +2,9 @@
   margin-bottom: 4rem;
 }
 .d-main .d-main-cont {
+  position: relative;
   margin-top: 7rem;
+  padding-bottom: 7rem;
 }
 .d-main .d-main-cont  h1{
     text-align: center;

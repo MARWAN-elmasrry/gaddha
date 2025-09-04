@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { getUserCoins, giftUserCoins , addAdmin, getUserGameHistory } from "../../../api/services/admingService";
+import {
+  getUserCoins,
+  giftUserCoins,
+  addAdmin,
+  getUserGameHistory,
+} from "../../../api/services/admingService";
 import "./cStyle.css";
 import { toast } from "react-toastify";
 
@@ -10,10 +15,15 @@ const Controls = () => {
     errors: "",
   });
   const [userCoinsData, setUserCoinsData] = useState({ userId: "", coins: "", errors: "" });
-  const [addAdminData, setAddAdminData] = useState({ username: "", email: "",password: "", privileges: [] });
-  const [user,setUser] = useState("")
-  const [userHistory, setUserHistory ] = useState([]);
-  
+  const [addAdminData, setAddAdminData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    privileges: [],
+  });
+  const [user, setUser] = useState("");
+  const [userHistory, setUserHistory] = useState([]);
+
   const handleGiftUserCoins = async () => {
     try {
       await giftUserCoins({ userId: giftedCoinsData.userId, amount: giftedCoinsData.amount });
@@ -25,7 +35,7 @@ const Controls = () => {
       setGiftedCoinsData((prev) => ({ ...prev, errors: "حدث خطأ أثناء إرسال العملات" }));
     }
   };
-  
+
   const handleGetUserCoins = async () => {
     try {
       const coins = await getUserCoins(userCoinsData.userId);
@@ -37,25 +47,25 @@ const Controls = () => {
     }
   };
 
-  const handleAddAdmin = async() =>{
+  const handleAddAdmin = async () => {
     try {
-      await addAdmin(addAdminData)
+      await addAdmin(addAdminData);
       toast.success("نجح عمل الادمن");
     } catch (error) {
       toast.error("حدث خطأ ⚠️");
       console.error("Error adding admin", error);
     }
-  }
+  };
 
-const handleGetHistory = async () => {
-  try {
-    const history = await getUserGameHistory(user);
-    setUserHistory(history); 
-  } catch (error) {
-    toast.error("حدث خطأ");
-    console.error("Error getting history:", error);
-  }
-};
+  const handleGetHistory = async () => {
+    try {
+      const history = await getUserGameHistory(user);
+      setUserHistory(history);
+    } catch (error) {
+      toast.error("حدث خطأ");
+      console.error("Error getting history:", error);
+    }
+  };
 
   const handleTogglePrivilege = (privilege) => {
     setAddAdminData((prev) => {
@@ -147,7 +157,7 @@ const handleGetHistory = async () => {
               <div className="card">
                 <div className="info">
                   <div className="btn">
-                    <button className="color" onClick={handleGetHistory} >
+                    <button className="color" onClick={handleGetHistory}>
                       عرض
                     </button>
                   </div>
@@ -159,60 +169,56 @@ const handleGetHistory = async () => {
                     placeholder=" ID إيميل رقم الهاتف أو"
                     dir="rtl"
                     value={user}
-                    onChange= {(e) => setUser(e.target.value)}
+                    onChange={(e) => setUser(e.target.value)}
                   />
-                   {userHistory?.gameHistory?.length > 0 ? (
-                      <table
-                        style={{
-                          width: "100%",
-                          marginTop: "15px",
-                          direction: "rtl",
-                          textAlign: "center",
-                          fontSize: "25px",
-                          borderCollapse: "collapse",
-                        }}
-                      >
-                        <thead>
-                          <tr style={{ background: "#000000", color: "#fff" }}>
-                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>#</th>
-                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>اسم اللعبة</th>
-                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>التاريخ</th>
+                  {userHistory?.gameHistory?.length > 0 ? (
+                    <table
+                      style={{
+                        width: "100%",
+                        marginTop: "15px",
+                        direction: "rtl",
+                        textAlign: "center",
+                        fontSize: "25px",
+                        borderCollapse: "collapse",
+                      }}
+                    >
+                      <thead>
+                        <tr style={{ background: "#000000", color: "#fff" }}>
+                          <th style={{ border: "1px solid #ccc", padding: "8px" }}>#</th>
+                          <th style={{ border: "1px solid #ccc", padding: "8px" }}>اسم اللعبة</th>
+                          <th style={{ border: "1px solid #ccc", padding: "8px" }}>التاريخ</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {userHistory.gameHistory.map((game, index) => (
+                          <tr key={game._id || index}>
+                            <td style={{ border: "1px solid #ccc", padding: "6px" }}>
+                              {index + 1}
+                            </td>
+                            <td style={{ border: "1px solid #ccc", padding: "6px" }}>
+                              {game.gameName}
+                            </td>
+                            <td style={{ border: "1px solid #ccc", padding: "6px" }}>
+                              {new Date(game.playedAt).toLocaleString("ar-EG")}
+                            </td>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {userHistory.gameHistory.map((game, index) => (
-                            <tr key={game._id || index}>
-                              <td style={{ border: "1px solid #ccc", padding: "6px" }}>
-                                {index + 1}
-                              </td>
-                              <td style={{ border: "1px solid #ccc", padding: "6px" }}>
-                                {game.gameName}
-                              </td>
-                              <td style={{ border: "1px solid #ccc", padding: "6px" }}>
-                                {new Date(game.playedAt).toLocaleString("ar-EG")}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    ) : (                    
-                      <h2 style={{ marginTop: "15px", textAlign: "center", fontSize: "30px" }}>
-                        لا يوجد العاب سابقه
-                      </h2>
-                    )}
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <h2 style={{ marginTop: "15px", textAlign: "center", fontSize: "30px" }}>
+                      لا يوجد العاب سابقه
+                    </h2>
+                  )}
                 </div>
               </div>
               <div className="card">
                 <div className="info">
                   <div className="btn">
-                    <button className="color" 
-                    onClick={() => handleAddAdmin()}
-                    >حفظ</button>
-                    <button
-                      className="no-color"
-                    >
-                      اعادة تهيئة
+                    <button className="color" onClick={() => handleAddAdmin()}>
+                      حفظ
                     </button>
+                    <button className="no-color">اعادة تهيئة</button>
                   </div>
                   <h2>تفضيلات التحكم</h2>
                 </div>
@@ -311,12 +317,21 @@ const handleGetHistory = async () => {
                   </div>
                   <div
                     className={`tool ${
-                      addAdminData.privileges.includes("specific_categories") ? "selected" : ""
+                      addAdminData.privileges.includes("view_messages") ? "selected" : ""
                     }`}
-                    onClick={() => handleTogglePrivilege("specific_categories")}
+                    onClick={() => handleTogglePrivilege("view_messages")}
                   >
                     <img src="/dashr.png" alt="" />
-                    <h3>ادارة بعض الفئات</h3>
+                    <h3>عرض الرسائل</h3>
+                  </div>
+                  <div
+                    className={`tool ${
+                      addAdminData.privileges.includes("edit_messages") ? "selected" : ""
+                    }`}
+                    onClick={() => handleTogglePrivilege("edit_messages")}
+                  >
+                    <img src="/dashr.png" alt="" />
+                    <h3>تعديل الرسائل</h3>
                   </div>
                 </div>
               </div>

@@ -19,7 +19,13 @@
   height: 260px;
   background-color: transparent;
   border-radius: 22.8px;
-  border: 2px solid;
+  border: 2px solid #5a2e1d;
+  cursor: pointer; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kgame .cards .card:hover {
+  transform: translate(-7px, -9px);
+  box-shadow: 10px 9px 0px rgba(0, 0, 0, 0.8);
 }
 .kgame .card .card-num .number {
   transform: rotate(225deg);
@@ -43,20 +49,28 @@
   left: -26px;
 }
 .kgame .card .card-info .imgs {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-around;
-  margin-top: 13px;
-  margin-bottom: 5px;
-  height: 102%;
+ margin-top: 4px;
+    margin-bottom: 0px;
+  height: 102%; */
 }
 .kgame .card .card-info .imgs img {
-  width: 70px;
-  height: 55px;
-  padding: 0.6px;
+    width: 113.6px;
+    height: 104px;
+    border:#5a2e1d 1px solid ;
+  /* padding: 0.6px;
   margin: 10.8px;
-  border-radius: 12px;
+  border-radius: 12px; */
+}
+.kgame .card .card-info .imgs img:nth-child(3) {
+  border-top-right-radius: 20px;
+  width: 113.6px;
+}
+.kgame .card .card-info .imgs img:nth-child(6) {
+  width: 113.6px;
 }
 .kgame .card .card-info h5 {
   width: 100%;
