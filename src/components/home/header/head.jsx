@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../../userSlice";
 import { useEffect, useState } from "react";
 import { myMessagesResponses } from "../../../api/services/userService";
+import Logo from "../../../../public/logo.png"
 
 const Header = () => {
   const location = useLocation();
@@ -187,7 +188,7 @@ const Header = () => {
             )}
           </div>
           <a href="/">
-            <img src="./logo.png" alt="logo" style={{ width: 100 }} />
+            <img src={Logo} alt="logo" style={{ width: 100 }} />
           </a>
         </div>
       </div>

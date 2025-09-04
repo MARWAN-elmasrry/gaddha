@@ -114,7 +114,6 @@ const Dmain = () => {
       } catch (err) {
         console.error(err);
         setErrorCount((prev) => prev + 1);
-        toast.error("خطأ في سحب عدد القسائم .. إعادة المحاولة بعد ثانيتين");
       } finally {
         clearTimeout(timeoutId);
         setLoadingVouchers(false);
@@ -159,7 +158,6 @@ const Dmain = () => {
       } catch (err) {
         console.error(err);
         setErrorCount((prev) => prev + 1);
-        toast.error("خطأ في جلب بيانات المبيعات .. إعادة المحاولة بعد ثانيتين");
       }
     };
 
@@ -181,7 +179,6 @@ const Dmain = () => {
       } catch (err) {
         console.error(err);
         setErrorCount((prev) => prev + 1);
-        toast.error("خطأ في سحب بيانات البلاغات .. إعادة المحاولة بعد ثانيتين");
       } finally {
         clearTimeout(timeoutId);
         setLoadingReports(false);
