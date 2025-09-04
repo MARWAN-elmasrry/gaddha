@@ -125,7 +125,8 @@ const Dreport = () => {
             <div className="cards">
             {reports.map((report) => (
               <div className="card" key={report._id}>
-              <div className="card-num">
+                {ability.can("edit","Reports") && <>
+                              <div className="card-num">
                 <span
                   className="number"
                   onClick={() => handleMarkAsSeen(report._id)}
@@ -134,7 +135,8 @@ const Dreport = () => {
                   <img src="/delete.png" alt="delete" />
                 </span>
               </div>
-
+                  
+                </>}
               <div className="card-info">
                 {/* main info */}
                 <div className="main-info">
