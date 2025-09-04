@@ -30,6 +30,17 @@
   opacity: 0.6;
   transition: 0.4s;
 }
+.login .login-type a{
+text-decoration: none;
+  font-size: 2rem;
+  padding: 2rem;
+  color: rgba(249, 231, 197, 1);
+  opacity: 0.6;
+  transition: 0.4s;
+}
+.login .login-type a:hover{
+  opacity: 1;
+}
 .login .form .links a:hover {
   opacity: 1;
 }
