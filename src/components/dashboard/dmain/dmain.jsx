@@ -70,7 +70,7 @@ const Dmain = () => {
 
   const [vouchers, setVouchers] = useState([]);
   const [loadingVouchers, setLoadingVouchers] = useState(true);
-
+  const [reFetch, setRefetch] = useState(false);
   const [sold, setSold] = useState(0);
   const [profits, setProfits] = useState(0);
 
@@ -85,7 +85,7 @@ const Dmain = () => {
 
   // Function to refresh the page like Ctrl+R
   const handleRefresh = () => {
-    window.location.reload();
+    setRefetch((prev) => !prev);
   };
 
   // Auto-refresh on errors
@@ -124,7 +124,7 @@ const Dmain = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [reFetch]);
 
   // Fetch last seven days data
   useEffect(() => {
@@ -162,7 +162,7 @@ const Dmain = () => {
     };
 
     if (ability.can("view", "all")) fetchData();
-  }, []);
+  }, [reFetch]);
 
   // Fetch reports
   useEffect(() => {
@@ -190,7 +190,7 @@ const Dmain = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [reFetch]);
 
   // Fetch messages
   useEffect(() => {
@@ -219,7 +219,7 @@ const Dmain = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [reFetch]);
 
   // Fetch user count
   useEffect(() => {
@@ -248,7 +248,7 @@ const Dmain = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [reFetch]);
 
   // Fetch categories
   useEffect(() => {
@@ -277,7 +277,7 @@ const Dmain = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [reFetch]);
 
   // Fetch total sold games
   useEffect(() => {
@@ -294,7 +294,7 @@ const Dmain = () => {
     };
 
     if (ability.can("view", "Sales")) fetchData();
-  }, []);
+  }, [reFetch]);
 
   // Fetch total profit
   useEffect(() => {
@@ -311,7 +311,7 @@ const Dmain = () => {
     };
 
     if (ability.can("view", "Sales")) fetchData();
-  }, []);
+  }, [reFetch]);
 
   const getImageSrc = (cardType) => {
     if (hoveredCard === cardType) {
