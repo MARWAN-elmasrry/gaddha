@@ -32,18 +32,17 @@ const Login = () => {
       localStorage.setItem("authData", JSON.stringify(isAdmin ? response.admin : response.user));
       localStorage.setItem("token", JSON.stringify(response.token));
       localStorage.setItem("loginType", isAdmin ? "admin" : "user");
-      console.log("response:", response);
       dispatch(
         setUser({
           user: isAdmin ? response.admin : response.user,
           loginType: isAdmin ? "admin" : "user",
         })
       );
-      toast.success("تم التسجيل بى نجاح")
+      toast.success("تم التسجيل بى نجاح");
       navigate(isAdmin ? "/admin" : "/", { state: { user: response.user } });
     } catch (err) {
       setError(err.message || "خطأ في تسجيل الدخول");
-      toast.error("خطأ في تسجيل الدخول")
+      toast.error("خطأ في تسجيل الدخول");
     } finally {
       setLoading(false);
     }
