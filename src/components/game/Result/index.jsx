@@ -9,12 +9,12 @@ const GameResult = () => {
   const [gameResult, setGameResult] = useState({ winnerTeam: "", isGameOver: "" });
   const { winnerTeam, isGameOver } = useSelector((state) => state.game);
   useEffect(() => {
-    if (!isGameOver) navigate("/");
+    // if (!isGameOver) navigate("/");
     setGameResult({ winnerTeam, isGameOver });
     dispatch(clearGame());
   }, []);
-  if (!gameResult.isGameOver) return null;
-  return <div>Game Over! Winner: {gameResult.winnerTeam}</div>;
+  // if (!gameResult.isGameOver) return null;
+  return <div className="game-result">Game Over! Winner: {gameResult.winnerTeam}</div>;
 };
 
 export default GameResult;

@@ -265,6 +265,16 @@ export default function App() {
               }
             />
             <Route
+              path="admin/login"
+              element={
+                <>
+                  <Header />
+                  <Login />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
               path="admin/dmess"
               element={
                 <RequireAuth allowedTypes={["admin"]} redirectTo="/user">
