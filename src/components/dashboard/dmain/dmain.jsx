@@ -54,7 +54,7 @@ const Dmain = () => {
 
   const [hoveredCard, setHoveredCard] = useState(null);
   const [errorCount, setErrorCount] = useState(0);
-  const [maxRetries] = useState(3);
+  const [maxRetries] = useState(1);
 
   const [reports, setReports] = useState([]);
   const [loadingReports, setLoadingReports] = useState(true);
@@ -93,7 +93,7 @@ const Dmain = () => {
     if (errorCount >= maxRetries) {
       toast.error("فشل تحميل البيانات بعد عدة محاولات.. تحديث الصفحة تلقائياً");
       const timer = setTimeout(() => {
-        handleRefresh();
+        // handleRefresh();
       }, 2000);
       return () => clearTimeout(timer);
     }

@@ -1,11 +1,13 @@
 import { data } from "react-router-dom";
 import api from "../axios";
 let token = null;
-const rawToken = localStorage.getItem("token");
 
-if (rawToken) {
-  token = rawToken.startsWith('"') && rawToken.endsWith('"') ? rawToken.slice(1, -1) : rawToken;
-}
+const getToken = () => {
+  const rawToken = localStorage.getItem("token");
+  if (rawToken) {
+    return rawToken.startsWith('"') && rawToken.endsWith('"') ? rawToken.slice(1, -1) : rawToken;
+  }
+};
 export const passUser = async (oldPassword, newPassword) => {
   try {
     const authData = localStorage.getItem("authData");
@@ -35,7 +37,7 @@ export const passUser = async (oldPassword, newPassword) => {
       { oldPassword, newPassword },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       }
     );
@@ -54,7 +56,7 @@ export const createPayment = async (data) => {
   try {
     const response = await api.post("/user/create-payment", data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     console.log("response", response.data);
@@ -75,7 +77,7 @@ export const verifyOtp = async (data) => {
   }
 };
 
-export const resendOtp = async(data)=>{
+export const resendOtp = async (data) => {
   try {
     console.log("data in service", data);
     const response = await api.post("/user/resend-otp", data);
@@ -83,14 +85,14 @@ export const resendOtp = async(data)=>{
   } catch (error) {
     throw error.response?.data?.message || error.message || "خطأ فى التحقق من OTP";
   }
-}
+};
 
 //categories
 export const getCategories = async () => {
   try {
     const response = await api.get("user/categories", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.groupedCategories;
@@ -105,7 +107,7 @@ export const toggleCategoryFavorite = async (categoryId) => {
       { categoryId },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       }
     );
@@ -118,7 +120,7 @@ export const getFavoriteCategories = async () => {
   try {
     const response = await api.get("/user/favourite-categories", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.favouriteCategories;
@@ -131,7 +133,7 @@ export const createReport = async (data) => {
   try {
     const response = await api.post("/user/create-report", data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data;
@@ -148,7 +150,7 @@ export const startGameCheck = async () => {
       {},
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       }
     );
@@ -162,7 +164,7 @@ export const createGameSession = async (data) => {
   try {
     const response = await api.post("/user/create-gameSession", data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data;
@@ -175,7 +177,7 @@ export const gameHistory = async () => {
   try {
     const response = await api.get("/user/game-history", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.gameHistory;
@@ -187,7 +189,7 @@ export const getGameSession = async (id) => {
   try {
     const response = await api.get(`/user/gameSession/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.session;
@@ -202,7 +204,7 @@ export const sendMessage = async (data) => {
   try {
     const response = await api.post("/user/send-message", data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data;
@@ -214,7 +216,7 @@ export const myMessagesResponses = async () => {
   try {
     const response = await api.get("/user/my-messages-responses", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.messages;

@@ -5,7 +5,7 @@ import { loginUser } from "../../../api/services/authService";
 import { loginAdmin } from "../../../api/services/admingService";
 import { setUser } from "../../../userSlice";
 import "./lStyle.css";
-import Offerv from "../../../../public/offerv.png"
+import Offerv from "../../../../public/offerv.png";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   const isAdmin = location.pathname === "/admin/login";
 
   const handleSubmit = async (e) => {
@@ -41,6 +41,8 @@ const Login = () => {
           loginType: isAdmin ? "admin" : "user",
         })
       );
+      // console.log("raw token from login component:", rawToken);
+
       toast.success("تم التسجيل بى نجاح");
       navigate(isAdmin ? "/admin" : "/", { state: { user: response.user } });
     } catch (err) {
@@ -89,22 +91,17 @@ const Login = () => {
             </div>
 
             {error && <p style={{ color: "red", direction: "rtl" }}>{error}</p>}
-            
-            <div className="login-type">
-              {isAdmin ? (
-                <a href="/login">تسجيل دخول المستخدم</a>
-              ) : (
-                <a href="/admin/login">تسجيل دخول المشرف</a>
-              )}
-            </div>
-            
-            {isAdmin?(<>
-            </>):(<>
-            <div className="links">
-              <a href="/sign">إنشاء حساب جديد</a>
-              <a href="/rec">نسيت كلمة المرور؟</a>
-            </div>
-            </>)}
+
+            {isAdmin ? (
+              <></>
+            ) : (
+              <>
+                <div className="links">
+                  <a href="/sign">إنشاء حساب جديد</a>
+                  <a href="/rec">نسيت كلمة المرور؟</a>
+                </div>
+              </>
+            )}
 
             <div className="start-btn">
               <button type="submit" disabled={loading}>

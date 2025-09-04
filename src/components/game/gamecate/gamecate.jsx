@@ -9,41 +9,7 @@ import {
   getCategories,
   getFavoriteCategories,
 } from "../../../api/services/userService";
-import { set } from "react-hook-form";
 import { Loading } from "../../dashboard/dmain/dmain";
-
-const CATEGORIES = [
-  {
-    id: "كرة القدم",
-    name: "كرة القدم",
-    img: "./catimg.png",
-  },
-  {
-    id: "العلوم",
-    name: "العلوم",
-    img: "./catimg.png",
-  },
-  {
-    id: "التاريخ",
-    name: "التاريخ",
-    img: "./catimg.png",
-  },
-  {
-    id: "الجغرافيا",
-    name: "الجغرافيا",
-    img: "./catimg.png",
-  },
-  {
-    id: "الأفلام",
-    name: "الأفلام",
-    img: "./catimg.png",
-  },
-  {
-    id: "التكنولوجيا",
-    name: "التكنولوجيا",
-    img: "./catimg.png",
-  },
-];
 
 function Card({ category, index, selected, order, isFavorite, onCardClick, onFavoriteClick }) {
   const handleCardClick = (e) => {
@@ -92,7 +58,7 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
   //   useState([])
   const [favorites, setFavorites] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [loadingCategories , setloadingCategories ] = useState(true)
+  const [loadingCategories, setloadingCategories] = useState(true);
   const [initCategories, setInitCategories] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -117,9 +83,8 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
         setInitCategories(flattenCategories);
       } catch (error) {
         console.error("Error fetching categories:", error);
-      }
-      finally{
-        setloadingCategories(false)
+      } finally {
+        setloadingCategories(false);
       }
     };
 
@@ -133,8 +98,6 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
       setCategories(filteredCategories);
     } else setCategories(initCategories);
   }, [activeGroup]);
-
-  const canStart = selected.length === 6;
 
   const selectedWithOrder = useMemo(() => {
     const orderMap = new Map(selected.map((id, i) => [id, i + 1]));
@@ -166,24 +129,6 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
     });
   };
 
-  const startGame = () => {
-    const payload = {
-      selectedCategories: selected.map((id) => ({
-        id,
-        name: id,
-        qa: QUESTION_BANK[id] || [],
-      })),
-      questionBank: QUESTION_BANK,
-      isNewGame: true,
-    };
-
-    dispatch(setGame(payload));
-
-    navigate("/start", {
-      replace: true,
-    });
-  };
-
   return (
     <div className="game-cate">
       <div className="container">
@@ -205,22 +150,26 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
           <h3> اختر 6 فئات، ثلاثة لكل فريق</h3>
 
           <div className="cards">
-            {loadingCategories?(<>
+            {loadingCategories ? (
+              <>
                 <Loading />
-            </>):(<>
+              </>
+            ) : (
+              <>
                 {categories.map((cat, idx) => (
-              <Card
-                key={cat._id}
-                index={idx}
-                category={cat}
-                selected={selected.includes(cat._id)}
-                order={selectedWithOrder.get(cat._id)}
-                isFavorite={favorites.includes(cat._id)}
-                onCardClick={() => handleCardClick(cat._id)}
-                onFavoriteClick={() => handleFavoriteClick(cat._id)}
-              />
-            ))}
-            </>)}
+                  <Card
+                    key={cat._id}
+                    index={idx}
+                    category={cat}
+                    selected={selected.includes(cat._id)}
+                    order={selectedWithOrder.get(cat._id)}
+                    isFavorite={favorites.includes(cat._id)}
+                    onCardClick={() => handleCardClick(cat._id)}
+                    onFavoriteClick={() => handleFavoriteClick(cat._id)}
+                  />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

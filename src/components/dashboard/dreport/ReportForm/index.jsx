@@ -13,7 +13,7 @@ const ReportForm = ({ open, setOpen, question }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm({
     defaultValues: {
@@ -129,7 +129,7 @@ const ReportForm = ({ open, setOpen, question }) => {
         </div>
         <div style={{ width: "100%", textAlign: "center" }}>
           <button type="submit" class="submit-button">
-            تعديل
+            {isSubmitting ? <span className="loader"></span> : "تعديل"}
           </button>
         </div>
       </form>

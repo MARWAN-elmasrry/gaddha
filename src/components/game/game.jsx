@@ -314,8 +314,18 @@ const Game = () => {
               )}
             </div>
             {activeTab === "categories" && (
-              <div className="g-links group-links">
+              <div className="g-links group-links" style={{ direction: "rtl" }}>
                 <div className="g-link group-link">
+                  <a
+                    className={activeGroup === null ? "g-active" : ""}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveGroup(null);
+                    }}
+                    href="#"
+                  >
+                    الكل
+                  </a>
                   {groups.map((group) => (
                     <a
                       key={group}
