@@ -74,6 +74,24 @@ const gameSlice = createSlice({
       state.teamTwoScore = 0;
       localStorage.removeItem("gameData");
     },
+    replayGame: (state) => {
+      state.teamOneScore = 0;
+      state.teamTwoScore = 0;
+      state.currentTurn = "1";
+      state.teamOneHelpers = { phoneCall: true, doublePoints: true, doubleAnswers: true };
+      state.teamTwoHelpers = { phoneCall: true, doublePoints: true, doubleAnswers: true };
+      state.isGameOver = false;
+      state.numberOfShownQuestions = 0;
+      state.winnerTeam = null;
+      state.isNewGame = false;
+      state.questionBank = Object.fromEntries(
+        Object.entries(state.questionBank).map(([category, questions]) => [
+          category,
+          questions.map((q) => ({ ...q, shown: false })),
+        ])
+      );
+      localStorage.setItem("gameData", JSON.stringify(state));
+    },
     markQuestionAsShown: (state, action) => {
       const { category, question } = action.payload;
       const categoryQuestions = state.questionBank[category];
@@ -147,5 +165,6 @@ export const {
   adjustScore,
   switchTurn,
   mutateTeamHelpers,
+  replayGame,
 } = gameSlice.actions;
 export default gameSlice.reducer;
