@@ -1,6 +1,6 @@
 import "./dsStyle.css";
 import riyal from "../../../../public/riyal.png";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   LineChart,
@@ -61,6 +61,10 @@ const Dsale = () => {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(50);
   const [chartData, setChartData] = useState(dummyData);
+  const [reFetch, setRefetch] = useState(false);
+        const handleRefresh = useCallback(() => {
+          setRefetch(prev => !prev);
+        }, []);
 
   const pieData = [
     {
@@ -156,7 +160,7 @@ const Dsale = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [reFetch]);
 
   // total sold games
   useEffect(() => {
@@ -170,7 +174,7 @@ const Dsale = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [reFetch]);
 
   // total profit
   useEffect(() => {
@@ -290,8 +294,20 @@ const Dsale = () => {
                 </p>
               </div>
             </div>
+            <button
+            onClick={handleRefresh}
+            style={{
+              position: "absolute",
+              top: "50px",
+              right: "20px",
+              zIndex: 3,
+            }}
+            title="تحديث الصفحة (Ctrl+R)"
+          >
+            اعاده تحميل
+          </button>
           </div>
-          <div className="d-sale-cont">
+          <div className="d-sale-cont" style={{marginTop:50}}>
             <div className="sales">
               <div className="sale-cont">
                 <div className="chart">

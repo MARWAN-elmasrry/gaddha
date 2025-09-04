@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getAllCategories } from "../../../api/services/admingService";
 import "./dgStyle.css";
+import { toast } from "react-toastify";
+
 
 const Card = ({ category }) => {
   return (
@@ -19,6 +21,10 @@ const Card = ({ category }) => {
 
 const Dgames = () => {
   const [categories, setCategories] = useState([]);
+  const [reFetch, setRefetch] = useState(false);
+        const handleRefresh = useCallback(() => {
+          setRefetch(prev => !prev);
+        }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,11 +33,12 @@ const Dgames = () => {
         setCategories(data);
       } catch (err) {
         console.error(err);
+        toast.error("حدث خطأ ما");  
       }
     };
 
     fetchData();
-  }, []);
+  }, [reFetch]);
 
   return (
     <div className="d-games">
@@ -55,6 +62,18 @@ const Dgames = () => {
                 <p>{categories.length}</p>
               </div>
             </div>
+            <button
+            onClick={handleRefresh}
+            style={{
+              position: "absolute",
+              top: "60px",
+              right: "20px",
+              zIndex: 3,
+            }}
+            title="تحديث الصفحة (Ctrl+R)"
+          >
+            اعاده تحميل
+          </button>
           </div>
           <div className="cards">
             {categories.map((cat) => (

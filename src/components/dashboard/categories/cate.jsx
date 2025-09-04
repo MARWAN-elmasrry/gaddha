@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./cStyle.css";
 import CategoryForm from "./CategoryForm";
 import { getAllCategories, toggleCategoryVisibility } from "../../../api/services/admingService";
@@ -16,6 +16,10 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [triggerRefetch, setTriggerRefetch] = useState(false);
   const [groups, setGroups] = useState([]);
+  const [reFetch, setRefetch] = useState(false);
+        const handleRefresh = useCallback(() => {
+          setRefetch(prev => !prev);
+        }, []);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const Categories = () => {
     };
 
     fetchData();
-  }, [triggerRefetch]);
+  }, [triggerRefetch,reFetch]);
   const handleToggleCategoryVisibility = async (categoryId) => {
     try {
       await toggleCategoryVisibility(categoryId);
@@ -83,6 +87,18 @@ const Categories = () => {
                 </div>
               </div>
             </div>
+            <button
+            onClick={handleRefresh}
+            style={{
+              position: "absolute",
+              top: "60px",
+              right: "20px",
+              zIndex: 3,
+            }}
+            title="تحديث الصفحة (Ctrl+R)"
+          >
+            اعاده تحميل
+          </button>
           </div>
           <div className="cards">
             {categories?.map((category, idx) => (

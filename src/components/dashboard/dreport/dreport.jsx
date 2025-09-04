@@ -1,5 +1,5 @@
 import "./drStyle.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReportForm from "./ReportForm";
 import { getAllReports, reportReply, reportAsSeen } from "../../../api/services/admingService";
 import { toast } from "react-toastify";
@@ -19,6 +19,11 @@ const Dreport = () => {
   const [question, setQuestion] = useState(null);
   const [openReportForm, setOpenReportForm] = useState(false);
   const [loadingReports , setLoadingReports] = useState(true)
+  
+  const [reFetch, setRefetch] = useState(false);
+      const handleRefresh = useCallback(() => {
+        setRefetch(prev => !prev);
+      }, []);
 
   const difficultyLevels = { easy: "سهل", medium: "متوسط", hard: "صعب" };
 
@@ -37,7 +42,7 @@ const Dreport = () => {
     };
     
     fetchData();
-  }, []);
+  }, [reFetch]);
   
   const formatDate = (isoString) => {
     const date = new Date(isoString);
@@ -118,6 +123,18 @@ const Dreport = () => {
                 <p>{reports.length}</p>
               </div>
             </div>
+            <button
+            onClick={handleRefresh}
+            style={{
+              position: "absolute",
+              top: "50px",
+              right: "20px",
+              zIndex: 3,
+            }}
+            title="تحديث الصفحة (Ctrl+R)"
+          >
+            اعاده تحميل
+          </button>
           </div>
           {loadingReports?(<>
              <Loading /> 
