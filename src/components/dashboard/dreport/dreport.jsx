@@ -135,7 +135,7 @@ const Dreport = () => {
                   <img src="/delete.png" alt="delete" />
                 </span>
               </div>
-
+                  
                 </>}
               <div className="card-info">
                 {/* main info */}
