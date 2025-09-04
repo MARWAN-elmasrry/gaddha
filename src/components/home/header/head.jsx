@@ -46,7 +46,7 @@ const Header = () => {
 
   const handleShack = () => {
     setIsShaking(true);
-    setTimeout(() => setIsShaking(false), 600); 
+    setTimeout(() => setIsShaking(false), 600);
   };
 
   return (
@@ -91,13 +91,14 @@ const Header = () => {
 
             {user ? (
               <>
-                <button className="points"
+                <button
+                  className="points"
                   onClick={(e) => {
-          e.preventDefault();
-          window.location.href = "/packages";
-        }}
+                    e.preventDefault();
+                    window.location.href = "/packages";
+                  }}
                 >
-                  <img src="./ydot.png" alt="" style={{ width: 25 }} /> {user.coins}
+                  <img src="/ydot.png" alt="" style={{ width: 25 }} /> {user.coins}
                 </button>
 
                 <div className="notification-wrapper" style={{ position: "relative" }}>
@@ -187,7 +188,7 @@ const Header = () => {
             )}
           </div>
           <a href="/">
-            <img src="./logo.png" alt="logo" style={{ width: 100 }} />
+            <img src="/logo.png" alt="logo" style={{ width: 100 }} />
           </a>
         </div>
       </div>

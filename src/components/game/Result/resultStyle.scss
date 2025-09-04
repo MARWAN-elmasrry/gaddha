@@ -1,0 +1,112 @@
+.game-result {
+  height: 100vh;
+  background: url("/game-result-background.png") 50% / cover no-repeat;
+  //   background-color: red;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  padding-top: 152px;
+  direction: rtl;
+  color: var(--credam, #f9e7c5);
+
+  .header-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    h1,
+    h3 {
+      text-align: center;
+    }
+    h1 {
+      font-size: 48px;
+      line-height: normal;
+    }
+    h3 {
+      font-size: 36px;
+      line-height: normal;
+    }
+  }
+  .result-section {
+    padding-top: 30px;
+    display: flex;
+    gap: 70px;
+    align-items: flex-end;
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 35px;
+      font-size: 24px;
+
+      .player-name {
+        display: flex;
+        height: 57px;
+        justify-content: center;
+        align-items: center;
+        font-size: 54px;
+        padding: 10px 30px 20px;
+        border-radius: 42.505px;
+        background: rgba(249, 231, 197, 0.1);
+      }
+      .player-points {
+        position: relative;
+        width: 132.268px;
+        height: 39.509px;
+        background: var(--dark-brown, #883813);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0.5;
+        .square {
+          position: absolute;
+          background: var(--golden-sand, #cf8a41);
+          width: 28px;
+          height: 28px;
+          transform: rotate(45deg);
+          flex-shrink: 0;
+        }
+
+        .square-right {
+          right: -14px;
+        }
+        .square-left {
+          left: -14px;
+        }
+      }
+    }
+    .winner {
+      font-size: 30px !important;
+      .player-name {
+        margin-bottom: 20px;
+      }
+      .player-points {
+        width: 163.645px !important;
+        height: 48.881px !important;
+        opacity: 1;
+        .square {
+          width: 36px !important;
+          height: 36px !important;
+        }
+        .square-right {
+          right: -18px;
+        }
+        .square-left {
+          left: -18px;
+        }
+      }
+    }
+  }
+  .actions-section {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    button {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+}

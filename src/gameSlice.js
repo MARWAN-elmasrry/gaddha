@@ -98,6 +98,7 @@ const gameSlice = createSlice({
 
       localStorage.setItem("gameData", JSON.stringify(state));
       if (state.numberOfShownQuestions >= Object.keys(state.questionBank).length * 6) {
+        console.log("winner", state);
         state.isGameOver = true;
         state.winnerTeam =
           state.teamOneScore > state.teamTwoScore

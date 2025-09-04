@@ -73,7 +73,7 @@ const Header = () => {
           </div>
           <h1>{gameName}</h1>
           <a href="/">
-            <img src="./logo.png" alt="logo" style={{ width: 100 }} />
+            <img src="/logo.png" alt="logo" style={{ width: 100 }} />
           </a>
         </div>
       </div>

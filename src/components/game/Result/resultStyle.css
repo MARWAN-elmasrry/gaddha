@@ -1,0 +1,107 @@
+.game-result {
+  height: 100vh;
+  background: url("/game-result-background.png") 50%/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  padding-top: 152px;
+  direction: rtl;
+  color: var(--credam, #f9e7c5);
+}
+.game-result .header-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.game-result .header-section h1,
+.game-result .header-section h3 {
+  text-align: center;
+}
+.game-result .header-section h1 {
+  font-size: 48px;
+  line-height: normal;
+}
+.game-result .header-section h3 {
+  font-size: 36px;
+  line-height: normal;
+}
+.game-result .result-section {
+  padding-top: 30px;
+  display: flex;
+  gap: 70px;
+  align-items: flex-end;
+}
+.game-result .result-section .player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+  font-size: 24px;
+}
+.game-result .result-section .player .player-name {
+  display: flex;
+  height: 57px;
+  justify-content: center;
+  align-items: center;
+  font-size: 54px;
+  padding: 10px 30px 20px;
+  border-radius: 42.505px;
+  background: rgba(249, 231, 197, 0.1);
+}
+.game-result .result-section .player .player-points {
+  position: relative;
+  width: 132.268px;
+  height: 39.509px;
+  background: var(--dark-brown, #883813);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5;
+}
+.game-result .result-section .player .player-points .square {
+  position: absolute;
+  background: var(--golden-sand, #cf8a41);
+  width: 28px;
+  height: 28px;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+.game-result .result-section .player .player-points .square-right {
+  right: -14px;
+}
+.game-result .result-section .player .player-points .square-left {
+  left: -14px;
+}
+.game-result .result-section .winner {
+  font-size: 30px !important;
+}
+.game-result .result-section .winner .player-name {
+  margin-bottom: 20px;
+}
+.game-result .result-section .winner .player-points {
+  width: 163.645px !important;
+  height: 48.881px !important;
+  opacity: 1;
+}
+.game-result .result-section .winner .player-points .square {
+  width: 36px !important;
+  height: 36px !important;
+}
+.game-result .result-section .winner .player-points .square-right {
+  right: -18px;
+}
+.game-result .result-section .winner .player-points .square-left {
+  left: -18px;
+}
+.game-result .actions-section {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+.game-result .actions-section button {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

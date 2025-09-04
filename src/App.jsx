@@ -237,6 +237,8 @@ export default function App() {
               path="/game/result"
               element={
                 <RequireAuth allowedTypes={["user"]} redirectTo="/admin">
+                  <Header />
+
                   <GameResult />
                 </RequireAuth>
               }
