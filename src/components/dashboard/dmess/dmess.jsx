@@ -133,6 +133,7 @@ const Dmess = () => {
                 <div className="cards">
                   {messages.map((msg) => (
                     <div className="card" key={msg._id}>
+                      {ability.can("edit", "Messages")&&<>
                       <div className="card-num">
                         <span
                           className="number"
@@ -142,7 +143,7 @@ const Dmess = () => {
                           <img src="/delete.png" alt="delete" />
                         </span>
                       </div>
-
+                      </>}
                       <div className="card-info">
                         <div className="main-info">
                           <h3>{msg?.createdAt ? formatDate(msg.createdAt) : "لا يوجد تاريخ"}</h3>
