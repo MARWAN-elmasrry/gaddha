@@ -1,10 +1,11 @@
 import api from "../axios.js";
-const rawToken = localStorage.getItem("token");
-let token = null;
 
-if (rawToken) {
-  token = rawToken.startsWith('"') && rawToken.endsWith('"') ? rawToken.slice(1, -1) : rawToken;
-}
+const getToken = () => {
+  const rawToken = localStorage.getItem("token");
+  if (rawToken) {
+    return rawToken.startsWith('"') && rawToken.endsWith('"') ? rawToken.slice(1, -1) : rawToken;
+  }
+};
 export const loginAdmin = async (identifier, password) => {
   try {
     const response = await api.post("/admin/login", { identifier, password });
@@ -18,7 +19,7 @@ export const getAllReports = async () => {
   try {
     const response = await api.get("/admin/get-all-reports", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data;
@@ -33,7 +34,7 @@ export const reportReply = async (id, reply) => {
       `/admin/respond-to-report`,
       { reportId: id, responseText: reply },
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       }
     );
     return response.data;
@@ -48,7 +49,7 @@ export const reportAsSeen = async (id) => {
       `/admin/mark-report-as-seen`,
       { reportId: id },
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       }
     );
     return response.data;
@@ -62,7 +63,7 @@ export const getVouchers = async () => {
   try {
     const response = await api.get("/admin/get-all-vouchers", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     console.log("reach respons", response);
@@ -75,7 +76,7 @@ export const createVoucher = async (voucherData) => {
   try {
     const response = await api.post("/admin/create-voucher", voucherData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data;
@@ -88,7 +89,7 @@ export const editVoucher = async (voucherData) => {
   try {
     const response = await api.post("/admin/update-voucher", voucherData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data;
@@ -103,7 +104,7 @@ export const uploadCategoryWithQuestions = async (formData) => {
   try {
     const response = await api.post("/admin/upload-category-with-questions", formData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
         "Content-Type": "multipart/form-data",
       },
     });
@@ -117,7 +118,7 @@ export const getAllCategories = async () => {
   try {
     const response = await api.get("/admin/categories", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.categories;
@@ -129,7 +130,7 @@ export const getCategoryById = async (id) => {
   try {
     const response = await api.get(`/admin/get-category/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.category;
@@ -144,7 +145,7 @@ export const toggleCategoryVisibility = async (categoryId) => {
       {},
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       }
     );
@@ -157,7 +158,7 @@ export const editCategory = async (formData) => {
   try {
     const response = await api.post("/admin/edit-category", formData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
         "Content-Type": "multipart/form-data",
       },
     });
@@ -172,7 +173,7 @@ export const getQuestionById = async (id) => {
   try {
     const response = await api.get(`/admin/get-question/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.question;
@@ -185,7 +186,7 @@ export const editQuestion = async (data) => {
   try {
     const response = await api.post(`/admin/edit-question`, data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
         "Content-Type": "multipart/form-data",
       },
     });
@@ -198,13 +199,14 @@ export const editQuestion = async (data) => {
 //control
 export const getUserGameHistory = async (user) => {
   try {
-    const response = await api.post("/admin/get-user-game-history", 
+    const response = await api.post(
+      "/admin/get-user-game-history",
       {
-        identifier: user
+        identifier: user,
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       }
     );
@@ -215,13 +217,13 @@ export const getUserGameHistory = async (user) => {
 };
 export const addAdmin = async (addAdminData) => {
   try {
-    const response = await api.post("/admin/add-admin", addAdminData , {
+    const response = await api.post("/admin/add-admin", addAdminData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data;
-  } catch (error) { 
+  } catch (error) {
     throw error.response?.data?.message || "Failed to add admin";
   }
 };
@@ -230,7 +232,7 @@ export const giftUserCoins = async (data) => {
   try {
     const response = await api.post("/admin/gift-user-coins", data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data;
@@ -243,7 +245,7 @@ export const getUserCoins = async (userId) => {
   try {
     const response = await api.get(`/admin/get-user-coins/${userId}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.coins;
@@ -256,7 +258,7 @@ export const getAllMessages = async () => {
   try {
     const response = await api.get(`/admin/get-all-messages`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.messages;
@@ -271,7 +273,7 @@ export const messageReply = async (id, reply) => {
       `/admin/respond-to-message`,
       { messageId: id, responseText: reply },
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       }
     );
     return response.data;
@@ -286,7 +288,7 @@ export const messageAsSeen = async (id) => {
       `/admin/mark-message-as-seen`,
       { messageId: id },
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       }
     );
     return response.data;
@@ -300,7 +302,7 @@ export const getAllUsers = async () => {
   try {
     const response = await api.get(`/admin/get-all-users`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.users;
@@ -313,7 +315,7 @@ export const getUserCount = async () => {
   try {
     const response = await api.get(`/admin/user-count`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.count.usersCount;
@@ -327,7 +329,7 @@ export const getLastSevenDays = async () => {
   try {
     const response = await api.get(`/admin/sales-last-seven-days`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.data;
@@ -340,7 +342,7 @@ export const getTotalSoldGames = async () => {
   try {
     const response = await api.get(`/admin/total-sold-games`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.totalSoldGames;
@@ -353,7 +355,7 @@ export const getTotalProfit = async () => {
   try {
     const response = await api.get(`/admin/total-profit`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.data.totalRevenue;
@@ -366,16 +368,16 @@ export const getGamesSoldCounts = async () => {
   try {
     const [one, two, five, ten] = await Promise.all([
       api.get(`/admin/count-one-game-sold`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       }),
       api.get(`/admin/count-two-game-sold`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       }),
       api.get(`/admin/count-five-game-sold`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       }),
       api.get(`/admin/count-ten-game-sold`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       }),
     ]);
 

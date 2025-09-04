@@ -16,14 +16,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-      margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .cat .cat-cont h1,
 h2 {
-      text-align: center;
-    margin-bottom: 21px;
-    margin-top: 31px;
+  text-align: center;
+  margin-bottom: 21px;
+  margin-top: 31px;
   width: 500px;
 }
 
@@ -44,7 +44,7 @@ h2 {
   background-position: top;
   border-radius: 22.8px;
   border: 2px solid;
- transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .cat .cat-cont .cards .card:hover {
   transform: translate(-7px, -9px);
@@ -57,13 +57,12 @@ h2 {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  
 }
 
 .cat .cat-cont .card .card-info img {
-    height: 75%;
-    width: 100%;
-    margin-top: 38px;
+  height: 77%;
+  width: 100%;
+  margin-top: 38px;
 }
 .cat .cat-cont .card .card-info h5 {
   width: 100%;
@@ -104,15 +103,14 @@ h2 {
   align-items: center;
   gap: 2rem;
 }
-.cat .cat-cont .bar{
+.cat .cat-cont .bar {
   width: 140px;
   height: 51.0965805054px;
 }
 
-
 @media (max-width: 600px) {
   .cat-cont .info h1,
-.cat-cont .info h2 {
+  .cat-cont .info h2 {
     width: auto !important;
   }
   .cat-cont .cards {

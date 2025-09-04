@@ -15,12 +15,12 @@
   gap: 5rem;
 }
 .kgame .cards .card {
-  width: 345px;
+  width: 344.79px;
   height: 260px;
   background-color: transparent;
   border-radius: 22.8px;
   border: 2px solid #5a2e1d;
-  cursor: pointer; 
+  cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .kgame .cards .card:hover {
@@ -58,9 +58,9 @@
   height: 102%; */
 }
 .kgame .card .card-info .imgs img {
-    width: 113.6px;
-    height: 104px;
-    border:#5a2e1d 1px solid ;
+  width: 113.6px;
+  height: 104px;
+  border: #5a2e1d 1px solid;
   /* padding: 0.6px;
   margin: 10.8px;
   border-radius: 12px; */

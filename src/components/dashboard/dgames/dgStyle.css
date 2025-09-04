@@ -1,4 +1,4 @@
-.d-games .d-games-cont{
+.d-games .d-games-cont {
   padding-bottom: 3rem;
 }
 .d-games .d-games-cont .cards {
@@ -49,8 +49,8 @@
   justify-content: space-between;
   align-items: center;
 }
-.d-games .card .card-info img{
-  height: 75%;
+.d-games .card .card-info img {
+  height: 77%;
 }
 .d-games .card .card-info h4 {
   width: 100%;
@@ -74,7 +74,7 @@
   text-align: center;
   color: rgba(255, 255, 255, 1);
 }
-.d-games .card .img-cate-card{
-    width: 100%;
-    height: 60%;
-  }
+.d-games .card .img-cate-card {
+  width: 100%;
+  height: 60%;
+}
