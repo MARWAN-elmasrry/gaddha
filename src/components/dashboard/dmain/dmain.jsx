@@ -325,7 +325,6 @@ const Dmain = () => {
 
   return (
     <div className="d-main">
-      {/* Refresh Button */}
       <div className="back-tress">
         <div className="tress">
           <img className="left" src="./dashtree.png" alt="" />

@@ -5,7 +5,13 @@ import { getAllReports, reportReply, reportAsSeen } from "../../../api/services/
 import { toast } from "react-toastify";
 import { Loading } from "../dmain/dmain";
 
+import { useContext } from "react";
+import { AbilityContext } from "../../../context/abilityContext";
+
+
 const Dreport = () => {
+  const ability = useContext(AbilityContext);
+
   const [reports, setReports] = useState([]);
   const [replyingTo, setReplyingTo] = useState(null);
   const [replies, setReplies] = useState({});
@@ -176,8 +182,8 @@ const Dreport = () => {
                   )}
                 </div>
                 
-                {/* reply/edit actions */}
-                {replyingTo === report._id ? (
+                {ability.can("edit","Reports") && <>
+                  {replyingTo === report._id ? (
                   <div className="reply-actions">
                     <button onClick={() => handleSendReply(report._id)}>ارسال</button>
                     <button onClick={() => setReplyingTo(null)}>الغاء</button>
@@ -196,6 +202,7 @@ const Dreport = () => {
                     <button onClick={() => handleReply(report._id)}>رد</button>
                   </div>
                 )}
+                </>}
               </div>
             </div>
             ))}

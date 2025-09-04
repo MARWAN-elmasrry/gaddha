@@ -4,7 +4,13 @@ import "./dmStyle.css";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+import { useContext } from "react";
+import { AbilityContext } from "../../../context/abilityContext";
+
 const Dmess = () => {
+
+  const ability = useContext(AbilityContext);
+
   const [messages, setMessages] = useState([]);
   const [loadingMessages, setloadingMessages] = useState(true);
 
@@ -163,11 +169,13 @@ const Dmess = () => {
                             <button onClick={() => handleSendReply(msg._id)}>ارسال</button>
                             <button onClick={() => setReplyingTo(null)}>الغاء</button>
                           </div>
-                        ) : (
+                        ) : (<>
+                          {ability.can("edit", "Messages")&&<>
                           <div style={{ width: "100%", direction: "rtl" }}>
                             <button onClick={() => handleReply(msg._id)}>رد</button>
                           </div>
-                        )}
+                          </>}
+                        </>)}
                       </div>
                     </div>
                   ))}
