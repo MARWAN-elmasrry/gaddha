@@ -59,10 +59,19 @@ export const createPayment = async (data) => {
         Authorization: `Bearer ${getToken()}`,
       },
     });
-    console.log("response", response.data);
     return response.data;
   } catch (error) {
     throw error.response?.data?.message || error.message || "خطأ فى انشاء الدفع";
+  }
+};
+export const applyVoucher = async (data) => {
+  try {
+    const response = await api.post("/user/use-voucher", data, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى استخدام الكوبون";
   }
 };
 

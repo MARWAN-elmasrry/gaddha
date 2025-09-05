@@ -1,4 +1,4 @@
-html{
+html {
   height: 100%;
 }
 body {
@@ -7,7 +7,7 @@ body {
   padding: 0;
   font-family: "ArefRuqaa", sans-serif;
   box-sizing: border-box;
-  color: rgba(249, 231, 197, 1)
+  color: rgba(249, 231, 197, 1);
 }
 @font-face {
   font-family: "ArefRuqaa";
@@ -63,7 +63,7 @@ body {
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
-.loading{
+.loading {
   font-size: 100px;
   border-radius: 30px;
   text-align: center;
@@ -90,7 +90,4 @@ body {
 }
 .Toastify__toast-theme--light {
   background-color: #ffdccb !important;
-}
-p , h1 , h2 , h3 , h4 ,h5 ,h6{
-  color: rgba(249, 231, 197, 1) !important;
 }

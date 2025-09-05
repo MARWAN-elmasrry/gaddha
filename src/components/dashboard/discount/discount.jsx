@@ -12,10 +12,10 @@ const Discount = () => {
   const [initialData, setInitialData] = useState(null);
   const [mode, setMode] = useState("create");
   const [reFetch, setRefetch] = useState(false);
-      const handleRefresh = useCallback(() => {
-        setRefetch(prev => !prev);
-      }, []);
-    
+  const handleRefresh = useCallback(() => {
+    setRefetch((prev) => !prev);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,7 +28,7 @@ const Discount = () => {
     };
 
     fetchData();
-  }, [triggerRefetch , reFetch]);
+  }, [triggerRefetch, reFetch]);
 
   return (
     <>
@@ -64,18 +64,12 @@ const Discount = () => {
                 </div>
               </div>
             </div>
-            <button
-            onClick={handleRefresh}
-            style={{
-              position: "absolute",
-              top: "6 0px",
-              right: "20px",
-              zIndex: 3,
-            }}
-            title="تحديث الصفحة (Ctrl+R)"
-          >
-            اعاده تحميل
-          </button>
+          </div>
+          <div style={{ width: "100%", direction: "rtl" }}>
+            {" "}
+            <button onClick={handleRefresh} title="تحديث الصفحة (Ctrl+R)">
+              اعاده تحميل
+            </button>
           </div>
           <div className="cards">
             {coupons?.map((coupon, idx) => (

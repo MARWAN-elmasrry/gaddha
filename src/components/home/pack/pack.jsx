@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createPayment } from "../../../api/services/userService";
+import { applyVoucher, createPayment } from "../../../api/services/userService";
 import Modal from "../../ui/Modal";
 import "./pStyle.css";
 import GlareHover from "./GlareHover";
@@ -12,10 +12,17 @@ const Pack = () => {
     return <></>;
   }
   const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
-  const [price, setPrice] = useState(0);
+  const handleClose = () => {
+    setOpen(false);
+    setStep(1);
+    setCode("");
+    setInitPrice(0);
+    setFinalPrice(0);
+  };
+  const [initPrice, setInitPrice] = useState(0);
+  const [finalPrice, setFinalPrice] = useState(0);
   const [step, setStep] = useState(1);
-
+  const [code, setCode] = useState("");
   const {
     register,
     handleSubmit,
@@ -33,7 +40,7 @@ const Pack = () => {
     setStep(2);
     try {
       const response = await createPayment({
-        price,
+        price: finalPrice,
         street1: data.street1,
         city: data.city,
         state: data.state,
@@ -60,13 +67,32 @@ const Pack = () => {
 
   const pay = async (price) => {
     setStep(1);
-    setPrice(price);
+    setInitPrice(price);
+    setFinalPrice(price);
 
     setOpen(true);
   };
+  const applyDiscount = async () => {
+    try {
+      const response = await applyVoucher({ voucherCode: code, price: initPrice });
+      setFinalPrice(response.price);
+      toast.success("تم تطبيق الكوبون بنجاح");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+  const title =
+    initPrice !== finalPrice ? (
+      <span style={{ direction: "rtl" }}>
+        الدفع -<span style={{ marginRight: "8px" }}>{finalPrice} ريال</span>
+        <del style={{ marginRight: "12px" }}>{initPrice} ريال</del>
+      </span>
+    ) : (
+      `الدفع - ${finalPrice} ريال`
+    );
   return (
     <>
-      <Modal title={`الدفع - ${price} ريال`} isOpen={open} onClose={handleClose}>
+      <Modal title={title} isOpen={open} onClose={handleClose}>
         <div className="dialog-header">
           <div className="stepper">
             <div className={`step ${step === 1 ? "active" : step > 1 ? "done" : ""}`}>
@@ -126,7 +152,25 @@ const Pack = () => {
                 />
                 {errors.postcode && <p style={{ color: "red" }}>{errors.postcode.message}</p>}
               </label>
-
+              <div className="discount-section">
+                <div>
+                  <label>
+                    كوبون الخصم{" "}
+                    <input
+                      type="text"
+                      name="discountCode"
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                    />
+                  </label>
+                  <button className="apply-btn" type="button" onClick={applyDiscount}>
+                    تطبيق
+                  </button>
+                </div>
+                {errors.discountCode && (
+                  <p style={{ color: "red" }}>{errors.discountCode.message}</p>
+                )}
+              </div>
               <div className="actions">
                 <button type="submit" className="next-btn">
                   التالي
