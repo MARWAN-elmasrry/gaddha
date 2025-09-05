@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./disStyle.css";
 import CouponForm from "./CouponForm";
 import { getVouchers } from "../../../api/services/admingService";
@@ -11,6 +11,11 @@ const Discount = () => {
   const [triggerRefetch, setTriggerRefetch] = useState(false);
   const [initialData, setInitialData] = useState(null);
   const [mode, setMode] = useState("create");
+  const [reFetch, setRefetch] = useState(false);
+  const handleRefresh = useCallback(() => {
+    setRefetch((prev) => !prev);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,7 +28,7 @@ const Discount = () => {
     };
 
     fetchData();
-  }, [triggerRefetch]);
+  }, [triggerRefetch, reFetch]);
 
   return (
     <>
@@ -59,6 +64,12 @@ const Discount = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div style={{ width: "100%", direction: "rtl" }}>
+            {" "}
+            <button onClick={handleRefresh} title="تحديث الصفحة (Ctrl+R)">
+              اعاده تحميل
+            </button>
           </div>
           <div className="cards">
             {coupons?.map((coupon, idx) => (

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://gaddha-production.up.railway.app/api",
+  baseURL: "https://playgaddha.up.railway.app/api",
   headers: {
     "Content-Type": "application/json",
   },

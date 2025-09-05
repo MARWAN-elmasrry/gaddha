@@ -1,12 +1,12 @@
 import { StartBtn } from "../../startBtn"
 import "./footStyle.css"
 import { useLocation, NavLink } from "react-router-dom"
-import { useSelector } from "react-redux"   // ✅ إضافة مفقودة
+import { useSelector } from "react-redux"   
 
 const Footer = () => {
   const location = useLocation()
   const isUserPage = location.pathname === "/user"
-  const user = useSelector((state) => state.users.user) // ✅ جلب الـ user من Redux
+  const user = useSelector((state) => state.users.user) 
 
   const isLoggedIn = Boolean(localStorage.getItem("token"))
 

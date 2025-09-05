@@ -1,5 +1,5 @@
 import "./dmStyle.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import {
   getAllCategories,
   getAllMessages,
@@ -24,6 +24,7 @@ import {
 } from "recharts";
 import { useContext } from "react";
 import { AbilityContext } from "../../../context/abilityContext";
+
 export const Loading = () => {
   return (
     <div className="loading">
@@ -53,272 +54,241 @@ const Dmain = () => {
   const ability = useContext(AbilityContext);
 
   const [hoveredCard, setHoveredCard] = useState(null);
-  const [errorCount, setErrorCount] = useState(0);
-  const [maxRetries] = useState(1);
 
-  const [reports, setReports] = useState([]);
-  const [loadingReports, setLoadingReports] = useState(true);
+  // Combined loading state
+  const [loading, setLoading] = useState({
+    reports: true,
+    messages: true,
+    userCount: true,
+    categories: true,
+    vouchers: true,
+    chartData: true,
+    sales: true,
+    profits: true,
+  });
 
-  const [messages, setMessages] = useState([]);
-  const [loadingMessages, setLoadingMessages] = useState(true);
+  // Data states
+  const [data, setData] = useState({
+    reports: [],
+    messages: [],
+    userCount: 0,
+    categories: [],
+    vouchers: [],
+    sold: 0,
+    profits: 0,
+    chartData: [],
+    minValue: 0,
+    maxValue: 50,
+  });
 
-  const [userCount, setUserCount] = useState(0);
-  const [loadingUserCount, setLoadingUserCount] = useState(true);
+  const firstThreeReports = useMemo(() => data.reports.slice(0, 3), [data.reports]);
+  const firstThreeMessages = useMemo(() => data.messages.slice(0, 3), [data.messages]);
 
-  const [categories, setCategories] = useState([]);
-  const [loadingCategories, setLoadingCategories] = useState(true);
+  const [reFetch, setRefetch] = useState(false);
 
-  const [vouchers, setVouchers] = useState([]);
-  const [loadingVouchers, setLoadingVouchers] = useState(true);
+  const handleRefresh = useCallback(() => {
+    setRefetch(prev => !prev);
+  }, []);
 
-  const [sold, setSold] = useState(0);
-  const [profits, setProfits] = useState(0);
+  const getImageSrc = useCallback((cardType) => {
+    return hoveredCard === cardType ? "./dashrm.png" : "/dashr.png";
+  }, [hoveredCard]);
 
-  // Chart states
-  const [chartData, setChartData] = useState([]);
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(50);
-
-  // Calculate derived values
-  const firstThreeReports = reports.slice(0, 3);
-  const firstThreeMessages = messages.slice(0, 3);
-
-  // Function to refresh the page like Ctrl+R
-  const handleRefresh = () => {
-    window.location.reload();
-  };
-
-  // Auto-refresh on errors
   useEffect(() => {
-    if (errorCount >= maxRetries) {
-      toast.error("فشل تحميل البيانات بعد عدة محاولات.. تحديث الصفحة تلقائياً");
-      const timer = setTimeout(() => {
-        // handleRefresh();
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [errorCount, maxRetries]);
+    let isMounted = true;
+    let timeoutIds = [];
 
-  // Fetch vouchers
-  useEffect(() => {
-    let timeoutId;
+    const createTimeout = (message, delay = 8000) => {
+      const timeoutId = setTimeout(() => {
+        if (isMounted) {
+          toast.error(message);
+        }
+      }, delay);
+      timeoutIds.push(timeoutId);
+      return timeoutId;
+    };
 
-    const fetchData = async () => {
-      try {
-        timeoutId = setTimeout(() => {
-          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-        }, 5000);
-        const data = await getVouchers();
-        setVouchers(data);
-        setErrorCount(0); // Reset error count on success
-      } catch (err) {
-        console.error(err);
-        setErrorCount((prev) => prev + 1);
-      } finally {
-        clearTimeout(timeoutId);
-        setLoadingVouchers(false);
+    const updateLoading = (key, value) => {
+      if (isMounted) {
+        setLoading(prev => ({ ...prev, [key]: value }));
       }
     };
-    if (ability.can("view", "all")) fetchData();
+
+    const updateData = (updates) => {
+      if (isMounted) {
+        setData(prev => ({ ...prev, ...updates }));
+      }
+    };
+
+    const fetchAllData = async () => {
+      const fetchPromises = [];
+
+      // Reports
+      if (ability.can("view", "Reports")) {
+        const reportsPromise = getAllReports()
+          .then(result => {
+            updateData({ reports: result });
+            updateLoading('reports', false);
+          })
+          .catch(err => {
+            console.error("Reports error:", err);
+            updateLoading('reports', false);
+            if (isMounted) {
+              toast.error("خطأ في سحب البلاغات");
+            }
+          });
+        fetchPromises.push(reportsPromise);
+      }
+
+      // Messages
+      if (ability.can("view", "Messages")) {
+        const messagesPromise = getAllMessages()
+          .then(result => {
+            updateData({ messages: result });
+            updateLoading('messages', false);
+          })
+          .catch(err => {
+            console.error("Messages error:", err);
+            updateLoading('messages', false);
+            if (isMounted) {
+              toast.error("خطأ في سحب الرسائل");
+            }
+          });
+        fetchPromises.push(messagesPromise);
+      }
+
+      // User Count
+      if (ability.can("view", "all")) {
+        const userCountPromise = getUserCount()
+          .then(result => {
+            updateData({ userCount: result });
+            updateLoading('userCount', false);
+          })
+          .catch(err => {
+            console.error("User count error:", err);
+            updateLoading('userCount', false);
+            if (isMounted) {
+              toast.error("خطأ في سحب عدد المستخدمين");
+            }
+          });
+        fetchPromises.push(userCountPromise);
+
+        // Vouchers
+        const vouchersPromise = getVouchers()
+          .then(result => {
+            updateData({ vouchers: result });
+            updateLoading('vouchers', false);
+          })
+          .catch(err => {
+            console.error("Vouchers error:", err);
+            updateLoading('vouchers', false);
+            if (isMounted) {
+              toast.error("خطأ في سحب أكواد الخصم");
+            }
+          });
+        fetchPromises.push(vouchersPromise);
+
+        // Chart Data
+        const chartDataPromise = getLastSevenDays()
+          .then(apiData => {
+            const finalData =
+              apiData && apiData.length > 0
+                ? apiData.map(item => ({
+                    day: item.day,
+                    value: item.value,
+                  }))
+                : [
+                    { day: "S", value: 20 },
+                    { day: "M", value: 0 },
+                    { day: "T", value: 30 },
+                    { day: "W", value: 20 },
+                    { day: "T", value: 50 },
+                    { day: "F", value: 30 },
+                  ];
+
+            const values = finalData.map(d => d.value);
+            const min = Math.min(...values);
+            const max = Math.max(...values);
+
+            updateData({
+              chartData: finalData,
+              minValue: min > 0 ? min - 5 : 0,
+              maxValue: max + 5,
+            });
+            updateLoading('chartData', false);
+          })
+          .catch(err => {
+            console.error("Chart data error:", err);
+            updateLoading('chartData', false);
+            if (isMounted) {
+              toast.error("خطأ في سحب بيانات الرسم البياني");
+            }
+          });
+        fetchPromises.push(chartDataPromise);
+      }
+
+      // Categories
+      if (ability.can("view", "Categories") || ability.can("manage", "Categories")) {
+        const categoriesPromise = getAllCategories()
+          .then(result => {
+            updateData({ categories: result });
+            updateLoading('categories', false);
+          })
+          .catch(err => {
+            console.error("Categories error:", err);
+            updateLoading('categories', false);
+            if (isMounted) {
+              toast.error("خطأ في سحب الفئات");
+            }
+          });
+        fetchPromises.push(categoriesPromise);
+      }
+
+      // Sales Data
+      if (ability.can("view", "Sales")) {
+        const soldPromise = getTotalSoldGames()
+          .then(result => {
+            updateData({ sold: result });
+            updateLoading('sales', false);
+          })
+          .catch(err => {
+            console.error("Sold games error:", err);
+            updateLoading('sales', false);
+            if (isMounted) {
+              toast.error("خطأ في جلب بيانات عدد الألعاب");
+            }
+          });
+        fetchPromises.push(soldPromise);
+
+        const profitsPromise = getTotalProfit()
+          .then(result => {
+            updateData({ profits: result });
+            updateLoading('profits', false);
+          })
+          .catch(err => {
+            console.error("Profits error:", err);
+            updateLoading('profits', false);
+            if (isMounted) {
+              toast.error("خطأ في جلب بيانات الأرباح");
+            }
+          });
+        fetchPromises.push(profitsPromise);
+      }
+
+      try {
+        await Promise.allSettled(fetchPromises);
+      } catch (error) {
+        console.error("Error in fetchAllData:", error);
+      }
+    };
+
+    fetchAllData();
 
     return () => {
-      clearTimeout(timeoutId);
+      isMounted = false;
+      timeoutIds.forEach(id => clearTimeout(id));
     };
-  }, []);
-
-  // Fetch last seven days data
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiData = await getLastSevenDays();
-        const finalData =
-          apiData && apiData.length > 0
-            ? apiData.map((item) => ({
-                day: item.day,
-                value: item.value,
-              }))
-            : [
-                { day: "S", value: 20 },
-                { day: "M", value: 0 },
-                { day: "T", value: 30 },
-                { day: "W", value: 20 },
-                { day: "T", value: 50 },
-                { day: "F", value: 30 },
-              ];
-
-        setChartData(finalData);
-
-        const values = finalData.map((d) => d.value);
-        const min = Math.min(...values);
-        const max = Math.max(...values);
-
-        setMinValue(min > 0 ? min - 5 : 0);
-        setMaxValue(max + 5);
-        setErrorCount(0); // Reset error count on success
-      } catch (err) {
-        console.error(err);
-        setErrorCount((prev) => prev + 1);
-      }
-    };
-
-    if (ability.can("view", "all")) fetchData();
-  }, []);
-
-  // Fetch reports
-  useEffect(() => {
-    let timeoutId;
-
-    const fetchReports = async () => {
-      try {
-        timeoutId = setTimeout(() => {
-          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-        }, 5000);
-        const data = await getAllReports();
-        setReports(data);
-        setErrorCount(0); // Reset error count on success
-      } catch (err) {
-        console.error(err);
-        setErrorCount((prev) => prev + 1);
-      } finally {
-        clearTimeout(timeoutId);
-        setLoadingReports(false);
-      }
-    };
-
-    if (ability.can("view", "Reports")) fetchReports();
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  // Fetch messages
-  useEffect(() => {
-    let timeoutId;
-
-    const fetchMessages = async () => {
-      try {
-        timeoutId = setTimeout(() => {
-          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-        }, 5000);
-        const data = await getAllMessages();
-        setMessages(data);
-        setErrorCount(0); // Reset error count on success
-      } catch (err) {
-        console.error(err);
-        setErrorCount((prev) => prev + 1);
-        toast.error("خطأ في سحب بيانات الرسائل .. إعادة المحاولة بعد ثانيتين");
-      } finally {
-        clearTimeout(timeoutId);
-        setLoadingMessages(false);
-      }
-    };
-
-    if (ability.can("view", "Messages")) fetchMessages();
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  // Fetch user count
-  useEffect(() => {
-    let timeoutId;
-
-    const fetchData = async () => {
-      try {
-        timeoutId = setTimeout(() => {
-          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-        }, 5000);
-        const data = await getUserCount();
-        setUserCount(data);
-        setErrorCount(0); // Reset error count on success
-      } catch (err) {
-        console.error(err);
-        setErrorCount((prev) => prev + 1);
-        toast.error("خطأ في سحب عدد المستخدمين .. إعادة المحاولة بعد ثانيتين");
-      } finally {
-        clearTimeout(timeoutId);
-        setLoadingUserCount(false);
-      }
-    };
-
-    if (ability.can("view", "all")) fetchData();
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  // Fetch categories
-  useEffect(() => {
-    let timeoutId;
-
-    const fetchData = async () => {
-      try {
-        timeoutId = setTimeout(() => {
-          toast.error("التحميل تأخر.. ممكن يكون فيه مشكلة في النت 🚨");
-        }, 5000);
-        const data = await getAllCategories();
-        setCategories(data);
-        setErrorCount(0); // Reset error count on success
-      } catch (err) {
-        console.error(err);
-        setErrorCount((prev) => prev + 1);
-        toast.error("خطأ في سحب الفئات .. إعادة المحاولة بعد ثانيتين");
-      } finally {
-        clearTimeout(timeoutId);
-        setLoadingCategories(false);
-      }
-    };
-
-    if (ability.can("view", "Categories")) fetchData();
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  // Fetch total sold games
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getTotalSoldGames();
-        setSold(data);
-        setErrorCount(0); // Reset error count on success
-      } catch (err) {
-        console.error(err);
-        setErrorCount((prev) => prev + 1);
-        toast.error("خطأ في جلب بيانات عدد الألعاب .. إعادة المحاولة بعد ثانيتين");
-      }
-    };
-
-    if (ability.can("view", "Sales")) fetchData();
-  }, []);
-
-  // Fetch total profit
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getTotalProfit();
-        setProfits(data);
-        setErrorCount(0); // Reset error count on success
-      } catch (err) {
-        console.error(err);
-        setErrorCount((prev) => prev + 1);
-        toast.error("خطأ في جلب بيانات الأرباح .. إعادة المحاولة بعد ثانيتين");
-      }
-    };
-
-    if (ability.can("view", "Sales")) fetchData();
-  }, []);
-
-  const getImageSrc = (cardType) => {
-    if (hoveredCard === cardType) {
-      return "./dashrm.png";
-    }
-    return "/dashr.png";
-  };
+  }, [ability, reFetch]);
 
   return (
     <div className="d-main">
@@ -407,7 +377,7 @@ const Dmain = () => {
                       <div className="chart-graf">
                         <ResponsiveContainer width="100%" height={200}>
                           <LineChart
-                            data={chartData}
+                            data={data.chartData}
                             margin={{ top: 10, right: 60, left: -35, bottom: 0 }}
                           >
                             <CartesianGrid
@@ -423,11 +393,11 @@ const Dmain = () => {
                               tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
                             />
                             <YAxis
-                              domain={[0, maxValue]}
+                              domain={[0, data.maxValue]}
                               axisLine={false}
                               tickLine={false}
                               tick={{ fontSize: 12, fill: "rgba(249, 231, 197, 1)" }}
-                              ticks={getNiceTicks(minValue, maxValue)}
+                              ticks={getNiceTicks(data.minValue, data.maxValue)}
                             />
                             <Tooltip />
                             <Line
@@ -443,9 +413,9 @@ const Dmain = () => {
                       </div>
                       <div className="chart-info">
                         <h6>العدد</h6>
-                        <p>{sold}</p>
+                        <p>{data.sold}</p>
                         <h6>أرباح</h6>
-                        <p>{profits}</p>
+                        <p>{data.profits}</p>
                       </div>
                     </div>
                   </div>
@@ -470,14 +440,14 @@ const Dmain = () => {
                 <img src={getImageSrc("report")} alt="" /> البلاغات{" "}
                 <img src={getImageSrc("report")} alt="" />
               </h3>
-              {loadingReports ? (
+              {loading.reports ? (
                 <Loading />
               ) : (
                 <>
                   <div className="card-info">
                     <div className="info">
                       <h3>كلى</h3>
-                      <p>{reports.length}</p>
+                      <p>{data.reports.length}</p>
                     </div>
                   </div>
                   <div className="r-cards">
@@ -515,14 +485,14 @@ const Dmain = () => {
                 <img src={getImageSrc("mess")} alt="hover" /> الرسائل{" "}
                 <img src={getImageSrc("mess")} alt="hover" />
               </h3>
-              {loadingMessages ? (
+              {loading.messages ? (
                 <Loading />
               ) : (
                 <>
                   <div className="card-info">
                     <div className="info">
                       <h3>كلى</h3>
-                      <p>{messages.length}</p>
+                      <p>{data.messages.length}</p>
                     </div>
                   </div>
                   <div className="r-cards">
@@ -560,7 +530,7 @@ const Dmain = () => {
               </h3>
               <div className="r-cards">
                 {ability.can("view", "all") &&
-                  (loadingUserCount ? (
+                  (loading.userCount ? (
                     <Loading />
                   ) : (
                     <div
@@ -575,13 +545,13 @@ const Dmain = () => {
                         <p>المستخدمين</p>
                       </div>
                       <div className="mess">
-                        <h4 className="r-h">{userCount}</h4>
+                        <h4 className="r-h">{data.userCount}</h4>
                       </div>
                     </div>
                   ))}
 
                 {ability.can("manage", "Categories") &&
-                  (loadingCategories ? (
+                  (loading.categories ? (
                     <Loading />
                   ) : (
                     <div
@@ -596,13 +566,13 @@ const Dmain = () => {
                         <p>الفئات</p>
                       </div>
                       <div className="mess">
-                        <h4 className="r-h">{categories.length}</h4>
+                        <h4 className="r-h">{data.categories.length}</h4>
                       </div>
                     </div>
                   ))}
 
                 {ability.can("view", "all") &&
-                  (loadingVouchers ? (
+                  (loading.vouchers ? (
                     <Loading />
                   ) : (
                     <div
@@ -617,13 +587,13 @@ const Dmain = () => {
                         <p>أكواد الخصم</p>
                       </div>
                       <div className="mess">
-                        <h4 className="r-h">{vouchers.length}</h4>
+                        <h4 className="r-h">{data.vouchers.length}</h4>
                       </div>
                     </div>
                   ))}
 
                 {ability.can("manage", "Categories") &&
-                  (loadingCategories ? (
+                  (loading.categories ? (
                     <Loading />
                   ) : (
                     <div
@@ -638,7 +608,7 @@ const Dmain = () => {
                         <p>الألعاب</p>
                       </div>
                       <div className="mess">
-                        <h4 className="r-h">{categories.length}</h4>
+                        <h4 className="r-h">{data.categories.length}</h4>
                       </div>
                     </div>
                   ))}

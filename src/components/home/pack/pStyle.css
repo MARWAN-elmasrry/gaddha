@@ -34,11 +34,9 @@
   position: absolute;
   bottom: 33px;
   left: 33px;
-  cursor: pointer;}
-
-.pack .pack-cont .card .main h5{
-  color: #5a2e1d !important;
+  cursor: pointer;
 }
+
 .pack .pack-cont .card .top {
   background-color: #f4be32;
   -webkit-transform: rotate(45deg);
@@ -72,7 +70,7 @@
 
 .pack .pack-cont .card2 .main h5 {
   -webkit-transform: rotate(315deg);
-  left: 74px;
+  left: 58px;
   right: -43px;
   top: 5px;
   bottom: -57px;
@@ -300,4 +298,23 @@
 }
 .stepper .line.done {
   background: #d1bfa7 !important;
+}
+
+.discount-section {
+  width: 100% !important;
+}
+.discount-section > div:first-child {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+.discount-section > div:first-child .apply-btn {
+  margin: 0 !important;
+  background: #883813 !important;
+  font-size: 20px;
+}
+.discount-section > div:first-child .apply-btn:hover {
+  background: transparent !important;
+  color: #883813;
+  border: 1px solid #883813;
 }

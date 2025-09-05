@@ -1,6 +1,7 @@
 import "./fStyle.css";
 
 const Files = () => {
+  
   return (
     <>
       <div className="files">
@@ -24,6 +25,18 @@ const Files = () => {
                   <p>7</p>
                 </div>
               </div>
+              <button
+            // onClick={handleRefresh}
+            style={{
+              position: "absolute",
+              top: "60px",
+              right: "20px",
+              zIndex: 3,
+            }}
+            title="تحديث الصفحة (Ctrl+R)"
+          >
+            اعاده تحميل
+          </button>
             </div>
             <div className="f-card">
               <div className="storage-info">

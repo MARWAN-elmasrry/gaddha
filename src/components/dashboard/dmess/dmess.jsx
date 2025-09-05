@@ -1,7 +1,7 @@
 import { getAllMessages, messageReply, messageAsSeen } from "../../../api/services/admingService";
 import { Loading } from "../dmain/dmain";
 import "./dmStyle.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useCallback } from "react";
 import { toast } from "react-toastify";
 
 import { useContext } from "react";
@@ -17,6 +17,12 @@ const Dmess = () => {
   const [replyingTo, setReplyingTo] = useState(null);
   const [replies, setReplies] = useState({});
   const [sentReply, setSentReply] = useState(null);
+
+  const [reFetch, setRefetch] = useState(false);
+    const handleRefresh = useCallback(() => {
+      setRefetch(prev => !prev);
+    }, []);
+  
 
   useEffect(() => {
     let timeoutId;
@@ -39,7 +45,7 @@ const Dmess = () => {
 
     fetchData();
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [reFetch]);
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
@@ -121,6 +127,18 @@ const Dmess = () => {
                   <p>{messages.length}</p>
                 </div>
               </div>
+              <button
+            onClick={handleRefresh}
+            style={{
+              position: "absolute",
+              top: "50px",
+              right: "20px",
+              zIndex: 3,
+            }}
+            title="تحديث الصفحة (Ctrl+R)"
+          >
+            اعاده تحميل
+          </button>
             </div>
             {loadingMessages ? (
               <>

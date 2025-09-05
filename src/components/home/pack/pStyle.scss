@@ -310,3 +310,21 @@
     }
   }
 }
+.discount-section {
+  width: 100% !important;
+  > div:first-child {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    .apply-btn {
+      margin: 0 !important;
+      background: #883813 !important;
+      font-size: 20px;
+    }
+    .apply-btn:hover {
+      background: transparent !important;
+      color: #883813;
+      border: 1px solid #883813;
+    }
+  }
+}

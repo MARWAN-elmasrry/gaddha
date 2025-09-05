@@ -1,6 +1,6 @@
 import { getAllUsers } from "../../../api/services/admingService";
 import "./uStyle.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import coins from "../../../../public/ydot.png";
 import searchIcon from "../../../../public/search.png";
 import { toast } from "react-toastify";
@@ -10,6 +10,12 @@ const Users = () => {
   const [search, setSearch] = useState("");
   const [openUserForm, setOpenUserForm] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+
+  const [reFetch, setRefetch] = useState(false);
+          const handleRefresh = useCallback(() => {
+            setRefetch(prev => !prev);
+          }, []);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +29,7 @@ const Users = () => {
     };
 
     fetchData();
-  }, []);
+  }, [reFetch]);
 
   const calculateAge = (birthday) => {
     if (!birthday) return "-";
@@ -82,6 +88,18 @@ const Users = () => {
                   <p>{users.length}</p>
                 </div>
               </div>
+              <button
+            onClick={handleRefresh}
+            style={{
+              position: "absolute",
+              top: "60px",
+              right: "20px",
+              zIndex: 3,
+            }}
+            title="تحديث الصفحة (Ctrl+R)"
+          >
+            اعاده تحميل
+          </button>
             </div>
 
             {/* مربع البحث */}
