@@ -422,6 +422,8 @@ const QandA = ({
   const [timer, setTimer] = useState(60);
   const [turn, setTurn] = useState(1);
   const [openReportForm, setOpenReportForm] = useState(false);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (currentView !== "question") return;
 
@@ -449,6 +451,7 @@ const QandA = ({
     } else {
       onBack();
     }
+    dispatch(switchTurn());
   };
 
   return (
@@ -639,6 +642,7 @@ const MainGame = () => {
       setShowQandA(false);
       setCurrentView("question");
       setFlippedCard(null);
+      dispatch(switchTurn());
     }
   };
 
