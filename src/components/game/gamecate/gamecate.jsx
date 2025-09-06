@@ -1,8 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { QUESTION_BANK } from "../questionBank";
-import { setGame } from "../../../gameSlice";
 import "./gcStyle.css";
 import {
   toggleCategoryFavorite,

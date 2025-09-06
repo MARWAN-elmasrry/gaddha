@@ -72,6 +72,13 @@ const gameSlice = createSlice({
       state.teamTwo = "";
       state.teamOneScore = 0;
       state.teamTwoScore = 0;
+      state.currentTurn = "1";
+      state.teamOneHelpers = { phoneCall: true, doublePoints: true, doubleAnswers: true };
+      state.teamTwoHelpers = { phoneCall: true, doublePoints: true, doubleAnswers: true };
+      state.isGameOver = false;
+      state.numberOfShownQuestions = 0;
+      state.winnerTeam = null;
+      state.isNewGame = false;
       localStorage.removeItem("gameData");
     },
     replayGame: (state) => {

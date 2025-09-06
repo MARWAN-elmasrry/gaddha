@@ -83,7 +83,6 @@ const Header = () => {
 
 const SelecteCate = ({ category, index, flipped, onClick, onDifficultyClick, questionBank }) => {
   const categoryQuestions = questionBank[category] || [];
-
   const getShownCount = (points) => {
     return categoryQuestions.filter((q) => q.points === points && q.shown).length;
   };
@@ -159,7 +158,15 @@ const SelecteCate = ({ category, index, flipped, onClick, onDifficultyClick, que
                 />
               </button>
             </div>
-            <img src="./catimg.png" alt="" />
+            <img
+              className="category-img"
+              src={
+                categoryQuestions[0]?.category?.image
+                  ? categoryQuestions[0]?.category?.image
+                  : "./catimg.png"
+              }
+              alt="category image"
+            />
             <h5>{category}</h5>
           </div>
         </div>
@@ -315,7 +322,9 @@ const GameFooter = ({ setDoublePointsClicked, showQandA }) => {
       <div className="footer-container">
         <div className="game-foot-cont">
           <div className="t1">
-            <h2>{teamOne || "الفريق الأول"}</h2>
+            <h2 className={`${currentTurn === "1" ? "active-player turn-indicator" : ""}`}>
+              {teamOne || "الفريق الأول"}
+            </h2>
             <div className="score">
               <div
                 className="t-btn"
@@ -373,7 +382,9 @@ const GameFooter = ({ setDoublePointsClicked, showQandA }) => {
             </div>
           </div>
           <div className="t1">
-            <h2>{teamTwo || "الفريق الثاني"}</h2>
+            <h2 className={`${currentTurn === "2" ? "active-player turn-indicator" : ""}`}>
+              {teamTwo || "الفريق الثاني"}
+            </h2>
             <div className="score">
               <div
                 className="t-btn"
@@ -472,10 +483,7 @@ const QandA = ({
 
         {currentView === "question" && (
           <>
-            <h1>
-              السؤال ({doublePointsClicked ? Number(currentQA?.points) * 2 : currentQA?.points}{" "}
-              نقطة): {currentQA?.q}
-            </h1>
+            <h1>السؤال : {currentQA?.q}</h1>
             <div className="qora">
               <img src={currentQA.qImage} alt="" />
             </div>
@@ -484,10 +492,7 @@ const QandA = ({
 
         {currentView === "answer" && (
           <>
-            <h1>
-              الجواب ({doublePointsClicked ? Number(currentQA?.points) * 2 : currentQA?.points}{" "}
-              نقطة): {currentQA?.a}
-            </h1>
+            <h1>الجواب : {currentQA?.a}</h1>
             <div className="qora">
               <img src={currentQA.aImage} alt="" />
             </div>

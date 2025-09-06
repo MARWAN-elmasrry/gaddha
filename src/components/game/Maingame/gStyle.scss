@@ -74,7 +74,7 @@
   gap: 1rem;
 }
 .m-game .cards .card-cate {
-  width: 340px;
+  width: 230px;
   height: 260px;
   position: relative;
   background-color: transparent;
@@ -98,6 +98,7 @@
   border-top-left-radius: 20px;
   display: flex;
   justify-content: center;
+  padding: 4px;
 }
 .m-game .card-cate .card-info .select img {
   margin: 0;
@@ -107,9 +108,16 @@
   width: 120px;
   margin-top: 5px;
 }
+.card-info {
+  .category-img {
+    height: 231px !important;
+    width: 230px !important;
+    margin: 0 !important;
+  }
+}
 .m-game .card-cate .card-info h5 {
   width: 100%;
-  height: 20%;
+  height: 14%;
   margin: 0;
   padding-top: 10px;
   border-bottom-right-radius: 21px;
@@ -319,8 +327,8 @@
   width: 9rem;
 }
 .m-game .cards .card-cate {
-  width: 340px;
-  height: 260px;
+  width: 230px;
+  height: 320px;
   position: relative;
   perspective: 1000px; /* عشان الفليب */
   border-radius: 22.8px;
@@ -338,12 +346,13 @@
 }
 .card-inner .game-q-points {
   margin: 0;
-  padding: 0 20px;
+  padding: 4px 20px;
   display: flex;
+  gap: 4px;
   background: linear-gradient(90deg, #8838131a 37.5%, rgba(136, 56, 19, 0.2) 100%);
 }
 .card-inner .game-q-points .game-q-points-img {
-  width: 30px !important;
+  width: 25px !important;
 }
 .card-cate.flipped .card-inner {
   transform: rotateY(180deg);
@@ -387,6 +396,13 @@
 }
 .timer[data-turn="2"] {
   color: #f4be32;
+}
+@media (min-width: 769px) {
+  .m-game {
+    .container {
+      max-width: 960px !important;
+    }
+  }
 }
 
 @media (max-width: 1279px) {
@@ -605,6 +621,32 @@
       .qora {
         width: 90% !important;
       }
+    }
+  }
+}
+.m-game {
+  .t1,
+  .t2 {
+  }
+  .active-player {
+    box-shadow: 0 0 20px #eeaf6c;
+    border-radius: 12px;
+    transition: 0.3s ease;
+  }
+  .turn-indicator {
+    transform: translateX(-50%);
+    animation: bounce 1s infinite;
+    font-size: 24px;
+    position: relative;
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(0, -10px);
     }
   }
 }
