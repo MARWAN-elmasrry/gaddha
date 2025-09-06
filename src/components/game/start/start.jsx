@@ -1,7 +1,7 @@
 import "./sgStyle.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { setGameNames, setGame } from "../../../gameSlice";
+import { setGameNames, setGame, clearGame } from "../../../gameSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createGameSession } from "../../../api/services/userService";
@@ -25,6 +25,8 @@ const Start = () => {
           await createGameSession({ ...selectedCategories, gameName: localGameName })
         ).session;
         gameQuestions = transformQuestions(session);
+        dispatch(clearGame());
+
         dispatch(
           setGame({
             gameName: localGameName,

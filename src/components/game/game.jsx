@@ -133,22 +133,6 @@ function FavoriteCate({ selected, setSelected }) {
     setSelected((prev) => prev.filter((selectedId) => selectedId !== id));
   };
 
-  const startGame = () => {
-    const payload = {
-      selectedCategories: selected.map((id) => ({
-        id,
-        name: id,
-        qa: QUESTION_BANK[id] || [],
-      })),
-      questionBank: QUESTION_BANK,
-    };
-
-    dispatch(setGame(payload));
-    navigate("/start", {
-      replace: true,
-    });
-  };
-
   if (favorites.length === 0) {
     return (
       <div className="game-cate">

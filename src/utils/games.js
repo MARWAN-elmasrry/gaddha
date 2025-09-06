@@ -1,8 +1,7 @@
 const fillCategory = (questionsByCategory, questionBank) => {
-  console.log("Filling category", questionsByCategory, questionBank);
   for (const [categoryKey, difficulties] of Object.entries(questionsByCategory)) {
     questionBank[categoryKey] = [];
-
+    console.log("cat", categoryKey, difficulties);
     for (const [difficulty, questions] of Object.entries(difficulties)) {
       let points = 0;
       if (difficulty === "easy") points = 200;
@@ -18,6 +17,7 @@ const fillCategory = (questionsByCategory, questionBank) => {
           shown: false,
           qImage: q.questionImage,
           aImage: q.answerImage,
+          category: q.category,
         });
       });
     }
@@ -33,7 +33,6 @@ export const transformQuestions = (session, fieldAccess = "questions") => {
     questionsByPlayer1Category = session.player1.categories;
     questionsByPlayer2Category = session.player2.categories;
   }
-  console.log("trans", session, questionsByPlayer1Category, questionsByPlayer2Category);
   fillCategory(questionsByPlayer1Category, questionBank);
   fillCategory(questionsByPlayer2Category, questionBank);
   return questionBank;

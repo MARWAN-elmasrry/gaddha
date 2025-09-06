@@ -124,7 +124,7 @@
     margin-bottom: -100px;
   }
   .start .game-cate-imgs img {
-    width: 30px !important;
+    width: 25px !important;
     height: 30px !important;
   }
 }
@@ -150,14 +150,7 @@
   border-radius: 0;
   background-color: #8b4513;
   transform: rotate(45deg);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-.start .back-btn button:hover {
-  transform: rotate(45deg) translate(-7px, -9px);
-  box-shadow: 10px 9px 0px rgba(0, 0, 0, 0.8);
-}
-
 .start .back-btn button img {
   position: absolute;
   top: 9px;
