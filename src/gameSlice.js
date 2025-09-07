@@ -122,16 +122,6 @@ const gameSlice = createSlice({
       }
 
       localStorage.setItem("gameData", JSON.stringify(state));
-      if (state.numberOfShownQuestions >= Object.keys(state.questionBank).length * 6) {
-        console.log("winner", state);
-        state.isGameOver = true;
-        state.winnerTeam =
-          state.teamOneScore > state.teamTwoScore
-            ? "teamOne"
-            : state.teamTwoScore > state.teamOneScore
-            ? "teamTwo"
-            : "draw";
-      }
     },
     adjustScore: (state, action) => {
       const { team, operation } = action.payload;
@@ -149,6 +139,15 @@ const gameSlice = createSlice({
     },
     switchTurn: (state) => {
       state.currentTurn = state.currentTurn === "1" ? "2" : "1";
+      if (state.numberOfShownQuestions >= Object.keys(state.questionBank).length * 6) {
+        state.isGameOver = true;
+        state.winnerTeam =
+          state.teamOneScore > state.teamTwoScore
+            ? "teamOne"
+            : state.teamTwoScore > state.teamOneScore
+            ? "teamTwo"
+            : "draw";
+      }
       localStorage.setItem("gameData", JSON.stringify(state));
     },
     mutateTeamHelpers: (state, action) => {
