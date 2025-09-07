@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createGameSession } from "../../../api/services/userService";
 import { transformQuestions } from "../../../utils/games";
-import { mutatePoints } from "../../../userSlice";
+import { mutateCoins } from "../../../userSlice";
 const Start = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Start = () => {
             questionBank: gameQuestions,
           })
         );
-        dispatch(mutatePoints(-1));
+        dispatch(mutateCoins(-1));
         toast.success("تم إنشاء جلسة اللعبة بنجاح");
       } catch (error) {
         console.log("Error creating game session:", error);

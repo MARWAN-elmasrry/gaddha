@@ -21,24 +21,36 @@ export default function CategoryView() {
 
   return (
     <div className="category-container">
-      <h1>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="view-icon"
-          viewBox="0 0 24 24"
-          width="20"
-          height="20"
-          fill="none"
-          stroke="#ffd28a"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
-        عرض الفئة
-      </h1>
+      <div className="category-header">
+        <h1>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="view-icon"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="#ffd28a"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          عرض الفئة
+        </h1>
+        <div className="back-btn">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = "/admin/categories";
+            }}
+          >
+            <img src="/back.png" alt="" />
+          </button>
+        </div>
+      </div>
       <div class="category-details">
         <h3 class="category-title">تفاصيل الفئة</h3>
         <div class="category-content">
