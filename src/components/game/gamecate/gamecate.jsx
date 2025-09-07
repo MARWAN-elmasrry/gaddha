@@ -72,6 +72,8 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
     return () => setActiveGroup(null);
   }, []);
 
+  console.log(categories)
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {

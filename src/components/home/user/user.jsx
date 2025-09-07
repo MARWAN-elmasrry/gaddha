@@ -32,7 +32,7 @@ const Sec = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-  const [message, setMessage] = useState({ text: "", color: "red" });
+  const [message, setMessage] = useState({ text: "", color: "#f9e7c5" });
   const [loading, setLoading] = useState(false);
   const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
@@ -113,11 +113,11 @@ const Sec = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    setMessage({ text: "", color: "red" });
+    setMessage({ text: "", color: "#f9e7c5" });
     setLoading(true);
 
     if (newPassword !== confirmPass) {
-      setMessage({ text: "كلمة المرور غير متطابقة", color: "red" });
+      setMessage({ text: "كلمة المرور غير متطابقة", color: "#f9e7c5" });
       setLoading(false);
       return;
     }
@@ -130,7 +130,7 @@ const Sec = () => {
     } catch (err) {
       setMessage({
         text: err,
-        color: "red",
+        color: "#f9e7c5",
       });
     } finally {
       setLoading(false);
@@ -141,9 +141,8 @@ const Sec = () => {
     <div className="card">
       <div className="card-info">
         <div className="main-info">
-          {showOldPasswordIcon}
           <input
-            type={showOld ? "text" : "password"}
+            type={showOld ? "text" : ""}
             dir="rtl"
             className="passnone"
             placeholder="كلمة المرور القديمة"
@@ -178,7 +177,7 @@ const Sec = () => {
           />
         </div>
 
-        {message.text && <p style={{ color: message.color, fontSize: 20 }}>{message.text}</p>}
+        {message.text && <p style={{ color: message.color, fontSize: 25 }}>{message.text}</p>}
 
         <div className="edit-btn">
           <button className="r-edit" onClick={handleSave} disabled={loading}>
