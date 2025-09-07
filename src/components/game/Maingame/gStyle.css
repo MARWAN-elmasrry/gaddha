@@ -398,30 +398,6 @@
 .card-inner .game-q-points .game-q-points-img {
   width: 25px !important;
 }
-.card-front:hover .game-q-points1,
-.card-front:hover .game-q-points2,
-.card-front:hover .game-q-points3,
-.card-front:hover .game-q-points4,
-.card-front:hover .game-q-points5,
-.card-front:hover .game-q-points6 {
-  animation: wave .7s ease-in-out infinite;
-}
-
-@keyframes wave {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-.card-front:hover .game-q-points1 { animation-delay: 0s; }
-.card-front:hover .game-q-points2 { animation-delay: 0.1s; }
-.card-front:hover .game-q-points3 { animation-delay: 0.2s; }
-.card-front:hover .game-q-points4 { animation-delay: 0.3s; }
-.card-front:hover .game-q-points5 { animation-delay: 0.4s; }
-.card-front:hover .game-q-points6 { animation-delay: 0.5s; }
 
 .card-cate.flipped .card-inner {
   transform: rotateY(180deg);

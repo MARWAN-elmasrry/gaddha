@@ -1,6 +1,7 @@
 import "./gStyle.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import {
   markQuestionAsShown,
@@ -481,32 +482,57 @@ const QandA = ({
           </span>
         </div>
 
-        {currentView === "question" && (
-          <>
-            <h1>السؤال : {currentQA?.q}</h1>
-            <div className="qora">
-              <img src={currentQA.qImage} alt="" />
-            </div>
-          </>
-        )}
 
-        {currentView === "answer" && (
-          <>
-            <h1>الجواب : {currentQA?.a}</h1>
-            <div className="qora">
-              <img src={currentQA.aImage} alt="" />
-            </div>
-          </>
-        )}
+<AnimatePresence mode="wait">
+  {currentView === "question" && (
+    <motion.div
+      key="question"
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 100 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      <h1>السؤال : {currentQA?.q}</h1>
+      <div className="qora">
+        <img src={currentQA.qImage} alt="" />
+      </div>
+    </motion.div>
+  )}
 
-        {currentView === "result" && (
-          <GameResult
-            currentQA={currentQA}
-            onBack={onBack}
-            doublePointsClicked={doublePointsClicked}
-            setDoublePointsClicked={setDoublePointsClicked}
-          />
-        )}
+  {currentView === "answer" && (
+    <motion.div
+      key="answer"
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      <h1>الجواب : {currentQA?.a}</h1>
+      <div className="qora">
+        <img src={currentQA.aImage} alt="" />
+      </div>
+    </motion.div>
+  )}
+
+  {currentView === "result" && (
+    <motion.div
+  key="result"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.4, ease: "easeOut" }}
+>
+  <GameResult
+    currentQA={currentQA}
+    onBack={onBack}
+    doublePointsClicked={doublePointsClicked}
+    setDoublePointsClicked={setDoublePointsClicked}
+  />
+</motion.div>
+
+  )}
+</AnimatePresence>
+
       </div>
     </div>
   );
@@ -644,24 +670,39 @@ const MainGame = () => {
 
   return (
     <div className="m-game">
-      <div className="container">
-        <div className="m-game-cont">
-          <Header />
-          {!showQandA ? (
-            <div className="cards">
-              {Object.keys(questionBank).map((cat, index) => (
-                <SelecteCate
-                  key={cat}
-                  category={cat}
-                  index={index}
-                  flipped={flippedCard === index}
-                  onClick={() => handleCategoryClick(cat, index)}
-                  onDifficultyClick={handleDifficultyClick}
-                  questionBank={questionBank}
-                />
-              ))}
-            </div>
-          ) : (
+  <div className="container">
+    <div className="m-game-cont">
+      <Header />
+      <AnimatePresence mode="wait">
+        {!showQandA ? (
+          <motion.div
+            key="cards"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="cards"
+          >
+            {Object.keys(questionBank).map((cat, index) => (
+              <SelecteCate
+                key={cat}
+                category={cat}
+                index={index}
+                flipped={flippedCard === index}
+                onClick={() => handleCategoryClick(cat, index)}
+                onDifficultyClick={handleDifficultyClick}
+                questionBank={questionBank}
+              />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            key="qanda"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
             <QandA
               onBack={handleBackClick}
               onBackToQuestion={handleBackToQuestion}
@@ -672,11 +713,13 @@ const MainGame = () => {
               setDoublePointsClicked={setDoublePointsClicked}
               doublePointsClicked={doublePointsClicked}
             />
-          )}
-        </div>
-      </div>
-      <GameFooter setDoublePointsClicked={setDoublePointsClicked} showQandA={showQandA} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
+  </div>
+  <GameFooter setDoublePointsClicked={setDoublePointsClicked} showQandA={showQandA} />
+</div>
   );
 };
 
