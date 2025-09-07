@@ -8,7 +8,7 @@ const Card = ({ category }) => {
   return (
     <div className="card">
       <div className="card-num">
-        <span className="number">{category.questionsCount}</span>
+        <span className="number">{category.questionsCount/6}</span>
       </div>
       <div className="card-info"> 
         <h4>{category.name}</h4>
@@ -61,7 +61,7 @@ const Dgames = () => {
               <div className="info">
                 <h3>عدد</h3>
                 <p>
-                    {categories.reduce((sum, cat) => sum + (cat.questionsCount || 0), 0)}
+                    {categories.reduce((sum, cat) => sum + (cat.questionsCount || 0), 0)/6}
                 </p>
               </div>
             </div>
