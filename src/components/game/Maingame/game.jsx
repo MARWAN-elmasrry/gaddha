@@ -419,6 +419,8 @@ const QandA = ({
   const [timer, setTimer] = useState(60);
   const [turn, setTurn] = useState(1);
   const [openReportForm, setOpenReportForm] = useState(false);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (currentView !== "question") return;
 
@@ -446,6 +448,7 @@ const QandA = ({
     } else {
       onBack();
     }
+    dispatch(switchTurn());
   };
 
   return (
@@ -528,7 +531,6 @@ const QandA = ({
 
   )}
 </AnimatePresence>
-
       </div>
     </div>
   );
@@ -661,61 +663,62 @@ const MainGame = () => {
       setShowQandA(false);
       setCurrentView("question");
       setFlippedCard(null);
+      dispatch(switchTurn());
     }
   };
 
   return (
     <div className="m-game">
-  <div className="container">
-    <div className="m-game-cont">
-      <Header />
-      <AnimatePresence mode="wait">
-        {!showQandA ? (
-          <motion.div
-            key="cards"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="cards"
-          >
-            {Object.keys(questionBank).map((cat, index) => (
-              <SelecteCate
-                key={cat}
-                category={cat}
-                index={index}
-                flipped={flippedCard === index}
-                onClick={() => handleCategoryClick(cat, index)}
-                onDifficultyClick={handleDifficultyClick}
-                questionBank={questionBank}
-              />
-            ))}
-          </motion.div>
-        ) : (
-          <motion.div
-            key="qanda"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <QandA
-              onBack={handleBackClick}
-              onBackToQuestion={handleBackToQuestion}
-              onToggleText={handleToggleText}
-              currentView={currentView}
-              currentQA={currentQA}
-              category={currentCategory}
-              setDoublePointsClicked={setDoublePointsClicked}
-              doublePointsClicked={doublePointsClicked}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className="container">
+        <div className="m-game-cont">
+          <Header />
+          <AnimatePresence mode="wait">
+            {!showQandA ? (
+              <motion.div
+                key="cards"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="cards"
+              >
+                {Object.keys(questionBank).map((cat, index) => (
+                  <SelecteCate
+                    key={cat}
+                    category={cat}
+                    index={index}
+                    flipped={flippedCard === index}
+                    onClick={() => handleCategoryClick(cat, index)}
+                    onDifficultyClick={handleDifficultyClick}
+                    questionBank={questionBank}
+                  />
+                ))}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="qanda"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                <QandA
+                  onBack={handleBackClick}
+                  onBackToQuestion={handleBackToQuestion}
+                  onToggleText={handleToggleText}
+                  currentView={currentView}
+                  currentQA={currentQA}
+                  category={currentCategory}
+                  setDoublePointsClicked={setDoublePointsClicked}
+                  doublePointsClicked={doublePointsClicked}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+      <GameFooter setDoublePointsClicked={setDoublePointsClicked} showQandA={showQandA} />
     </div>
-  </div>
-  <GameFooter setDoublePointsClicked={setDoublePointsClicked} showQandA={showQandA} />
-</div>
   );
 };
 
