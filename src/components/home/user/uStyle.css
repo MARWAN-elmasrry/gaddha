@@ -58,12 +58,24 @@
   border-radius: 3rem;
   margin: 1rem;
   background-color: #883813;
+  position: relative;
+}
+.user .card .card-info .main-info svg {
+  position: absolute;
+  left: 20px;
+  top: 18px;
 }
 
 .user .card .card-info .contact-info {
   margin: 1rem;
   border-radius: 3rem;
   background-color: #883813;
+  position: relative;
+}
+.user .card .card-info .contact-info svg {
+  position: absolute;
+  left: 20px;
+  top: 18px;
 }
 
 .user .card .card-info .contact-info p {
@@ -76,6 +88,12 @@
   margin: 1rem;
   border-radius: 3rem;
   background-color: #883813;
+  position: relative;
+}
+.user .card .card-info .mess svg {
+  position: absolute;
+  left: 20px;
+  top: 18px;
 }
 
 .user .card .card-info .mess p {
