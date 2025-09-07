@@ -147,7 +147,7 @@ const Header = () => {
                               )}
 
                               <div className="time">
-                                {new Date(n.timestamp).toLocaleString("ar-EG", {
+                                {new Date(n.updatedAt).toLocaleString("ar-EG", {
                                   hour: "2-digit",
                                   minute: "2-digit",
                                   day: "numeric",
