@@ -38,8 +38,14 @@ const userSlice = createSlice({
       localStorage.clear();
       Object.assign(state, { user: null, loginType: null });
     },
+    mutatePoints: (state, action) => {
+      if (state.user) {
+        state.user.points += action.payload;
+        localStorage.setItem("authData", JSON.stringify(state.user));
+      }
+    },
   },
 });
 
-export const { setUser, logoutUser } = userSlice.actions;
+export const { setUser, logoutUser, mutatePoints } = userSlice.actions;
 export default userSlice.reducer;
