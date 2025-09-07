@@ -9,6 +9,10 @@ body {
   box-sizing: border-box;
   color: rgba(249, 231, 197, 1);
 }
+::selection {
+  background: #883813;
+  color: #f9e7c5;     
+}
 @font-face {
   font-family: "ArefRuqaa";
   src: url("../public/font/ArefRuqaa-Regular.ttf") format("truetype");
@@ -90,4 +94,13 @@ body {
 }
 .Toastify__toast-theme--light {
   background-color: #ffdccb !important;
+}
+button {
+  border-radius: 22.8px;
+  font-size: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+button:hover {
+  transform: translate(-5px, -7px);
+  box-shadow: 7px 6px 0px rgba(0, 0, 0, 0.8);
 }
