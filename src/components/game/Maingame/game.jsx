@@ -109,7 +109,7 @@ const SelecteCate = ({ category, index, flipped, onClick, onDifficultyClick, que
             <div className="select">
               <button className="game-q-points">
                 <img
-                  className="game-q-points-img"
+                  className="game-q-points-img game-q-points1"
                   src="./200.png"
                   alt=""
                   style={{
@@ -117,7 +117,7 @@ const SelecteCate = ({ category, index, flipped, onClick, onDifficultyClick, que
                   }}
                 />
                 <img
-                  className="game-q-points-img"
+                  className="game-q-points-img game-q-points2"
                   src="./200.png"
                   alt=""
                   style={{
@@ -125,7 +125,7 @@ const SelecteCate = ({ category, index, flipped, onClick, onDifficultyClick, que
                   }}
                 />
                 <img
-                  className="game-q-points-img"
+                  className="game-q-points-img game-q-points3"
                   src="./400.png"
                   alt=""
                   style={{
@@ -133,7 +133,7 @@ const SelecteCate = ({ category, index, flipped, onClick, onDifficultyClick, que
                   }}
                 />
                 <img
-                  className="game-q-points-img"
+                  className="game-q-points-img game-q-points4"
                   src="./400.png"
                   alt=""
                   style={{
@@ -141,7 +141,7 @@ const SelecteCate = ({ category, index, flipped, onClick, onDifficultyClick, que
                   }}
                 />
                 <img
-                  className="game-q-points-img"
+                  className="game-q-points-img game-q-points5"
                   src="./600.png"
                   alt=""
                   style={{
@@ -149,7 +149,7 @@ const SelecteCate = ({ category, index, flipped, onClick, onDifficultyClick, que
                   }}
                 />
                 <img
-                  className="game-q-points-img"
+                  className="game-q-points-img game-q-points6"
                   src="./600.png"
                   alt=""
                   style={{
@@ -422,8 +422,6 @@ const QandA = ({
   const [timer, setTimer] = useState(60);
   const [turn, setTurn] = useState(1);
   const [openReportForm, setOpenReportForm] = useState(false);
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if (currentView !== "question") return;
 
@@ -451,7 +449,6 @@ const QandA = ({
     } else {
       onBack();
     }
-    dispatch(switchTurn());
   };
 
   return (
@@ -642,7 +639,6 @@ const MainGame = () => {
       setShowQandA(false);
       setCurrentView("question");
       setFlippedCard(null);
-      dispatch(switchTurn());
     }
   };
 

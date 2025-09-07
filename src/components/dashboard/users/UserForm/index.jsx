@@ -10,6 +10,11 @@ const UserForm = ({ user, open, handleClose }) => {
     <Modal title={title} isOpen={open} onClose={handleClose}>
       <div className="user-form">
         <div className="user-field">
+          <span className="label">ID:</span>
+          <span className="value">{user._id}</span>
+        </div>
+
+        <div className="user-field">
           <span className="label">الاسم:</span>
           <span className="value">{user.name}</span>
         </div>
