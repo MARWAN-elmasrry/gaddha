@@ -30,6 +30,8 @@ const Discount = () => {
     fetchData();
   }, [triggerRefetch, reFetch]);
 
+  console.log(coupons)
+
   return (
     <>
       <div className="dis">
@@ -89,11 +91,22 @@ const Discount = () => {
                   >
                     تعديل
                   </button>
-                  <img src="./inf.png" alt="" />
-                  <img src="./inf.png" alt="" />
-                  <p>{coupon.perUserLimit}</p>
-                  <p>{coupon.discount}</p>
-                  <p>{coupon.code}</p>
+                  <div className="discount-p">
+                    <p>الاستخدام العام</p>
+                    <p>{coupon.userLimit}</p>
+                  </div>
+                  <div className="discount-p">
+                    <p>الحد الأقصى لكل مستخدم</p>
+                    <p>{coupon.perUserLimit}</p>
+                  </div>
+                  <div className="discount-p">
+                    <p>نسبة الخصم </p>
+                    <p>{coupon.discount}</p>
+                  </div>
+                  <div className="discount-p">
+                    <p>كود الخصم</p>
+                    <p>{coupon.code}</p>
+                  </div>
                 </div>
               </div>
             ))}

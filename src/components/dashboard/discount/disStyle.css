@@ -42,7 +42,11 @@
   opacity: 0.6;
   font-size: 1.3rem;
 }
-
+.dis .cards .card .discount-p{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .dis .card button {
   width: 91.0882034302;
   height: 51.0965805054;

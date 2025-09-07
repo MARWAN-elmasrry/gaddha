@@ -17,30 +17,20 @@
 }
 .user .card {
   position: relative;
-  background-color: rgba(
-    136,
-    56,
-    19,
-    0.5
-  );
+  background-color: rgba(136, 56, 19, 0.5);
   border-radius: 20px;
   padding: 1.4rem;
   margin-top: 35px;
   width: 48%;
   height: max-content;
   max-width: 50%;
-  color: rgba(249, 231, 197, 1);
+  color: #f9e7c5;
   font-weight: 700;
 }
 .user .card .card-num {
   width: 60px;
   height: 60px;
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
   transform: rotate(45deg);
   display: flex;
   justify-content: center;
@@ -54,29 +44,30 @@
   font-size: 20px;
   font-weight: bold;
   transform: rotate(-45deg);
-  text-shadow: 1px 1px 2px
-    rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 .user .card .card-info .main-info {
   font-weight: 700;
   border-radius: 3rem;
   margin: 1rem;
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
+  position: relative;
+  svg {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+  }
 }
 .user .card .card-info .contact-info {
   margin: 1rem;
   border-radius: 3rem;
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
+  position: relative;
+  svg {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+  }
 }
 .user .card .card-info .contact-info p {
   margin: 0;
@@ -86,12 +77,13 @@
 .user .card .card-info .mess {
   margin: 1rem;
   border-radius: 3rem;
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
+  position: relative;
+  svg {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+  }
 }
 .user .card .card-info .mess p {
   font-weight: 600;

@@ -166,7 +166,7 @@ const Controls = () => {
                 <div className="inputs">
                   <input
                     type="text"
-                    placeholder=" ID إيميل رقم الهاتف أو"
+                    placeholder=" إيميل أو رقم الهاتف "
                     dir="rtl"
                     value={user}
                     onChange={(e) => setUser(e.target.value)}
