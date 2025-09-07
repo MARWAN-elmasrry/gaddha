@@ -34,6 +34,82 @@ const Sec = () => {
   const [confirmPass, setConfirmPass] = useState("");
   const [message, setMessage] = useState({ text: "", color: "red" });
   const [loading, setLoading] = useState(false);
+  const [showOld, setShowOld] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const handleClickShowOld = () => {
+    setShowOld(!showOld);
+  };
+  const handleClickShowNew = () => {
+    setShowNew(!showNew);
+  };
+  const showOldPasswordIcon = showOld ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      onClick={handleClickShowOld}
+    >
+      <path d="M17.94 17.94A10.94 10.94 0 0112 19c-7 0-11-7-11-7a21.77 21.77 0 015.06-5.94" />
+      <path d="M1 1l22 22" />
+      <path d="M9.88 9.88A3 3 0 0112 9c1.66 0 3 1.34 3 3 0 .53-.14 1.03-.38 1.46" />
+    </svg>
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      onClick={handleClickShowOld}
+    >
+      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+  const showNewPasswordIcon = showNew ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      onClick={handleClickShowNew}
+    >
+      <path d="M17.94 17.94A10.94 10.94 0 0112 19c-7 0-11-7-11-7a21.77 21.77 0 015.06-5.94" />
+      <path d="M1 1l22 22" />
+      <path d="M9.88 9.88A3 3 0 0112 9c1.66 0 3 1.34 3 3 0 .53-.14 1.03-.38 1.46" />
+    </svg>
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      onClick={handleClickShowNew}
+    >
+      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -65,8 +141,9 @@ const Sec = () => {
     <div className="card">
       <div className="card-info">
         <div className="main-info">
+          {showOldPasswordIcon}
           <input
-            type="password"
+            type={showOld ? "text" : "password"}
             dir="rtl"
             className="passnone"
             placeholder="كلمة المرور القديمة"
@@ -76,8 +153,10 @@ const Sec = () => {
         </div>
 
         <div className="contact-info">
+          {showNewPasswordIcon}
+
           <input
-            type="password"
+            type={showNew ? "text" : "password"}
             dir="rtl"
             className="passnone"
             placeholder="كلمة المرور الجديدة"
@@ -87,8 +166,10 @@ const Sec = () => {
         </div>
 
         <div className="mess">
+          {showNewPasswordIcon}
+
           <input
-            type="password"
+            type={showNew ? "text" : "password"}
             dir="rtl"
             className="passnone"
             placeholder="أعد كتابة كلمة المرور الجديدة"
@@ -97,9 +178,7 @@ const Sec = () => {
           />
         </div>
 
-        {message.text && (
-          <p style={{ color: message.color, fontSize: 20 }}>{message.text}</p>
-        )}
+        {message.text && <p style={{ color: message.color, fontSize: 20 }}>{message.text}</p>}
 
         <div className="edit-btn">
           <button className="r-edit" onClick={handleSave} disabled={loading}>
@@ -155,9 +234,7 @@ const User = () => {
               </a>
             </div>
           </div>
-          <div
-            className={`card-flip-container ${isFlipping ? "flipping" : ""}`}
-          >
+          <div className={`card-flip-container ${isFlipping ? "flipping" : ""}`}>
             <div className="card-content">
               {activeTab === "sec" && <Sec />}
               {activeTab === "info" && <Info user={user} />}
