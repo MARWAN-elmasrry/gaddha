@@ -2,13 +2,6 @@
   background-color: #883813;
   color: #f9e7c5;
   height: 5rem;
-  left: 0;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 10;
 }
 
 .d-head .d-head-cont .side-menu .icon span {
@@ -39,10 +32,7 @@
   text-align: end;
   font-size: 1.4rem;
 }
-.exit a {
-border-radius: 0 0 20px 20px;
-  background: linear-gradient(270deg, rgba(207, 138, 65, 1) 0%, #883813 100%);
-}
+
 @media (max-width: 1439px) {
   ul {
     min-width: auto !important;

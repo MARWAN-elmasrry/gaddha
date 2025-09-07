@@ -3,7 +3,7 @@
   direction: rtl;
   margin: 0 auto;
   width: 80%;
-  margin-top: 100px;
+  margin-top: 48px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -23,12 +23,10 @@
   cursor: pointer;
   font-size: 16px;
   color: #ffd28a;
-  transition: color !important;
+  transition: color 0.3s ease;
 }
 .category-container .edit-btn:hover {
   color: #fff;
-  transform: none !important;
-  box-shadow: none !important;
 }
 .category-container button {
   margin: 0 !important;
@@ -40,7 +38,12 @@
 .category-container .edit-button {
   color: #ffd28a;
 }
-.category-container > h1 {
+.category-container .category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.category-container .category-header h1 {
   width: auto !important;
   text-align: right;
   display: flex;
@@ -48,6 +51,7 @@
   align-items: center;
   font-size: 48px;
   color: #ffd28a;
+  margin: 0 !important;
 }
 .category-container .category-details {
   background: #5c2b14;
@@ -150,7 +154,7 @@
   padding: 20px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
   color: #fff;
-  height: 60vh;
+  height: 65vh;
   margin-bottom: 64px;
 }
 .category-container .category-card .card-title {
@@ -201,4 +205,19 @@
 /* Row Striping */
 .table-row:nth-child(even):not(.table-header) {
   background-color: rgba(255, 215, 179, 0.1);
+}
+
+.back-btn button {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 0;
+  background-color: #8b4513;
+  transform: rotate(45deg);
+}
+.back-btn button img {
+  position: absolute;
+  top: 9px;
+  right: 7px;
+  transform: rotate(-45deg);
 }
