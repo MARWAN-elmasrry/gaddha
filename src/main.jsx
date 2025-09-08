@@ -1,4 +1,5 @@
 import React from "react";
+import "./soon.css";
 import { createRoot } from "react-dom/client";
 // import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
@@ -18,7 +19,11 @@ createRoot(document.getElementById("root")).render(
           sparkCount={8}
           duration={400}
         >
-          <h1>Soon</h1>
+          {/* <App /> */}
+          <div className="soon">
+            <img src="./logo.png" alt="" />
+           <h1>قريبا</h1>
+          </div>
         </ClickSpark>
       </Provider>
     </BrowserRouter>

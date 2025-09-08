@@ -1,0 +1,51 @@
+html {
+  height: 100%;
+}
+body {
+  background-color: rgb(250 231 198);
+  margin: 0;
+  padding: 0;
+  font-family: "ArefRuqaa", sans-serif;
+  box-sizing: border-box;
+  color: rgba(249, 231, 197, 1);
+}
+@font-face {
+  font-family: "ArefRuqaa";
+  src: url("../public/font/ArefRuqaa-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "ArefRuqaa";
+  src: url("../public/fonts/ArefRuqaa-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cairo";
+  src: url("../public/fonts/Cairo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cairo";
+  src: url("../public/fonts/Cairo-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+.soon{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url(/public/soon.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: center;
+}
+.soon h1{
+    font-size: 5rem;
+    margin: 0;
+    color: rgb(133 53 18);
+}
