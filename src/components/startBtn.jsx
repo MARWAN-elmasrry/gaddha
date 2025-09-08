@@ -18,7 +18,7 @@ export const StartBtn = () => {
         <div className="an an2"></div>
         <div className="an an3"></div>
         <div className="an an4"></div>
-      </div>
+    </div>
     </>
   );
 };

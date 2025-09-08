@@ -9,7 +9,7 @@ const Hero = () => {
           <div className="hero-cont">
             <div className="back-img">
               <div className="info-f">
-                <h2>لعبة تفاعلية من قلب السعودية</h2>
+                <h2>لعبة تفاعلية من قلب السعودية الى الخليج</h2>
                 <h3>قدها ولابس سوالف؟</h3>
                 <StartBtn />
               </div>

@@ -85,7 +85,7 @@ const Start = () => {
                 <img src="/back.png" alt="" />
               </button>
             </div>
-            <h2 className="start-title">اختر الأسامي ولا نشوف مين قدها</h2>
+            <h2 className="start-title">عبى البيانات و خلينا نشوف مين قدها</h2>
             <div className="start-input-group">
               {isNewGame && (
                 <div className="start-input-row">

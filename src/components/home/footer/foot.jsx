@@ -1,4 +1,3 @@
-import { StartBtn } from "../../startBtn"
 import "./footStyle.css"
 import { useLocation, NavLink } from "react-router-dom"
 import { useSelector } from "react-redux"   
@@ -19,8 +18,23 @@ const Footer = () => {
               <div className="info-f">
                 <h1>قدها ولابس سوالف؟</h1>
                 <h3>!ورنا الحين</h3>
-                <StartBtn />
-              </div>
+                  <div className="btn-play">
+                    <button
+                      className="play"
+                      style={{ position: "relative", zIndex: "100" }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = "/games";
+                      }}
+                    >
+                      العب
+                    </button>
+                      <div className="an an1"></div>
+                      <div className="an an2"></div>
+                      <div className="an an3"></div>
+                      <div className="an an4"></div>
+                  </div>
+                </div>
               <img src="/hero.png" alt="hero" />
               <img src="/herof.png" alt="herof" />
               <img src="/logo.png" alt="logo" style={{ width: 120 }} />

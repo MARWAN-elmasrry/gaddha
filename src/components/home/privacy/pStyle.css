@@ -1,11 +1,359 @@
-.privacy .privacy-cont{
-    display: flex;
-    height: 80vh;
-    gap: 5rem;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.privacy {
+    direction: rtl;
+    min-height: 100vh;
+    padding: 20px 0;
 }
-.privacy .privacy-cont h1{
-    font-size: 6rem;
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.privacy-cont {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.91);
+    padding: 40px;
+    margin: 20px auto;
+    backdrop-filter: blur(10px);
+    animation: slideInUp 0.8s ease-out;
+    transform: translateY(0);
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.privacy-cont img {
+    display: block;
+    margin: 0 auto 30px;
+    max-width: 150px;
+    height: auto;
+    animation: bounceIn 1s ease-out 0.3s both;
+    transition: transform 0.3s ease;
+}
+
+.privacy-cont img:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.privacy-cont h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 3px solid rgb(136 56 19);
+    padding-bottom: 15px;
+    animation: fadeInDown 0.8s ease-out 0.5s both;
+    background: linear-gradient(45deg, rgba(249, 231, 197, 1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+}
+
+.privacy-cont h1::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(45deg, rgb(136 56 19));
+    animation: expandLine 1s ease-out 1s both;
+}
+
+@keyframes expandLine {
+    0% {
+        width: 0;
+        left: 50%;
+    }
+    100% {
+        width: 100%;
+        left: 0;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.privacy-cont p {
+    font-size: 2.1rem;
+    line-height: 1.8;
+    text-align: justify;
+    word-spacing: 2px;
+    letter-spacing: 0.3px;
+    animation: fadeIn 1s ease-out 0.7s both;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+details {
+    margin: 15px 0;
+    border: 1px solid rgba(136, 56, 19, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    animation: slideInRight 0.6s ease-out both;
+    animation-delay: calc(var(--i) * 0.1s);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+details:nth-child(3) { --i: 1; }
+details:nth-child(4) { --i: 2; }
+details:nth-child(5) { --i: 3; }
+details:nth-child(6) { --i: 4; }
+details:nth-child(7) { --i: 5; }
+details:nth-child(8) { --i: 6; }
+details:nth-child(9) { --i: 7; }
+details:nth-child(10) { --i: 8; }
+
+details:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(136, 56, 19, 0.3);
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+summary {
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 1.6rem;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+    user-select: none;
+    background: linear-gradient(90deg, transparent 0%, rgba(136, 56, 19, 0.1) 50%, transparent 100%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    position: relative;
+    overflow: hidden;
+}
+
+summary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+summary:hover::after {
+    left: 100%;
+}
+
+summary:hover {
+    background: rgb(136 56 19);
+    color: white;
+    background-position: 0% 0;
+    transform: scale(1.02);
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary::before {
+    content: "▼";
+    float: left;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    color: wheat;
+    font-size: 0.8em;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+}
+
+details[open] summary::before {
+    transform: rotate(180deg) scale(1.1);
+    color: #d4af37;
+}
+
+.details-content {
+    padding: 20px;
+    animation: expandContent 0.5s ease-out;
+}
+
+@keyframes expandContent {
+    0% {
+        opacity: 0;
+        max-height: 0;
+        padding: 0 20px;
+    }
+    100% {
+        opacity: 1;
+        max-height: 500px;
+        padding: 20px;
+    }
+}
+
+/* Style for contact information */
+.contact-info {
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-right: 4px solid rgb(136 56 19);
+    background: linear-gradient(135deg, rgba(136, 56, 19, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+    animation: slideInLeft 0.6s ease-out;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-info::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.contact-info:hover {
+    transform: translateX(-5px);
+    box-shadow: 5px 5px 15px rgba(136, 56, 19, 0.3);
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Floating particles animation */
+.privacy::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(136, 56, 19, 0.1) 2px, transparent 2px),
+        radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 40% 60%, rgba(136, 56, 19, 0.05) 1px, transparent 1px);
+    background-size: 100px 100px, 80px 80px, 120px 120px;
+    animation: floatParticles 20s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes floatParticles {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-100px);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .privacy-cont {
+        padding: 25px;
+        margin: 10px;
+    }
+
+    .privacy-cont h1 {
+        font-size: 2rem;
+    }
+
+    .privacy-cont p {
+        font-size: 1rem;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    details {
+        animation-delay: calc(var(--i) * 0.05s);
+    }
+}
+
+@media (max-width: 480px) {
+    .privacy-cont h1 {
+        font-size: 1.7rem;
+    }
+
+    .privacy-cont p {
+        font-size: 0.95rem;
+    }
 }
