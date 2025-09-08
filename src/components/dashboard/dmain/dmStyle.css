@@ -19,7 +19,7 @@
 }
 .f-card {
   background-color: rgba(136, 56, 19, 1);
-  border-radius: 20px;
+  border-radius: 40px;
   padding: 1rem;
   width:50%;
   height: max-content;
@@ -127,13 +127,14 @@
 /* ================= */
 .s-card{
   width: 50%;
+  border-radius: 40px;
 }
 .sales .sale-cont{
     color: rgba(249, 231, 197, 1);
     padding: 15px;
     width: 100%;
-  background-color: rgba(136, 56, 19, 1);
-    border-radius:20px;
+    background-color: rgba(136, 56, 19, 1);
+    border-radius:40px;
     background-image: url(../../../public/dash/sale2.png);
     background-repeat: no-repeat;
     background-position: bottom right; 

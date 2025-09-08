@@ -27,27 +27,27 @@
 .btn-play:hover .an1 {
   background-color: #000000;
   top: 78px;
-  left: 68px;
+  left: 98px;
   rotate: 70deg;
 }
 
 .btn-play:hover .an2 {
   background-color: #853510;
   top: 93px;
-  left: 104px;
+  left: 134px;
   rotate: 143deg;
 }
 
 .btn-play:hover .an3 {
   background-color: #f4be32;
   top: 93px;
-  left: 141px;
+  left: 171px;
   rotate: 125deg;
 }
 
 .btn-play:hover .an4 {
   background-color: #f9e7c5;
   top: 81px;
-  left: 176px;
+  left: 206px;
   rotate: 102deg;
 }

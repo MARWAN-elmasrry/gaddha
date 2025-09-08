@@ -90,7 +90,7 @@ const Login = () => {
               />
             </div>
 
-            {error && <p style={{ color: "red", direction: "rtl" }}>{error}</p>}
+            {error && <p style={{ color: "white", direction: "rtl" }}>{error}</p>}
 
             {isAdmin ? (
               <></>

@@ -34,8 +34,7 @@ const Category = () => {
       <div className="container">
         <div className="cat-cont">
           <div className="info">
-            <h1>الفئات</h1>
-            <h2>هنا تشوفون جزء من فئاتنا, سووا حساب وشوفوا باقي الفئات</h2>
+            <h1>فئاتنا الجديدة</h1>
           </div>
           {loadingLast?(<>
             <Loading />

@@ -35,41 +35,37 @@ const Header = () => {
         <div className="head-cont">
           <div className="links">
             <div className="side-menu">
-              {!showConfirm ? (
-                <button onClick={handleExitClick} className="exit-btn">
-                  خروج
-                </button>
-              ) : (
-                <div className="confirm-box">
-                  <button
-                    onClick={confirmExit}
-                    className="confirm-btn"
-                    style={{
-                      backgroundColor: "red",
-                      color: "white",
-                      padding: "8px 16px",
-                      marginRight: "10px",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
+<AnimatePresence mode="wait">
+                {!showConfirm ? (
+                  <motion.button
+                    key="exit-btn"
+                    onClick={handleExitClick}
+                    className="exit-btn"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                   >
                     خروج
-                  </button>
-                  <button
-                    onClick={stayHere}
-                    className="cancel-btn"
-                    style={{
-                      backgroundColor: "green",
-                      color: "white",
-                      padding: "8px 25px",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    key="confirm-box"
+                    className="confirm-box"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    كمل قدها
-                  </button>
-                </div>
-              )}
+                    <button onClick={confirmExit} className="confirm-btn" style={{backgroundColor:"red"}}>
+                      خروج
+                    </button>
+                    <button onClick={stayHere} className="cancel-btn" style={{backgroundColor:"green"}}>
+                      كمل قدها
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
           <h1>{gameName}</h1>
@@ -485,54 +481,56 @@ const QandA = ({
           </span>
         </div>
 
-        <AnimatePresence mode="wait">
-          {currentView === "question" && (
-            <motion.div
-              key="question"
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 100 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              <h1>السؤال : {currentQA?.q}</h1>
-              <div className="qora">
-                <img src={currentQA.qImage} alt="" />
-              </div>
-            </motion.div>
-          )}
 
-          {currentView === "answer" && (
-            <motion.div
-              key="answer"
-              initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              <h1>الجواب : {currentQA?.a}</h1>
-              <div className="qora">
-                <img src={currentQA.aImage} alt="" />
-              </div>
-            </motion.div>
-          )}
+<AnimatePresence mode="wait">
+  {currentView === "question" && (
+    <motion.div
+      key="question"
+      initial={{ opacity: 0, x: 10 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 10 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      <h1>السؤال : {currentQA?.q}</h1>
+      <div className="qora">
+        <img src={currentQA.qImage} alt="" />
+      </div>
+    </motion.div>
+  )}
 
-          {currentView === "result" && (
-            <motion.div
-              key="result"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              <GameResult
-                currentQA={currentQA}
-                onBack={onBack}
-                doublePointsClicked={doublePointsClicked}
-                setDoublePointsClicked={setDoublePointsClicked}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+  {currentView === "answer" && (
+    <motion.div
+      key="answer"
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      <h1>الجواب : {currentQA?.a}</h1>
+      <div className="qora">
+        <img src={currentQA.aImage} alt="" />
+      </div>
+    </motion.div>
+  )}
+
+  {currentView === "result" && (
+    <motion.div
+  key="result"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.4, ease: "easeOut" }}
+>
+  <GameResult
+    currentQA={currentQA}
+    onBack={onBack}
+    doublePointsClicked={doublePointsClicked}
+    setDoublePointsClicked={setDoublePointsClicked}
+  />
+</motion.div>
+
+  )}
+</AnimatePresence>
       </div>
     </div>
   );

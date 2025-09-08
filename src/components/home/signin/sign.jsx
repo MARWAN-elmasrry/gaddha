@@ -175,7 +175,7 @@ const Sign = () => {
                   <a href="/login">لدي حساب بالفعل</a>
                 </div>
 
-                {error && <p style={{ color: "red" }}>{error}</p>}
+                {error && <p style={{ color: "white" }}>{error}</p>}
 
                 <div className="start-btn">
                   <button type="submit" disabled={loading}>
