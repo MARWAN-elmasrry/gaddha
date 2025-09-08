@@ -38,6 +38,7 @@
     font-size: 2rem;
     color: rgba(249, 231, 197, 1);
     opacity: .6;
+    width: max-content;
     transition: .4s;
 }
 .sign .links a:hover{

@@ -249,7 +249,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card card3">
-                  <div className="main" onClick={() => pay(75)}>
+                  <div className="main" onClick={() => pay(70)}>
                     <h5>ألعاب 10</h5>
                     <div className="price">
                       <div className="price-info">
@@ -271,7 +271,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card card4">
-                  <div className="main" onClick={() => pay(35)}>
+                  <div className="main" onClick={() => pay(37)}>
                     <h5>5 ألعاب</h5>
                     <div className="price">
                       <div className="price-info">
