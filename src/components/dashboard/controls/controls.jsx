@@ -23,7 +23,7 @@ const Controls = () => {
   });
   const [user, setUser] = useState("");
   const [userHistory, setUserHistory] = useState([]);
-
+  const [controlGameMode, setControlGameMode] = useState("view");
   const handleGiftUserCoins = async () => {
     try {
       await giftUserCoins({ userId: giftedCoinsData.userId, amount: giftedCoinsData.amount });
@@ -102,16 +102,32 @@ const Controls = () => {
               <div className="card">
                 <div className="info">
                   <div className="btn">
-                    <button className="color" onClick={handleGetUserCoins}>
-                      عرض
+                    <button
+                      className="color"
+                      onClick={() => {
+                        controlGameMode === "view" ? handleGetUserCoins() : handleGiftUserCoins();
+                      }}
+                    >
+                      {controlGameMode === "view" ? "عرض" : "اضافة"}
                     </button>
                     <button
                       className="no-color"
                       onClick={() => {
                         setUserCoinsData({ userId: "", coins: "", errors: "" });
+                        setGiftedCoinsData({ userId: "", amount: "", errors: "" });
                       }}
                     >
                       اعادة تهيئة
+                    </button>
+                    <button
+                      className="color"
+                      onClick={() => {
+                        setControlGameMode((prev) => (prev === "view" ? "add" : "view"));
+                        setUserCoinsData({ userId: "", coins: "", errors: "" });
+                        setGiftedCoinsData({ userId: "", amount: "", errors: "" });
+                      }}
+                    >
+                      تغيير
                     </button>
                   </div>
                   <h2>التحكم في الألعاب المتبقية</h2>
@@ -122,10 +138,22 @@ const Controls = () => {
                     placeholder=" ID إيميل رقم الهاتف أو"
                     dir="rtl"
                     value={userCoinsData.userId}
-                    onChange={(e) =>
-                      setUserCoinsData((prev) => ({ ...prev, userId: e.target.value }))
-                    }
+                    onChange={(e) => {
+                      setUserCoinsData((prev) => ({ ...prev, userId: e.target.value }));
+                      setGiftedCoinsData((prev) => ({ ...prev, userId: e.target.value }));
+                    }}
                   />
+                  {controlGameMode === "add" && (
+                    <input
+                      type="number"
+                      placeholder="عدد الألعاب للأضافه"
+                      dir="rtl"
+                      value={giftedCoinsData.amount}
+                      onChange={(e) =>
+                        setGiftedCoinsData((prev) => ({ ...prev, amount: e.target.value }))
+                      }
+                    />
+                  )}
                   {userCoinsData.coins && (
                     <div style={{ direction: "rtl", fontSize: "18px" }}>
                       <h2
@@ -150,6 +178,11 @@ const Controls = () => {
                         </span>
                         لعبة متبقية
                       </h2>
+                    </div>
+                  )}
+                  {getUserCoins.errors && (
+                    <div style={{ color: "red", direction: "rtl", fontSize: "18px" }}>
+                      {giftedCoinsData.errors}
                     </div>
                   )}
                 </div>
