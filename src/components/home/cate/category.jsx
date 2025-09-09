@@ -13,7 +13,6 @@ const Category = () => {
       try {
         const data = await LatestThreeCate(); // لازم await
         setLastThree(data);
-        console.log(data);
       } catch (error) {
         toast.error(
           error.data?.data?.message ||
