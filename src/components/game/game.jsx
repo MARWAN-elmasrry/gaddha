@@ -13,6 +13,7 @@ import {
   getGroups,
   startGameCheck,
   toggleCategoryFavorite,
+  getRemainingGamesForACategory, 
 } from "../../api/services/userService";
 
 const CATEGORIES = [
@@ -97,19 +98,41 @@ function FavoriteCate({ selected, setSelected }) {
   const dispatch = useDispatch();
   // const [selected, setSelected] = useState([]);
   const [favorites, setFavorites] = useState([]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const data = await getFavoriteCategories();
+      
+      // Process categories with remaining games
+      const categoriesWithRemainingGames = await Promise.all(
+        data.map(async (category) => {
+          try {
+            const remainingGames = await getRemainingGamesForACategory(category._id);
+            return { 
+              ...category, 
+              remainingGames: remainingGames 
+            };
+          } catch (error) {
+            console.error(`Error fetching remaining games for category ${category._id}:`, error);
+            return { 
+              ...category, 
+              remainingGames: 0 
+            };
+          }
+        })
+      );
+      
+      setFavorites(categoriesWithRemainingGames);
+    } catch (err) {
+      console.error('Error fetching favorite categories:', err);
+    }
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getFavoriteCategories();
-        setFavorites(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  fetchData();
+}, []);
 
-    fetchData();
-  }, []);
+console.log(favorites)
+
   const selectedWithOrder = useMemo(() => {
     const orderMap = new Map(selected.map((id, i) => [id, i + 1]));
     return orderMap;
