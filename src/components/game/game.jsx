@@ -13,6 +13,7 @@ import {
   getGroups,
   startGameCheck,
   toggleCategoryFavorite,
+  getRemainingGamesForACategory, 
 } from "../../api/services/userService";
 
 const CATEGORIES = [
@@ -51,6 +52,7 @@ const CATEGORIES = [
 // FavoriteCard Component
 function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveFavorite }) {
   const handleCardClick = (e) => {
+    if (category.remainingGames === 0) return; // prevent click if disabled
     if (e.target.closest(".remove-favorite-btn")) {
       return;
     }
@@ -58,30 +60,39 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
   };
 
   const handleRemoveFavorite = async (e) => {
+    e.stopPropagation();
+
     try {
       await toggleCategoryFavorite(category._id);
+      onRemoveFavorite();
     } catch (error) {
-      console.error("Error adding category to favorites:", error);
+      console.error("Error removing category from favorites:", error);
     }
-    e.stopPropagation();
-    onRemoveFavorite();
   };
+
+  const isDisabled = category.remainingGames === 0;
+
 
   return (
     <div
-      className="card-cate favorite-card"
+      className={`card-cate favorite-card ${isDisabled ? "disabled-card" : ""}`}
       onClick={handleCardClick}
       role="button"
       tabIndex={0}
       style={{
-        opacity: selected ? 0.5 : 1,
+        opacity: isDisabled ? 0.4 : selected ? 0.5 : 1,
+        cursor: isDisabled ? "not-allowed" : ""
       }}
     >
-      <div className="card-num"><div className="number">
-      {category.remainingGames}</div></div>
+      <div className="card-num">
+        <div className="number">{category.remainingGames}</div>
+      </div>
       <div className="card-info">
         <div className="select">
-          <button className="remove-favorite-btn" onClick={handleRemoveFavorite}>
+          <button
+            className="remove-favorite-btn"
+            onClick={handleRemoveFavorite}
+          >
             <img src="./exit.png" alt="remove from favorites" />
           </button>
         </div>
@@ -92,24 +103,46 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
   );
 }
 
+
 function FavoriteCate({ selected, setSelected }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [selected, setSelected] = useState([]);
   const [favorites, setFavorites] = useState([]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const data = await getFavoriteCategories();
+      
+      // Process categories with remaining games
+      const categoriesWithRemainingGames = await Promise.all(
+        data.map(async (category) => {
+          try {
+            const remainingGames = await getRemainingGamesForACategory(category._id);
+            return { 
+              ...category, 
+              remainingGames: remainingGames 
+            };
+          } catch (error) {
+            console.error(`Error fetching remaining games for category ${category._id}:`, error);
+            return { 
+              ...category, 
+              remainingGames: 0 
+            };
+          }
+        })
+      );
+      
+      setFavorites(categoriesWithRemainingGames);
+    } catch (err) {
+      console.error('Error fetching favorite categories:', err);
+    }
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getFavoriteCategories();
-        setFavorites(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  fetchData();
+}, []);
 
-    fetchData();
-  }, []);
+
   const selectedWithOrder = useMemo(() => {
     const orderMap = new Map(selected.map((id, i) => [id, i + 1]));
     return orderMap;
