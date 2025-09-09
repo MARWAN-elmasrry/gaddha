@@ -11,7 +11,6 @@ import {
 import { Loading } from "../../dashboard/dmain/dmain";
 
 function Card({ category, index, selected, order, isFavorite, onCardClick, onFavoriteClick }) {
-
   const handleCardClick = (e) => {
     if (category.remainingGames === 0) return; // prevent click
     if (e.target.closest(".select-btn")) {
@@ -28,7 +27,6 @@ function Card({ category, index, selected, order, isFavorite, onCardClick, onFav
 
   const isDisabled = category.remainingGames === 0;
 
-
   return (
     <div
       className={`card-cate ${isDisabled ? "disabled-card" : ""}`}
@@ -37,7 +35,7 @@ function Card({ category, index, selected, order, isFavorite, onCardClick, onFav
       tabIndex={0}
       style={{
         opacity: isDisabled ? 0.4 : selected ? 0.5 : 1,
-        cursor: isDisabled ? "not-allowed" : ""
+        cursor: isDisabled ? "not-allowed" : "",
       }}
     >
       <div className="card-num">
@@ -63,7 +61,6 @@ function Card({ category, index, selected, order, isFavorite, onCardClick, onFav
   );
 }
 
-
 export default function GameCate({ selected, setSelected, activeGroup, setActiveGroup }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -73,7 +70,7 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
   const [categories, setCategories] = useState([]);
   const [loadingCategories, setloadingCategories] = useState(true);
   const [initCategories, setInitCategories] = useState([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -93,25 +90,25 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
       try {
         const data = await getCategories();
         const flattenCategories = data.flatMap((cat) => cat.categories);
-                
+
         const categoriesWithRemainingGames = await Promise.all(
           flattenCategories.map(async (category) => {
             try {
               const remainingGames = await getRemainingGamesForACategory(category._id);
               return {
                 ...category,
-                remainingGames
+                remainingGames,
               };
             } catch (error) {
               console.error(`Error fetching remaining games for category ${category._id}:`, error);
               return {
                 ...category,
-                remainingGames: 0
+                remainingGames: 0,
               };
             }
           })
         );
-        
+
         setCategories(categoriesWithRemainingGames);
         setInitCategories(categoriesWithRemainingGames);
       } catch (error) {
