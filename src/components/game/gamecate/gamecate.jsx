@@ -6,12 +6,14 @@ import {
   toggleCategoryFavorite,
   getCategories,
   getFavoriteCategories,
-  getRemainingGamesForACategory, // Make sure to add this import
+  getRemainingGamesForACategory,
 } from "../../../api/services/userService";
 import { Loading } from "../../dashboard/dmain/dmain";
 
 function Card({ category, index, selected, order, isFavorite, onCardClick, onFavoriteClick }) {
+
   const handleCardClick = (e) => {
+    if (category.remainingGames === 0) return; // prevent click
     if (e.target.closest(".select-btn")) {
       return;
     }
@@ -20,23 +22,34 @@ function Card({ category, index, selected, order, isFavorite, onCardClick, onFav
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation(); // Prevent card selection
+    if (category.remainingGames === 0) return; // block favorite toggle if disabled
     onFavoriteClick();
   };
 
+  const isDisabled = category.remainingGames === 0;
+
+
   return (
     <div
-      className="card-cate"
+      className={`card-cate ${isDisabled ? "disabled-card" : ""}`}
       onClick={handleCardClick}
       role="button"
       tabIndex={0}
       style={{
-        opacity: selected ? 0.5 : 1,
+        opacity: isDisabled ? 0.4 : selected ? 0.5 : 1,
+        cursor: isDisabled ? "not-allowed" : ""
       }}
     >
-      <div className="card-num"><span className="number">{category.remainingGames}</span></div>
+      <div className="card-num">
+        <span className="number">{category.remainingGames}</span>
+      </div>
       <div className="card-info">
         <div className="select">
-          <button className="select-btn" onClick={handleFavoriteClick}>
+          <button
+            className="select-btn"
+            onClick={handleFavoriteClick}
+            disabled={isDisabled} // disable button too
+          >
             <img
               src={isFavorite ? "./exit.png" : "./min.png"}
               alt={isFavorite ? "remove favorite" : "add favorite"}
@@ -49,6 +62,7 @@ function Card({ category, index, selected, order, isFavorite, onCardClick, onFav
     </div>
   );
 }
+
 
 export default function GameCate({ selected, setSelected, activeGroup, setActiveGroup }) {
   const navigate = useNavigate();
