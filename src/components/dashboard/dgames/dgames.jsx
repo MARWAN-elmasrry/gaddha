@@ -8,7 +8,7 @@ const Card = ({ category }) => {
   return (
     <div className="card">
       <div className="card-num">
-        <span className="number">{category.questionsCount/6}</span>
+        <span className="number">{category.playCount}</span>
       </div>
       <div className="card-info"> 
         <h4>{category.name}</h4>
@@ -40,6 +40,7 @@ const Dgames = () => {
     fetchData();
   }, [reFetch]);
 
+  console.log(categories)
 
   return (
     <div className="d-games">
@@ -61,7 +62,7 @@ const Dgames = () => {
               <div className="info">
                 <h3>عدد</h3>
                 <p>
-                    {categories.reduce((sum, cat) => sum + (cat.questionsCount || 0), 0)/6}
+                    {categories.reduce((sum, cat) => sum + (cat.playCount || 0), 0)}
                 </p>
               </div>
             </div>
