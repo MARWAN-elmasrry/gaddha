@@ -155,6 +155,17 @@
   align-items: flex-end;
   color: #f9e7c5;
 }
+.foot .links .links-icons{
+  display: flex;
+  justify-content: space-between;
+}
+.foot .links .links-icons img {
+  width: 60px;
+  cursor: pointer;
+}
+
+.foot .links .links-icons img:hover {
+filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(7175%) hue-rotate(355deg) brightness(90%) contrast(90%);}
 
 .link-cont .f-links .f-logo h2 {
   margin-bottom: 20px;
