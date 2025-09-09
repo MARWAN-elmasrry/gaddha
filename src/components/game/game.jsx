@@ -52,6 +52,7 @@ const CATEGORIES = [
 // FavoriteCard Component
 function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveFavorite }) {
   const handleCardClick = (e) => {
+    if (category.remainingGames === 0) return; // prevent click if disabled
     if (e.target.closest(".remove-favorite-btn")) {
       return;
     }
@@ -59,30 +60,39 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
   };
 
   const handleRemoveFavorite = async (e) => {
+    e.stopPropagation();
+
     try {
       await toggleCategoryFavorite(category._id);
+      onRemoveFavorite();
     } catch (error) {
-      console.error("Error adding category to favorites:", error);
+      console.error("Error removing category from favorites:", error);
     }
-    e.stopPropagation();
-    onRemoveFavorite();
   };
+
+  const isDisabled = category.remainingGames === 0;
+
 
   return (
     <div
-      className="card-cate favorite-card"
+      className={`card-cate favorite-card ${isDisabled ? "disabled-card" : ""}`}
       onClick={handleCardClick}
       role="button"
       tabIndex={0}
       style={{
-        opacity: selected ? 0.5 : 1,
+        opacity: isDisabled ? 0.4 : selected ? 0.5 : 1,
+        cursor: isDisabled ? "not-allowed" : ""
       }}
     >
-      <div className="card-num"><div className="number">
-      {category.remainingGames}</div></div>
+      <div className="card-num">
+        <div className="number">{category.remainingGames}</div>
+      </div>
       <div className="card-info">
         <div className="select">
-          <button className="remove-favorite-btn" onClick={handleRemoveFavorite}>
+          <button
+            className="remove-favorite-btn"
+            onClick={handleRemoveFavorite}
+          >
             <img src="./exit.png" alt="remove from favorites" />
           </button>
         </div>
@@ -92,6 +102,7 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
     </div>
   );
 }
+
 
 function FavoriteCate({ selected, setSelected }) {
   const navigate = useNavigate();
@@ -131,7 +142,6 @@ useEffect(() => {
   fetchData();
 }, []);
 
-console.log(favorites)
 
   const selectedWithOrder = useMemo(() => {
     const orderMap = new Map(selected.map((id, i) => [id, i + 1]));
