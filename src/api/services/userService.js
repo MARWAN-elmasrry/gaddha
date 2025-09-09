@@ -252,3 +252,21 @@ export const LatestThreeCate = async () => {
     throw error.response?.data?.message || error.message || "خطأ فى جلب المجموعات";
   }
 };
+
+// get remaining games for a category
+export const getRemainingGamesForACategory = async (categoryId) => {
+  try {
+    const response = await api.post(
+      "/user/get-remaining-games-for-a-category",
+      { categoryId },
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
+    return response.data.remainingGames;
+  } catch (error) {
+    throw error.response?.data?.message || error.message || "خطأ فى اضافة الفئة للمفضلة";
+  }
+};

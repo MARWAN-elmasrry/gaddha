@@ -117,7 +117,7 @@ export const Privacy = () => {
                 <p>
                   لأي استفسارات أو طلبات متعلقة بالخصوصية، يرجى التواصل معنا عبر:
                 </p>
-                <div className="contact-info">
+                <div className="p-contact-info">
                   <p><strong>📧 البريد الإلكتروني:</strong> info@gaddha.sa</p>
                   <p><strong>📱 إنستغرام:</strong> gaddhasa</p>
                 </div>
