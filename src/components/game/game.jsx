@@ -77,7 +77,8 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
         opacity: selected ? 0.5 : 1,
       }}
     >
-      <div className="card-num">{selected ? <span className="number">{order}</span> : null}</div>
+      <div className="card-num"><div className="number">
+      {category.remainingGames}</div></div>
       <div className="card-info">
         <div className="select">
           <button className="remove-favorite-btn" onClick={handleRemoveFavorite}>
