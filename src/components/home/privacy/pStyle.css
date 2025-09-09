@@ -249,7 +249,7 @@ details[open] summary::before {
 }
 
 /* Style for contact information */
-.contact-info {
+.p-contact-info {
     padding: 20px;
     border-radius: 8px;
     margin-top: 20px;
@@ -261,7 +261,7 @@ details[open] summary::before {
     overflow: hidden;
 }
 
-.contact-info::before {
+.p-contact-info::before {
     content: '';
     position: absolute;
     top: -50%;
@@ -281,7 +281,7 @@ details[open] summary::before {
     }
 }
 
-.contact-info:hover {
+.p-contact-info:hover {
     transform: translateX(-5px);
     box-shadow: 5px 5px 15px rgba(136, 56, 19, 0.3);
 }
