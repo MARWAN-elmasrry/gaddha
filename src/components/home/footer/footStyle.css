@@ -52,46 +52,22 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.foot .btn-play:hover .an1 {
-  background-color: #000000;
-  top: 78px;
-  left: 68px;
-  rotate: 70deg;
-}
-
-.foot .btn-play:hover .an2 {
-  background-color: #853510;
-  top: 93px;
-  left: 104px;
-  rotate: 143deg;
-}
-
-.foot .btn-play:hover .an3 {
-  background-color: #f4be32;
-  top: 93px;
-  left: 141px;
-  rotate: 125deg;
-}
-
-.foot .btn-play:hover .an4 {
-  background-color: #f9e7c5;
-  top: 81px;
-  left: 176px;
-  rotate: 102deg;
-}
-
 
 .back-img .info-f button {
   margin-top: 30px;
+  width: 91.0882034302;
+  height: 51.0965805054;
   border-radius: 45px;
   padding: 5px 23px;
   color: #f9e7c5;
   font-size: 1.7rem;
   border: none;
+  border-radius: 45px;
   background: linear-gradient(90deg, rgba(136, 56, 19, 0.1) 37.5%, #883813 100%);
 }
 
 .foot .links .link-cont {
+  height: max-content;
   background-color: #cf8a41;
   background-image: url(../footer.png);
   background-position: right center;
@@ -110,6 +86,7 @@
 .foot .links .link-cont .f-links {
   display: flex;
   justify-content: space-between;
+  height: 90%;
 }
 
 .foot .link-cont .f-logo .line {
@@ -126,22 +103,16 @@
   width: 65%;
   margin-left: 2rem;
   font-size: 2rem;
+  color: #883813;
 }
 
 .foot .links .link-cont .f-links .all-links a {
   text-decoration: none;
   color: #f9e7c5;
 }
-.foot .links .link-cont .f-links .all-links p{
-  text-decoration: underline #883813  ;
-}
-
-.foot .links .link-cont .f-links .all-links a.active-f {
-  color: #883813;
-}
 
 .foot .links .link-cont .f-links .all-links .game-links,
-.foot .links .link-cont .f-links .all-links .police-links {
+.police-links {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
@@ -155,37 +126,24 @@
   align-items: flex-end;
   color: #f9e7c5;
 }
-.foot .links .links-icons{
-  display: flex;
-  justify-content: space-between;
-}
-.foot .links .links-icons img {
-  width: 60px;
-  cursor: pointer;
-}
-
-.foot .links .links-icons img:hover {
-filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(7175%) hue-rotate(355deg) brightness(90%) contrast(90%);}
 
 .link-cont .f-links .f-logo h2 {
   margin-bottom: 20px;
   margin-top: 40px;
   text-align: end;
+  width: auto;
 }
 
 .foot .links .link-cont .f-links .f-logo img {
   width: 12rem;
 }
 
-.foot .links .link-cont .f-links .active-f a{
-  color: #883813 ;
-}
 .camel-img {
   position: static;
   width: 0;
 }
 
-.cam-img {  
+.cam-img {
   position: static;
   width: 0;
 }
@@ -306,5 +264,18 @@ filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(7175%) hue-
   }
   .foot .back-img {
     width: 280px !important;
+  }
+}
+@media (max-width: 1023px) {
+  .link-cont {
+    background-image: none !important;
+  }
+
+  .f-links {
+    justify-content: center !important;
+  }
+
+  .f-logo {
+    display: none !important;
   }
 }

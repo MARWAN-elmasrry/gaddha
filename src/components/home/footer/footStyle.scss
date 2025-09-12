@@ -271,3 +271,14 @@
     }
   }
 }
+@media (max-width: 1023px) {
+  .link-cont {
+    background-image: none !important;
+  }
+  .f-links {
+    justify-content: center !important;
+  }
+  .f-logo {
+    display: none !important;
+  }
+}

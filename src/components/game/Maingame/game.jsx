@@ -35,7 +35,7 @@ const Header = () => {
         <div className="head-cont">
           <div className="links">
             <div className="side-menu">
-<AnimatePresence mode="wait">
+              <AnimatePresence mode="wait">
                 {!showConfirm ? (
                   <motion.button
                     key="exit-btn"
@@ -57,10 +57,18 @@ const Header = () => {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <button onClick={confirmExit} className="confirm-btn" style={{backgroundColor:"red"}}>
+                    <button
+                      onClick={confirmExit}
+                      className="confirm-btn"
+                      style={{ backgroundColor: "red" }}
+                    >
                       خروج
                     </button>
-                    <button onClick={stayHere} className="cancel-btn" style={{backgroundColor:"green"}}>
+                    <button
+                      onClick={stayHere}
+                      className="cancel-btn"
+                      style={{ backgroundColor: "green" }}
+                    >
                       كمل قدها
                     </button>
                   </motion.div>
@@ -328,7 +336,20 @@ const GameFooter = ({ setDoublePointsClicked, showQandA }) => {
                 onClick={() => handleScoreAdjustment("teamOne", "subtract")}
                 style={{ cursor: "pointer" }}
               >
-                <span className="min">-</span>
+                <span className="min">
+                  <svg
+                    width="25"
+                    height="25"
+                    viewBox="0 0 9 4"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.5 0.503906H1.5C1.23478 0.503906 0.98043 0.661942 0.792893 0.943246C0.605357 1.22455 0.5 1.60608 0.5 2.00391C0.5 2.40173 0.605357 2.78326 0.792893 3.06457C0.98043 3.34587 1.23478 3.50391 1.5 3.50391H7.5C7.76522 3.50391 8.01957 3.34587 8.20711 3.06457C8.39464 2.78326 8.5 2.40173 8.5 2.00391C8.5 1.60608 8.39464 1.22455 8.20711 0.943246C8.01957 0.661942 7.76522 0.503906 7.5 0.503906Z"
+                      fill="#883813"
+                    />
+                  </svg>
+                </span>
               </div>
               <p>{teamOneScore}</p>
               <div
@@ -336,7 +357,22 @@ const GameFooter = ({ setDoublePointsClicked, showQandA }) => {
                 onClick={() => handleScoreAdjustment("teamOne", "add")}
                 style={{ cursor: "pointer" }}
               >
-                <span className="plus">+</span>
+                <span className="plus">
+                  <svg
+                    width="25"
+                    height="25"
+                    viewBox="0 0 8 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M2.5 0.83724C2.5 0.616226 2.5878 0.404264 2.74408 0.247984C2.90036 0.0917036 3.11232 0.00390625 3.33333 0.00390625H4.16667C4.38768 0.00390625 4.59964 0.0917036 4.75592 0.247984C4.9122 0.404264 5 0.616226 5 0.83724V2.50391H6.66667C6.88768 2.50391 7.09964 2.5917 7.25592 2.74798C7.4122 2.90426 7.5 3.11623 7.5 3.33724V4.17057C7.5 4.39159 7.4122 4.60355 7.25592 4.75983C7.09964 4.91611 6.88768 5.00391 6.66667 5.00391H5V6.67057C5 6.89159 4.9122 7.10355 4.75592 7.25983C4.59964 7.41611 4.38768 7.50391 4.16667 7.50391H3.33333C3.11232 7.50391 2.90036 7.41611 2.74408 7.25983C2.5878 7.10355 2.5 6.89159 2.5 6.67057V5.00391H0.833333C0.61232 5.00391 0.400358 4.91611 0.244078 4.75983C0.0877973 4.60355 0 4.39159 0 4.17057V3.33724C0 3.11623 0.0877973 2.90426 0.244078 2.74798C0.400358 2.5917 0.61232 2.50391 0.833333 2.50391H2.5V0.83724Z"
+                      fill="#883813"
+                    />
+                  </svg>
+                </span>
               </div>
             </div>
           </div>
@@ -388,7 +424,20 @@ const GameFooter = ({ setDoublePointsClicked, showQandA }) => {
                 onClick={() => handleScoreAdjustment("teamTwo", "subtract")}
                 style={{ cursor: "pointer" }}
               >
-                <span className="min">-</span>
+                <span className="min">
+                  <svg
+                    width="25"
+                    height="25"
+                    viewBox="0 0 9 4"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.5 0.503906H1.5C1.23478 0.503906 0.98043 0.661942 0.792893 0.943246C0.605357 1.22455 0.5 1.60608 0.5 2.00391C0.5 2.40173 0.605357 2.78326 0.792893 3.06457C0.98043 3.34587 1.23478 3.50391 1.5 3.50391H7.5C7.76522 3.50391 8.01957 3.34587 8.20711 3.06457C8.39464 2.78326 8.5 2.40173 8.5 2.00391C8.5 1.60608 8.39464 1.22455 8.20711 0.943246C8.01957 0.661942 7.76522 0.503906 7.5 0.503906Z"
+                      fill="#883813"
+                    />
+                  </svg>
+                </span>
               </div>
               <p>{teamTwoScore}</p>
               <div
@@ -396,7 +445,22 @@ const GameFooter = ({ setDoublePointsClicked, showQandA }) => {
                 onClick={() => handleScoreAdjustment("teamTwo", "add")}
                 style={{ cursor: "pointer" }}
               >
-                <span className="plus">+</span>
+                <span className="plus">
+                  <svg
+                    width="25"
+                    height="25"
+                    viewBox="0 0 8 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M2.5 0.83724C2.5 0.616226 2.5878 0.404264 2.74408 0.247984C2.90036 0.0917036 3.11232 0.00390625 3.33333 0.00390625H4.16667C4.38768 0.00390625 4.59964 0.0917036 4.75592 0.247984C4.9122 0.404264 5 0.616226 5 0.83724V2.50391H6.66667C6.88768 2.50391 7.09964 2.5917 7.25592 2.74798C7.4122 2.90426 7.5 3.11623 7.5 3.33724V4.17057C7.5 4.39159 7.4122 4.60355 7.25592 4.75983C7.09964 4.91611 6.88768 5.00391 6.66667 5.00391H5V6.67057C5 6.89159 4.9122 7.10355 4.75592 7.25983C4.59964 7.41611 4.38768 7.50391 4.16667 7.50391H3.33333C3.11232 7.50391 2.90036 7.41611 2.74408 7.25983C2.5878 7.10355 2.5 6.89159 2.5 6.67057V5.00391H0.833333C0.61232 5.00391 0.400358 4.91611 0.244078 4.75983C0.0877973 4.60355 0 4.39159 0 4.17057V3.33724C0 3.11623 0.0877973 2.90426 0.244078 2.74798C0.400358 2.5917 0.61232 2.50391 0.833333 2.50391H2.5V0.83724Z"
+                      fill="#883813"
+                    />
+                  </svg>
+                </span>
               </div>
             </div>
           </div>
@@ -481,56 +545,54 @@ const QandA = ({
           </span>
         </div>
 
+        <AnimatePresence mode="wait">
+          {currentView === "question" && (
+            <motion.div
+              key="question"
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <h1>السؤال : {currentQA?.q}</h1>
+              <div className="qora">
+                <img src={currentQA.qImage} alt="" />
+              </div>
+            </motion.div>
+          )}
 
-<AnimatePresence mode="wait">
-  {currentView === "question" && (
-    <motion.div
-      key="question"
-      initial={{ opacity: 0, x: 10 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: 10 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-    >
-      <h1>السؤال : {currentQA?.q}</h1>
-      <div className="qora">
-        <img src={currentQA.qImage} alt="" />
-      </div>
-    </motion.div>
-  )}
+          {currentView === "answer" && (
+            <motion.div
+              key="answer"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <h1>الجواب : {currentQA?.a}</h1>
+              <div className="qora">
+                <img src={currentQA.aImage} alt="" />
+              </div>
+            </motion.div>
+          )}
 
-  {currentView === "answer" && (
-    <motion.div
-      key="answer"
-      initial={{ opacity: 0, x: -10 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-    >
-      <h1>الجواب : {currentQA?.a}</h1>
-      <div className="qora">
-        <img src={currentQA.aImage} alt="" />
-      </div>
-    </motion.div>
-  )}
-
-  {currentView === "result" && (
-    <motion.div
-  key="result"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  exit={{ opacity: 0 }}
-  transition={{ duration: 0.4, ease: "easeOut" }}
->
-  <GameResult
-    currentQA={currentQA}
-    onBack={onBack}
-    doublePointsClicked={doublePointsClicked}
-    setDoublePointsClicked={setDoublePointsClicked}
-  />
-</motion.div>
-
-  )}
-</AnimatePresence>
+          {currentView === "result" && (
+            <motion.div
+              key="result"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <GameResult
+                currentQA={currentQA}
+                onBack={onBack}
+                doublePointsClicked={doublePointsClicked}
+                setDoublePointsClicked={setDoublePointsClicked}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
