@@ -554,7 +554,7 @@ const QandA = ({
               exit={{ opacity: 0, x: 10 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              <h1>السؤال : {currentQA?.q}</h1>
+              <h1 style={{ direction: "rtl" }}>السؤال : {currentQA?.q}</h1>
               <div className="qora">
                 <img src={currentQA.qImage} alt="" />
               </div>
@@ -569,7 +569,7 @@ const QandA = ({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              <h1>الجواب : {currentQA?.a}</h1>
+              <h1 style={{ direction: "rtl" }}>الجواب : {currentQA?.a}</h1>
               <div className="qora">
                 <img src={currentQA.aImage} alt="" />
               </div>
