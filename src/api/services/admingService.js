@@ -391,3 +391,19 @@ export const getGamesSoldCounts = async () => {
     throw error.response?.data?.message || "Failed to fetch counts";
   }
 };
+// upload to cloudinary
+
+export const getSignatures = async (filesCount) => {
+  try {
+    const response = await api.post(
+      `/admin/get-signature`,
+      { filesCount },
+      {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      }
+    );
+    return response.data.signatures;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to reply message";
+  }
+};
