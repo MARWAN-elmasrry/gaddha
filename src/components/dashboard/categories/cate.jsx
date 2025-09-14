@@ -17,9 +17,9 @@ const Categories = () => {
   const [triggerRefetch, setTriggerRefetch] = useState(false);
   const [groups, setGroups] = useState([]);
   const [reFetch, setRefetch] = useState(false);
-        const handleRefresh = useCallback(() => {
-          setRefetch(prev => !prev);
-        }, []);
+  const handleRefresh = useCallback(() => {
+    setRefetch((prev) => !prev);
+  }, []);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Categories = () => {
     };
 
     fetchData();
-  }, [triggerRefetch,reFetch]);
+  }, [triggerRefetch, reFetch]);
   const handleToggleCategoryVisibility = async (categoryId) => {
     try {
       await toggleCategoryVisibility(categoryId);
@@ -88,17 +88,17 @@ const Categories = () => {
               </div>
             </div>
             <button
-            onClick={handleRefresh}
-            style={{
-              position: "absolute",
-              top: "60px",
-              right: "20px",
-              zIndex: 3,
-            }}
-            title="تحديث الصفحة (Ctrl+R)"
-          >
-            اعاده تحميل
-          </button>
+              onClick={handleRefresh}
+              style={{
+                position: "absolute",
+                top: "60px",
+                right: "20px",
+                zIndex: 3,
+              }}
+              title="تحديث الصفحة (Ctrl+R)"
+            >
+              اعاده تحميل
+            </button>
           </div>
           <div className="cards">
             {categories?.map((category, idx) => (
@@ -118,7 +118,7 @@ const Categories = () => {
                   <button onClick={() => navigate(`/admin/category/view/${category._id}`)}>
                     عرض
                   </button>
-                  <p>322</p>
+                  <p>{category.playCount}</p>
                   <p>{category.questionsCount}</p>
                   <p>{category.name}</p>
                 </div>
