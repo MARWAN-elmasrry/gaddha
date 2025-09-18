@@ -27,11 +27,7 @@
   color: #f9e7c5;
   font-weight: 700;
 }
-.user .card .username{
-  position: absolute;
-  z-index: 30;
-  top: -76px;
-}
+
 .user .card .card-num {
   width: 60px;
   height: 60px;

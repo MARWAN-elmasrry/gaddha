@@ -5,6 +5,9 @@
   background-position: left 100px top 500px, right 100px top 500px;
   background-size: 120px, 120px;
 }
+.m-game  .m-game-cont{
+    height: 110vh;
+}
 
 .m-game h1 {
   font-size: 2.5rem;
@@ -29,7 +32,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding-bottom: 16px;
+  padding-bottom: 25px;
 }
 
 .m-game .game-foot-cont .helps {
@@ -144,8 +147,12 @@
 .game-footer {
   margin-top: 27px;
   background-color: #883813;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
 }
-
 .game-footer .t1 {
   color: antiquewhite;
   display: flex;
@@ -353,7 +360,7 @@
   position: absolute;
   top: 8rem;
   right: 8rem;
-  left: 21rem;
+  left: 20rem;
   background-color: #53210a;
 }
 
@@ -396,6 +403,10 @@
   background: linear-gradient(90deg, #8838131a 37.5%, rgba(136, 56, 19, 0.2) 100%);
 }
 
+.card-inner .game-q-points:hover{
+  transform: none;
+  box-shadow: none;
+}
 .card-inner .game-q-points .game-q-points-img {
   width: 25px !important;
 }
@@ -415,8 +426,16 @@
   left: 0;
   overflow: hidden;
   border: 2px solid #000 !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
+.card-front:hover{
+  transform: translate(-7px, -9px);
+  box-shadow: 10px 9px 0px rgba(0, 0, 0, 0.8);
+}
+.card-back{
+    transform: translate(-7px, -9px);
+}
 .card-back {
   color: white;
   transform: rotateY(180deg);
@@ -425,6 +444,7 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
 
 .card-back .easy,
 .mid,

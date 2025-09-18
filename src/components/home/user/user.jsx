@@ -11,8 +11,10 @@ const Info = ({ user }) => {
 
   return (<>
     <div className="card">
-      <h2 className="username">{user.username}</h2>
       <div className="card-info">
+        <div className="main-info">
+          <h3>{user.username}</h3>
+        </div>
         <div className="main-info">
           <h3>{user.name}</h3>
         </div>
