@@ -9,8 +9,9 @@ const Info = ({ user }) => {
     return <p>لا يوجد بيانات مستخدم</p>;
   }
 
-  return (
+  return (<>
     <div className="card">
+      <h2 className="username">{user.username}</h2>
       <div className="card-info">
         <div className="main-info">
           <h3>{user.name}</h3>
@@ -25,6 +26,7 @@ const Info = ({ user }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
@@ -216,7 +218,7 @@ const User = () => {
         <div className="user-cont">
           <h1>الحساب</h1>
           <div className="g-links">
-            <div className="g-link">
+            <div className="g-link-u">
               <a
                 className={activeTab === "sec" ? "g-active" : ""}
                 href="#"

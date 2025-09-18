@@ -3,7 +3,7 @@ import CustomFileUpload from "../../../ui/FileUpload";
 import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
-import { uploadCategoryWithQuestions } from "../../../../api/services/admingService";
+import { getSignatures, uploadCategoryWithQuestions } from "../../../../api/services/admingService";
 import { toast } from "react-toastify";
 
 const CategoryForm = ({
@@ -19,6 +19,8 @@ const CategoryForm = ({
   const [answersImages, setAnswersImages] = useState([]);
   const [categoryImage, setCategoryImage] = useState([]);
   const [isCustomGroup, setIsCustomGroup] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState([]);
 
   const {
     register,
@@ -34,27 +36,60 @@ const CategoryForm = ({
   const handleClose = () => {
     setOpen(false);
   };
+  const uploadImagesToCloudinary = async (images) => {
+    try {
+      const signatures = await getSignatures(images.length);
+
+      const uploadPromises = images.map((image, index) => {
+        const formData = new FormData();
+        formData.append("file", image);
+        formData.append("api_key", signatures[index].apiKey);
+        formData.append("timestamp", signatures[index].timestamp);
+        formData.append("signature", signatures[index].signature);
+        formData.append("upload_preset", signatures[index].uploadPreset);
+
+        return fetch(
+          `https://api.cloudinary.com/v1_1/${signatures[index].cloudName}/image/upload`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        ).then((res) => res.json());
+      });
+
+      const results = await Promise.all(uploadPromises);
+      return results.map((r) => r.secure_url);
+    } catch (error) {
+      console.error("Error creating category:", error);
+      toast.error("خطا غى الرفع");
+    }
+  };
   const onSubmit = async (data) => {
     if (mode === "create") {
       const formData = new FormData();
+      const questionImageURLs = await uploadImagesToCloudinary(questionImages);
+      questionImageURLs.forEach((url) => {
+        formData.append("questionImageURLs[]", url);
+      });
+      const answerImageURLs = await uploadImagesToCloudinary(answersImages);
+
+      answerImageURLs.forEach((url) => {
+        formData.append("answerImageURLs[]", url);
+      });
       formData.append("categoryName", data.categoryName);
       formData.append("description", data.description);
       formData.append("group", data.group);
+
       if (questionsAnswersFile[0]) {
         formData.append("excelFile", questionsAnswersFile[0]);
       }
-      questionImages.forEach((file) => {
-        formData.append("questionsImages", file);
-      });
-      answersImages.forEach((file) => {
-        formData.append("answersImages", file);
-      });
+
       if (categoryImage[0]) {
         formData.append("categoryImage", categoryImage[0]);
       }
-      for (let [key, value] of formData.entries()) {
-        console.log("from form data", key, value);
-      }
+      // for (let [key, value] of formData.entries()) {
+      //   console.log("from form data", key, value);
+      // }
       try {
         await uploadCategoryWithQuestions(formData);
         setTriggerRefetch((prev) => !prev);

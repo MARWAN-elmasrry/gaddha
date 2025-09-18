@@ -38,7 +38,7 @@ const Contact = () => {
       <div className="container">
         <div className="cont-cont">
           <h1>تواصل معنا</h1>
-          <h3>تواصل معنا لأي سؤال, طلب عمل, أو إستفسار</h3>
+          <h3>آمرنا كيف ممكن نساعدك؟</h3>
           <form className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="start-input-row">
               <span className="start-icon">

@@ -56,3 +56,7 @@
 .sign .links input[type="text"]::placeholder{
     font-size: 2rem;
 }
+.sign .country-dropdown::-webkit-scrollbar-thumb {
+  background-color: rgba(136, 56, 19, 1);
+  border-radius: 6px;
+}

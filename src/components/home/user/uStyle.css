@@ -2,23 +2,19 @@
   text-align: center;
   color: #f9e7c5;
 }
-
 .user .card-content {
   display: flex;
   justify-content: center;
   margin-bottom: 3rem;
 }
-
 .user p {
   text-align: center;
 }
-
 .user .card h3 {
   text-align: center;
   padding: 1rem;
   margin: 0;
 }
-
 .user .card {
   position: relative;
   background-color: rgba(136, 56, 19, 0.5);
@@ -31,7 +27,11 @@
   color: #f9e7c5;
   font-weight: 700;
 }
-
+.user .card .username{
+  position: absolute;
+  z-index: 30;
+  top: -76px;
+}
 .user .card .card-num {
   width: 60px;
   height: 60px;
@@ -125,7 +125,28 @@
   outline: none !important;
   box-shadow: none !important;
 }
-
+.user .g-link-u {
+  padding: 1.3rem;
+  font-size: 2.4rem;
+  display: flex;
+  gap: 10rem;
+  background-color: #883813;
+  border-radius: 3rem;
+}
+.user .g-link-u a {
+  text-decoration: none;
+  color: #f9e7c5;
+  opacity: 0.6;
+}
+.user .g-link-u .g-active {
+  opacity: 1;
+      background-color: #cf8a41 !important;
+    padding: 4px 8px !important;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media (max-width: 767px) {
   .user .g-link {
     gap: 32px !important;
