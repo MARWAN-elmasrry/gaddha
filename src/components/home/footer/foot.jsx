@@ -1,3 +1,4 @@
+
 import "./footStyle.css"
 import { useLocation, NavLink } from "react-router-dom"
 import { useSelector } from "react-redux"   
