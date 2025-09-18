@@ -31,9 +31,16 @@
   font-size: 30px;
   text-align: end;
 }
-
+.what-cont p::selection{
+  background: #f9e7c5 ;
+  color: #883813;     
+}
 .what .what-cont h3 {
   font-size: 40px;
+}
+.what-cont h3::selection{
+  background: #f9e7c5 ;
+  color: #883813;     
 }
 
 @media (max-width: 768px) {

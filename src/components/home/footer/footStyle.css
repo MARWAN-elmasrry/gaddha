@@ -41,8 +41,9 @@
 .back-img img:last-child {
   z-index: 3;
   position: absolute;
-  top: 110px;
+  top: 20rem;
   left: 90px;
+  height: max-content;
 }
 
 .back-img .info-f {
@@ -134,7 +135,7 @@
   color: #f9e7c5;
 }
 .foot .links .link-cont .f-links .all-links p{
-  text-decoration: underline #883813  ;
+  text-decoration:  #883813  ;
 }
 
 .foot .links .link-cont .f-links .all-links a.active-f {

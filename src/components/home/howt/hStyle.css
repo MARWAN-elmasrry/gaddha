@@ -66,6 +66,10 @@
     justify-content: center;
     align-items: center;
 }
+.how .how-w-cont h4::selection{
+  background: #f9e7c5 ;
+  color: #883813;     
+}
 .fade-img {
   animation: fadeInOut 3s ease-in-out;
   width: 60px;
