@@ -15,6 +15,14 @@
   padding: 1rem;
   margin: 0;
 }
+.user .card h3::selection{
+  background: #f9e7c5 ;
+  color: #883813;     
+}
+.user .card ::selection{
+  background: #f9e7c5 ;
+  color: #883813;     
+}
 .user .card {
   position: relative;
   background-color: rgba(136, 56, 19, 0.5);

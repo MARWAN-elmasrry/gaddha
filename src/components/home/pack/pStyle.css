@@ -105,6 +105,11 @@
   position: absolute;
   left: 5px;
 }
+.pack .pack-cont .card4 .top h3::selection{
+  background: #f9e7c5 ;
+  color: #883813;     
+}
+
 
 .pack .pack-cont .card .price {
   position: absolute;
