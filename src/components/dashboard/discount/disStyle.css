@@ -83,6 +83,12 @@
   gap: 12px !important;
   align-items: center;
   flex-wrap: nowrap;
+  max-width: 560px;
+  overflow: auto; 
+}
+.group-links .group-link::-webkit-scrollbar {
+  height: 6px; 
+  width: 80%;
 }
 .group-links .group-link > a {
   font-size: 16px !important;

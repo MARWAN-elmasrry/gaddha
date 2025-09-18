@@ -291,7 +291,7 @@
   display: flex;
   height: 23rem;
   border-radius: 40px;
-  background-color: #883813;
+  background-color: transparent;
   align-items: center;
   justify-content: center;
   padding: 8px;

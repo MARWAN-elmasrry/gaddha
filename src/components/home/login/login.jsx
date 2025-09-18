@@ -58,7 +58,7 @@ const Login = () => {
       <div className="container">
         <div className="login-cont">
           <h1>تسجيل الدخول {isAdmin ? "- المشرف" : ""}</h1>
-          <h3>سجل دخولك زبطو القهوة وخلو اللمة تولع</h3>
+          <h3>سجل دخولك، ضبطوا القهوة، وخلّ المتعة الحقيقية تبدأ</h3>
           <form className="form" onSubmit={handleSubmit}>
             <div className="start-input-row">
               <span className="start-icon">

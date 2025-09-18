@@ -12,27 +12,54 @@ const Sign = () => {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [birthdate, setBirthdate] = useState("");
-  const [countryCode, setCountryCode] = useState("");
+  const [countryCode, setCountryCode] = useState("+966"); 
   const [phone, setPhone] = useState("");
-  const [fullNumber, setFullNumber] = useState("");
+  const [fullNumber, setFullNumber] = useState("+966");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const navigate = useNavigate();
+
+  const countries = [
+    { code: "+966", name: "السعودية", flag: "🇸🇦" },
+    { code: "+971", name: "الإمارات", flag: "🇦🇪" },
+    { code: "+965", name: "الكويت", flag: "🇰🇼" },
+    { code: "+974", name: "قطر", flag: "🇶🇦" },
+    { code: "+973", name: "البحرين", flag: "🇧🇭" },
+    { code: "+968", name: "عمان", flag: "🇴🇲" },
+    { code: "+962", name: "الأردن", flag: "🇯🇴" },
+    { code: "+961", name: "لبنان", flag: "🇱🇧" },
+    { code: "+963", name: "سوريا", flag: "🇸🇾" },
+    { code: "+964", name: "العراق", flag: "🇮🇶" },
+    { code: "+20", name: "مصر", flag: "🇪🇬" },
+    { code: "+212", name: "المغرب", flag: "🇲🇦" },
+    { code: "+213", name: "الجزائر", flag: "🇩🇿" },
+    { code: "+216", name: "تونس", flag: "🇹🇳" },
+    { code: "+218", name: "ليبيا", flag: "🇱🇾" },
+    { code: "+249", name: "السودان", flag: "🇸🇩" },
+    { code: "+967", name: "اليمن", flag: "🇾🇪" },
+    { code: "+1", name: "الولايات المتحدة", flag: "🇺🇸" },
+    { code: "+44", name: "المملكة المتحدة", flag: "🇬🇧" },
+    { code: "+33", name: "فرنسا", flag: "🇫🇷" },
+    { code: "+49", name: "ألمانيا", flag: "🇩🇪" },
+    { code: "+91", name: "الهند", flag: "🇮🇳" },
+    { code: "+86", name: "الصين", flag: "🇨🇳" },
+  ];
+
+  const handleCountrySelect = (selectedCode) => {
+    setCountryCode(selectedCode);
+    setFullNumber(phone ? `${selectedCode}-${phone}` : selectedCode);
+    setShowCountryDropdown(false);
+  };
 
   const handlePhoneChange = (e) => {
     let value = e.target.value.replace(/[^0-9]/g, "");
-    if (value.length > 3) {
-      const code = "+" + value.slice(0, 3); // اضفنا +
-      const num = value.slice(3);
-      setCountryCode(code);
-      setPhone(num);
-      setFullNumber(`${code}-${num}`);
-    } else {
-      const code = value ? "+" + value : "";
-      setCountryCode(code);
-      setPhone("");
-      setFullNumber(code);
-    }
+    setPhone(value);
+    setFullNumber(value ? `${countryCode}-${value}` : countryCode);
+  };
+
+  const getCurrentCountry = () => {
+    return countries.find(country => country.code === countryCode) || countries[0];
   };
 
   const handleSubmit = async (e) => {
@@ -51,7 +78,7 @@ const Sign = () => {
         username,
         email,
         password: pass,
-        countryCode,
+        countryCode: countryCode.replace('+', ''), 
         phone,
         birthday: birthdate,
       });
@@ -70,7 +97,7 @@ const Sign = () => {
           <div className="container">
             <div className="sign-cont">
               <h1>انشئ حسابك</h1>
-              <h3>سجل بريدك الألكتروني وجهز نفسك نشوف قدها ولا بس سوالف</h3>
+              <h2>قدها ولا بس سوالف؟ شوي ونعرف</h2>
               <form className="form" onSubmit={handleSubmit}>
                 <div className="start-input-row">
                   <span className="start-icon">
@@ -79,7 +106,7 @@ const Sign = () => {
                   <input
                     className="start-input"
                     type="text"
-                    placeholder="الإسم الأول و الثاني"
+                    placeholder="الإسم "
                     dir="rtl"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -93,7 +120,7 @@ const Sign = () => {
                   <input
                     className="start-input"
                     type="text"
-                    placeholder="اسم اليوزر"
+                    placeholder="اسم المستخدم"
                     dir="rtl"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -115,19 +142,88 @@ const Sign = () => {
                   />
                 </div>
 
-                <div className="start-input-row">
+                <div className="start-input-row phone-input-container" style={{ position: 'relative' }}>
                   <span className="start-icon">
                     <img src="./offerv.png" alt="" />
                   </span>
-                  <input
-                    className="start-input"
-                    type="tel"
-                    placeholder="رقم الهاتف (********* -966)"
-                    dir="rtl"
-                    value={fullNumber}
-                    onChange={handlePhoneChange}
-                    required
-                  />
+                  <div className="phone-input-wrapper" style={{ display: 'flex', width: '100%' ,flexDirection:'row-reverse' }}>
+                    <input
+                      className="start-input"
+                      type="tel"
+                      placeholder="رقم الهاتف"
+                      dir="rtl"
+                      value={phone}
+                      onChange={handlePhoneChange}
+                      style={{ borderRadius: '0 8px 8px 0', borderLeft: 'none' }}
+                      required
+                    />
+                    <div className="country-code-selector" style={{ position: 'relative' }}>
+                      <button
+                        type="button"
+                        className="country-code-btn"
+                        onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                        style={{
+                          borderRadius: '8px 0 0 8px',
+                          borderRight: 'none',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          minWidth: '100px',
+                          justifyContent: 'center',
+                          margin:0
+                        }}
+                      >
+                        <span>{getCurrentCountry().flag}</span>
+                        <span>{getCurrentCountry().code}</span>
+                        <span style={{ fontSize: '12px' }}>▼</span>
+                      </button>
+                      
+                      {showCountryDropdown && (
+                        <div 
+                          className="country-dropdown"
+                          style={{
+                            position: 'absolute',
+                            top: '100%',
+                            left: 0,
+                            right: 0,
+                            background: 'white',
+                            borderRadius: '8px',
+                            maxHeight: '200px',
+                            overflowY: 'auto',
+                            zIndex: 1000,
+                          }}
+                        >
+                          {countries.map((country) => (
+                            <div
+                              key={country.code}
+                              className="country-option"
+                              onClick={() => handleCountrySelect(country.code)}
+                              style={{
+                                padding: '10px 15px',
+                                cursor: 'pointer',
+                                borderBottom: '1px solid #eee',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                backgroundColor: countryCode === country.code ? '#f0f0f0' : 'white'
+                              }}
+                              onMouseEnter={(e) => e.target.style.backgroundColor = '#f5f5f5'}
+                              onMouseLeave={(e) => {
+                                if (countryCode !== country.code) {
+                                  e.target.style.backgroundColor = 'white';
+                                }
+                              }}
+                            >
+                              <span style={{ fontSize: '12px'  , color: '#883813'}}>{country.flag}</span>
+                              <span style={{ fontSize: '12px'  , color: '#883813'}}>{country.code}</span>
+                              <span style={{ fontSize: '20px', color: '#883813' }}>{country.name}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="start-input-row">
@@ -160,6 +256,7 @@ const Sign = () => {
                   />
                 </div>
 
+                
                 <div className="links">
                   <div className="date">
                     <input
@@ -187,7 +284,7 @@ const Sign = () => {
           </div>
         </div>
       ) : (
-        <OTPStep phone={phone} countryCode={countryCode} />
+        <OTPStep phone={phone} countryCode={countryCode.replace('+', '')} />
       )}
     </>
   );
