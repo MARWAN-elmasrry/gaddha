@@ -523,7 +523,7 @@
     right: -9px;
   }
 }
-@media (max-width: 995px) {
+@media (max-width: 940px) {
   .m-game .g-no-one {
     width: 100px;
     height: 100px;
@@ -564,6 +564,49 @@
     height: 40px;
   }
 }
+@media (max-width: 939px) {
+  .m-game .g-no-one {
+    width: 140px;
+    height: 140px;
+    top: 167px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+  .m-game .g-no-one .g-no-span {
+    top: 14px;
+    right: -20px;
+    font-size: 32px;
+  }
+  .m-game .g-t1 {
+    border-left: 310px solid #53210a;
+  }
+  .m-game .g-t1 .g-t1-span {
+    font-size: 32px;
+    right: 102px;
+  }
+  .m-game .g-t2 {
+    border-left: 310px solid #53210a;
+  }
+  .m-game .g-t2 .g-t2-span {
+    font-size: 32px;
+    right: 88px;
+  }
+  .m-game .qa .qa-cont {
+    width: 100%;
+  }
+  .m-game .qa .qora {
+    width: 90% !important;
+  }
+  .m-game .helper {
+    width: 60px;
+    height: 60px;
+  }
+  .m-game .helper img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 @media (max-width: 800px) {
   .game-footer .footer-container {
     padding: 0 5% !important;
@@ -579,7 +622,8 @@
     width: 100px;
     height: 100px;
     top: 183px;
-    left: 150px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
   }
   .m-game .g-no-one .g-no-span {
     top: -3px;
@@ -587,19 +631,19 @@
     font-size: 32px;
   }
   .m-game .g-t1 {
-    border-left: 145px solid #53210a;
+    border-left: 290px solid #53210a;
   }
   .m-game .g-t1 .g-t1-span {
     font-size: 24px;
     top: -26px;
-    right: 32px;
+    right: 180px;
   }
   .m-game .g-t2 {
-    border-left: 165px solid #53210a;
+    border-left: 290px solid #53210a;
   }
   .m-game .g-t2 .g-t2-span {
     font-size: 24px;
-    right: 39px;
+    right: 181px;
     top: -26px;
   }
   .m-game .qa .qa-cont {
@@ -617,6 +661,40 @@
     height: 40px;
   }
 }
+@media (max-width: 767px) {
+  .m-game .g-t1 {
+    border-left: 260px solid #53210a;
+  }
+  .m-game .g-t2 {
+    border-left: 260px solid #53210a;
+  }
+}
+@media (max-width: 680px) {
+  .m-game .g-t1 {
+    border-left: 230px solid #53210a;
+  }
+  .m-game .g-t2 {
+    border-left: 230px solid #53210a;
+  }
+}
+@media (max-width: 630px) {
+  .m-game .g-t1 {
+    border-left: 200px solid #50210a;
+  }
+  .m-game .g-t2 {
+    border-left: 200px solid #53210a;
+  }
+  .m-game .g-t1 .g-t1-span {
+    font-size: 24px;
+    top: -26px;
+    right: 120px;
+  }
+  .m-game .g-t2 .g-t2-span {
+    font-size: 24px;
+    right: 121px;
+    top: -26px;
+  }
+}
 @media (max-width: 700px) {
   .game-footer .game-foot-cont {
     flex-direction: column;
@@ -632,7 +710,8 @@
     width: 90px;
     height: 90px;
     top: 188px;
-    left: 150px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
   }
   .m-game .g-no-one .g-no-span {
     top: -8px;
@@ -640,19 +719,19 @@
     font-size: 24px;
   }
   .m-game .g-t1 {
-    border-left: 145px solid #53210a;
+    border-left: 160px solid #53210a;
   }
   .m-game .g-t1 .g-t1-span {
     font-size: 24px;
     top: -26px;
-    right: 32px;
+    right: 80px;
   }
   .m-game .g-t2 {
-    border-left: 165px solid #53210a;
+    border-left: 160px solid #53210a;
   }
   .m-game .g-t2 .g-t2-span {
     font-size: 24px;
-    right: 39px;
+    right: 80px;
     top: -26px;
   }
   .m-game .qa .qa-cont {
@@ -667,7 +746,8 @@
     width: 90px;
     height: 90px;
     top: 188px;
-    left: 102px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
   }
   .m-game .g-no-one .g-no-span {
     top: -8px;
@@ -680,14 +760,53 @@
   .m-game .g-t1 .g-t1-span {
     font-size: 18px;
     top: -26px;
-    right: 32px;
+    right: 55px;
   }
   .m-game .g-t2 {
     border-left: 125px solid #53210a;
   }
   .m-game .g-t2 .g-t2-span {
     font-size: 18px;
-    right: 39px;
+    right: 55px;
+    top: -26px;
+  }
+  .m-game .qa .qa-cont {
+    width: 100%;
+  }
+  .m-game .qa .qa-cont h1 {
+    font-size: 32px;
+  }
+  .m-game .qa .qora {
+    width: 90% !important;
+  }
+}
+@media (max-width: 390px) {
+  .m-game .g-no-one {
+    width: 70px;
+    height: 70px;
+    top: 188px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+  .m-game .g-no-one .g-no-span {
+    top: -8px;
+    right: -56px;
+    font-size: 24px;
+  }
+  .m-game .g-t1 {
+    border-left: 105px solid #53210a;
+  }
+  .m-game .g-t1 .g-t1-span {
+    font-size: 18px;
+    top: -26px;
+    right: 55px;
+  }
+  .m-game .g-t2 {
+    border-left: 125px solid #53210a;
+  }
+  .m-game .g-t2 .g-t2-span {
+    font-size: 18px;
+    right: 55px;
     top: -26px;
   }
   .m-game .qa .qa-cont {
