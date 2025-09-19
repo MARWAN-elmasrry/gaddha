@@ -514,11 +514,10 @@ const QandA = ({
     }
     dispatch(switchTurn());
   };
-
   return (
     <div className="qa">
       <ReportForm questionId={currentQA?.id} open={openReportForm} setOpen={setOpenReportForm} />
-      <div className="qa-cont">
+      <div className={`qa-cont ${currentView === "result" ? "fixed-height" : ""}`}>
         <div className="game-btn ca" onClick={onToggleText} style={{ cursor: "pointer" }}>
           <span className="number">
             <img src="./cate.png" alt="" />
@@ -731,11 +730,11 @@ const MainGame = () => {
 
   return (
     <div className="m-game">
+      <Header />
       <div className="container">
         <img src="/dashtree.png" alt="" className="right-tree" />
         <img src="/dashtree.png" alt="" className="left-tree" />
         <div className="m-game-cont">
-          <Header />
           <AnimatePresence mode="wait">
             {!showQandA ? (
               <motion.div
