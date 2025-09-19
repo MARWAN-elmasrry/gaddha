@@ -7,7 +7,7 @@
 }
 
 .com .com-cont {
-  height: 90vh;
+  /* height: 90vh; */
   padding-bottom: 30px;
 }
 
@@ -30,14 +30,10 @@
   width: 50%;
   border: none;
   border-radius: 40px;
-  background-image: linear-gradient(
-    to right,
-    rgba(136, 56, 19, 0.5),
-    rgba(136, 56, 19, 1)
-  );
+  background-image: linear-gradient(to right, rgba(136, 56, 19, 0.5), rgba(136, 56, 19, 1));
   color: rgba(249, 231, 197, 1);
   cursor: pointer;
-  transition: transform 1s ease, box-shadow 1s ease; 
+  transition: transform 1s ease, box-shadow 1s ease;
 }
 
 .com .com-cont .card:hover {
@@ -48,7 +44,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-    margin: 14px 19px -14px 19px;
+  margin: 14px 19px -14px 19px;
 }
 
 .com .com-cont .card .q-card img {
@@ -77,4 +73,3 @@
   opacity: 1;
   max-height: 200px; /* كفاية لأي نص */
 }
-
