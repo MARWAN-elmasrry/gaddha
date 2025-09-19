@@ -1,8 +1,8 @@
 @charset "UTF-8";
 .m-game {
-  background-repeat: no-repeat, no-repeat;
-  background-position: left 100px top 500px, right 100px top 500px;
-  background-size: 120px, 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .m-game .container {
   position: relative;
@@ -24,7 +24,9 @@
 }
 
 .m-game .m-game-cont {
-  height: 110vh;
+  min-height: 80vh;
+  max-height: 110vh;
+  overflow: auto;
 }
 
 .m-game h1 {
@@ -165,7 +167,6 @@
 .game-footer {
   margin-top: 27px;
   background-color: #883813;
-  position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
@@ -250,6 +251,10 @@
   margin: 3rem;
   margin-bottom: 8rem;
   position: relative;
+}
+
+.fixed-height {
+  height: 30rem;
 }
 
 .m-game .qa .qa-cont {
