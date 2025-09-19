@@ -732,6 +732,8 @@ const MainGame = () => {
   return (
     <div className="m-game">
       <div className="container">
+        <img src="/dashtree.png" alt="" className="right-tree" />
+        <img src="/dashtree.png" alt="" className="left-tree" />
         <div className="m-game-cont">
           <Header />
           <AnimatePresence mode="wait">

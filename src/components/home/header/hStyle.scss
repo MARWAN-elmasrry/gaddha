@@ -116,6 +116,11 @@ li:first-child.active a {
 .side-menu .exit .logout-btn {
   background: none;
 }
+@media (max-width: 425px) {
+  .logout-btn {
+    font-size: 20px !important;
+  }
+}
 header .links button {
   width: 91.08820343017578;
   height: 51.096580505371094;
