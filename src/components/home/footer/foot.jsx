@@ -1,14 +1,13 @@
-
-import "./footStyle.css"
-import { useLocation, NavLink } from "react-router-dom"
-import { useSelector } from "react-redux"   
+import "./footStyle.css";
+import { useLocation, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
-  const location = useLocation()
-  const isUserPage = location.pathname === "/user"
-  const user = useSelector((state) => state.users.user) 
+  const location = useLocation();
+  const isUserPage = location.pathname === "/user";
+  const user = useSelector((state) => state.users.user);
 
-  const isLoggedIn = Boolean(localStorage.getItem("token"))
+  const isLoggedIn = Boolean(localStorage.getItem("token"));
 
   return (
     <footer className="foot">
@@ -63,13 +62,10 @@ const Footer = () => {
                 </NavLink>
                 <NavLink to="/contact" className={({ isActive }) => (isActive ? "active-f" : "")}>
                   تواصل
-                </NavLink>  
+                </NavLink>
 
                 {isLoggedIn ? (
-                  <NavLink 
-                    to="/user" 
-                    className={({ isActive }) => (isActive ? "active-f" : "")}
-                  >
+                  <NavLink to="/user" className={({ isActive }) => (isActive ? "active-f" : "")}>
                     {user?.role ? "لوحة الإحصائيات" : "حسابى"}
                   </NavLink>
                 ) : (
@@ -97,14 +93,22 @@ const Footer = () => {
               </div>
 
               <div className="links-icons">
-                <a href="https://www.instagram.com/gaddhasa?igsh=dG42c2x1OHcybHFo" target="_blank" rel="noreferrer">
-                  <img src="./ico-inst.png" alt="Instagram" />
+                <a
+                  href="https://www.instagram.com/gaddhasa?igsh=dG42c2x1OHcybHFo"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="./ico-inst.png" alt="Instagram" style={{ width: 40, height: 40 }} />
                 </a>
-                <a href="https://www.tiktok.com/@gaddhasa?_t=ZS-8zaEqdZFdZa&_r=1" target="_blank" rel="noreferrer">
-                  <img src="./ico-tik.png" alt="TikTok" />
+                <a
+                  href="https://www.tiktok.com/@gaddhasa?_t=ZS-8zaEqdZFdZa&_r=1"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="./ico-tik.png" alt="TikTok" style={{ width: 40, height: 40 }} />
                 </a>
                 <a href="https://x.com/gaddhasa?s=11" target="_blank" rel="noreferrer">
-                  <img src="./ico-x.png" alt="X" />
+                  <img src="./ico-x.png" alt="X" style={{ width: 40, height: 40 }} />
                 </a>
                 <p className="game-links-p">تواصل</p>
               </div>
@@ -123,7 +127,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

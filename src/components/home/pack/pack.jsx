@@ -49,7 +49,7 @@ const Pack = () => {
       });
 
       const script = document.createElement("script");
-      script.src = `https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${response?.checkoutId}`;
+      script.src = `https://eu-prod.oppwa.com/v1/paymentWidgets.js?checkoutId=${response?.checkoutId}`;
       script.async = true;
 
       const paymentWidgetDiv = document.getElementById("payment-widget");
