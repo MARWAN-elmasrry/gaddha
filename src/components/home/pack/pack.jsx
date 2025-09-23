@@ -183,7 +183,7 @@ const Pack = () => {
             <div className="payment-form">
               <div id="payment-widget"></div>
               <form
-                action="https://gaddha-production.up.railway.app/api/user/callback"
+                action="https://playgaddha.up.railway.app/api/user/callback"
                 className="paymentWidgets"
                 data-brands="VISA MASTER MADA"
               ></form>
