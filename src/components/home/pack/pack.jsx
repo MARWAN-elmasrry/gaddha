@@ -49,7 +49,6 @@ const Pack = () => {
     },
   });
   const onSubmit = async (data) => {
-    if (!token) navigate("/login", { replace: true });
     setStep(2);
     try {
       const response = await createPayment({
@@ -79,6 +78,14 @@ const Pack = () => {
   };
 
   const pay = async (price) => {
+    if (!token) {
+      toast.error("يرجى تسجيل الدخول للمتابعة");
+      setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 2000);
+      return;
+    }
+
     setStep(1);
     setInitPrice(price);
     setFinalPrice(price);
@@ -220,7 +227,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card">
-                  <div className="main" onClick={() => pay(14)}>
+                  <div className="main" onClick={() => pay(7.95)}>
                     <h5>لعبتين</h5>
                     <div className="price">
                       <div className="price-info">
@@ -244,7 +251,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card card2">
-                  <div className="main" onClick={() => pay(8)}>
+                  <div className="main" onClick={() => pay(4.95)}>
                     <h5>لعبة واحدة</h5>
                     <div className="price">
                       <div className="price-info">
@@ -268,7 +275,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card card3">
-                  <div className="main" onClick={() => pay(70)}>
+                  <div className="main" onClick={() => pay(35.95)}>
                     <h5>ألعاب 10</h5>
                     <div className="price">
                       <div className="price-info">
@@ -292,7 +299,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card card4">
-                  <div className="main" onClick={() => pay(37)}>
+                  <div className="main" onClick={() => pay(18.95)}>
                     <h5>5 ألعاب</h5>
                     <div className="price">
                       <div className="price-info">
