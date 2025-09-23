@@ -78,7 +78,7 @@ const Sign = () => {
         username,
         email,
         password: pass,
-        countryCode: countryCode.replace("+", ""),
+        countryCode: countryCode,
         phone,
         birthday: birthdate,
       });
@@ -271,7 +271,7 @@ const Sign = () => {
                 <div className="links">
                   <div className="date">
                     <input
-                      type="date"
+                      type="text"
                       placeholder="yyyy-mm-dd"
                       className="start-input"
                       value={birthdate}
