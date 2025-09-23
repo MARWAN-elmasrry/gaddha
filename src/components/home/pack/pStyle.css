@@ -103,13 +103,7 @@
   -webkit-transform: rotate(315deg);
   font-size: 1.4rem;
   position: absolute;
-  left: 5px;
 }
-.pack .pack-cont .card4 .top h3::selection{
-  background: #f9e7c5 ;
-  color: #883813;     
-}
-
 
 .pack .pack-cont .card .price {
   position: absolute;
@@ -130,6 +124,7 @@
   font-size: 1.7rem;
   color: #f9e7c5;
   margin: 0;
+  text-decoration: line-through;
 }
 
 @media (max-width: 768px) {
@@ -322,4 +317,13 @@
   background: transparent !important;
   color: #883813;
   border: 1px solid #883813;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.top h3 {
+  transform: rotate(-45deg);
 }

@@ -5,11 +5,17 @@ import "./pStyle.css";
 import GlareHover from "./GlareHover";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import countries from "i18n-iso-countries";
 import { useNavigate } from "react-router-dom";
 
 const Pack = () => {
-  const countryOptions = Object.entries(countries.getAlpha2Codes());
+  const countries = [
+    { code: "SA", name: "السعودية" },
+    { code: "AE", name: "الإمارات" },
+    { code: "QA", name: "قطر" },
+    { code: "OM", name: "عُمان" },
+    { code: "BH", name: "البحرين" },
+    { code: "KW", name: "الكويت" },
+  ];
   const navigate = useNavigate();
 
   const loginType = localStorage.getItem("loginType");
@@ -144,12 +150,11 @@ const Pack = () => {
               <label>
                 الدولة
                 <select {...register("country", { required: "اسم الدولة مطلوب" })} defaultValue="">
-                  <option value="SA">SA</option>
-                  {countryOptions.map(([code, name]) => (
-                    <option key={code} value={code}>
-                      {name}
+                  {countries.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.name}
                     </option>
-                  ))}{" "}
+                  ))}
                 </select>
                 {errors.country && <p style={{ color: "red" }}>{errors.country.message}</p>}
               </label>
@@ -224,7 +229,9 @@ const Pack = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="top"></div>
+                  <div className="top">
+                    <h3>7.95</h3>
+                  </div>
                   <div className="center"></div>
                 </div>
               </GlareHover>
@@ -246,7 +253,9 @@ const Pack = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="top"></div>
+                  <div className="top">
+                    <h3>4.95</h3>
+                  </div>
                   <div className="center"></div>
                 </div>
               </GlareHover>
@@ -268,7 +277,9 @@ const Pack = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="top"></div>
+                  <div className="top">
+                    <h3>35.95</h3>
+                  </div>
                   <div className="center"></div>
                 </div>
               </GlareHover>
@@ -291,7 +302,8 @@ const Pack = () => {
                     </div>
                   </div>
                   <div className="top">
-                    <h3>الأكثر مبيعا</h3>
+                    {/* <h3>الأكثر مبيعا</h3> */}
+                    <h3>18.95</h3>
                   </div>
                   <div className="center"></div>
                 </div>

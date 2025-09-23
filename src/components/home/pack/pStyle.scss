@@ -91,7 +91,7 @@
   -webkit-transform: rotate(315deg);
   font-size: 1.4rem;
   position: absolute;
-  left: 5px;
+  // left: 5px;
 }
 .pack .pack-cont .card .price {
   position: absolute;
@@ -110,6 +110,7 @@
   font-size: 1.7rem;
   color: rgba(249, 231, 197, 1);
   margin: 0;
+  text-decoration: line-through;
 }
 @media (max-width: 768px) {
   .pack-cont {
@@ -326,5 +327,14 @@
       color: #883813;
       border: 1px solid #883813;
     }
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h3 {
+    transform: rotate(-45deg);
   }
 }
