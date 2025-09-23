@@ -271,7 +271,7 @@ const Sign = () => {
                 <div className="links">
                   <div className="date">
                     <input
-                      type="text"
+                      type="date"
                       placeholder="yyyy-mm-dd"
                       className="start-input"
                       value={birthdate}
