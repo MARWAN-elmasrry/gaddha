@@ -35,7 +35,7 @@ import Rec from "./components/home/rec/rec";
 import User from "./components/home/user/user";
 import Ver from "./components/home/ver/ver";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 export const ForceUpdateContext = createContext();
 import { ToastContainer, toast } from "react-toastify";
 import CategoryView from "./components/dashboard/categories/category/view";
@@ -54,6 +54,7 @@ const DashboardLayout = ({ children }) => (
 
 function HomePage() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
