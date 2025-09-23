@@ -65,6 +65,13 @@ function HomePage() {
     } else if (paymentStatus === "error") {
       toast.warning("حدث خطأ أثناء العملية ⚠️");
     }
+    if (paymentStatus) {
+      const timeout = setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 500);
+
+      return () => clearTimeout(timeout);
+    }
   }, [location.search]);
   return (
     <>
