@@ -5,9 +5,15 @@ import "./pStyle.css";
 import GlareHover from "./GlareHover";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import countries from "i18n-iso-countries";
+import { useNavigate } from "react-router-dom";
 
 const Pack = () => {
+  const countryOptions = Object.entries(countries.getAlpha2Codes());
+  const navigate = useNavigate();
+
   const loginType = localStorage.getItem("loginType");
+  const token = localStorage.getItem("token");
   if (loginType === "admin") {
     return <></>;
   }
@@ -37,6 +43,7 @@ const Pack = () => {
     },
   });
   const onSubmit = async (data) => {
+    if (!token) navigate("/login", { replace: true });
     setStep(2);
     try {
       const response = await createPayment({
@@ -136,11 +143,14 @@ const Pack = () => {
               </label>
               <label>
                 الدولة
-                <input
-                  type="text"
-                  name="country"
-                  {...register("country", { required: "اسم الدولة مطلوب" })}
-                />
+                <select {...register("country", { required: "اسم الدولة مطلوب" })} defaultValue="">
+                  <option value="SA">SA</option>
+                  {countryOptions.map(([code, name]) => (
+                    <option key={code} value={code}>
+                      {name}
+                    </option>
+                  ))}{" "}
+                </select>
                 {errors.country && <p style={{ color: "red" }}>{errors.country.message}</p>}
               </label>
               <label>
