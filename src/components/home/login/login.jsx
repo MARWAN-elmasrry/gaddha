@@ -106,7 +106,7 @@ const Login = () => {
 
             <div className="start-btn">
               <button type="submit" disabled={loading}>
-                {loading ? "جاري الإرسال..." : "إرسال"}
+                {loading ? "جاري تسجيل الدخول ..." : "تسجيل الدخول "}
               </button>
             </div>
           </form>

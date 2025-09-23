@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 
 import { Routes, Route } from "react-router-dom";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import Header from "./components/home/header/head";
 import Footer from "./components/home/footer/foot";
@@ -37,14 +37,13 @@ import Ver from "./components/home/ver/ver";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 export const ForceUpdateContext = createContext();
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import CategoryView from "./components/dashboard/categories/category/view";
 import CategoryEdit from "./components/dashboard/categories/category/edit";
 import GameResult from "./components/game/Result";
 import { Privacy } from "./components/home/privacy/privacy";
 import { Refund } from "./components/home/refund/refund";
 import { AbilityContext, defineAbilitiesFor } from "./context/abilityContext";
-
 const DashboardLayout = ({ children }) => (
   <>
     <Dhead />
@@ -54,6 +53,19 @@ const DashboardLayout = ({ children }) => (
 );
 
 function HomePage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const paymentStatus = queryParams.get("payment");
+    if (paymentStatus === "success") {
+      toast.success("تمت العملية بنجاح ✅");
+    } else if (paymentStatus === "failed") {
+      toast.error("فشلت العملية ❌");
+    } else if (paymentStatus === "error") {
+      toast.warning("حدث خطأ أثناء العملية ⚠️");
+    }
+  }, [location.search]);
   return (
     <>
       <Header />
