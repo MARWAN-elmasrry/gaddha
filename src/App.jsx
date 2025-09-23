@@ -60,11 +60,11 @@ function HomePage() {
     const queryParams = new URLSearchParams(location.search);
     const paymentStatus = queryParams.get("payment");
     if (paymentStatus === "success") {
-      toast.success("تمت العملية بنجاح ✅");
+      toast.success("تم الدفع بنجاح ✅");
     } else if (paymentStatus === "failed") {
-      toast.error("فشلت العملية ❌");
+      toast.error("فشل الدفع، تواصل معنا ❌");
     } else if (paymentStatus === "error") {
-      toast.warning("حدث خطأ أثناء العملية ⚠️");
+      toast.error("فشل الدفع، تواصل معنا ❌");
     }
     if (paymentStatus) {
       const timeout = setTimeout(() => {

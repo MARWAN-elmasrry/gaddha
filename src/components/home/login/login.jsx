@@ -44,11 +44,11 @@ const Login = () => {
       );
       // console.log("raw token from login component:", rawToken);
 
-      toast.success("تم التسجيل بى نجاح");
+      toast.success("تم الدخول بنجاح");
       navigate(isAdmin ? "/admin" : "/", { state: { user: response.user } });
     } catch (err) {
-      setError(err.message || "خطأ في تسجيل الدخول");
-      toast.error("خطأ في تسجيل الدخول");
+      setError(err.message || "فشل الدخول، تواصل معنا");
+      toast.error("فشل الدخول، تواصل معنا");
     } finally {
       setLoading(false);
     }

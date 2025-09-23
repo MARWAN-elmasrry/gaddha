@@ -13,7 +13,7 @@ import {
   getGroups,
   startGameCheck,
   toggleCategoryFavorite,
-  getRemainingGamesForACategory, 
+  getRemainingGamesForACategory,
 } from "../../api/services/userService";
 
 const CATEGORIES = [
@@ -72,7 +72,6 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
 
   const isDisabled = category.remainingGames === 0;
 
-
   return (
     <div
       className={`card-cate favorite-card ${isDisabled ? "disabled-card" : ""}`}
@@ -81,7 +80,7 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
       tabIndex={0}
       style={{
         opacity: isDisabled ? 0.4 : selected ? 0.5 : 1,
-        cursor: isDisabled ? "not-allowed" : ""
+        cursor: isDisabled ? "not-allowed" : "",
       }}
     >
       <div className="card-num">
@@ -89,10 +88,7 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
       </div>
       <div className="card-info">
         <div className="select">
-          <button
-            className="remove-favorite-btn"
-            onClick={handleRemoveFavorite}
-          >
+          <button className="remove-favorite-btn" onClick={handleRemoveFavorite}>
             <img src="./exit.png" alt="remove from favorites" />
           </button>
         </div>
@@ -103,45 +99,43 @@ function FavoriteCard({ category, index, selected, order, onCardClick, onRemoveF
   );
 }
 
-
 function FavoriteCate({ selected, setSelected }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [selected, setSelected] = useState([]);
   const [favorites, setFavorites] = useState([]);
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const data = await getFavoriteCategories();
-      
-      // Process categories with remaining games
-      const categoriesWithRemainingGames = await Promise.all(
-        data.map(async (category) => {
-          try {
-            const remainingGames = await getRemainingGamesForACategory(category._id);
-            return { 
-              ...category, 
-              remainingGames: remainingGames 
-            };
-          } catch (error) {
-            console.error(`Error fetching remaining games for category ${category._id}:`, error);
-            return { 
-              ...category, 
-              remainingGames: 0 
-            };
-          }
-        })
-      );
-      
-      setFavorites(categoriesWithRemainingGames);
-    } catch (err) {
-      console.error('Error fetching favorite categories:', err);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getFavoriteCategories();
 
-  fetchData();
-}, []);
+        // Process categories with remaining games
+        const categoriesWithRemainingGames = await Promise.all(
+          data.map(async (category) => {
+            try {
+              const remainingGames = await getRemainingGamesForACategory(category._id);
+              return {
+                ...category,
+                remainingGames: remainingGames,
+              };
+            } catch (error) {
+              console.error(`Error fetching remaining games for category ${category._id}:`, error);
+              return {
+                ...category,
+                remainingGames: 0,
+              };
+            }
+          })
+        );
 
+        setFavorites(categoriesWithRemainingGames);
+      } catch (err) {
+        console.error("Error fetching favorite categories:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const selectedWithOrder = useMemo(() => {
     const orderMap = new Map(selected.map((id, i) => [id, i + 1]));
@@ -267,9 +261,9 @@ const Game = () => {
         toast.error("لا يمكنك بدء لعبة جديدة أثناء وجود لعبة نشطة.");
         return;
       }
-      toast.success("تم بدء اللعبة بنجاح.");
+      toast.success("تم إنشاء اللعبة بنجاح.");
     } catch {
-      toast.error("لا يمكنك بدء لعبة جديدة أثناء وجود لعبة نشطة.");
+      toast.error("فشل إنشاء اللعبة، تواصل معنا.");
       return;
     }
     const payload = {
