@@ -295,7 +295,7 @@ const Sign = () => {
           </div>
         </div>
       ) : (
-        <OTPStep phone={phone} countryCode={countryCode.replace("+", "")} />
+        <OTPStep phone={phone} countryCode={countryCode} />
       )}
     </>
   );
