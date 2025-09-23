@@ -67,4 +67,11 @@
   .sign-cont form {
     width: 100% !important;
   }
+  .start-input-row img {
+    width: 30px !important;
+  }
+  .country-code-btn {
+    min-width: auto !important;
+    gap: 2px;
+  }
 }
