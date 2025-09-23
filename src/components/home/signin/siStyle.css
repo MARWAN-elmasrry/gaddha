@@ -73,5 +73,8 @@
   .country-code-btn {
     min-width: auto !important;
     gap: 2px;
+    span {
+      font-size: 16px;
+    }
   }
 }
