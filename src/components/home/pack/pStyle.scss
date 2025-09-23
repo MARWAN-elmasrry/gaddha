@@ -113,6 +113,12 @@
   text-decoration: line-through;
 }
 @media (max-width: 768px) {
+  .login h3 {
+    text-align: center;
+  }
+  .login-cont form {
+    width: 100% !important;
+  }
   .pack-cont {
     flex-direction: column-reverse;
 

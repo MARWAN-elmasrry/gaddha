@@ -1,50 +1,50 @@
-.sign{
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+.sign {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
-.sign .sign-cont{    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.sign .sign-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.sign h1{
-    font-size: 4rem;
-    margin-bottom: 3rem;
-    color: rgba(249, 231, 197, 1);
+.sign h1 {
+  font-size: 4rem;
+  margin-bottom: 3rem;
+  color: rgba(249, 231, 197, 1);
 }
-.sign h3{
-    font-size: 2rem;
-    margin-bottom: 3rem;
-    color: rgba(249, 231, 197, 1);
+.sign h3 {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: rgba(249, 231, 197, 1);
 }
-.sign .links{
-    display: flex;
-    flex-direction: column;
+.sign .links {
+  display: flex;
+  flex-direction: column;
 }
-.sign .links .date{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+.sign .links .date {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
-.sign .links .date p{
-    font-size: 2rem;
-    color: rgba(249, 231, 197, 1);
-    opacity: .7;
+.sign .links .date p {
+  font-size: 2rem;
+  color: rgba(249, 231, 197, 1);
+  opacity: 0.7;
 }
-.sign .links a{
-    margin-top: 1rem;
-    text-decoration: none;
-    font-size: 2rem;
-    color: rgba(249, 231, 197, 1);
-    opacity: .6;
-    width: max-content;
-    transition: .4s;
+.sign .links a {
+  margin-top: 1rem;
+  text-decoration: none;
+  font-size: 2rem;
+  color: rgba(249, 231, 197, 1);
+  opacity: 0.6;
+  width: max-content;
+  transition: 0.4s;
 }
-.sign .links a:hover{
-    opacity: 1;
+.sign .links a:hover {
+  opacity: 1;
 }
-.sign .links input[type="text"]{
+.sign .links input[type="text"] {
   width: 210px;
   padding: 10px;
   border: 1px solid transparent;
@@ -53,10 +53,18 @@
   color: rgba(249, 231, 197, 1);
   background-color: rgba(136, 56, 19, 1);
 }
-.sign .links input[type="text"]::placeholder{
-    font-size: 2rem;
+.sign .links input[type="text"]::placeholder {
+  font-size: 2rem;
 }
 .sign .country-dropdown::-webkit-scrollbar-thumb {
   background-color: rgba(136, 56, 19, 1);
   border-radius: 6px;
+}
+@media (max-width: 768px) {
+  .sign-cont h2 {
+    text-align: center;
+  }
+  .sign-cont form {
+    width: 100% !important;
+  }
 }
