@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { sendMessage } from "../../../api/services/userService";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const {
@@ -19,8 +20,10 @@ const Contact = () => {
     if (loginType != "user") navigate("/login");
     try {
       await sendMessage(data);
+      toast.success("تم إرسال الرسالة بنجاح");
     } catch (error) {
       console.error("Error sending message:", error);
+      toast.error("حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى.");
     }
     reset();
   };
