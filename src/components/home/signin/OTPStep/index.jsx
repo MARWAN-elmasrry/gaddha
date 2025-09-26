@@ -54,7 +54,8 @@ const OTPStep = ({ phone, countryCode, sentBefore = false }) => {
     <div className="otp-step">
       <div className="otp-header">
         <h1>ادخل كود الأمان</h1>
-        <h1>ادخل الكود اللي وصلك على {phone}</h1>
+        <h1>تم ارسال رمز التحقق إلى ايميلك ورقم هاتفك</h1>
+        <h2>يرجى عدم الخروج حتى الانتهاء من التحقق</h2>
       </div>
       <form className="otp-form" onSubmit={(e) => e.preventDefault()}>
         <div className="otp-container">

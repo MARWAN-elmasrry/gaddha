@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "../../../ui/Modal";
 import { useForm } from "react-hook-form";
 import { createReport } from "../../../../api/services/userService";
+import { toast } from "react-toastify";
 
 const ReportForm = ({ open, setOpen, questionId }) => {
   const {
@@ -20,8 +21,10 @@ const ReportForm = ({ open, setOpen, questionId }) => {
     console.log(data);
     try {
       await createReport({ description: data.description, questionId });
+      toast.success("تم إنشاء البلاغ بنجاح");
     } catch (error) {
       console.error("Error creating report:", error);
+      toast.error("خطأ في إنشاء البلاغ");
     }
     setOpen(false);
   };
