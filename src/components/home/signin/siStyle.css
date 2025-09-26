@@ -60,6 +60,10 @@
   background-color: rgba(136, 56, 19, 1);
   border-radius: 6px;
 }
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+}
 @media (max-width: 768px) {
   .sign-cont h2 {
     text-align: center;

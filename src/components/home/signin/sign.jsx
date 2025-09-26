@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./siStyle.css";
 import { useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../../api/services/authService";
 import OTPStep from "./OTPStep";
+import { toast } from "react-toastify";
+import { s } from "framer-motion/client";
 
 const Sign = () => {
   const [otpStep, setOtpStep] = useState(false);
+  const [phoneToAccessOTPStep, setPhoneToAccessOTPStep] = useState(false);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -18,6 +21,7 @@ const Sign = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const [sentBefore, setSentBefore] = useState(false);
   const navigate = useNavigate();
 
   const countries = [
@@ -45,7 +49,9 @@ const Sign = () => {
     { code: "+91", name: "الهند", flag: "🇮🇳" },
     { code: "+86", name: "الصين", flag: "🇨🇳" },
   ];
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [phoneToAccessOTPStep, otpStep]);
   const handleCountrySelect = (selectedCode) => {
     setCountryCode(selectedCode);
     setFullNumber(phone ? `${selectedCode}-${phone}` : selectedCode);
@@ -71,9 +77,8 @@ const Sign = () => {
       return;
     }
     setLoading(true);
-
     try {
-      await RegisterUser({
+      const response = await RegisterUser({
         name,
         username,
         email,
@@ -82,8 +87,19 @@ const Sign = () => {
         phone,
         birthday: birthdate,
       });
+      console.log("reach tthat ", response);
+
+      toast.success("تم إنشاء الحساب بنجاح");
+
       setOtpStep(true);
     } catch (err) {
+      if (err === "Phone number already exists") {
+        toast.error("رقم الجوال مستخدم من قبل");
+      } else if (err === "Email already exists") {
+        toast.error("الإيميل مستخدم من قبل");
+      } else if (err === "Username already exists") {
+        toast.error("اسم المستخدم مستخدم من قبل");
+      }
       setError(err.message || "خطأ في تسجيل ");
     } finally {
       setLoading(false);
@@ -93,209 +109,348 @@ const Sign = () => {
   return (
     <>
       {!otpStep ? (
-        <div className="sign">
-          <div className="container">
-            <div className="sign-cont">
-              <h1>انشئ حسابك</h1>
-              <h2>قدها ولا بس سوالف؟ شوي ونعرف</h2>
-              <form className="form" onSubmit={handleSubmit}>
-                <div className="start-input-row">
-                  <span className="start-icon">
-                    <img src="./offerv.png" alt="" />
-                  </span>
-                  <input
-                    className="start-input"
-                    type="text"
-                    placeholder="الإسم "
-                    dir="rtl"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="start-input-row">
-                  <span className="start-icon">
-                    <img src="./offerv.png" alt="" />
-                  </span>
-                  <input
-                    className="start-input"
-                    type="text"
-                    placeholder="اسم المستخدم"
-                    dir="rtl"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="start-input-row">
-                  <span className="start-icon">
-                    <img src="./offerv.png" alt="" />
-                  </span>
-                  <input
-                    className="start-input"
-                    type="email"
-                    placeholder="البريد الإلكتروني"
-                    dir="rtl"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
+        phoneToAccessOTPStep ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              margin: "40px 0",
+            }}
+          >
+            <h2>أدخل رقم الهاتف الذى تم ارسال عليه رمز التحقق لك</h2>
 
+            <form className="form">
+              <div
+                className="start-input-row phone-input-container"
+                style={{ position: "relative" }}
+              >
+                <span className="start-icon">
+                  <img src="./offerv.png" alt="" />
+                </span>
                 <div
-                  className="start-input-row phone-input-container"
-                  style={{ position: "relative" }}
+                  className="phone-input-wrapper"
+                  style={{ display: "flex", width: "100%", flexDirection: "row-reverse" }}
                 >
-                  <span className="start-icon">
-                    <img src="./offerv.png" alt="" />
-                  </span>
-                  <div
-                    className="phone-input-wrapper"
-                    style={{ display: "flex", width: "100%", flexDirection: "row-reverse" }}
-                  >
-                    <input
-                      className="start-input"
-                      type="tel"
-                      placeholder="رقم الهاتف"
-                      dir="rtl"
-                      value={phone}
-                      onChange={handlePhoneChange}
-                      style={{ borderRadius: "0 8px 8px 0", borderLeft: "none" }}
-                      required
-                    />
-                    <div className="country-code-selector" style={{ position: "relative" }}>
-                      <button
-                        type="button"
-                        className="country-code-btn"
-                        onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                  <input
+                    className="start-input"
+                    type="tel"
+                    placeholder="رقم الهاتف"
+                    dir="rtl"
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    style={{ borderRadius: "0 8px 8px 0", borderLeft: "none" }}
+                    required
+                  />
+                  <div className="country-code-selector" style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="country-code-btn"
+                      onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                      style={{
+                        borderRadius: "8px 0 0 8px",
+                        borderRight: "none",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "5px",
+                        minWidth: "100px",
+                        justifyContent: "center",
+                        margin: 0,
+                      }}
+                    >
+                      <span>{getCurrentCountry().flag}</span>
+                      <span>{getCurrentCountry().code}</span>
+                      <span style={{ fontSize: "12px" }}>▼</span>
+                    </button>
+
+                    {showCountryDropdown && (
+                      <div
+                        className="country-dropdown"
                         style={{
-                          borderRadius: "8px 0 0 8px",
-                          borderRight: "none",
-                          cursor: "pointer",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                          minWidth: "100px",
-                          justifyContent: "center",
-                          margin: 0,
+                          position: "absolute",
+                          top: "100%",
+                          left: 0,
+                          right: 0,
+                          background: "white",
+                          borderRadius: "8px",
+                          maxHeight: "200px",
+                          overflowY: "auto",
+                          zIndex: 1000,
                         }}
                       >
-                        <span>{getCurrentCountry().flag}</span>
-                        <span>{getCurrentCountry().code}</span>
-                        <span style={{ fontSize: "12px" }}>▼</span>
-                      </button>
-
-                      {showCountryDropdown && (
-                        <div
-                          className="country-dropdown"
-                          style={{
-                            position: "absolute",
-                            top: "100%",
-                            left: 0,
-                            right: 0,
-                            background: "white",
-                            borderRadius: "8px",
-                            maxHeight: "200px",
-                            overflowY: "auto",
-                            zIndex: 1000,
-                          }}
-                        >
-                          {countries.map((country) => (
-                            <div
-                              key={country.code}
-                              className="country-option"
-                              onClick={() => handleCountrySelect(country.code)}
-                              style={{
-                                padding: "10px 15px",
-                                cursor: "pointer",
-                                borderBottom: "1px solid #eee",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                                backgroundColor: countryCode === country.code ? "#f0f0f0" : "white",
-                              }}
-                              onMouseEnter={(e) => (e.target.style.backgroundColor = "#f5f5f5")}
-                              onMouseLeave={(e) => {
-                                if (countryCode !== country.code) {
-                                  e.target.style.backgroundColor = "white";
-                                }
-                              }}
-                            >
-                              <span style={{ fontSize: "12px", color: "#883813" }}>
-                                {country.flag}
-                              </span>
-                              <span style={{ fontSize: "12px", color: "#883813" }}>
-                                {country.code}
-                              </span>
-                              <span style={{ fontSize: "20px", color: "#883813" }}>
-                                {country.name}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                        {countries.map((country) => (
+                          <div
+                            key={country.code}
+                            className="country-option"
+                            onClick={() => handleCountrySelect(country.code)}
+                            style={{
+                              padding: "10px 15px",
+                              cursor: "pointer",
+                              borderBottom: "1px solid #eee",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "10px",
+                              backgroundColor: countryCode === country.code ? "#f0f0f0" : "white",
+                            }}
+                            onMouseEnter={(e) => (e.target.style.backgroundColor = "#f5f5f5")}
+                            onMouseLeave={(e) => {
+                              if (countryCode !== country.code) {
+                                e.target.style.backgroundColor = "white";
+                              }
+                            }}
+                          >
+                            <span style={{ fontSize: "12px", color: "#883813" }}>
+                              {country.flag}
+                            </span>
+                            <span style={{ fontSize: "12px", color: "#883813" }}>
+                              {country.code}
+                            </span>
+                            <span style={{ fontSize: "20px", color: "#883813" }}>
+                              {country.name}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
+              </div>
 
-                <div className="start-input-row">
-                  <span className="start-icon">
-                    <img src="./offerv.png" alt="" />
-                  </span>
-                  <input
-                    className="start-input"
-                    type="password"
-                    placeholder="كلمة المرور"
-                    dir="rtl"
-                    value={pass}
-                    onChange={(e) => setPass(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="start-input-row">
-                  <span className="start-icon">
-                    <img src="./offerv.png" alt="" />
-                  </span>
-                  <input
-                    className="start-input"
-                    type="password"
-                    placeholder="اعد كلمة المرور"
-                    dir="rtl"
-                    value={confirmPass}
-                    onChange={(e) => setConfirmPass(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="links">
-                  <div className="date">
+              <div className="start-btn">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  onClick={() => {
+                    setSentBefore(true);
+                    setOtpStep(true);
+                  }}
+                >
+                  {loading ? "جاري الإرسال..." : "إرسال"}
+                </button>
+              </div>
+            </form>
+          </div>
+        ) : (
+          <div className="sign">
+            <div className="container">
+              <div className="sign-cont">
+                <h1>انشئ حسابك</h1>
+                <h2>قدها ولا بس سوالف؟ شوي ونعرف</h2>
+                <form className="form" onSubmit={handleSubmit}>
+                  <div className="start-input-row">
+                    <span className="start-icon">
+                      <img src="./offerv.png" alt="" />
+                    </span>
                     <input
-                      type="date"
-                      placeholder="yyyy-mm-dd"
                       className="start-input"
-                      value={birthdate}
-                      onChange={(e) => setBirthdate(e.target.value)}
+                      type="text"
+                      placeholder="الإسم "
+                      dir="rtl"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       required
                     />
-                    <p>تاريخ الميلاد</p>
                   </div>
-                  <a href="/login">لدي حساب بالفعل</a>
-                </div>
+                  <div className="start-input-row">
+                    <span className="start-icon">
+                      <img src="./offerv.png" alt="" />
+                    </span>
+                    <input
+                      className="start-input"
+                      type="text"
+                      placeholder="اسم المستخدم"
+                      dir="rtl"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="start-input-row">
+                    <span className="start-icon">
+                      <img src="./offerv.png" alt="" />
+                    </span>
+                    <input
+                      className="start-input"
+                      type="email"
+                      placeholder="البريد الإلكتروني"
+                      dir="rtl"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
 
-                {error && <p style={{ color: "white" }}>{error}</p>}
+                  <div
+                    className="start-input-row phone-input-container"
+                    style={{ position: "relative" }}
+                  >
+                    <span className="start-icon">
+                      <img src="./offerv.png" alt="" />
+                    </span>
+                    <div
+                      className="phone-input-wrapper"
+                      style={{ display: "flex", width: "100%", flexDirection: "row-reverse" }}
+                    >
+                      <input
+                        className="start-input"
+                        type="tel"
+                        placeholder="رقم الهاتف"
+                        dir="rtl"
+                        value={phone}
+                        onChange={handlePhoneChange}
+                        style={{ borderRadius: "0 8px 8px 0", borderLeft: "none" }}
+                        required
+                      />
+                      <div className="country-code-selector" style={{ position: "relative" }}>
+                        <button
+                          type="button"
+                          className="country-code-btn"
+                          onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                          style={{
+                            borderRadius: "8px 0 0 8px",
+                            borderRight: "none",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
+                            minWidth: "100px",
+                            justifyContent: "center",
+                            margin: 0,
+                          }}
+                        >
+                          <span>{getCurrentCountry().flag}</span>
+                          <span>{getCurrentCountry().code}</span>
+                          <span style={{ fontSize: "12px" }}>▼</span>
+                        </button>
 
-                <div className="start-btn">
-                  <button type="submit" disabled={loading}>
-                    {loading ? "جاري الإرسال..." : "إرسال"}
-                  </button>
-                </div>
-              </form>
+                        {showCountryDropdown && (
+                          <div
+                            className="country-dropdown"
+                            style={{
+                              position: "absolute",
+                              top: "100%",
+                              left: 0,
+                              right: 0,
+                              background: "white",
+                              borderRadius: "8px",
+                              maxHeight: "200px",
+                              overflowY: "auto",
+                              zIndex: 1000,
+                            }}
+                          >
+                            {countries.map((country) => (
+                              <div
+                                key={country.code}
+                                className="country-option"
+                                onClick={() => handleCountrySelect(country.code)}
+                                style={{
+                                  padding: "10px 15px",
+                                  cursor: "pointer",
+                                  borderBottom: "1px solid #eee",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "10px",
+                                  backgroundColor:
+                                    countryCode === country.code ? "#f0f0f0" : "white",
+                                }}
+                                onMouseEnter={(e) => (e.target.style.backgroundColor = "#f5f5f5")}
+                                onMouseLeave={(e) => {
+                                  if (countryCode !== country.code) {
+                                    e.target.style.backgroundColor = "white";
+                                  }
+                                }}
+                              >
+                                <span style={{ fontSize: "12px", color: "#883813" }}>
+                                  {country.flag}
+                                </span>
+                                <span style={{ fontSize: "12px", color: "#883813" }}>
+                                  {country.code}
+                                </span>
+                                <span style={{ fontSize: "20px", color: "#883813" }}>
+                                  {country.name}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="start-input-row">
+                    <span className="start-icon">
+                      <img src="./offerv.png" alt="" />
+                    </span>
+                    <input
+                      className="start-input"
+                      type="password"
+                      placeholder="كلمة المرور"
+                      dir="rtl"
+                      value={pass}
+                      onChange={(e) => setPass(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="start-input-row">
+                    <span className="start-icon">
+                      <img src="./offerv.png" alt="" />
+                    </span>
+                    <input
+                      className="start-input"
+                      type="password"
+                      placeholder="اعد كلمة المرور"
+                      dir="rtl"
+                      value={confirmPass}
+                      onChange={(e) => setConfirmPass(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="links">
+                    <div className="date">
+                      <input
+                        type="date"
+                        placeholder="yyyy-mm-dd"
+                        className="start-input"
+                        value={birthdate}
+                        onChange={(e) => setBirthdate(e.target.value)}
+                        required
+                      />
+                      <p>تاريخ الميلاد</p>
+                    </div>
+                    <div className="form-footer">
+                      {" "}
+                      <a href="/login">لدي حساب بالفعل</a>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setPhoneToAccessOTPStep(true);
+                        }}
+                      >
+                        {" "}
+                        هل سبق وتم إرسال رمز التحقق لك؟
+                      </a>
+                    </div>
+                  </div>
+
+                  {error && <p style={{ color: "white" }}>{error}</p>}
+
+                  <div className="start-btn">
+                    <button type="submit" disabled={loading}>
+                      {loading ? "جاري الإرسال..." : "إرسال"}
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
+        )
       ) : (
-        <OTPStep phone={phone} countryCode={countryCode} />
+        <OTPStep phone={phone} countryCode={countryCode} sentBefore={sentBefore} />
       )}
     </>
   );
