@@ -227,7 +227,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card">
-                  <div className="main" onClick={() => pay(7.95)}>
+                  <div className="main" onClick={() => pay(14)}>
                     <h5>لعبتين</h5>
                     <div className="price">
                       <div className="price-info">
@@ -236,9 +236,7 @@ const Pack = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="top">
-                    <h3>7.95</h3>
-                  </div>
+                  <div className="top">{/* <h3>7.95</h3> */}</div>
                   <div className="center"></div>
                 </div>
               </GlareHover>
@@ -251,7 +249,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card card2">
-                  <div className="main" onClick={() => pay(4.95)}>
+                  <div className="main" onClick={() => pay(8)}>
                     <h5>لعبة واحدة</h5>
                     <div className="price">
                       <div className="price-info">
@@ -260,9 +258,7 @@ const Pack = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="top">
-                    <h3>4.95</h3>
-                  </div>
+                  <div className="top">{/* <h3>4.95</h3> */}</div>
                   <div className="center"></div>
                 </div>
               </GlareHover>
@@ -275,7 +271,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card card3">
-                  <div className="main" onClick={() => pay(35.95)}>
+                  <div className="main" onClick={() => pay(70)}>
                     <h5>ألعاب 10</h5>
                     <div className="price">
                       <div className="price-info">
@@ -284,9 +280,7 @@ const Pack = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="top">
-                    <h3>35.95</h3>
-                  </div>
+                  <div className="top">{/* <h3>35.95</h3> */}</div>
                   <div className="center"></div>
                 </div>
               </GlareHover>
@@ -299,7 +293,7 @@ const Pack = () => {
                 playOnce={false}
               >
                 <div className="card card4">
-                  <div className="main" onClick={() => pay(18.95)}>
+                  <div className="main" onClick={() => pay(37)}>
                     <h5>5 ألعاب</h5>
                     <div className="price">
                       <div className="price-info">
@@ -309,8 +303,8 @@ const Pack = () => {
                     </div>
                   </div>
                   <div className="top">
-                    {/* <h3>الأكثر مبيعا</h3> */}
-                    <h3>18.95</h3>
+                    <h3>الأكثر مبيعا</h3>
+                    {/* <h3>18.95</h3> */}
                   </div>
                   <div className="center"></div>
                 </div>
