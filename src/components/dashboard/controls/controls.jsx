@@ -251,7 +251,14 @@ const Controls = () => {
                     <button className="color" onClick={() => handleAddAdmin()}>
                       حفظ
                     </button>
-                    <button className="no-color">اعادة تهيئة</button>
+                    <button
+                      className="no-color"
+                      onClick={() => {
+                        setAddAdminData({ username: "", email: "", password: "", privileges: [] });
+                      }}
+                    >
+                      اعادة تهيئة
+                    </button>
                   </div>
                   <h2>تفضيلات التحكم</h2>
                 </div>

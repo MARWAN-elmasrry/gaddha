@@ -158,7 +158,9 @@ const Header = () => {
                           </div>
                         ))
                       ) : (
-                        <p className="no-notifications">لا يوجد إشعارات</p>
+                        <p className="no-notifications" style={{ color: "#8b3e1f" }}>
+                          لا يوجد إشعارات
+                        </p>
                       )}
 
                       <div className="notification-footer">
