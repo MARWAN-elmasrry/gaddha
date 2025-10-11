@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./Modal.css";
-const Modal = ({ title, isOpen, onClose, children, style, className = "" }) => {
+const ImageModal = ({ title, isOpen, onClose, children, style, className = "" }) => {
   if (!isOpen) return null;
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const Modal = ({ title, isOpen, onClose, children, style, className = "" }) => {
   }, [onClose]);
 
   const modalContent = (
-    <div className="modal" onClick={onClose}>
+    <div className="image-modal" onClick={onClose}>
       <div
         className={`modal-container ${className}`}
         style={{
@@ -50,4 +50,4 @@ const Modal = ({ title, isOpen, onClose, children, style, className = "" }) => {
   return ReactDOM.createPortal(modalContent, document.body);
 };
 
-export default Modal;
+export default ImageModal;

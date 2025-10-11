@@ -175,18 +175,18 @@ const CategoryForm = ({
           />
         </div>
         <div className="input-content" style={{ width: "49%" }}>
-          <label htmlFor="">صور الاسئلة</label>
+          <label htmlFor="">ميديا الاسئلة</label>
           <CustomFileUpload
-            accept="image/*"
+            accept="image/* video/* audio/*"
             multiple={true}
             selectedFiles={questionImages}
             setSelectedFiles={setQuestionImages}
           />
         </div>
         <div className="input-content" style={{ width: "49%" }}>
-          <label htmlFor="">صور الاجوبة</label>
+          <label htmlFor="">ميديا الاجوبة</label>
           <CustomFileUpload
-            accept="image/*"
+            accept="image/* video/* audio/*"
             multiple={true}
             selectedFiles={answersImages}
             setSelectedFiles={setAnswersImages}

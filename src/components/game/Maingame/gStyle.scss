@@ -839,3 +839,28 @@
     transform: translate(0, -10px);
   }
 }
+.warning-modal-container {
+  width: 400px !important;
+  height: 300px;
+  .modal-title {
+    border: none !important;
+  }
+  .modal-passed-content {
+    height: 100%;
+    margin-top: 24px;
+
+    .warning-modal-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      > div:first-child {
+        font-size: 24px;
+      }
+      .actions {
+        gap: 12px;
+        display: flex;
+      }
+    }
+  }
+}

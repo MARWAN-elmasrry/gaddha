@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import "./cStyle.css";
+import "./Category.css";
 import CategoryForm from "./CategoryForm";
 import { getAllCategories, toggleCategoryVisibility } from "../../../api/services/admingService";
 import { getGroups } from "../../../api/services/userService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../ui/Modal";
 
 const Categories = () => {
   const cards = Array.from({ length: 4 });
@@ -17,6 +19,8 @@ const Categories = () => {
   const [triggerRefetch, setTriggerRefetch] = useState(false);
   const [groups, setGroups] = useState([]);
   const [reFetch, setRefetch] = useState(false);
+  const [warningModal, setWarningModal] = useState(false);
+  const [deletedCategoryId, setDeletedCategoryId] = useState();
   const handleRefresh = useCallback(() => {
     setRefetch((prev) => !prev);
   }, []);
@@ -46,8 +50,57 @@ const Categories = () => {
       toast.error(error);
     }
   };
+  const handleDeleteCategory = async () => {
+    try {
+      await deleteCategory(deletedCategoryId);
+      toast.success("تم حذف الفئة بنجاح");
+      setTriggerRefetch((prev) => !prev);
+    } catch (error) {
+      toast.error(error);
+    }
+    setWarningModal(false);
+  };
   return (
     <>
+      <Modal
+        className="warning-modal-container"
+        title=""
+        isOpen={warningModal}
+        onClose={() => setWarningModal(false)}
+      >
+        <div className="warning-modal-content">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-1 h-1 text-red-500"
+            >
+              <path
+                fillRule="evenodd"
+                d="M6 7a1 1 0 011 1v7a1 1 0 102 0V8a1 1 0 112 0v7a1 1 0 102 0V8a1 1 0 011-1h1V6H5v1h1zm2-3a1 1 0 00-1 1v1h6V5a1 1 0 00-1-1H8zM4 6h12v1a1 1 0 01-1 1H5a1 1 0 01-1-1V6z"
+                clipRule="evenodd"
+              />
+            </svg>
+            هل انت متاكد انك تريد الحذف
+          </div>
+          {/* <div>
+            لا يمكن تغيير رقم الهاتف او الايميل,ولكن
+            <br /> يمكنك التواصل معنا عبر قسم <br /> الرسائل لاخبارنا بالسبب وراء ذلك و سنساعدك
+          </div> */}
+          <div className="actions">
+            <button onClick={handleDeleteCategory}>حذف</button>
+            <button
+              onClick={() => {
+                setDeletedCategoryId("");
+                setWarningModal(false);
+              }}
+            >
+              الغاء{" "}
+            </button>
+          </div>
+        </div>
+      </Modal>
       <CategoryForm
         open={openCategoryFormCreate}
         setOpen={setOpenCategoryFormCreate}
@@ -103,7 +156,13 @@ const Categories = () => {
           <div className="cards">
             {categories?.map((category, idx) => (
               <div className="card">
-                <div className="card-num">
+                <div
+                  className="card-num"
+                  onClick={() => {
+                    setDeletedCategoryId(category._id);
+                    setWarningModal(true);
+                  }}
+                >
                   <span class="number">
                     <img src="/delete.png" alt="" />
                   </span>

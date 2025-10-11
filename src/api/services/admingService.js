@@ -167,7 +167,23 @@ export const editCategory = async (formData) => {
     throw error.response?.data?.message || "Failed to edit category";
   }
 };
-
+export const deleteCategory = async (categoryId) => {
+  try {
+    const response = await api.post(
+      `/admin/delete-category-with-questions/${categoryId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to edit category";
+  }
+};
 //questions
 export const getQuestionById = async (id) => {
   try {

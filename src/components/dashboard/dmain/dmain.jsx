@@ -87,12 +87,15 @@ const Dmain = () => {
   const [reFetch, setRefetch] = useState(false);
 
   const handleRefresh = useCallback(() => {
-    setRefetch(prev => !prev);
+    setRefetch((prev) => !prev);
   }, []);
 
-  const getImageSrc = useCallback((cardType) => {
-    return hoveredCard === cardType ? "./dashrm.png" : "/dashr.png";
-  }, [hoveredCard]);
+  const getImageSrc = useCallback(
+    (cardType) => {
+      return hoveredCard === cardType ? "./dashrm.png" : "/dashr.png";
+    },
+    [hoveredCard]
+  );
 
   useEffect(() => {
     let isMounted = true;
@@ -110,13 +113,13 @@ const Dmain = () => {
 
     const updateLoading = (key, value) => {
       if (isMounted) {
-        setLoading(prev => ({ ...prev, [key]: value }));
+        setLoading((prev) => ({ ...prev, [key]: value }));
       }
     };
 
     const updateData = (updates) => {
       if (isMounted) {
-        setData(prev => ({ ...prev, ...updates }));
+        setData((prev) => ({ ...prev, ...updates }));
       }
     };
 
@@ -126,13 +129,13 @@ const Dmain = () => {
       // Reports
       if (ability.can("view", "Reports")) {
         const reportsPromise = getAllReports()
-          .then(result => {
+          .then((result) => {
             updateData({ reports: result });
-            updateLoading('reports', false);
+            updateLoading("reports", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("Reports error:", err);
-            updateLoading('reports', false);
+            updateLoading("reports", false);
             if (isMounted) {
               toast.error("خطأ في سحب البلاغات");
             }
@@ -143,13 +146,13 @@ const Dmain = () => {
       // Messages
       if (ability.can("view", "Messages")) {
         const messagesPromise = getAllMessages()
-          .then(result => {
+          .then((result) => {
             updateData({ messages: result });
-            updateLoading('messages', false);
+            updateLoading("messages", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("Messages error:", err);
-            updateLoading('messages', false);
+            updateLoading("messages", false);
             if (isMounted) {
               toast.error("خطأ في سحب الرسائل");
             }
@@ -160,13 +163,13 @@ const Dmain = () => {
       // User Count
       if (ability.can("view", "all")) {
         const userCountPromise = getUserCount()
-          .then(result => {
+          .then((result) => {
             updateData({ userCount: result });
-            updateLoading('userCount', false);
+            updateLoading("userCount", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("User count error:", err);
-            updateLoading('userCount', false);
+            updateLoading("userCount", false);
             if (isMounted) {
               toast.error("خطأ في سحب عدد المستخدمين");
             }
@@ -175,13 +178,13 @@ const Dmain = () => {
 
         // Vouchers
         const vouchersPromise = getVouchers()
-          .then(result => {
+          .then((result) => {
             updateData({ vouchers: result });
-            updateLoading('vouchers', false);
+            updateLoading("vouchers", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("Vouchers error:", err);
-            updateLoading('vouchers', false);
+            updateLoading("vouchers", false);
             if (isMounted) {
               toast.error("خطأ في سحب أكواد الخصم");
             }
@@ -190,10 +193,10 @@ const Dmain = () => {
 
         // Chart Data
         const chartDataPromise = getLastSevenDays()
-          .then(apiData => {
+          .then((apiData) => {
             const finalData =
               apiData && apiData.length > 0
-                ? apiData.map(item => ({
+                ? apiData.map((item) => ({
                     day: item.day,
                     value: item.value,
                   }))
@@ -206,7 +209,7 @@ const Dmain = () => {
                     { day: "F", value: 30 },
                   ];
 
-            const values = finalData.map(d => d.value);
+            const values = finalData.map((d) => d.value);
             const min = Math.min(...values);
             const max = Math.max(...values);
 
@@ -215,11 +218,11 @@ const Dmain = () => {
               minValue: min > 0 ? min - 5 : 0,
               maxValue: max + 5,
             });
-            updateLoading('chartData', false);
+            updateLoading("chartData", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("Chart data error:", err);
-            updateLoading('chartData', false);
+            updateLoading("chartData", false);
             if (isMounted) {
               toast.error("خطأ في سحب بيانات الرسم البياني");
             }
@@ -230,13 +233,13 @@ const Dmain = () => {
       // Categories
       if (ability.can("view", "Categories") || ability.can("manage", "Categories")) {
         const categoriesPromise = getAllCategories()
-          .then(result => {
+          .then((result) => {
             updateData({ categories: result });
-            updateLoading('categories', false);
+            updateLoading("categories", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("Categories error:", err);
-            updateLoading('categories', false);
+            updateLoading("categories", false);
             if (isMounted) {
               toast.error("خطأ في سحب الفئات");
             }
@@ -247,13 +250,13 @@ const Dmain = () => {
       // Sales Data
       if (ability.can("view", "Sales")) {
         const soldPromise = getTotalSoldGames()
-          .then(result => {
+          .then((result) => {
             updateData({ sold: result });
-            updateLoading('sales', false);
+            updateLoading("sales", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("Sold games error:", err);
-            updateLoading('sales', false);
+            updateLoading("sales", false);
             if (isMounted) {
               toast.error("خطأ في جلب بيانات عدد الألعاب");
             }
@@ -261,13 +264,13 @@ const Dmain = () => {
         fetchPromises.push(soldPromise);
 
         const profitsPromise = getTotalProfit()
-          .then(result => {
+          .then((result) => {
             updateData({ profits: result });
-            updateLoading('profits', false);
+            updateLoading("profits", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("Profits error:", err);
-            updateLoading('profits', false);
+            updateLoading("profits", false);
             if (isMounted) {
               toast.error("خطأ في جلب بيانات الأرباح");
             }
@@ -286,7 +289,7 @@ const Dmain = () => {
 
     return () => {
       isMounted = false;
-      timeoutIds.forEach(id => clearTimeout(id));
+      timeoutIds.forEach((id) => clearTimeout(id));
     };
   }, [ability, reFetch]);
 
@@ -608,7 +611,10 @@ const Dmain = () => {
                         <p>الألعاب</p>
                       </div>
                       <div className="mess">
-                        <h4 className="r-h">{data.categories.length}</h4>
+                        <h4 className="r-h">
+                          {" "}
+                          {data.categories.reduce((sum, cat) => sum + (cat.playCount || 0), 0)}
+                        </h4>
                       </div>
                     </div>
                   ))}

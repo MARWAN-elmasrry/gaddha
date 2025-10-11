@@ -9,13 +9,20 @@ import {
   adjustScore,
   switchTurn,
   mutateTeamHelpers,
+  clearGame,
+  endGame,
 } from "../../../gameSlice";
 import ReportForm from "./ReportForm";
+import Modal from "../../ui/Modal";
+import ImageModal from "../../ui/ImageModal";
 
 const Header = () => {
   const [showConfirm, setShowConfirm] = useState(false);
+  const [endWarningModal, setEndWarningModal] = useState(false);
+  const [ExitWarningModal, setExitWarningModal] = useState(false);
   const navigate = useNavigate();
   const { gameName } = useSelector((state) => state.game);
+  const dispatch = useDispatch();
 
   const handleExitClick = () => {
     setShowConfirm(true);
@@ -31,11 +38,102 @@ const Header = () => {
 
   return (
     <header>
+      <Modal
+        className="warning-modal-container"
+        title=""
+        isOpen={endWarningModal}
+        onClose={() => setEndWarningModal(false)}
+      >
+        <div className="warning-modal-content">
+          <div>
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              role="img"
+            >
+              <title>Close</title>
+              <circle cx="20" cy="20" r="18" stroke="#883813" stroke-width="2" fill="none" />
+              <path
+                d="M13 13 L27 27 M27 13 L13 27"
+                stroke="#883813"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            هل انت متاكد انك تريد انهاء اللعبة ؟
+          </div>
+
+          <div className="actions">
+            <button
+              onClick={() => {
+                dispatch(endGame());
+                navigate("/game/result");
+              }}
+            >
+              انهاء
+            </button>
+            <button
+              onClick={() => {
+                setEndWarningModal(false);
+              }}
+            >
+              الغاء{" "}
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <Modal isOpen={ExitWarningModal} onClose={() => setExitWarningModal(false)}>
+        <div className="warning-modal-content">
+          <div>
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              role="img"
+            >
+              <title>Close</title>
+              <circle cx="20" cy="20" r="18" stroke="#883813" stroke-width="2" fill="none" />
+              <path
+                d="M13 13 L27 27 M27 13 L13 27"
+                stroke="#883813"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            هل انت متاكد انك تريد الخروج من اللعبة ؟
+          </div>
+
+          <div className="actions">
+            <button
+              onClick={() => {
+                dispatch(clearGame());
+                navigate("/games");
+              }}
+            >
+              خروج{" "}
+            </button>
+            <button
+              onClick={() => {
+                setExitWarningModal(false);
+              }}
+            >
+              الغاء{" "}
+            </button>
+          </div>
+        </div>
+      </Modal>
       <div className="header-container">
         <div className="head-cont">
           <div className="links">
-            <div className="side-menu">
-              <AnimatePresence mode="wait">
+            <div className="side-menu" style={{ display: "flex", gap: "12px" }}>
+              {/* <AnimatePresence mode="wait">
                 {!showConfirm ? (
                   <motion.button
                     key="exit-btn"
@@ -73,7 +171,21 @@ const Header = () => {
                     </button>
                   </motion.div>
                 )}
-              </AnimatePresence>
+              </AnimatePresence> */}
+              <button
+                onClick={() => {
+                  setExitWarningModal(true);
+                }}
+              >
+                خروج
+              </button>
+              <button
+                onClick={() => {
+                  setEndWarningModal(true);
+                }}
+              >
+                انهاء اللعبة
+              </button>
             </div>
           </div>
           <h1>{gameName}</h1>
@@ -483,8 +595,42 @@ const QandA = ({
   const [timer, setTimer] = useState(60);
   const [turn, setTurn] = useState(1);
   const [openReportForm, setOpenReportForm] = useState(false);
-  const dispatch = useDispatch();
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [imageModal, setImageModal] = useState("");
+  const [questionMediatype, setQuestionMediaType] = useState(null);
+  const [answerMediatype, setAnswerMediaType] = useState(null);
 
+  const handleClickImageDialog = (type) => {
+    if (type === "question") {
+      setImageModal(currentQA.qImage);
+    } else {
+      setImageModal(currentQA.aImage);
+    }
+    setImageModalOpen(true);
+  };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchQuestionMediaType = async () => {
+      try {
+        const res = await fetch(currentQA?.qImage, { method: "HEAD" });
+        const contentType = res.headers.get("Content-Type");
+        setQuestionMediaType(contentType);
+      } catch (err) {
+        console.error("Error fetching type:", err);
+      }
+    };
+    const fetchAnswerMediaType = async () => {
+      try {
+        const res = await fetch(currentQA.aImage, { method: "HEAD" });
+        const contentType = res.headers.get("Content-Type");
+        setAnswerMediaType(contentType);
+      } catch (err) {
+        console.error("Error fetching type:", err);
+      }
+    };
+    fetchAnswerMediaType();
+    fetchQuestionMediaType();
+  }, [currentQA]);
   useEffect(() => {
     if (currentView !== "question") return;
 
@@ -514,8 +660,74 @@ const QandA = ({
     }
     dispatch(switchTurn());
   };
+  const questionMedia = () => {
+    if (questionMediatype?.startsWith("image")) {
+      return (
+        <img
+          src={currentQA?.qImage}
+          alt="media"
+          style={{ maxWidth: "100%" }}
+          onClick={() => handleClickImageDialog("question")}
+        />
+      );
+    }
+    if (questionMediatype?.startsWith("video")) {
+      return (
+        <video
+          src={currentQA?.qImage}
+          controls
+          style={{ maxWidth: "100%" }}
+          onClick={() => handleClickImageDialog("question")}
+        />
+      );
+    }
+    if (questionMediatype?.startsWith("audio")) {
+      return (
+        <audio
+          src={currentQA?.qImage}
+          controls
+          onClick={() => handleClickImageDialog("question")}
+        />
+      );
+    }
+  };
+  const answerMedia = () => {
+    if (answerMediatype?.startsWith("image")) {
+      return (
+        <img
+          src={currentQA.aImage}
+          alt="media"
+          style={{ maxWidth: "100%" }}
+          onClick={() => handleClickImageDialog("answer")}
+        />
+      );
+    }
+    if (answerMediatype?.startsWith("video")) {
+      return (
+        <video
+          src={currentQA.aImage}
+          controls
+          style={{ maxWidth: "100%" }}
+          onClick={() => handleClickImageDialog("answer")}
+        />
+      );
+    }
+    if (answerMediatype?.startsWith("audio")) {
+      return (
+        <audio src={currentQA.aImage} controls onClick={() => handleClickImageDialog("answer")} />
+      );
+    }
+  };
   return (
     <div className="qa">
+      <ImageModal
+        className="image-modal-container"
+        title=""
+        isOpen={imageModalOpen}
+        onClose={() => setImageModalOpen(false)}
+      >
+        <img src={imageModal} alt="image modal" />
+      </ImageModal>
       <ReportForm questionId={currentQA?.id} open={openReportForm} setOpen={setOpenReportForm} />
       <div className={`qa-cont ${currentView === "result" ? "fixed-height" : ""}`}>
         <div className="game-btn ca" onClick={onToggleText} style={{ cursor: "pointer" }}>
@@ -555,7 +767,13 @@ const QandA = ({
             >
               <h1 style={{ direction: "rtl" }}>السؤال : {currentQA?.q}</h1>
               <div className="qora">
-                <img src={currentQA.qImage} alt="" />
+                {/* <img
+                  src={currentQA.qImage}
+                  alt=""
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleClickImageDialog("question")}
+                /> */}
+                {questionMedia()}
               </div>
             </motion.div>
           )}
@@ -570,7 +788,13 @@ const QandA = ({
             >
               <h1 style={{ direction: "rtl" }}>الجواب : {currentQA?.a}</h1>
               <div className="qora">
-                <img src={currentQA.aImage} alt="" />
+                {/* <img
+                  src={currentQA.aImage}
+                  alt=""
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleClickImageDialog("answer")}
+                /> */}
+                {answerMedia()}
               </div>
             </motion.div>
           )}
@@ -665,7 +889,6 @@ const MainGame = () => {
   const [currentCategory, setCurrentCategory] = useState("");
   const [flippedCard, setFlippedCard] = useState(null);
   const [doublePointsClicked, setDoublePointsClicked] = useState(false);
-
   const handleCategoryClick = (category, index) => {
     if (flippedCard === index) {
       setFlippedCard(null);

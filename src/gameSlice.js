@@ -159,6 +159,17 @@ const gameSlice = createSlice({
       }
       localStorage.setItem("gameData", JSON.stringify(state));
     },
+    endGame: (state) => {
+      state.isGameOver = true;
+      state.winnerTeam =
+        state.teamOneScore > state.teamTwoScore
+          ? "teamOne"
+          : state.teamTwoScore > state.teamOneScore
+          ? "teamTwo"
+          : "draw";
+      clearGame(state);
+      localStorage.setItem("gameData", JSON.stringify(state));
+    },
   },
 });
 
@@ -172,5 +183,6 @@ export const {
   switchTurn,
   mutateTeamHelpers,
   replayGame,
+  endGame,
 } = gameSlice.actions;
 export default gameSlice.reducer;

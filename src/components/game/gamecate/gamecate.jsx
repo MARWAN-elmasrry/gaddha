@@ -9,8 +9,18 @@ import {
   getRemainingGamesForACategory,
 } from "../../../api/services/userService";
 import { Loading } from "../../dashboard/dmain/dmain";
+import { toast } from "react-toastify";
 
-function Card({ category, index, selected, order, isFavorite, onCardClick, onFavoriteClick }) {
+function Card({
+  selectedCategories,
+  category,
+  index,
+  selected,
+  order,
+  isFavorite,
+  onCardClick,
+  onFavoriteClick,
+}) {
   const handleCardClick = (e) => {
     if (category.remainingGames === 0) return; // prevent click
     if (e.target.closest(".select-btn")) {
@@ -34,6 +44,7 @@ function Card({ category, index, selected, order, isFavorite, onCardClick, onFav
       role="button"
       tabIndex={0}
       style={{
+        filter: selectedCategories.length > 5 && !selected ? "brightness(40%)" : "brightness(100%)",
         opacity: isDisabled ? 0.4 : selected ? 0.5 : 1,
         cursor: isDisabled ? "not-allowed" : "",
       }}
@@ -67,6 +78,7 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
   // const [selected, setSelected] =
   //   useState([])
   const [favorites, setFavorites] = useState([]);
+
   const [categories, setCategories] = useState([]);
   const [loadingCategories, setloadingCategories] = useState(true);
   const [initCategories, setInitCategories] = useState([]);
@@ -144,18 +156,23 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
     });
   };
 
-  const handleFavoriteClick = async (id) => {
+  const handleFavoriteClick = async (category) => {
     try {
       await toggleCategoryFavorite(id);
     } catch (error) {
       console.error("Error adding category to favorites:", error);
     }
     setFavorites((prev) => {
-      const updatedFavorites = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-
+      // const updatedFavorites = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+      if (prev.find((cat) => cat === category._id)) {
+        toast.success(`تم إزالة الفئة ${category?.name} من المفضلة`);
+        return prev.filter((cat) => cat !== category._id);
+      }
+      toast.success(`تم إضافة الفئة ${category?.name} إلى المفضلة`);
+      return [...prev, category];
       // Save to localStorage
-      localStorage.setItem("categoryFavorites", JSON.stringify(updatedFavorites));
-      return updatedFavorites;
+      // localStorage.setItem("categoryFavorites", JSON.stringify(updatedFavorites));
+      // return updatedFavorites;
     });
   };
 
@@ -192,10 +209,11 @@ export default function GameCate({ selected, setSelected, activeGroup, setActive
                     index={idx}
                     category={cat}
                     selected={selected.includes(cat._id)}
+                    selectedCategories={selected}
                     order={selectedWithOrder.get(cat._id)}
                     isFavorite={favorites.includes(cat._id)}
                     onCardClick={() => handleCardClick(cat._id)}
-                    onFavoriteClick={() => handleFavoriteClick(cat._id)}
+                    onFavoriteClick={() => handleFavoriteClick(cat)}
                   />
                 ))}
               </>

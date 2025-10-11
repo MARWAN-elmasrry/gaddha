@@ -49,15 +49,14 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen, setTriggerRef
     setOpen(false);
   };
   const onSubmit = async (data) => {
-    console.log("files", data);
     if (mode === "create") {
       try {
         await createVoucher({ ...data, type: isFixedCoupon ? "fixed" : "percentage" });
         setTriggerRefetch((prev) => !prev);
-        toast.sussess("تم عمل الخصم")
+        toast.success("تم عمل الخصم");
       } catch (error) {
         console.error("Error creating voucher:", error);
-        toast.error("خطأ في عمل خصم");  
+        toast.error("خطأ في عمل خصم");
       }
       handleClose();
     } else {
@@ -68,10 +67,10 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen, setTriggerRef
           type: isFixedCoupon ? "fixed" : "percentage",
         });
         setTriggerRefetch((prev) => !prev);
-                toast.sussess("تم عمل تعديل الخصم")
+        toast.success("تم عمل تعديل الخصم");
       } catch (error) {
         console.error("Error editing voucher:", error);
-        toast.error("خطأ في تعديل الخصم");  
+        toast.error("خطأ في تعديل الخصم");
       }
       handleClose();
     }
@@ -119,13 +118,13 @@ const CouponForm = ({ mode = "create", initialData, open, setOpen, setTriggerRef
           />
           {errors.userLimit && <p style={{ color: "red" }}>{errors.userLimit.message}</p>}
         </div>
-        <div>
+        {/* <div>
           <CustomSwitch
             checked={!isFixedCoupon}
             onChange={() => setIsFixedCoupon((prev) => !prev)}
           />
           <span style={{ fontSize: "18px" }}>الخم مبلغ ثابت</span>
-        </div>
+        </div> */}
         <div style={{ width: "100%", textAlign: "center" }}>
           <button type="submit" class="submit-button">
             {mode === "create" ? "اضافة" : "تعديل"}
