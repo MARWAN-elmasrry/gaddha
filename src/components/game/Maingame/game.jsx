@@ -86,7 +86,11 @@ const Header = () => {
           </div>
         </div>
       </Modal>
-      <Modal isOpen={ExitWarningModal} onClose={() => setExitWarningModal(false)}>
+      <Modal
+        className="warning-modal-container"
+        isOpen={ExitWarningModal}
+        onClose={() => setExitWarningModal(false)}
+      >
         <div className="warning-modal-content">
           <div>
             <svg
