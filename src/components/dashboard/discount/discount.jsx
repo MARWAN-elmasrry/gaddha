@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import "./disStyle.css";
 import CouponForm from "./CouponForm";
-import { getVouchers } from "../../../api/services/admingService";
+import { deleteVoucher, getVouchers } from "../../../api/services/admingService";
 import { toast } from "react-toastify";
+import Modal from "../../ui/Modal";
 
 const Discount = () => {
   const [coupons, setCoupons] = useState([]);
@@ -12,6 +13,8 @@ const Discount = () => {
   const [initialData, setInitialData] = useState(null);
   const [mode, setMode] = useState("create");
   const [reFetch, setRefetch] = useState(false);
+  const [warningModal, setWarningModal] = useState(false);
+  const [deletedVoucherId, setDeletedVoucherId] = useState();
   const handleRefresh = useCallback(() => {
     setRefetch((prev) => !prev);
   }, []);
@@ -29,11 +32,58 @@ const Discount = () => {
 
     fetchData();
   }, [triggerRefetch, reFetch]);
-
-  console.log(coupons)
+  const handleDeleteVoucher = async () => {
+    try {
+      await deleteVoucher(deletedVoucherId);
+      toast.success("تم حذف الكوبون بنجاح");
+      setTriggerRefetch((prev) => !prev);
+    } catch (error) {
+      toast.error(error);
+    }
+    setWarningModal(false);
+  };
 
   return (
     <>
+      <Modal
+        className="warning-modal-container"
+        title=""
+        isOpen={warningModal}
+        onClose={() => setWarningModal(false)}
+      >
+        <div className="warning-modal-content">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-1 h-1 text-red-500"
+            >
+              <path
+                fillRule="evenodd"
+                d="M6 7a1 1 0 011 1v7a1 1 0 102 0V8a1 1 0 112 0v7a1 1 0 102 0V8a1 1 0 011-1h1V6H5v1h1zm2-3a1 1 0 00-1 1v1h6V5a1 1 0 00-1-1H8zM4 6h12v1a1 1 0 01-1 1H5a1 1 0 01-1-1V6z"
+                clipRule="evenodd"
+              />
+            </svg>
+            هل انت متاكد انك تريد الحذف
+          </div>
+          {/* <div>
+            لا يمكن تغيير رقم الهاتف او الايميل,ولكن
+            <br /> يمكنك التواصل معنا عبر قسم <br /> الرسائل لاخبارنا بالسبب وراء ذلك و سنساعدك
+          </div> */}
+          <div className="actions">
+            <button onClick={handleDeleteVoucher}>حذف</button>
+            <button
+              onClick={() => {
+                setDeletedCategoryId("");
+                setWarningModal(false);
+              }}
+            >
+              الغاء{" "}
+            </button>
+          </div>
+        </div>
+      </Modal>
       <div className="dis">
         <div className="container">
           <div className="h-cont">
@@ -76,7 +126,13 @@ const Discount = () => {
           <div className="cards">
             {coupons?.map((coupon, idx) => (
               <div className="card">
-                <div className="card-num">
+                <div
+                  className="card-num"
+                  onClick={() => {
+                    setDeletedVoucherId(coupon._id);
+                    setWarningModal(true);
+                  }}
+                >
                   <span class="number">
                     <img src="/delete.png" alt="" />
                   </span>

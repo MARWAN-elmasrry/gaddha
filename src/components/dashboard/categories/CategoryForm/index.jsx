@@ -47,9 +47,14 @@ const CategoryForm = ({
         formData.append("timestamp", signatures[index].timestamp);
         formData.append("signature", signatures[index].signature);
         formData.append("upload_preset", signatures[index].uploadPreset);
+        const resourceType = image.type.startsWith("video")
+          ? "video"
+          : image.type.startsWith("audio")
+          ? "video"
+          : "image";
 
         return fetch(
-          `https://api.cloudinary.com/v1_1/${signatures[index].cloudName}/image/upload`,
+          `https://api.cloudinary.com/v1_1/${signatures[index].cloudName}/${resourceType}/upload`,
           {
             method: "POST",
             body: formData,

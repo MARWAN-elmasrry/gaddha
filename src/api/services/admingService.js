@@ -98,6 +98,18 @@ export const editVoucher = async (voucherData) => {
   }
 };
 
+export const deleteVoucher = async (voucherId) => {
+  try {
+    const response = await api.delete(`/admin/delete-voucher/${voucherId}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to edit voucher";
+  }
+};
 //categories
 
 export const uploadCategoryWithQuestions = async (formData) => {

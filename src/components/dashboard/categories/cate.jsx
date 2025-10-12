@@ -2,7 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import "./cStyle.css";
 import "./Category.css";
 import CategoryForm from "./CategoryForm";
-import { getAllCategories, toggleCategoryVisibility } from "../../../api/services/admingService";
+import {
+  deleteCategory,
+  getAllCategories,
+  toggleCategoryVisibility,
+} from "../../../api/services/admingService";
 import { getGroups } from "../../../api/services/userService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
