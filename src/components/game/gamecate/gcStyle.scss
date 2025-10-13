@@ -41,6 +41,9 @@
   justify-content: center;
   gap: 5rem;
   flex-wrap: wrap;
+  overflow: auto;
+  padding-top: 32px;
+  height: 60vh;
 }
 
 .game-cate .cards .card-cate {

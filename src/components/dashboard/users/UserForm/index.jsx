@@ -36,7 +36,7 @@ const UserForm = ({ user, open, handleClose }) => {
 
         <div className="user-field">
           <span className="label">الموبايل:</span>
-          <span className="value">
+          <span className="value" style={{ direction: "ltr" }}>
             {user.countryCode} {user.phone}
           </span>
         </div>
@@ -53,7 +53,10 @@ const UserForm = ({ user, open, handleClose }) => {
 
         <div className="user-field">
           <span className="label">آخر تسجيل دخول:</span>
-          <span className="value">{new Date(user.lastLogin).toLocaleString("ar-EG")}</span>
+          <span className="value" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span>{new Date(user.lastLogin).toLocaleDateString("ar-EG")}</span>
+            <span>{new Date(user.lastLogin).toLocaleTimeString("ar-EG")}</span>
+          </span>
         </div>
 
         <div className="user-field">

@@ -193,7 +193,7 @@ const Header = () => {
             </div>
           </div>
           <h1>{gameName}</h1>
-          <a href="/">
+          <a>
             <img src="/logo.png" alt="logo" style={{ width: 100 }} />
           </a>
         </div>
@@ -670,7 +670,7 @@ const QandA = ({
         <img
           src={currentQA?.qImage}
           alt="media"
-          style={{ maxWidth: "100%" }}
+          style={{ maxWidth: "100%", cursor: "pointer" }}
           onClick={() => handleClickImageDialog("question")}
         />
       );
@@ -680,7 +680,7 @@ const QandA = ({
         <video
           src={currentQA?.qImage}
           controls
-          style={{ maxWidth: "100%" }}
+          style={{ maxWidth: "100%", cursor: "pointer" }}
           onClick={() => handleClickImageDialog("question")}
         />
       );
@@ -701,7 +701,7 @@ const QandA = ({
         <img
           src={currentQA.aImage}
           alt="media"
-          style={{ maxWidth: "100%" }}
+          style={{ maxWidth: "100%", cursor: "pointer" }}
           onClick={() => handleClickImageDialog("answer")}
         />
       );
@@ -711,7 +711,7 @@ const QandA = ({
         <video
           src={currentQA.aImage}
           controls
-          style={{ maxWidth: "100%" }}
+          style={{ maxWidth: "100%", cursor: "pointer" }}
           onClick={() => handleClickImageDialog("answer")}
         />
       );
@@ -730,7 +730,7 @@ const QandA = ({
         isOpen={imageModalOpen}
         onClose={() => setImageModalOpen(false)}
       >
-        <img src={imageModal} alt="image modal" />
+        <img src={imageModal} alt="image modal" style={{ width: "100%" }} />
       </ImageModal>
       <ReportForm questionId={currentQA?.id} open={openReportForm} setOpen={setOpenReportForm} />
       <div className={`qa-cont ${currentView === "result" ? "fixed-height" : ""}`}>
