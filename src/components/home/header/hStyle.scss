@@ -143,8 +143,8 @@ header .links .points {
 @media (max-width: 390px) {
   header {
     .head-cont {
-      flex-direction: column-reverse;
-      align-items: center;
+      // flex-direction: column-reverse;
+      // align-items: center;
       > a {
         img {
           width: 90px !important;
@@ -251,6 +251,24 @@ header .links .points {
 
       &:hover {
         color: darken(#8b3e1f, 10%);
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .head-cont {
+    .notification-wrapper,
+    .points {
+      display: none !important;
+    }
+    .logo-image {
+      width: 50px !important;
+      height: 30px;
+    }
+    .side-menu {
+      .icon {
+        width: 30px !important;
+        height: 18px !important;
       }
     }
   }

@@ -191,7 +191,7 @@ const Header = () => {
             )}
           </div>
           <a href="/">
-            <img src={Logo} alt="logo" style={{ width: 100 }} />
+            <img src={Logo} alt="logo" className="logo-image" style={{ width: 100 }} />
           </a>
         </div>
       </div>
