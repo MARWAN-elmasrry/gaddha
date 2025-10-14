@@ -603,7 +603,7 @@ const Dmain = () => {
                       className="rcard r-info"
                       onClick={(e) => {
                         e.preventDefault();
-                        window.location.href = "/admin/categories";
+                        window.location.href = "/admin/dgames";
                       }}
                       style={{ cursor: "pointer" }}
                     >

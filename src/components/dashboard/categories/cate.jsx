@@ -181,7 +181,7 @@ const Categories = () => {
                   <button onClick={() => navigate(`/admin/category/view/${category._id}`)}>
                     عرض
                   </button>
-                  <p>{category.playCount}</p>
+                  <p> {Math.round(category.questionsCount / 6)}</p>
                   <p>{category.questionsCount}</p>
                   <p>{category.name}</p>
                 </div>
