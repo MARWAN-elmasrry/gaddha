@@ -15,7 +15,7 @@ const Contact = () => {
   } = useForm();
   const { loginType, user } = useSelector((state) => state.users);
   const navigate = useNavigate();
-
+  if (!user || loginType !== "user") navigate("/login", { replace: true });
   const onSubmit = async (data) => {
     if (loginType != "user") navigate("/login");
     try {

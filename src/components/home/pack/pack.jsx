@@ -272,7 +272,7 @@ const Pack = () => {
               >
                 <div className="card card3">
                   <div className="main" onClick={() => pay(70)}>
-                    <h5>ألعاب 10</h5>
+                    <h5 style={{ direction: "rtl" }}>10 ألعاب</h5>
                     <div className="price">
                       <div className="price-info">
                         <p>70</p>
@@ -294,7 +294,7 @@ const Pack = () => {
               >
                 <div className="card card4">
                   <div className="main" onClick={() => pay(37)}>
-                    <h5>5 ألعاب</h5>
+                    <h5 style={{ direction: "rtl" }}>5 ألعاب</h5>
                     <div className="price">
                       <div className="price-info">
                         <p>37</p>

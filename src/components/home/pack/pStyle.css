@@ -59,39 +59,13 @@
 
 .pack .pack-cont .card .main h5 {
   -webkit-transform: rotate(315deg);
-  left: 58px;
-  right: -40px;
-  top: 0;
+  right: 32px;
+  top: 19px;
   bottom: 0;
   position: absolute;
   margin: 0;
   font-size: 1.6rem;
-}
-
-.pack .pack-cont .card2 .main h5 {
-  -webkit-transform: rotate(315deg);
-  left: 58px;
-  right: -43px;
-  top: 5px;
-  bottom: -57px;
-  position: absolute;
-  margin: 0;
-  font-size: 1.6rem;
-}
-
-.pack .pack-cont .card3 .main h5 {
-  -webkit-transform: rotate(315deg);
-  left: 58px;
-  right: -43px;
-  top: 5px;
-  bottom: -32px;
-  position: absolute;
-  margin: 0;
-  font-size: 1.6rem;
-}
-
-.pack .pack-cont .card4 .main h5 {
-  bottom: -20px;
+  direction: rtl;
 }
 
 .pack .pack-cont .card4 .top {

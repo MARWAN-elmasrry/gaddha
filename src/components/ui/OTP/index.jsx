@@ -53,7 +53,7 @@ const CustomOTP = ({
             onChange={(e) => handleChange(e, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
             onFocus={handleFocus}
-            className={`w-10 h-12 text-center border rounded-md text-lg ${inputClassName}`}
+            className={` text-center  ${inputClassName}`}
           />
         </div>
       ))}

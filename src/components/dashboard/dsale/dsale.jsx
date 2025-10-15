@@ -62,13 +62,13 @@ const Dsale = () => {
   const [maxValue, setMaxValue] = useState(50);
   const [chartData, setChartData] = useState(dummyData);
   const [reFetch, setRefetch] = useState(false);
-        const handleRefresh = useCallback(() => {
-          setRefetch(prev => !prev);
-        }, []);
+  const handleRefresh = useCallback(() => {
+    setRefetch((prev) => !prev);
+  }, []);
 
   const pieData = [
     {
-      name: "10 العاب",
+      name: "  العاب 10",
       value: profit.tenGames,
       color: "rgba(83, 33, 10, 1)",
       count: 10,
@@ -89,7 +89,7 @@ const Dsale = () => {
       label: "لعبتين",
     },
     {
-      name: "5 العاب",
+      name: " العاب 5",
       value: profit.fiveGames,
       color: "rgba(180, 0, 0, 1)",
       count: 5,
@@ -206,14 +206,7 @@ const Dsale = () => {
 
   const RADIAN = Math.PI / 180;
 
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent,
-  }) => {
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.6;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -255,12 +248,8 @@ const Dsale = () => {
           marginLeft: 12,
         }}
       />
-      <div
-        style={{ display: "flex", alignItems: "center", gap: 13, opacity: 0.6 }}
-      >
-        {count !== undefined && (
-          <span style={{ color: "rgba(249, 231, 197, 1)" }}>{count}</span>
-        )}
+      <div style={{ display: "flex", alignItems: "center", gap: 13, opacity: 0.6 }}>
+        {count !== undefined && <span style={{ color: "rgba(249, 231, 197, 1)" }}>{count}</span>}
         <span style={{ color: "rgba(249, 231, 197, 1)" }}>{label}</span>
       </div>
     </div>
@@ -295,19 +284,19 @@ const Dsale = () => {
               </div>
             </div>
             <button
-            onClick={handleRefresh}
-            style={{
-              position: "absolute",
-              top: "50px",
-              right: "20px",
-              zIndex: 3,
-            }}
-            title="تحديث الصفحة (Ctrl+R)"
-          >
-            اعاده تحميل
-          </button>
+              onClick={handleRefresh}
+              style={{
+                position: "absolute",
+                top: "50px",
+                right: "20px",
+                zIndex: 3,
+              }}
+              title="تحديث الصفحة (Ctrl+R)"
+            >
+              اعاده تحميل
+            </button>
           </div>
-          <div className="d-sale-cont" style={{marginTop:50}}>
+          <div className="d-sale-cont" style={{ marginTop: 50 }}>
             <div className="sales">
               <div className="sale-cont">
                 <div className="chart">
@@ -471,11 +460,7 @@ const Dsale = () => {
                       </div>
                       <div className="item">
                         {pieDat.map((item, index) => (
-                          <StatItem
-                            key={index}
-                            label={item.label2}
-                            color={item.color2}
-                          />
+                          <StatItem key={index} label={item.label2} color={item.color2} />
                         ))}
                       </div>
                     </div>
