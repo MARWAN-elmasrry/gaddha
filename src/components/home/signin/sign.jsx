@@ -121,7 +121,7 @@ const Sign = () => {
           >
             <h2>أدخل رقم الهاتف الذى تم ارسال عليه رمز التحقق لك</h2>
 
-            <form className="form">
+            <form className="form otp-sent-form">
               <div
                 className="start-input-row phone-input-container"
                 style={{ position: "relative" }}

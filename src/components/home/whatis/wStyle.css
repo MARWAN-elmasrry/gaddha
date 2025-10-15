@@ -9,38 +9,15 @@
   align-items: center;
   padding-top: 30px;
 }
-.what .rotating-img {
-  width: 200px;
-  animation: rotateRightLeft 3s infinite ease-in-out;
-}
-
-@keyframes rotateRightLeft {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(20deg); /* يمين */
-  }
-  100% {
-    transform: rotate(0deg); /* يرجع */
-  }
-}
 
 .what-cont p {
   width: 536px;
   font-size: 30px;
   text-align: end;
 }
-.what-cont p::selection{
-  background: #f9e7c5 ;
-  color: #883813;     
-}
+
 .what .what-cont h3 {
   font-size: 40px;
-}
-.what-cont h3::selection{
-  background: #f9e7c5 ;
-  color: #883813;     
 }
 
 @media (max-width: 768px) {
@@ -48,6 +25,25 @@
     flex-direction: column;
   }
   .what .what-cont p {
-    width: auto !important;
+    width: auto;
+  }
+}
+@media (max-width: 500px) {
+  .what-cont {
+    flex-direction: column-reverse !important;
+    gap: 30px;
+  }
+  .what-cont > img {
+    width: 70px;
+    height: 74px;
+  }
+  .what-cont h3 {
+    font-size: 32px !important;
+  }
+  .what-cont p {
+    font-size: 28px !important;
+    width: 90% !important;
+    font-weight: 300 !important;
+    text-align: center;
   }
 }

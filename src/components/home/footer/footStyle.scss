@@ -207,7 +207,7 @@
     }
   }
 }
-@media (max-width: 425px) {
+@media (max-width: 500px) {
   .foot {
     .link-cont {
       border-top-right-radius: 35px;
@@ -240,7 +240,7 @@
     padding: 2px 14px;
     gap: 8px;
   }
-  @media (max-width: 410px) {
+  @media (max-width: 500px) {
     .foot {
       .f-links {
         flex-direction: column-reverse;
@@ -283,7 +283,7 @@
   }
 }
 
-@media (max-width: 410px) {
+@media (max-width: 500px) {
   .link-cont {
     padding: 0 !important;
     display: flex;

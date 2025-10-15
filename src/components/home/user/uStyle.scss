@@ -1,6 +1,6 @@
 .user h1 {
   text-align: center;
-  color: rgba(249, 231, 197, 1);
+  color: #f9e7c5;
 }
 .user .card-content {
   display: flex;
@@ -15,6 +15,14 @@
   padding: 1rem;
   margin: 0;
 }
+.user .card h3::selection {
+  background: #f9e7c5;
+  color: #883813;
+}
+.user .card ::selection {
+  background: #f9e7c5;
+  color: #883813;
+}
 .user .card {
   position: relative;
   background-color: rgba(136, 56, 19, 0.5);
@@ -27,10 +35,11 @@
   color: #f9e7c5;
   font-weight: 700;
 }
+
 .user .card .card-num {
   width: 60px;
   height: 60px;
-  background-color: rgba(136, 56, 19, 1);
+  background-color: #883813;
   transform: rotate(45deg);
   display: flex;
   justify-content: center;
@@ -39,6 +48,7 @@
   top: -30px;
   left: -30px;
 }
+
 .user .card .card-num .number {
   color: white;
   font-size: 20px;
@@ -46,86 +56,119 @@
   transform: rotate(-45deg);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
+
 .user .card .card-info .main-info {
   font-weight: 700;
   border-radius: 3rem;
   margin: 1rem;
-  background-color: rgba(136, 56, 19, 1);
+  background-color: #883813;
   position: relative;
-  svg {
-    position: absolute;
-    left: 20px;
-    top: 18px;
-  }
 }
+.user .card .card-info .main-info svg {
+  position: absolute;
+  left: 20px;
+  top: 18px;
+}
+
 .user .card .card-info .contact-info {
   margin: 1rem;
   border-radius: 3rem;
-  background-color: rgba(136, 56, 19, 1);
+  background-color: #883813;
   position: relative;
-  svg {
-    position: absolute;
-    left: 20px;
-    top: 18px;
-  }
 }
+.user .card .card-info .contact-info svg {
+  position: absolute;
+  left: 20px;
+  top: 18px;
+}
+
 .user .card .card-info .contact-info p {
   margin: 0;
   font-size: 1.6rem;
   padding: 1rem;
 }
+
 .user .card .card-info .mess {
   margin: 1rem;
   border-radius: 3rem;
-  background-color: rgba(136, 56, 19, 1);
+  background-color: #883813;
   position: relative;
-  svg {
-    position: absolute;
-    left: 20px;
-    top: 18px;
-  }
 }
+.user .card .card-info .mess svg {
+  position: absolute;
+  left: 20px;
+  top: 18px;
+}
+
 .user .card .card-info .mess p {
   font-weight: 600;
   font-size: 1.6rem;
   padding: 1rem;
 }
+
 .user .pen {
   width: 1.6rem;
 }
+
 .user .card .edit-btn {
   display: flex;
   justify-content: center;
 }
+
 .user .card input {
   background-color: transparent;
   border: none;
   width: 95%;
   font-size: 1.4rem;
   padding: 1rem;
-  color: rgba(249, 231, 197, 1);
+  color: #f9e7c5;
 }
+
 .user .card .passnone:focus {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
 }
+.user .g-link-u {
+  padding: 1.3rem;
+  font-size: 2.4rem;
+  display: flex;
+  gap: 10rem;
+  background-color: #883813;
+  border-radius: 3rem;
+}
+.user .g-link-u a {
+  text-decoration: none;
+  color: #f9e7c5;
+  opacity: 0.6;
+}
+.user .g-link-u .g-active {
+  opacity: 1;
+  background-color: #cf8a41 !important;
+  padding: 4px 8px !important;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media (max-width: 767px) {
-  .user {
-    .g-link {
-      gap: 32px !important;
-    }
-    .card {
-      width: 80%;
-      max-width: none;
-    }
+  .user .g-link {
+    gap: 32px !important;
+  }
+  .user .card {
+    width: 80%;
+    max-width: none;
   }
 }
-@media (max-width: 420px) {
-  .user {
-    .card {
-      width: 90%;
-      max-width: none;
+@media (max-width: 500px) {
+  .user-cont {
+    .g-link-u {
+      padding: 8px 1.3rem;
+      gap: 3rem !important;
     }
+  }
+  .user .card {
+    width: 90%;
+    max-width: none;
   }
 }

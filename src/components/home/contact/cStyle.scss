@@ -2,26 +2,22 @@
   margin-top: 5rem;
   margin-bottom: 5rem;
 }
-
 .contact .cont-cont {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-
 .contact h1 {
   font-size: 4rem;
   margin-bottom: 3rem;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
 }
-
 .contact h3 {
   font-size: 2rem;
   margin-bottom: 3rem;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
 }
-
 .form {
   width: 70%;
   height: max-content;
@@ -30,11 +26,9 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1rem;
 }
-
 .form p {
   direction: rtl;
 }
-
 .start-input-row {
   border-radius: 40px;
   opacity: 1;
@@ -42,53 +36,46 @@
   padding-right: 20px;
   padding-bottom: 10px;
   padding-left: 20px;
-  background-color: #883813;
+  background-color: rgba(136, 56, 19, 1);
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
 .start-input-row img {
   width: 3rem;
 }
-
 .form .mass-inp {
   padding-bottom: 10rem;
 }
-
 .form .mass-cont {
   align-items: flex-start;
 }
-
 .start-input-row input {
   background-color: transparent;
   border: none;
   width: 100%;
   font-size: 1.4rem;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
 }
-
 .start-input-row input:focus {
   border: none;
   outline: none;
   font-size: 1.4rem;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
 }
-
 input::placeholder {
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
   font-size: 1.4rem;
   opacity: 0.6;
 }
-
 button {
   width: 91;
   height: 51;
   border-radius: 45px;
   padding: 5px 23px;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
   font-size: 1.7rem;
   border: none;
   border-radius: 45px;
@@ -96,21 +83,22 @@ button {
   margin-bottom: 12px;
   background: linear-gradient(90deg, rgba(136, 56, 19, 0.1) 37.5%, #883813 100%);
 }
-
 .start-btn {
   display: flex;
   justify-content: center;
 }
-
 .contact input[disabled] {
   cursor: not-allowed;
 }
-
 @media (max-width: 500px) {
-  .cont-cont form {
-    width: 90%;
-  }
-  .cont-cont form .mass-cont input {
-    padding-bottom: 5rem;
+  .cont-cont {
+    form {
+      width: 90%;
+      .mass-cont {
+        input {
+          padding-bottom: 5rem;
+        }
+      }
+    }
   }
 }

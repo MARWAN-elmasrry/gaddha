@@ -18,7 +18,10 @@ const Header = () => {
   const [notifications, setNotifications] = useState([]);
   const [expanded, setExpanded] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
-
+  const [showLoginButton, setShowLoginButton] = useState(false);
+  useEffect(() => {
+    setShowLoginButton(location.pathname === "/");
+  }, [location.pathname]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -184,11 +187,11 @@ const Header = () => {
                   )}
                 </div>
               </>
-            ) : (
+            ) : showLoginButton ? (
               <button onClick={() => navigate("/login")} className="play">
                 تسجيل
               </button>
-            )}
+            ) : null}
           </div>
           <a href="/">
             <img src={Logo} alt="logo" className="logo-image" style={{ width: 100 }} />

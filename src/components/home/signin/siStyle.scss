@@ -2,102 +2,85 @@
   margin-top: 5rem;
   margin-bottom: 5rem;
 }
-
 .sign .sign-cont {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-
 .sign h1 {
   font-size: 4rem;
   margin-bottom: 3rem;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
 }
-
 .sign h3 {
   font-size: 2rem;
   margin-bottom: 3rem;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
 }
-
 .sign .links {
   display: flex;
   flex-direction: column;
 }
-
 .sign .links .date {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
-
 .sign .links .date p {
   font-size: 2rem;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
   opacity: 0.7;
 }
-
 .sign .links a {
   margin-top: 1rem;
   text-decoration: none;
   font-size: 2rem;
-  color: #f9e7c5;
+  color: rgba(249, 231, 197, 1);
   opacity: 0.6;
   width: max-content;
   transition: 0.4s;
 }
-
 .sign .links a:hover {
   opacity: 1;
 }
-
 .sign .links input {
   width: 210px;
   padding: 10px;
   border: 1px solid transparent;
   border-radius: 3rem;
   font-size: 2rem;
-  color: #f9e7c5;
-  background-color: #883813;
+  color: rgba(249, 231, 197, 1);
+  background-color: rgba(136, 56, 19, 1);
 }
-
-.sign .links input[type=text]::placeholder {
+.sign .links input[type="text"]::placeholder {
   font-size: 2rem;
 }
-
 .sign .country-dropdown::-webkit-scrollbar-thumb {
-  background-color: #883813;
+  background-color: rgba(136, 56, 19, 1);
   border-radius: 6px;
 }
-
 .form-footer {
   display: flex;
   justify-content: space-between;
 }
-
 @media (max-width: 768px) {
   .sign-cont h2 {
     text-align: center;
   }
-
   .sign-cont form {
     width: 100% !important;
   }
-
   .start-input-row img {
     width: 30px !important;
   }
-
   .country-code-btn {
     min-width: auto !important;
     gap: 2px;
+    span {
+      font-size: 16px;
+    }
   }
-  .country-code-btn span {
-    font-size: 16px;
-  }
-
   .date input {
     max-width: 230px !important;
     height: 55px;
@@ -105,39 +88,42 @@
   }
 }
 @media (max-width: 500px) {
-  .sign-cont > h1 {
-    font-size: 32px !important;
+  .sign-cont {
+    > h1 {
+      font-size: 32px !important;
+    }
+    > h2 {
+      font-size: 24px !important;
+      margin-top: 0 !important;
+    }
+    .links {
+      a {
+        padding: 0 !important;
+        font-size: 18px !important;
+      }
+    }
+    .country-code-selector {
+      button {
+        padding: 5px 0 0 8px !important;
+      }
+    }
   }
-  .sign-cont > h2 {
-    font-size: 24px !important;
-    margin-top: 0 !important;
-  }
-  .sign-cont .links a {
-    padding: 0 !important;
-    font-size: 18px !important;
-  }
-  .sign-cont .country-code-selector button {
-    padding: 5px 0 0 8px !important;
-  }
-
   .otp-sent-form,
-.otp-form {
+  .otp-form {
     width: 95% !important;
   }
-
   .otp-step {
     margin-top: 64px;
     gap: 12px !important;
   }
-
-  .otp-header h2 {
-    margin-top: 12px !important;
+  .otp-header {
+    h2 {
+      margin-top: 12px !important;
+    }
   }
-
   .otp-container {
     gap: 12px !important;
   }
-
   .otp-inputs {
     padding: 15px !important;
   }

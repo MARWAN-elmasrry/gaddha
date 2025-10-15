@@ -218,97 +218,64 @@ const Pack = () => {
         <div className="container">
           <div className="pack-cont">
             <div className="cards">
-              <GlareHover
-                glareColor="#53210A"
-                glareOpacity={0.3}
-                glareAngle={-45}
-                glareSize={300}
-                transitionDuration={1000}
-                playOnce={false}
-              >
-                <div className="card">
-                  <div className="main" onClick={() => pay(14)}>
-                    <h5>لعبتين</h5>
-                    <div className="price">
-                      <div className="price-info">
-                        <p>14</p>
-                        <img src="./riyal.png" alt="" />
-                      </div>
+              <div className="card">
+                <div className="main" onClick={() => pay(14)}>
+                  <h5>لعبتين</h5>
+                  <div className="price">
+                    <div className="price-info">
+                      <p>14</p>
+                      <img src="./riyal.png" alt="" />
                     </div>
                   </div>
-                  <div className="top">{/* <h3>7.95</h3> */}</div>
-                  <div className="center"></div>
                 </div>
-              </GlareHover>
-              <GlareHover
-                glareColor="#53210A"
-                glareOpacity={0.3}
-                glareAngle={-45}
-                glareSize={300}
-                transitionDuration={1000}
-                playOnce={false}
-              >
-                <div className="card card2">
-                  <div className="main" onClick={() => pay(8)}>
-                    <h5>لعبة واحدة</h5>
-                    <div className="price">
-                      <div className="price-info">
-                        <p>8</p>
-                        <img src="./riyal.png" alt="" />
-                      </div>
+                <div className="top">{/* <h3>7.95</h3> */}</div>
+                <div className="center"></div>
+              </div>
+
+              <div className="card card2">
+                <div className="main" onClick={() => pay(8)}>
+                  <h5>لعبة واحدة</h5>
+                  <div className="price">
+                    <div className="price-info">
+                      <p>8</p>
+                      <img src="./riyal.png" alt="" />
                     </div>
                   </div>
-                  <div className="top">{/* <h3>4.95</h3> */}</div>
-                  <div className="center"></div>
                 </div>
-              </GlareHover>
-              <GlareHover
-                glareColor="#53210A"
-                glareOpacity={0.3}
-                glareAngle={-45}
-                glareSize={300}
-                transitionDuration={1000}
-                playOnce={false}
-              >
-                <div className="card card3">
-                  <div className="main" onClick={() => pay(70)}>
-                    <h5 style={{ direction: "rtl" }}>10 ألعاب</h5>
-                    <div className="price">
-                      <div className="price-info">
-                        <p>70</p>
-                        <img src="./riyal.png" alt="" />
-                      </div>
+                <div className="top">{/* <h3>4.95</h3> */}</div>
+                <div className="center"></div>
+              </div>
+
+              <div className="card card3">
+                <div className="main" onClick={() => pay(70)}>
+                  <h5 style={{ direction: "rtl" }}>10 ألعاب</h5>
+                  <div className="price">
+                    <div className="price-info">
+                      <p>70</p>
+                      <img src="./riyal.png" alt="" />
                     </div>
                   </div>
-                  <div className="top">{/* <h3>35.95</h3> */}</div>
-                  <div className="center"></div>
                 </div>
-              </GlareHover>
-              <GlareHover
-                glareColor="#53210A"
-                glareOpacity={0.3}
-                glareAngle={-45}
-                glareSize={300}
-                transitionDuration={1000}
-                playOnce={false}
-              >
-                <div className="card card4">
-                  <div className="main" onClick={() => pay(37)}>
-                    <h5 style={{ direction: "rtl" }}>5 ألعاب</h5>
-                    <div className="price">
-                      <div className="price-info">
-                        <p>37</p>
-                        <img src="./riyal.png" alt="" />
-                      </div>
+                <div className="top">{/* <h3>35.95</h3> */}</div>
+                <div className="center"></div>
+              </div>
+
+              <div className="card card4">
+                <div className="main" onClick={() => pay(37)}>
+                  <h5 style={{ direction: "rtl" }}>5 ألعاب</h5>
+                  <div className="price">
+                    <div className="price-info">
+                      <p>37</p>
+                      <img src="./riyal.png" alt="" />
                     </div>
                   </div>
-                  <div className="top">
-                    <h3>الأكثر مبيعا</h3>
-                    {/* <h3>18.95</h3> */}
-                  </div>
-                  <div className="center"></div>
                 </div>
-              </GlareHover>
+                <div className="top">
+                  <h3>الأكثر مبيعا</h3>
+                  {/* <h3>18.95</h3> */}
+                </div>
+                <div className="center"></div>
+              </div>
             </div>
             <img src="./offers.png" alt="" />
           </div>

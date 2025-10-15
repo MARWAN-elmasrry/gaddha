@@ -1,10 +1,5 @@
 .what {
-  background-color: rgba(
-    136,
-    56,
-    19,
-    1
-  );
+  background-color: rgba(136, 56, 19, 1);
   color: rgba(249, 231, 197, 1);
 }
 .what .what-cont {
@@ -26,8 +21,27 @@
     .what-cont {
       flex-direction: column;
       p {
-        width: auto !important;
+        width: auto;
       }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .what-cont {
+    flex-direction: column-reverse !important;
+    gap: 30px;
+    > img {
+      width: 70px;
+      height: 74px;
+    }
+    h3 {
+      font-size: 32px !important;
+    }
+    p {
+      font-size: 28px !important;
+      width: 90% !important;
+      font-weight: 300 !important;
+      text-align: center;
     }
   }
 }
