@@ -110,8 +110,8 @@
 }
 
 .m-game .cards .card-cate {
-  width: 15.9722vw;
-  height: 35.5555vh;
+  width: 230px;
+  height: 260px;
   position: relative;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -862,5 +862,10 @@
         display: flex;
       }
     }
+  }
+}
+@media (max-width: 500px) {
+  .game {
+    background-image: none !important;
   }
 }

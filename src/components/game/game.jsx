@@ -295,7 +295,7 @@ const Game = () => {
         <div className="container">
           <div className="game-cont">
             <div className="g-links">
-              <div className="g-link">
+              <div className="g-link link-options">
                 <a
                   className={activeTab === "games" ? "g-active" : ""}
                   href="#"

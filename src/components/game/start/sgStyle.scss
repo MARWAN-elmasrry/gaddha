@@ -119,11 +119,31 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 500px) {
   .start {
+    background-image: none !important;
     .start-cont {
+      .game-cate-imgs {
+        height: auto !important;
+      }
       .start-inp {
         width: 90%;
+      }
+    }
+    .back-btn {
+      left: -12px !important;
+      width: 35px !important;
+      height: 35px !important;
+      button {
+        width: 30px !important;
+        height: 30px !important;
+        padding: 4px !important;
+        img {
+          width: 20px !important;
+          height: 20px !important;
+          top: 6px !important;
+          right: 5px !important;
+        }
       }
     }
   }

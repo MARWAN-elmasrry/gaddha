@@ -109,3 +109,6 @@ h2,
 h3 {
   width: auto !important;
 }
+.Toastify__toast-container {
+  z-index: 1000000;
+}

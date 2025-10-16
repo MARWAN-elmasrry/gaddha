@@ -54,8 +54,8 @@
 }
 
 .game-cate .cards .card-cate {
-  width: 15.9722vw;
-  height: 35.5555vh;
+  width: 230px;
+  height: 320px;
   position: relative;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -89,6 +89,7 @@
   width: 100%;
   height: max-content;
   border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
   display: flex;
   justify-content: center;
   z-index: 3;
@@ -165,9 +166,36 @@
     direction: rtl;
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
+  .game .container .group-links .g-link {
+    gap: 12px !important;
+  }
+  .game .container .group-links .g-link a {
+    font-size: 11px !important;
+  }
+
+  .cards {
+    gap: 12px !important;
+  }
+
+  .game-cate .cards .card-cate {
+    width: 40vw;
+    height: 320px;
+  }
+  .game-cate .cards .card-cate .card-num {
+    display: none !important;
+  }
+
   .game-cate-imgs img {
     width: 25px !important;
     height: 30px !important;
+  }
+
+  .remg {
+    font-size: 16px !important;
+  }
+
+  .link-options {
+    padding: 8px !important;
   }
 }
