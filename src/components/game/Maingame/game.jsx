@@ -193,7 +193,7 @@ const Header = () => {
             </div>
           </div>
           <h1>{gameName}</h1>
-          <a>
+          <a className="header-logo">
             <img src="/logo.png" alt="logo" style={{ width: 100 }} />
           </a>
         </div>
@@ -769,7 +769,7 @@ const QandA = ({
               exit={{ opacity: 0, x: 10 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              <h1 style={{ direction: "rtl" }}>السؤال : {currentQA?.q}</h1>
+              <h1 style={{ direction: "rtl", fontSize: " 2.78vw " }}>السؤال : {currentQA?.q}</h1>
               <div className="qora">
                 {/* <img
                   src={currentQA.qImage}
@@ -790,7 +790,7 @@ const QandA = ({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              <h1 style={{ direction: "rtl" }}>الجواب : {currentQA?.a}</h1>
+              <h1 style={{ direction: "rtl", fontSize: " 2.78vw" }}>الجواب : {currentQA?.a}</h1>
               <div className="qora">
                 {/* <img
                   src={currentQA.aImage}

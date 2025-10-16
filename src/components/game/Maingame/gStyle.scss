@@ -1,45 +1,57 @@
 @charset "UTF-8";
-.m-game {
-  // // background-image: url(../dashtree.png), url(../dashtree.png);
-  // background-repeat: no-repeat, no-repeat;
-  // background-position: left 100px top 500px, right 100px top 500px;
-  // background-size: 120px, 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  .container {
-    position: relative;
-    @media (max-width: 1023px) {
-      > img {
-        display: none;
+body {
+  .m-game {
+    height: 100vh;
+    // // background-image: url(../dashtree.png), url(../dashtree.png);
+    // background-repeat: no-repeat, no-repeat;
+    // background-position: left 100px top 500px, right 100px top 500px;
+    // background-size: 120px, 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .container {
+      position: relative;
+      max-height: auto !important;
+      min-height: auto !important;
+      @media (min-width: 769px) {
+        max-width: 66.67vw !important;
       }
-    }
-    > img {
-      position: absolute;
-      bottom: -24px;
-    }
-    .right-tree {
-      right: 0;
-    }
-    .left-tree {
-      left: 0;
+      @media (min-width: 350px) {
+        max-width: 66.67vw !important;
+      }
+      @media (max-width: 1023px) {
+        > img {
+          display: none;
+        }
+      }
+      > img {
+        position: absolute;
+        bottom: -24px;
+      }
+      .right-tree {
+        right: 0;
+      }
+      .left-tree {
+        left: 0;
+      }
     }
   }
 }
 .m-game .m-game-cont {
-  min-height: 80vh;
-  max-height: 110vh;
-  overflow: auto;
+  // min-height: 80vh;
+  // max-height: 110vh;
+  overflow: hidden;
 }
 
 .m-game h1 {
   font-size: 2.5rem;
   text-align: center;
-  margin-top: 23px;
+  margin: 0 !important;
 }
 
 .head-cont {
   padding: 0 24px;
+  // align-items: center;
 }
 
 .m-game .head-cont h1 {
@@ -55,7 +67,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding-bottom: 25px;
+  padding-bottom: 1vh;
 }
 
 .m-game .game-foot-cont .helps {
@@ -67,17 +79,32 @@
 .m-game .game-foot-cont .helps div {
   cursor: pointer;
 }
-
+.m-game .head-cont {
+  .links {
+    button {
+      margin: 1.2vh 0.83vw !important;
+      padding: 0.5vh 1.6vw !important;
+      font-size: 1.89vw !important;
+    }
+  }
+  h1 {
+    line-height: 0 !important;
+  }
+}
 .helper {
-  padding: 24px;
+  padding: 1.67vw;
   background: #f4be32;
   transform: rotate(45deg);
-  width: 70px;
-  height: 70px;
+  width: 4.2vw;
+  height: 4.2vw;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: transform 1.6s;
+  img {
+    width: 3vw !important;
+    height: 3vw !important;
+  }
 }
 
 .helper.disabled {
@@ -102,7 +129,7 @@
 }
 
 .m-game .cards {
-  margin-top: 61px;
+  margin-top: 3.5vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -110,8 +137,8 @@
 }
 
 .m-game .cards .card-cate {
-  width: 230px;
-  height: 260px;
+  width: 15.97vw;
+  height: 26vh;
   position: relative;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -136,7 +163,8 @@
   border-top-left-radius: 20px;
   display: flex;
   justify-content: center;
-  padding: 4px;
+  padding: 0.4vh;
+  max-height: 4.1vh;
 }
 
 .m-game .card-cate .card-info .select img {
@@ -150,16 +178,20 @@
 }
 
 .card-info .category-img {
-  height: 231px !important;
-  width: 230px !important;
+  height: 23.7vh !important;
+  // width: 15.97vw !important;
+  width: 100% !important;
   margin: 0 !important;
 }
 
 .m-game .card-cate .card-info h5 {
   width: 100%;
-  height: 14%;
+  height: 4.42vh;
   margin: 0;
-  padding-top: 10px;
+  // padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-bottom-right-radius: 21px;
   border-bottom-left-radius: 21px;
   background-color: #883813;
@@ -168,7 +200,7 @@
 }
 
 .game-footer {
-  margin-top: 27px;
+  margin-top: 2.7vh;
   background-color: #883813;
   // position: fixed;
   right: 0;
@@ -195,11 +227,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 4rem;
-  padding: 10px 30px;
+  padding: 1vh 2.08vw;
   width: 100%;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 3.2vh;
+  margin-bottom: 3.2vh;
   background-color: rgba(249, 231, 197, 0.1);
+  font-size: 1.67vw;
 }
 
 .game-footer .t1 .score {
@@ -210,7 +243,7 @@
 }
 
 .game-footer .t1 .score p {
-  font-size: 2rem;
+  font-size: 2.22vw;
   font-weight: 700;
   margin: 0;
   margin-left: 1rem;
@@ -218,41 +251,50 @@
 }
 
 .game-footer .t1 .score .t-btn {
-  width: 36px;
-  height: 36px;
+  width: 2.5vw;
+  height: 2.5vw;
   transform: rotate(-45deg);
   background-color: #cf8a41;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    width: 1.74vw !important;
+    height: 1.74vw !important;
+  }
 }
 
 .game-footer .t1 .score .t-btn .min {
   transform: rotate(45deg);
-  font-size: 3rem;
+  // font-size: 3rem;
   font-weight: 700;
   padding: 0;
   position: absolute;
-  top: -20px;
-  right: 4px;
+  // top: -20px;
+  // right: 4px;
   color: #883813;
 }
 
 .game-footer .t1 .score .t-btn .plus {
   transform: rotate(45deg);
-  font-size: 50px;
+  // font-size: 50px;
   font-weight: 700;
   padding: 0;
   position: absolute;
-  top: -20px;
-  right: 3px;
+  // top: -20px;
+  // right: 3px;
   color: #883813;
 }
 
 .m-game .qa {
   display: flex;
   justify-content: center;
-  margin: 3rem;
-  margin-bottom: 8rem;
+  margin: 4.8vh 3.33vw;
+  // margin-bottom: 4.8vh;
   position: relative;
+  width: 57.22vw !important;
+  height: 48vh !important;
 }
 .fixed-height {
   height: 30rem;
@@ -272,14 +314,18 @@
 
 .m-game .qa .qa-cont .game-btn {
   position: absolute;
-  width: 50px;
+  width: 3.47vw;
+  height: 3.47vw;
   z-index: 4;
-  height: 50px;
   background-color: #8b4513;
   transform: rotate(45deg);
   display: flex;
   justify-content: center;
   align-items: center;
+  img {
+    width: 1.5vw !important;
+    height: 1.5vw !important;
+  }
 }
 
 .m-game .qa .qa-cont .game-btn .number {
@@ -287,8 +333,8 @@
 }
 
 .m-game .qa .qa-cont .ca {
-  bottom: -25px;
-  right: -24px;
+  bottom: -2.5vh;
+  right: -0.74vw;
 }
 
 .m-game .qa .qa-cont .ca .number {
@@ -303,13 +349,13 @@
 }
 
 .m-game .qa .qa-cont .del {
-  right: -25px;
-  top: -25px;
+  right: -0.74vw;
+  top: -2.5vh;
 }
 
 .m-game .qa .qa-cont .back {
-  left: -25px;
-  top: -25px;
+  left: -1.74vw;
+  top: -2.5vh;
 }
 
 .m-game .qa .qa-cont .back .number {
@@ -317,8 +363,8 @@
 }
 
 .m-game .qa .qa-cont .excl {
-  bottom: -25px;
-  left: -25px;
+  bottom: -2.5vh;
+  left: -1.74vw;
 }
 
 .m-game .qa .qa-cont .excl .number {
@@ -326,10 +372,10 @@
 }
 
 .m-game .qa .qa-cont .qora {
-  margin: 2rem;
-  width: 45rem;
+  margin: 3.2vh 2.22vw !important ;
+  width: 50vw;
   display: flex;
-  height: 23rem;
+  height: 36.8vh;
   border-radius: 40px;
   background-color: transparent;
   align-items: center;
@@ -408,8 +454,8 @@
 }
 
 .m-game .cards .card-cate {
-  width: 230px;
-  height: 320px;
+  width: 15.97vw;
+  height: 32vh;
   position: relative;
   perspective: 1000px;
   /* عشان الفليب */
@@ -430,7 +476,7 @@
 
 .card-inner .game-q-points {
   margin: 0;
-  padding: 4px 20px;
+  padding: 0.4vh 20px;
   display: flex;
   gap: 4px;
   background: linear-gradient(90deg, #8838131a 37.5%, rgba(136, 56, 19, 0.2) 100%);
@@ -441,7 +487,8 @@
   box-shadow: none;
 }
 .card-inner .game-q-points .game-q-points-img {
-  width: 25px !important;
+  width: 1.3vw !important;
+  height: 1.3vw !important;
 }
 
 .card-cate.flipped .card-inner {
@@ -472,7 +519,7 @@
 .card-back {
   color: white;
   transform: rotateY(180deg);
-  font-size: 2rem;
+  font-size: 2.22vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -483,18 +530,19 @@
 .hard {
   display: flex;
   align-items: center;
-  padding: 6px;
+  padding: 0.6vh 6px;
   justify-content: center;
   background-color: #c8843c;
 }
 
 .card-back p {
   padding: 0 10px;
+  margin: 0 !important;
 }
 
 .timer {
   transform: rotate(-45deg);
-  font-size: 24px;
+  font-size: 1.67vw;
   font-weight: 500;
 }
 
@@ -523,7 +571,23 @@
     right: -9px;
   }
 }
-@media (max-width: 940px) {
+@media (max-width: 1000px) {
+  .game-foot-cont {
+    align-items: center !important;
+
+    .t1 {
+      flex-direction: row;
+      gap: 24px;
+    }
+  }
+  .card-info {
+    > h5 {
+      font-size: 12px !important;
+    }
+  }
+  .header-logo {
+    display: none !important;
+  }
   .m-game .g-no-one {
     width: 100px;
     height: 100px;
@@ -552,17 +616,17 @@
   .m-game .qa .qa-cont {
     width: 100%;
   }
-  .m-game .qa .qora {
-    width: 90% !important;
-  }
+  // .m-game .qa .qora {
+  //   width: 90% !important;
+  // }
   .m-game .helper {
-    width: 60px;
-    height: 60px;
+    // width: 60px;
+    // height: 60px;
   }
-  .m-game .helper img {
-    width: 40px;
-    height: 40px;
-  }
+  // .m-game .helper img {
+  //   width: 40px;
+  //   height: 40px;
+  // }
 }
 @media (max-width: 939px) {
   .m-game .g-no-one {
@@ -594,17 +658,17 @@
   .m-game .qa .qa-cont {
     width: 100%;
   }
-  .m-game .qa .qora {
-    width: 90% !important;
-  }
-  .m-game .helper {
-    width: 60px;
-    height: 60px;
-  }
-  .m-game .helper img {
-    width: 40px;
-    height: 40px;
-  }
+  // .m-game .qa .qora {
+  //   width: 90% !important;
+  // }
+  // .m-game .helper {
+  //   width: 50px;
+  //   height: 50px;
+  // }
+  // .m-game .helper img {
+  //   width: 40px;
+  //   height: 40px;
+  // }
 }
 
 @media (max-width: 800px) {
@@ -652,14 +716,14 @@
   .m-game .qa .qora {
     width: 90% !important;
   }
-  .m-game .helper {
-    width: 60px;
-    height: 60px;
-  }
-  .m-game .helper img {
-    width: 40px;
-    height: 40px;
-  }
+  // .m-game .helper {
+  //   width: 60px;
+  //   height: 60px;
+  // }
+  // .m-game .helper img {
+  //   width: 40px;
+  //   height: 40px;
+  // }
 }
 @media (max-width: 767px) {
   .m-game .g-t1 {
@@ -741,7 +805,7 @@
     width: 90% !important;
   }
 }
-@media (max-width: 425px) {
+@media (max-width: 500px) {
   .m-game .g-no-one {
     width: 90px;
     height: 90px;
@@ -749,6 +813,7 @@
     left: 50%;
     transform: translateX(-50%) rotate(45deg);
   }
+
   .m-game .g-no-one .g-no-span {
     top: -8px;
     right: -56px;
