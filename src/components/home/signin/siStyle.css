@@ -91,7 +91,6 @@
   }
 
   .country-code-btn {
-    min-width: auto !important;
     gap: 2px;
   }
   .country-code-btn span {

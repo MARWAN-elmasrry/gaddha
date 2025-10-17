@@ -194,7 +194,7 @@ const Header = () => {
           </div>
           <h1>{gameName}</h1>
           <a className="header-logo">
-            <img src="/logo.png" alt="logo" style={{ width: 100 }} />
+            <img src="/logo.png" alt="logo" style={{ width: 80 }} />
           </a>
         </div>
       </div>
@@ -850,7 +850,7 @@ const GameResult = ({ currentQA, onBack, setDoublePointsClicked, doublePointsCli
 
   return (
     <>
-      <h1>مين جاوب ؟ ({doublePointsClicked ? currentQA?.points * 2 : currentQA?.points} نقطة)</h1>
+      <h1 className="who-answer-text">مين جاوب ؟</h1>
       <div
         className="g-t1"
         onClick={() => handleTeamSelection("teamOne")}

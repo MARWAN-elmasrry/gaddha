@@ -201,13 +201,13 @@ const Sign = () => {
                               }
                             }}
                           >
-                            <span style={{ fontSize: "12px", color: "#883813" }}>
+                            <span style={{ fontSize: " 0.83vw", color: "#883813" }}>
                               {country.flag}
                             </span>
-                            <span style={{ fontSize: "12px", color: "#883813" }}>
+                            <span style={{ fontSize: " 0.83vw", color: "#883813" }}>
                               {country.code}
                             </span>
-                            <span style={{ fontSize: "20px", color: "#883813" }}>
+                            <span style={{ fontSize: "1.39vw", color: "#883813" }}>
                               {country.name}
                             </span>
                           </div>
@@ -368,7 +368,7 @@ const Sign = () => {
                                 <span style={{ fontSize: "12px", color: "#883813" }}>
                                   {country.code}
                                 </span>
-                                <span style={{ fontSize: "20px", color: "#883813" }}>
+                                <span style={{ fontSize: "1.39vw", color: "#883813" }}>
                                   {country.name}
                                 </span>
                               </div>
