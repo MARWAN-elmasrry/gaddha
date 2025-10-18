@@ -1,6 +1,21 @@
 .foot {
   background-color: #883813;
 }
+.foot .back-img {
+  position: relative;
+  width: 730px;
+  height: 500px;
+  display: inline-block;
+  margin: 20px 0;
+}
+.foot .back-img .info-f {
+  color: #f9e7c5;
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .camel {
   padding-top: 3rem;
@@ -8,29 +23,6 @@
 
 .foot-cont {
   text-align: center;
-}
-
-.back-img {
-  position: relative;
-}
-.back-img .black-background {
-  width: 49.375vw !important;
-  height: 51.44vh !important;
-  min-width: 300px !important;
-  min-height: 266px !important;
-  z-index: 1;
-  top: 0;
-  left: 0;
-}
-.back-img .main-background {
-  position: absolute;
-  width: 43.828125vw !important;
-  height: 45.55vh !important;
-  min-width: 300px !important;
-  min-height: 266px !important;
-  top: 3.85vh !important;
-  left: 2.7vw !important;
-  z-index: 2;
 }
 
 .back-img img {
@@ -59,20 +51,10 @@
   left: 90px;
 }
 
-.back-img .info-f {
-  width: 90%;
-  color: #f9e7c5;
-  position: absolute;
-  z-index: 4;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .back-img .info-f button {
   margin-top: 30px;
-  width: 91.0882034302px;
-  height: 51.0965805054px;
+  width: 91.0882034302;
+  height: 51.0965805054;
   border-radius: 45px;
   padding: 5px 23px;
   color: #f9e7c5;
@@ -187,7 +169,7 @@
     width: 100%;
   }
   .foot .info-f h1,
-  .foot .info-f h2 {
+.foot .info-f h2 {
     font-size: 20px;
   }
   .foot .play {
@@ -223,7 +205,7 @@
     display: none;
   }
   .foot .game-links,
-  .foot .police-links {
+.foot .police-links {
     font-size: 20px;
   }
 }
@@ -244,7 +226,7 @@
     width: 100%;
   }
   .foot .info-f h1,
-  .foot .info-f h2 {
+.foot .info-f h2 {
     font-size: 20px;
   }
   .foot .play {
@@ -253,7 +235,7 @@
   }
 
   .game-links,
-  .police-links {
+.police-links {
     font-size: 14px;
     padding: 2px 14px;
     gap: 8px;
@@ -317,8 +299,4 @@
     display: block !important;
     width: 100%;
   }
-}
-
-.f-logo {
-  display: none !important;
 }

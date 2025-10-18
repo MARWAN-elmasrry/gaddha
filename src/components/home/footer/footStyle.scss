@@ -1,5 +1,20 @@
 .foot {
   background-color: rgba(136, 56, 19, 1);
+  .back-img {
+    position: relative;
+    width: 730px;
+    height: 500px;
+    display: inline-block;
+    margin: 20px 0;
+    .info-f {
+      color: rgba(249, 231, 197, 1);
+      position: absolute;
+      z-index: 4;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 .camel {
   padding-top: 3rem;
@@ -7,13 +22,7 @@
 .foot-cont {
   text-align: center;
 }
-.back-img {
-  position: relative;
-  width: 730px;
-  height: 500px;
-  display: inline-block;
-  margin: 20px 0;
-}
+
 .back-img img {
   position: absolute;
   top: 0;
@@ -35,14 +44,6 @@
   position: absolute;
   top: 110px;
   left: 90px;
-}
-.back-img .info-f {
-  color: rgba(249, 231, 197, 1);
-  position: absolute;
-  z-index: 4;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 .back-img .info-f button {
   margin-top: 30px;

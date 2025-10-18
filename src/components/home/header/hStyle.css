@@ -258,7 +258,7 @@ header .links .points {
 
 @media (max-width: 500px) {
   .head-cont .notification-wrapper,
-  .head-cont .points {
+.head-cont .points {
     display: none !important;
   }
   .head-cont .logo-image {
