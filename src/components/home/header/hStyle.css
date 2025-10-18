@@ -256,9 +256,9 @@ header .links .points {
   color: #612b16;
 }
 
-@media (max-width: 950px) {
+@media (max-width: 500px) {
   .head-cont .notification-wrapper,
-.head-cont .points {
+  .head-cont .points {
     display: none !important;
   }
   .head-cont .logo-image {

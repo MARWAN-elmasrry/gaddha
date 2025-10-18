@@ -45,9 +45,6 @@
   }
 }
 @media (max-width: 767px) {
-  .how .how-t-cont {
-    flex-direction: column-reverse;
-  }
   .how .how-t-cont img {
     width: 300px;
     height: 300px;
