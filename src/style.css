@@ -9,6 +9,17 @@ body {
   box-sizing: border-box;
   color: rgba(249, 231, 197, 1);
 }
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/sand-noise.jpg");
+  background-repeat: repeat;
+  background-size: cover;
+  opacity: 0.05;
+  mix-blend-mode: color-dodge;
+  /* z-index: 10000; */
+}
 ::selection {
   background: #883813;
   color: #f9e7c5;

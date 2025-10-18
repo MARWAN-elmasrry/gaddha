@@ -3,10 +3,9 @@ import "./Startbtn.css";
 export const StartBtn = () => {
   return (
     <>
-      <div className="btn-play">
+      <div className="btn-play" style={{ position: "relative", zIndex: 100000 }}>
         <button
           className="play"
-          style={{ position: "relative", zIndex: "100" }}
           onClick={(e) => {
             e.preventDefault();
             window.location.href = "/games";

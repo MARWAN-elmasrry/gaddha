@@ -42,13 +42,12 @@
   content: "";
   position: absolute;
   inset: 0;
-  top: -420px;
-  background-image: url("/sandframe.png");
-  background-position: top;
-  background-repeat: no-repeat;
+  background-image: url("/sand-noise.jpg");
+  background-repeat: repeat;
   background-size: cover;
-  opacity: 0.18;
-  z-index: -4;
+  opacity: 0.05;
+  mix-blend-mode: color-dodge;
+  z-index: 10000;
 }
 
 .hero-cont {

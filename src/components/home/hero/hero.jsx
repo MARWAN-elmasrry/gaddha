@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <>
       <div className="hero">
-        <div className="container" style={{ zIndex: "1000" }}>
+        <div className="container" style={{ zIndex: "10001" }}>
           <div className="hero-cont">
             <div className="back-img">
               <svg
