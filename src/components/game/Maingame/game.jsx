@@ -736,7 +736,26 @@ const QandA = ({
       <div className={`qa-cont ${currentView === "result" ? "fixed-height" : ""}`}>
         <div className="game-btn ca" onClick={onToggleText} style={{ cursor: "pointer" }}>
           <span className="number">
-            <img src="./cate.png" alt="" />
+            <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 73 73"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ transform: "rotate(90deg)" }}
+            >
+              <rect
+                x="36.4924"
+                width="51.6081"
+                height="51.6081"
+                transform="rotate(45 36.4924 0)"
+                fill="#883813"
+              />
+              <path
+                d="M29 49.4983L29 22.4983C29.0009 22.2249 29.0763 21.957 29.2181 21.7233C29.3599 21.4896 29.5628 21.299 29.8048 21.172C30.0469 21.045 30.319 20.9865 30.5919 21.0026C30.8648 21.0188 31.1281 21.1091 31.3535 21.2638L50.8535 34.7638C51.662 35.3233 51.662 36.6703 50.8535 37.2313L31.3535 50.7313C31.1286 50.8876 30.8651 50.9792 30.5918 50.9962C30.3185 51.0133 30.0457 50.9551 29.8031 50.828C29.5605 50.7009 29.3574 50.5098 29.2158 50.2753C29.0742 50.0409 28.9996 49.7722 29 49.4983Z"
+                fill="#F9E7C5"
+              />
+            </svg>
           </span>
         </div>
         <div className="game-btn del">
@@ -756,7 +775,26 @@ const QandA = ({
           onClick={() => setOpenReportForm(true)}
         >
           <span className="number">
-            <img src="./Excl.png" alt="" />
+            <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 73 73"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="36.4924"
+                width="51.6081"
+                height="51.6081"
+                transform="rotate(45 36.4924 0)"
+                fill="#883813"
+              />
+              <path d="M38 16V45H34V16H38ZM34 50H38.008V54.008H34V50Z" fill="#F9E7C5" />
+              <path
+                d="M38.0078 49C38.5601 49 39.0078 49.4477 39.0078 50V54.0078C39.0078 54.5601 38.5601 55.0078 38.0078 55.0078H34C33.4477 55.0078 33 54.5601 33 54.0078V50C33 49.4477 33.4477 49 34 49H38.0078ZM35 53.0078H37.0078V51H35V53.0078ZM38 15C38.5523 15 39 15.4477 39 16V45C39 45.5523 38.5523 46 38 46H34C33.4477 46 33 45.5523 33 45V16C33 15.4477 33.4477 15 34 15H38ZM35 44H37V17H35V44Z"
+                fill="#F9E7C5"
+              />
+            </svg>
           </span>
         </div>
 
@@ -958,53 +996,55 @@ const MainGame = () => {
   return (
     <div className="m-game">
       <Header />
-      <div className="container">
+      <div className="main-game-container">
         <img src="/dashtree.png" alt="" className="right-tree" />
         <img src="/dashtree.png" alt="" className="left-tree" />
-        <div className="m-game-cont">
-          <AnimatePresence mode="wait">
-            {!showQandA ? (
-              <motion.div
-                key="cards"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="cards"
-              >
-                {Object.keys(questionBank).map((cat, index) => (
-                  <SelecteCate
-                    key={cat}
-                    category={cat}
-                    index={index}
-                    flipped={flippedCard === index}
-                    onClick={() => handleCategoryClick(cat, index)}
-                    onDifficultyClick={handleDifficultyClick}
-                    questionBank={questionBank}
+        <div className="container">
+          <div className="m-game-cont">
+            <AnimatePresence mode="wait">
+              {!showQandA ? (
+                <motion.div
+                  key="cards"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="cards"
+                >
+                  {Object.keys(questionBank).map((cat, index) => (
+                    <SelecteCate
+                      key={cat}
+                      category={cat}
+                      index={index}
+                      flipped={flippedCard === index}
+                      onClick={() => handleCategoryClick(cat, index)}
+                      onDifficultyClick={handleDifficultyClick}
+                      questionBank={questionBank}
+                    />
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="qanda"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                  <QandA
+                    onBack={handleBackClick}
+                    onBackToQuestion={handleBackToQuestion}
+                    onToggleText={handleToggleText}
+                    currentView={currentView}
+                    currentQA={currentQA}
+                    category={currentCategory}
+                    setDoublePointsClicked={setDoublePointsClicked}
+                    doublePointsClicked={doublePointsClicked}
                   />
-                ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="qanda"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-              >
-                <QandA
-                  onBack={handleBackClick}
-                  onBackToQuestion={handleBackToQuestion}
-                  onToggleText={handleToggleText}
-                  currentView={currentView}
-                  currentQA={currentQA}
-                  category={currentCategory}
-                  setDoublePointsClicked={setDoublePointsClicked}
-                  doublePointsClicked={doublePointsClicked}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
       <GameFooter setDoublePointsClicked={setDoublePointsClicked} showQandA={showQandA} />

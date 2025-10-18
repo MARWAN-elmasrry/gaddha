@@ -5,6 +5,21 @@ body .m-game {
   flex-direction: column;
   justify-content: space-between;
 }
+body .m-game .main-game-container {
+  position: relative;
+}
+body .m-game .main-game-container > img {
+  position: absolute;
+  bottom: -3vh;
+  width: 7.64vw;
+  height: 24vh;
+}
+body .m-game .main-game-container .right-tree {
+  right: 3.33vw;
+}
+body .m-game .main-game-container .left-tree {
+  left: 3.33vw;
+}
 body .m-game .container {
   position: relative;
   max-height: auto !important;
@@ -24,16 +39,6 @@ body .m-game .container {
   body .m-game .container > img {
     display: none;
   }
-}
-body .m-game .container > img {
-  position: absolute;
-  bottom: -24px;
-}
-body .m-game .container .right-tree {
-  right: 0;
-}
-body .m-game .container .left-tree {
-  left: 0;
 }
 body .who-answer-text {
   position: absolute;
@@ -97,16 +102,16 @@ body .who-answer-text {
   padding: 1.67vw;
   background: #f4be32;
   transform: rotate(45deg);
-  width: 4.2vw;
-  height: 4.2vw;
+  width: 3.7vw;
+  height: 3.7vw;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: transform 1.6s;
 }
 .helper img {
-  width: 3vw !important;
-  height: 3vw !important;
+  width: 2.5vw !important;
+  height: 2.5vw !important;
 }
 
 .helper.disabled {
@@ -200,7 +205,6 @@ body .who-answer-text {
 }
 
 .game-footer {
-  margin-top: 2.7vh;
   background-color: #883813;
   right: 0;
   bottom: 0;
@@ -309,7 +313,7 @@ body .who-answer-text {
   width: 3.47vw;
   height: 3.47vw;
   z-index: 4;
-  background-color: #8b4513;
+  background-color: #883813;
   transform: rotate(45deg);
   display: flex;
   justify-content: center;

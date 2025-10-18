@@ -2,6 +2,13 @@
 .hero {
   position: relative;
   z-index: 1;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero > .container {
+  margin-top: -18.3vh;
 }
 .hero .back-img {
   position: relative;
@@ -74,11 +81,31 @@
 }
 
 .hero .tress {
-  position: relative;
-  margin-top: 230px;
+  position: absolute;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  bottom: 0;
+  width: 100%;
+  padding: 0 2vw;
+}
+@media (min-width: 1000px) {
+  .hero .tress > img:first-child {
+    width: 13.13vw !important;
+    height: 26.4vh !important;
+  }
+  .hero .tress > img:nth-child(2) {
+    width: 9.03vw !important;
+    height: 18.1vh !important;
+  }
+  .hero .tress > img:nth-child(3) {
+    width: 9.03vw !important;
+    height: 20.9vh !important;
+  }
+  .hero .tress > img:last-child {
+    width: 17.15vw !important;
+    height: 39.7vh !important;
+  }
 }
 
 .hero .tress .camel {
@@ -113,7 +140,6 @@
 }
 .hero .tress img:first-child {
   width: 300px;
-  margin-left: 2rem;
 }
 
 .hero .tress img:nth-child(2) {
@@ -127,7 +153,6 @@
 
 .hero .tress img:last-child {
   width: 400px;
-  margin-right: 2rem;
 }
 
 @media (max-width: 1439px) {

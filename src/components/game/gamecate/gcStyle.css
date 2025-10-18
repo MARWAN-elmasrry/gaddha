@@ -51,6 +51,7 @@
   overflow: auto;
   padding-top: 32px;
   height: 60vh;
+  width: 100%;
 }
 
 .game-cate .cards .card-cate {
@@ -118,6 +119,11 @@
   width: 230px !important;
   z-index: 1;
 }
+@media (max-width: 600px) {
+  .game-cate .card-cate .card-info .select + img {
+    height: 170px !important;
+  }
+}
 
 .game-cate .card-cate .card-info h5 {
   width: 100%;
@@ -180,10 +186,16 @@
 
   .game-cate .cards .card-cate {
     width: 40vw;
-    height: 320px;
+    height: 250px;
   }
   .game-cate .cards .card-cate .card-num {
-    display: none !important;
+    width: 30px;
+    height: 30px;
+    top: -10px;
+    left: -7px;
+  }
+  .game-cate .cards .card-cate .card-num .number {
+    font-size: 14px;
   }
 
   .game-cate-imgs img {

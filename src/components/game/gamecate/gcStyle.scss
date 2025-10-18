@@ -44,6 +44,8 @@
   overflow: auto;
   padding-top: 32px;
   height: 60vh;
+  width: 100%;
+  // padding: 32px;
 }
 
 .game-cate .cards .card-cate {
@@ -104,6 +106,9 @@
   height: 231px !important;
   width: 230px !important;
   z-index: 1;
+  @media (max-width: 600px) {
+    height: 170px !important;
+  }
 }
 .game-cate .card-cate .card-info h5 {
   width: 100%;
@@ -161,9 +166,16 @@
   }
   .game-cate .cards .card-cate {
     width: 40vw;
-    height: 320px;
+    height: 250px;
+
     .card-num {
-      display: none !important;
+      width: 30px;
+      height: 30px;
+      top: -10px;
+      left: -7px;
+      .number {
+        font-size: 14px;
+      }
     }
   }
 
