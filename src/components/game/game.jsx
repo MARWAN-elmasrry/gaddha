@@ -225,7 +225,7 @@ function FavoriteCate({ selected, setSelected }) {
 
 // Main Game Component
 const Game = () => {
-  const [activeTab, setActiveTab] = useState("games");
+  const [activeTab, setActiveTab] = useState("categories");
   const [isFlipping, setIsFlipping] = useState(false);
   const [selected, setSelected] = useState([]);
   const [groups, setGroups] = useState([]);
