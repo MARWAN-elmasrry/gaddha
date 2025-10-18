@@ -46,7 +46,8 @@ const Hero = () => {
                   <div class="info-f">
                     <h2>لعبة تفاعلية من قلب السعودية الى الخليج</h2>
                     <h3>قدها ولابس سوالف؟</h3>
-                    <button>ابدأ</button>
+                    {/* <button>ابدأ</button> */}
+                    <StartBtn />
                   </div>
                 </foreignObject>
               </svg>
